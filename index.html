@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数智教材平台 - 工作台</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  /* 知识图谱节点动画 */
+  .kg-canvas {
+    width: 100%;
+    height: 420px;
+    background:
+      radial-gradient(circle at 50% 50%, #F8FAFF, #EEF2FA);
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .kg-canvas svg { width: 100%; height: 100%; }
+  .kg-node { cursor: pointer; transition: .25s; }
+  .kg-node:hover circle { filter: drop-shadow(0 4px 10px rgba(18,44,160,.4)); }
+  .kg-node text { font-size: 11px; fill: #1A2233; font-weight: 500; }
+  .kg-edge { stroke: #C7CFE0; stroke-width: 1.5; fill: none; }
+  @keyframes pulse { 0%,100% { r: 6; opacity: 1; } 50% { r: 9; opacity: .6; } }
+
+  /* 教材卡片 */
+  .book-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: .25s;
+    cursor: pointer;
+  }
+  .book-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--primary); }
+  .book-card .cover {
+    height: 160px;
+    color: #fff;
+    padding: 20px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+  }
+  .book-card .cover::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,.15));
+  }
+  .book-card .cover .tag { background: rgba(255,255,255,.2); color: #fff; width: fit-content; }
+  .book-card .cover h4 { font-size: 17px; font-weight: 700; line-height: 1.3; position: relative; z-index: 1; }
+  .book-card .info { padding: 14px 16px; }
+  .book-card .info .author { color: var(--text-muted); font-size: 12px; margin-bottom: 8px; }
+  .book-card .info .meta { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--text-soft); }
+
+  /* 学习路径 */
+  .path-step {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 16px;
+    border-radius: 10px;
+    transition: .15s;
+    cursor: pointer;
+  }
+  .path-step:hover { background: var(--bg-soft); }
+  .path-step .idx {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--bg-soft);
+    color: var(--text-soft);
+    display: grid; place-items: center;
+    font-weight: 600; font-size: 13px;
+    flex-shrink: 0;
+  }
+  .path-step.done .idx { background: var(--success); color: #fff; }
+  .path-step.current .idx { background: var(--primary); color: #fff; box-shadow: 0 0 0 4px rgba(18,44,160,.15); }
+  .path-step .body { flex: 1; min-width: 0; }
+  .path-step .body .t { font-size: 14px; font-weight: 500; }
+  .path-step .body .d { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+  /* 章节 */
+  .chapter {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    transition: .15s;
+    cursor: pointer;
+  }
+  .chapter:hover { background: var(--bg-soft); }
+  .chapter .num {
+    width: 28px; height: 28px; border-radius: 8px;
+    background: #EBF2FF; color: var(--primary);
+    display: grid; place-items: center;
+    font-size: 12px; font-weight: 600;
+    flex-shrink: 0;
+  }
+  .chapter .nm { flex: 1; font-size: 13px; }
+  .chapter .pct { font-size: 12px; color: var(--text-muted); }
+
+  .welcome-banner {
+    background: linear-gradient(120deg, var(--primary-deep), var(--primary) 60%, #2C4FD9);
+    border-radius: 16px;
+    padding: 24px 28px;
+    color: #fff;
+    display: flex; align-items: center; justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .welcome-banner::after {
+    content: '';
+    position: absolute; right: -40px; top: -40px;
+    width: 280px; height: 280px;
+    background: radial-gradient(circle, rgba(255,255,255,.12), transparent 60%);
+    border-radius: 50%;
+  }
+  .welcome-banner h2 { font-size: 22px; font-weight: 600; margin-bottom: 6px; position: relative; z-index: 1; }
+  .welcome-banner p { color: rgba(255,255,255,.8); font-size: 13px; position: relative; z-index: 1; }
+  .welcome-banner .quick { display: flex; gap: 10px; position: relative; z-index: 1; }
+  .welcome-banner .quick a {
+    background: rgba(255,255,255,.15);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,.25);
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    transition: .2s;
+  }
+  .welcome-banner .quick a:hover { background: rgba(255,255,255,.25); transform: translateY(-2px); }
+</style>
+</head>
+<body>
+
+<!-- 顶部导航 -->
+<div class="topbar">
+  <div class="logo">
+    <div class="mark">数</div>
+    <span>数智教材平台</span>
+  </div>
+  <nav>
+    <a href="#" class="active">工作台</a>
+    <a href="#">教材中心</a>
+    <a href="#">知识图谱</a>
+    <a href="#">学习数据</a>
+    <a href="#">智能问答</a>
+    <a href="#">管理后台</a>
+  </nav>
+  <div class="tools">
+    <div class="icon-btn" title="搜索">🔍</div>
+    <div class="icon-btn" title="通知">🔔<span style="position:absolute;font-size:9px;background:#EF4444;color:#fff;border-radius:50%;width:14px;height:14px;display:grid;place-items:center;margin:-22px 0 0 14px;">3</span></div>
+    <div class="user">
+      <div class="avatar">李</div>
+      <span class="name">李同学</span>
+    </div>
+  </div>
+</div>
+
+<div class="layout">
+  <!-- 侧边栏 -->
+  <aside class="sidebar">
+    <div class="group-title">学习</div>
+    <div class="menu-item active"><span class="ico">🏠</span> 工作台</div>
+    <div class="menu-item"><span class="ico">📚</span> 我的教材</div>
+    <div class="menu-item"><span class="ico">🧭</span> 学习路径</div>
+    <div class="menu-item"><span class="ico">📝</span> 习题作业</div>
+    <div class="group-title">探索</div>
+    <div class="menu-item"><span class="ico">🕸</span> 知识图谱</div>
+    <div class="menu-item"><span class="ico">🤖</span> 智能问答</div>
+    <div class="menu-item"><span class="ico">📊</span> 学习数据</div>
+    <div class="group-title">账户</div>
+    <div class="menu-item"><span class="ico">⚙️</span> 设置</div>
+    <div class="menu-item"><span class="ico">🚪</span> <a href="login.html">退出登录</a></div>
+  </aside>
+
+  <!-- 主区域 -->
+  <main class="main">
+    <!-- 欢迎横幅 -->
+    <div class="welcome-banner fade-up">
+      <div>
+        <h2>你好，李同学 👋</h2>
+        <p>欢迎回到数智教材平台，继续你的知识探索之旅。今日推荐学习：《知识图谱：概念与技术》第 4 章</p>
+      </div>
+      <div class="quick">
+        <a href="#">继续学习</a>
+        <a href="#">查看图谱</a>
+      </div>
+    </div>
+
+    <!-- 统计卡 -->
+    <div class="grid grid-4" style="margin-bottom:24px">
+      <div class="stat fade-up" style="animation-delay:.05s">
+        <div class="ico" style="background:#EBF2FF;color:var(--primary)">📖</div>
+        <div><div class="num">12</div><div class="lbl">学习中教材</div></div>
+      </div>
+      <div class="stat fade-up" style="animation-delay:.1s">
+        <div class="ico" style="background:#E8F7EE;color:var(--success)">✅</div>
+        <div><div class="num">48</div><div class="lbl">已完成章节</div></div>
+      </div>
+      <div class="stat fade-up" style="animation-delay:.15s">
+        <div class="ico" style="background:#FFF4E5;color:var(--warning)">⏱</div>
+        <div><div class="num">36.5<span style="font-size:14px">h</span></div><div class="lbl">本月学习时长</div></div>
+      </div>
+      <div class="stat fade-up" style="animation-delay:.2s">
+        <div class="ico" style="background:#FEE2E2;color:var(--danger)">🔥</div>
+        <div><div class="num">7</div><div class="lbl">连续学习天数</div></div>
+      </div>
+    </div>
+
+    <!-- 主体网格 -->
+    <div class="grid" style="grid-template-columns: 2fr 1fr; gap:20px; margin-bottom:24px">
+      <!-- 我的教材 -->
+      <div class="card fade-up" style="animation-delay:.25s">
+        <div class="card-head">
+          <h3>📚 我的教材</h3>
+          <a href="#" style="font-size:13px;color:var(--primary)">全部 →</a>
+        </div>
+        <div class="card-body">
+          <div class="grid grid-3">
+            <div class="book-card">
+              <div class="cover" style="background:linear-gradient(135deg,#1E40AF,#3B5BDB)">
+                <span class="tag">KERL SERIES</span>
+                <h4>知识图谱<br>概念与技术</h4>
+              </div>
+              <div class="info">
+                <div class="author">肖仰华 · 主编</div>
+                <div class="meta"><span>共 12 章</span><span class="tag tag-blue">学习中 67%</span></div>
+              </div>
+            </div>
+            <div class="book-card">
+              <div class="cover" style="background:linear-gradient(135deg,#0F766E,#14B8A6)">
+                <span class="tag">DATA SERIES</span>
+                <h4>数据科学<br>基础与应用</h4>
+              </div>
+              <div class="info">
+                <div class="author">教材编委会</div>
+                <div class="meta"><span>共 10 章</span><span class="tag tag-green">已完成</span></div>
+              </div>
+            </div>
+            <div class="book-card">
+              <div class="cover" style="background:linear-gradient(135deg,#7C2D12,#DC2626)">
+                <span class="tag">AI SERIES</span>
+                <h4>人工智能<br>导论</h4>
+              </div>
+              <div class="info">
+                <div class="author">实验室编写组</div>
+                <div class="meta"><span>共 8 章</span><span class="tag tag-orange">学习中 23%</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 学习路径 -->
+      <div class="card fade-up" style="animation-delay:.3s">
+        <div class="card-head">
+          <h3>🧭 推荐学习路径</h3>
+          <a href="#" style="font-size:13px;color:var(--primary)">更多 →</a>
+        </div>
+        <div class="card-body" style="padding:12px">
+          <div class="path-step done">
+            <div class="idx">✓</div>
+            <div class="body"><div class="t">知识图谱基础概念</div><div class="d">2 小时 · 已完成</div></div>
+          </div>
+          <div class="path-step done">
+            <div class="idx">✓</div>
+            <div class="body"><div class="t">本体建模方法</div><div class="d">1.5 小时 · 已完成</div></div>
+          </div>
+          <div class="path-step current">
+            <div class="idx">3</div>
+            <div class="body"><div class="t">知识抽取技术</div><div class="d">2 小时 · 进行中</div></div>
+          </div>
+          <div class="path-step">
+            <div class="idx">4</div>
+            <div class="body"><div class="t">知识融合与推理</div><div class="d">2.5 小时 · 未开始</div></div>
+          </div>
+          <div class="path-step">
+            <div class="idx">5</div>
+            <div class="body"><div class="t">质量评估与应用</div><div class="d">2 小时 · 未开始</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 知识图谱 + 章节 -->
+    <div class="grid" style="grid-template-columns: 1.4fr 1fr; gap:20px; margin-bottom:24px">
+      <!-- 知识图谱 -->
+      <div class="card fade-up" style="animation-delay:.35s">
+        <div class="card-head">
+          <h3>🕸 知识图谱可视化</h3>
+          <div style="display:flex;gap:8px">
+            <button class="btn btn-ghost btn-sm">重置视图</button>
+            <button class="btn btn-primary btn-sm">全屏查看</button>
+          </div>
+        </div>
+        <div class="card-body" style="padding:16px">
+          <div class="kg-canvas">
+            <svg viewBox="0 0 700 420" id="kg">
+              <!-- 连线 -->
+              <g>
+                <line class="kg-edge" x1="350" y1="210" x2="180" y2="110"/>
+                <line class="kg-edge" x1="350" y1="210" x2="520" y2="110"/>
+                <line class="kg-edge" x1="350" y1="210" x2="180" y2="320"/>
+                <line class="kg-edge" x1="350" y1="210" x2="520" y2="320"/>
+                <line class="kg-edge" x1="180" y1="110" x2="80" y2="60"/>
+                <line class="kg-edge" x1="180" y1="110" x2="80" y2="170"/>
+                <line class="kg-edge" x1="520" y1="110" x2="620" y2="60"/>
+                <line class="kg-edge" x1="520" y1="110" x2="620" y2="170"/>
+                <line class="kg-edge" x1="180" y1="320" x2="80" y2="380"/>
+                <line class="kg-edge" x1="520" y1="320" x2="620" y2="380"/>
+                <line class="kg-edge" x1="350" y1="210" x2="350" y2="380"/>
+              </g>
+              <!-- 节点 -->
+              <g class="kg-node" onclick="alert('知识图谱：以图结构组织的知识库')">
+                <circle cx="350" cy="210" r="34" fill="#122CA0"/>
+                <text x="350" y="206" text-anchor="middle" fill="#fff" font-weight="700">知识图谱</text>
+                <text x="350" y="222" text-anchor="middle" fill="#fff" font-size="9">核心概念</text>
+              </g>
+              <g class="kg-node"><circle cx="180" cy="110" r="22" fill="#3B5BDB"/><text x="180" y="114" text-anchor="middle" fill="#fff">本体</text></g>
+              <g class="kg-node"><circle cx="520" cy="110" r="22" fill="#3B5BDB"/><text x="520" y="114" text-anchor="middle" fill="#fff">实体</text></g>
+              <g class="kg-node"><circle cx="180" cy="320" r="22" fill="#3B5BDB"/><text x="180" y="324" text-anchor="middle" fill="#fff">关系</text></g>
+              <g class="kg-node"><circle cx="520" cy="320" r="22" fill="#3B5BDB"/><text x="520" y="324" text-anchor="middle" fill="#fff">属性</text></g>
+              <g class="kg-node"><circle cx="80" cy="60" r="14" fill="#93C5FD"/><text x="80" y="90" text-anchor="middle">OWL</text></g>
+              <g class="kg-node"><circle cx="80" cy="170" r="14" fill="#93C5FD"/><text x="80" y="200" text-anchor="middle">RDF</text></g>
+              <g class="kg-node"><circle cx="620" cy="60" r="14" fill="#93C5FD"/><text x="620" y="90" text-anchor="middle">命名实体</text></g>
+              <g class="kg-node"><circle cx="620" cy="170" r="14" fill="#93C5FD"/><text x="620" y="200" text-anchor="middle">概念实例</text></g>
+              <g class="kg-node"><circle cx="80" cy="380" r="14" fill="#FCA5A5"/><text x="80" y="410" text-anchor="middle">is-a</text></g>
+              <g class="kg-node"><circle cx="620" cy="380" r="14" fill="#FCA5A5"/><text x="620" y="410" text-anchor="middle">part-of</text></g>
+              <g class="kg-node"><circle cx="350" cy="380" r="14" fill="#86EFAC"/><text x="350" y="410" text-anchor="middle">推理规则</text></g>
+            </svg>
+          </div>
+          <div style="display:flex;gap:18px;margin-top:14px;font-size:12px;color:var(--text-soft);flex-wrap:wrap">
+            <span><span style="display:inline-block;width:12px;height:12px;background:#122CA0;border-radius:50%;vertical-align:middle;margin-right:6px"></span>核心概念</span>
+            <span><span style="display:inline-block;width:12px;height:12px;background:#3B5BDB;border-radius:50%;vertical-align:middle;margin-right:6px"></span>一级要素</span>
+            <span><span style="display:inline-block;width:12px;height:12px;background:#93C5FD;border-radius:50%;vertical-align:middle;margin-right:6px"></span>子类</span>
+            <span><span style="display:inline-block;width:12px;height:12px;background:#FCA5A5;border-radius:50%;vertical-align:middle;margin-right:6px"></span>关系类型</span>
+            <span><span style="display:inline-block;width:12px;height:12px;background:#86EFAC;border-radius:50%;vertical-align:middle;margin-right:6px"></span>规则</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 章节进度 -->
+      <div class="card fade-up" style="animation-delay:.4s">
+        <div class="card-head">
+          <h3>📑 章节进度</h3>
+          <span style="font-size:12px;color:var(--text-muted)">《知识图谱：概念与技术》</span>
+        </div>
+        <div class="card-body" style="padding:10px">
+          <div class="chapter"><div class="num">1</div><div class="nm">知识图谱概述</div><div class="pct">100%</div></div>
+          <div class="chapter"><div class="num">2</div><div class="nm">知识表示基础</div><div class="pct">100%</div></div>
+          <div class="chapter"><div class="num">3</div><div class="nm">本体与语义网</div><div class="pct">100%</div></div>
+          <div class="chapter" style="background:#EBF2FF;border-color:#C7D8FF"><div class="num" style="background:var(--primary);color:#fff">4</div><div class="nm" style="font-weight:600">知识抽取技术</div><div class="pct" style="color:var(--primary);font-weight:600">进行中</div></div>
+          <div class="chapter"><div class="num">5</div><div class="nm">实体链接与消歧</div><div class="pct">0%</div></div>
+          <div class="chapter"><div class="num">6</div><div class="nm">知识融合</div><div class="pct">0%</div></div>
+          <div class="chapter"><div class="num">7</div><div class="nm">知识推理</div><div class="pct">0%</div></div>
+          <div style="padding:14px 14px 4px">
+            <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px"><span style="color:var(--text-soft)">总进度</span><span style="color:var(--primary);font-weight:600">67%</span></div>
+            <div class="progress"><span style="width:67%"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 学习数据 + 待办 -->
+    <div class="grid" style="grid-template-columns: 1.4fr 1fr; gap:20px">
+      <div class="card fade-up" style="animation-delay:.45s">
+        <div class="card-head">
+          <h3>📊 近期学习记录</h3>
+          <a href="#" style="font-size:13px;color:var(--primary)">查看全部 →</a>
+        </div>
+        <div class="card-body" style="padding:0">
+          <table class="tbl">
+            <thead><tr><th>时间</th><th>教材</th><th>章节</th><th>时长</th><th>状态</th></tr></thead>
+            <tbody>
+              <tr><td>2026-07-03 14:20</td><td>知识图谱</td><td>第4章 知识抽取</td><td>45分钟</td><td><span class="tag tag-blue">进行中</span></td></tr>
+              <tr><td>2026-07-02 10:15</td><td>知识图谱</td><td>第3章 本体建模</td><td>60分钟</td><td><span class="tag tag-green">已完成</span></td></tr>
+              <tr><td>2026-07-01 19:30</td><td>人工智能导论</td><td>第2章 搜索算法</td><td>30分钟</td><td><span class="tag tag-green">已完成</span></td></tr>
+              <tr><td>2026-06-30 21:00</td><td>数据科学</td><td>第8章 可视化</td><td>50分钟</td><td><span class="tag tag-green">已完成</span></td></tr>
+              <tr><td>2026-06-29 16:45</td><td>知识图谱</td><td>第2章 知识表示</td><td>40分钟</td><td><span class="tag tag-green">已完成</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card fade-up" style="animation-delay:.5s">
+        <div class="card-head">
+          <h3>📝 待办作业</h3>
+          <span class="tag tag-orange">2 项待提交</span>
+        </div>
+        <div class="card-body" style="padding:14px">
+          <div style="padding:14px;border:1px solid var(--border);border-radius:10px;margin-bottom:10px">
+            <div style="display:flex;justify-content:space-between;margin-bottom:6px"><strong style="font-size:14px">知识图谱 第4章习题</strong><span class="tag tag-orange">待提交</span></div>
+            <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px">截止：2026-07-05 23:59 · 共 10 题</div>
+            <button class="btn btn-primary btn-sm" style="width:100%">开始作答</button>
+          </div>
+          <div style="padding:14px;border:1px solid var(--border);border-radius:10px;margin-bottom:10px">
+            <div style="display:flex;justify-content:space-between;margin-bottom:6px"><strong style="font-size:14px">人工智能 第2章实验</strong><span class="tag tag-orange">待提交</span></div>
+            <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px">截止：2026-07-07 23:59 · 编程题</div>
+            <button class="btn btn-ghost btn-sm" style="width:100%">开始作答</button>
+          </div>
+          <div style="padding:14px;border:1px solid var(--border);border-radius:10px;opacity:.6">
+            <div style="display:flex;justify-content:space-between;margin-bottom:6px"><strong style="font-size:14px">数据科学 期末项目</strong><span class="tag tag-green">已提交</span></div>
+            <div style="font-size:12px;color:var(--text-muted)">提交于 2026-06-28</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  // 知识图谱节点交互
+  document.querySelectorAll('.kg-node').forEach(n => {
+    n.addEventListener('mouseenter', () => {
+      n.querySelector('circle').setAttribute('filter', 'drop-shadow(0 6px 14px rgba(18,44,160,.45))');
+    });
+    n.addEventListener('mouseleave', () => {
+      n.querySelector('circle').removeAttribute('filter');
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+# 只保留网站文件，排除原始素材
+*.pptx
+*.mp4
+platform_screenshot.png
+logo.jpeg
+slide_thumbnail.jpeg
+.DS_Store
+__pycache__/
+*.pyc
