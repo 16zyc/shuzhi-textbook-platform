@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数智教材平台 - 电子书阅读</title>
+<link rel="stylesheet" href="style.css">
+<!-- PDF.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<style>
+  body { background: #525659; overflow: hidden; }
+  .reader-topbar {
+    height: 56px;
+    background: linear-gradient(90deg, var(--primary-deep), var(--primary));
+    color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    gap: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.25);
+    position: relative;
+    z-index: 10;
+  }
+  .reader-topbar .back {
+    display: flex; align-items: center; gap: 6px;
+    color: rgba(255,255,255,.85);
+    padding: 7px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: .2s;
+    font-size: 13px;
+  }
+  .reader-topbar .back:hover { background: rgba(255,255,255,.12); color: #fff; }
+  .reader-topbar .title {
+    font-size: 15px; font-weight: 600;
+    flex: 1;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .reader-topbar .tools { display: flex; align-items: center; gap: 8px; }
+  .reader-topbar .tools button {
+    background: rgba(255,255,255,.12);
+    color: #fff;
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    display: grid; place-items: center;
+    font-size: 15px;
+    transition: .15s;
+  }
+  .reader-topbar .tools button:hover { background: rgba(255,255,255,.22); }
+  .reader-topbar .tools .page-input {
+    background: rgba(255,255,255,.12);
+    border: none;
+    color: #fff;
+    width: 48px; height: 30px;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 13px;
+  }
+  .reader-topbar .tools .page-info { font-size: 13px; color: rgba(255,255,255,.85); min-width: 70px; }
+
+  .reader-body {
+    display: flex;
+    height: calc(100vh - 56px);
+  }
+  /* 侧边目录 */
+  .toc {
+    width: 240px;
+    background: #2d2d2d;
+    color: #ddd;
+    overflow-y: auto;
+    flex-shrink: 0;
+    border-right: 1px solid rgba(0,0,0,.3);
+  }
+  .toc .toc-head {
+    padding: 16px 18px 12px;
+    font-size: 12px;
+    color: #999;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+    position: sticky; top: 0;
+    background: #2d2d2d;
+    z-index: 1;
+  }
+  .toc .toc-item {
+    padding: 10px 18px;
+    font-size: 13px;
+    color: #ccc;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: .15s;
+    line-height: 1.5;
+  }
+  .toc .toc-item:hover { background: rgba(255,255,255,.05); color: #fff; }
+  .toc .toc-item.active {
+    background: rgba(18,44,160,.25);
+    color: #fff;
+    border-left-color: var(--primary);
+  }
+  .toc .toc-item .num { color: #888; margin-right: 8px; font-size: 12px; }
+
+  /* 阅读区 */
+  .viewer-wrap {
+    flex: 1;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 0;
+    background: #525659;
+  }
+  #pdf-canvas {
+    box-shadow: 0 8px 30px rgba(0,0,0,.5);
+    background: #fff;
+    max-width: 100%;
+  }
+  .loading {
+    color: rgba(255,255,255,.6);
+    font-size: 14px;
+    margin-top: 40px;
+  }
+  .loading .spin {
+    display: inline-block;
+    width: 18px; height: 18px;
+    border: 2px solid rgba(255,255,255,.2);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin .8s linear infinite;
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* 翻页按钮（浮在阅读区两侧） */
+  .nav-btn {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: rgba(0,0,0,.4);
+    color: #fff;
+    display: grid; place-items: center;
+    cursor: pointer;
+    font-size: 18px;
+    transition: .2s;
+    z-index: 5;
+  }
+  .nav-btn:hover { background: rgba(18,44,160,.8); }
+  .nav-btn.prev { left: 260px; }
+  .nav-btn.next { right: 20px; }
+  @media (max-width: 700px) {
+    .toc { display: none; }
+    .nav-btn.prev { left: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="reader-topbar">
+  <div class="back" onclick="location.href='index.html'">← 返回工作台</div>
+  <div class="title" id="book-title">机器学习 · 周志华</div>
+  <div class="tools">
+    <button onclick="zoom(-0.2)" title="缩小">－</button>
+    <button onclick="zoom(0.2)" title="放大">＋</button>
+    <button onclick="toggleToc()" title="目录">☰</button>
+    <input type="number" class="page-input" id="page-input" min="1" value="1" onchange="goToPage(this.value)">
+    <span class="page-info" id="page-info">/ -</span>
+  </div>
+</div>
+
+<div class="reader-body">
+  <aside class="toc" id="toc">
+    <div class="toc-head">📑 目录</div>
+    <div id="toc-list">
+      <div class="toc-item" onclick="goToPage(1)"><span class="num">封面</span>机器学习</div>
+      <div class="toc-item" onclick="goToPage(8)"><span class="num">前言</span>前言与致谢</div>
+      <div class="toc-item" onclick="goToPage(12)"><span class="num">第1章</span>绪论</div>
+      <div class="toc-item" onclick="goToPage(40)"><span class="num">第2章</span>模型评估与选择</div>
+      <div class="toc-item" onclick="goToPage(68)"><span class="num">第3章</span>线性模型</div>
+      <div class="toc-item" onclick="goToPage(96)"><span class="num">第4章</span>决策树</div>
+      <div class="toc-item" onclick="goToPage(122)"><span class="num">第5章</span>神经网络</div>
+      <div class="toc-item" onclick="goToPage(148)"><span class="num">第6章</span>支持向量机</div>
+      <div class="toc-item" onclick="goToPage(176)"><span class="num">第7章</span>贝叶斯分类器</div>
+      <div class="toc-item" onclick="goToPage(196)"><span class="num">第8章</span>集成学习</div>
+      <div class="toc-item" onclick="goToPage(220)"><span class="num">第9章</span>聚类</div>
+      <div class="toc-item" onclick="goToPage(244)"><span class="num">第10章</span>降维与度量学习</div>
+      <div class="toc-item" onclick="goToPage(268)"><span class="num">第11章</span>特征选择与稀疏学习</div>
+      <div class="toc-item" onclick="goToPage(290)"><span class="num">第12章</span>计算学习理论</div>
+      <div class="toc-item" onclick="goToPage(316)"><span class="num">第13章</span>半监督学习</div>
+      <div class="toc-item" onclick="goToPage(340)"><span class="num">第14章</span>概率图模型</div>
+      <div class="toc-item" onclick="goToPage(368)"><span class="num">第15章</span>规则学习</div>
+      <div class="toc-item" onclick="goToPage(390)"><span class="num">第16章</span>强化学习</div>
+    </div>
+  </aside>
+
+  <div class="viewer-wrap">
+    <div class="loading" id="loading"><span class="spin"></span>正在加载电子书...</div>
+    <canvas id="pdf-canvas" style="display:none"></canvas>
+  </div>
+</div>
+
+<div class="nav-btn prev" onclick="prevPage()" title="上一页">‹</div>
+<div class="nav-btn next" onclick="nextPage()" title="下一页">›</div>
+
+<script>
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+const url = 'books/ml-zhou.pdf';
+let pdfDoc = null;
+let pageNum = 1;
+let pageRendering = false;
+let pageNumPending = null;
+let scale = 1.3;
+const canvas = document.getElementById('pdf-canvas');
+const ctx = canvas.getContext('2d');
+
+// 从 URL 参数读取起始页
+const params = new URLSearchParams(location.search);
+const startPage = parseInt(params.get('page')) || 1;
+const bookParam = params.get('book'); // 预留多本书
+
+function renderPage(num){
+  pageRendering = true;
+  pdfDoc.getPage(num).then(function(page){
+    const viewport = page.getViewport({ scale: scale });
+    canvas.height = viewport.height;
+    canvas.width = viewport.width;
+    const renderCtx = { canvasContext: ctx, viewport: viewport };
+    page.render(renderCtx).promise.then(function(){
+      pageRendering = false;
+      if(pageNumPending !== null){
+        renderPage(pageNumPending);
+        pageNumPending = null;
+      }
+    });
+  });
+  document.getElementById('page-input').value = num;
+  document.getElementById('page-info').textContent = '/ ' + pdfDoc.numPages;
+  // 高亮目录
+  document.querySelectorAll('.toc-item').forEach(it => it.classList.remove('active'));
+}
+
+function queueRenderPage(num){
+  if(pageRendering) pageNumPending = num;
+  else renderPage(num);
+}
+
+function prevPage(){
+  if(pageNum <= 1) return;
+  pageNum--;
+  queueRenderPage(pageNum);
+}
+function nextPage(){
+  if(pageNum >= pdfDoc.numPages) return;
+  pageNum++;
+  queueRenderPage(pageNum);
+}
+function goToPage(n){
+  n = parseInt(n);
+  if(isNaN(n) || n < 1) n = 1;
+  if(pdfDoc && n > pdfDoc.numPages) n = pdfDoc.numPages;
+  pageNum = n;
+  queueRenderPage(n);
+}
+function zoom(delta){
+  scale = Math.max(0.6, Math.min(3, scale + delta));
+  queueRenderPage(pageNum);
+}
+function toggleToc(){
+  const t = document.getElementById('toc');
+  t.style.display = (t.style.display === 'none') ? 'block' : 'none';
+}
+
+// 键盘翻页
+document.addEventListener('keydown', e => {
+  if(e.key === 'ArrowLeft' || e.key === 'PageUp') prevPage();
+  if(e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); nextPage(); }
+});
+
+// 加载 PDF
+pdfjsLib.getDocument(url).promise.then(function(pdf){
+  pdfDoc = pdf;
+  document.getElementById('loading').style.display = 'none';
+  canvas.style.display = 'block';
+  document.getElementById('page-info').textContent = '/ ' + pdf.numPages;
+  pageNum = Math.min(startPage, pdf.numPages);
+  renderPage(pageNum);
+}).catch(function(err){
+  document.getElementById('loading').innerHTML = '⚠️ 电子书加载失败：' + err.message;
+});
+</script>
+</body>
+</html>
