@@ -137,12 +137,12 @@
     <span>数智教材平台</span>
   </div>
   <nav>
-    <a href="#" class="active">工作台</a>
-    <a href="#">教材中心</a>
-    <a href="#">知识图谱</a>
-    <a href="#">学习数据</a>
-    <a href="#">智能问答</a>
-    <a href="#">管理后台</a>
+    <a href="index.html" class="active">工作台</a>
+    <a href="#books">教材中心</a>
+    <a href="concept-graph.html">概念图谱</a>
+    <a href="#records">学习数据</a>
+    <a href="teacher.html">教师端</a>
+    <a href="parent.html">家长端</a>
   </nav>
   <div class="tools">
     <div class="icon-btn" title="搜索">🔍</div>
@@ -202,6 +202,18 @@
       <div class="stat fade-up" style="animation-delay:.2s">
         <div class="ico" style="background:#FEE2E2;color:var(--danger)">🔥</div>
         <div><div class="num">7</div><div class="lbl">连续学习天数</div></div>
+      </div>
+    </div>
+
+    <!-- 进度溯源面板 -->
+    <div class="card fade-up" id="progress-trace" style="margin-bottom:24px; animation-delay:.22s">
+      <div class="card-head">
+        <h3>🔍 进度溯源 · 我的 42% 是怎么算出来的</h3>
+        <span style="font-size:12px;color:var(--text-muted)">点击各项查看来源</span>
+      </div>
+      <div class="card-body">
+        <div id="progress-formula" style="background:var(--bg-soft);border-radius:10px;padding:12px 16px;font-size:13px;margin-bottom:16px;color:var(--text-soft)"></div>
+        <div class="grid grid-4" id="progress-items"></div>
       </div>
     </div>
 
@@ -288,7 +300,7 @@
           <h3>🕸 知识图谱可视化</h3>
           <div style="display:flex;gap:8px">
             <button class="btn btn-ghost btn-sm" onclick="alert('视图已重置')">重置视图</button>
-            <button class="btn btn-primary btn-sm" onclick="alert('全屏模式开发中')">全屏查看</button>
+            <a href="concept-graph.html" class="btn btn-primary btn-sm">查看完整概念图谱 →</a>
           </div>
         </div>
         <div class="card-body" style="padding:16px">
@@ -436,6 +448,27 @@
       }
     });
   });
+
+  // 进度溯源面板：从 data/progress.json 加载
+  fetch('data/progress.json').then(r=>r.json()).then(d=>{
+    document.getElementById('progress-formula').innerHTML = '📐 <strong>计算公式</strong>：' + d.formula + ' = <strong style="color:var(--primary)">' + d.total_progress + '%</strong>';
+    document.getElementById('progress-items').innerHTML = d.items.map((it,i)=>`
+      <div style="padding:16px;border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:.15s" onclick="toggleDetail(${i})">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <span style="font-size:13px;color:var(--text-soft)">${it.name}</span>
+          <span style="font-size:12px;color:var(--text-muted)">权重 ${(it.weight*100)}%</span>
+        </div>
+        <div style="font-size:22px;font-weight:700;color:var(--primary)">${it.value}</div>
+        <div class="progress" style="margin-top:8px"><span style="width:${it.percent}%"></span></div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:6px">贡献 ${it.contribution}%</div>
+        <div id="detail-${i}" style="display:none;font-size:12px;color:var(--text-soft);margin-top:10px;padding-top:10px;border-top:1px dashed var(--border);line-height:1.6">${it.detail}</div>
+      </div>
+    `).join('');
+  });
+  window.toggleDetail = i => {
+    const el = document.getElementById('detail-'+i);
+    el.style.display = el.style.display === 'none' ? 'block' : 'none';
+  };
 </script>
 </body>
 </html>

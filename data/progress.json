@@ -1,0 +1,90 @@
+{
+  "student": "李同学",
+  "book": "机器学习 · 周志华",
+  "total_progress": 42,
+  "formula": "总进度 = 阅读页数×0.4 + 章节完成×0.3 + 习题正确率×0.2 + 学习时长×0.1",
+  "items": [
+    {
+      "name": "阅读页数",
+      "value": "186/442",
+      "percent": 42,
+      "weight": 0.4,
+      "contribution": 16.8,
+      "detail": "已阅读 186 页，覆盖第1-5章主体内容，含第5章神经网络前12页"
+    },
+    {
+      "name": "章节完成",
+      "value": "7/16",
+      "percent": 44,
+      "weight": 0.3,
+      "contribution": 13.1,
+      "detail": "完整完成第1-4章及第7章，第5章进行中（已读60%）"
+    },
+    {
+      "name": "习题正确率",
+      "value": "78%",
+      "percent": 78,
+      "weight": 0.2,
+      "contribution": 15.6,
+      "detail": "已完成 23/30 道课后习题，正确 18 道。薄弱：第3章线性判别分析"
+    },
+    {
+      "name": "学习时长",
+      "value": "36.5h",
+      "percent": 73,
+      "weight": 0.1,
+      "contribution": 7.3,
+      "detail": "本月累计 36.5 小时，日均 1.2 小时，连续 7 天学习"
+    }
+  ],
+  "chapters_progress": [
+    {
+      "num": 1,
+      "title": "绪论",
+      "progress": 100,
+      "status": "done"
+    },
+    {
+      "num": 2,
+      "title": "模型评估与选择",
+      "progress": 100,
+      "status": "done"
+    },
+    {
+      "num": 3,
+      "title": "线性模型",
+      "progress": 100,
+      "status": "done"
+    },
+    {
+      "num": 4,
+      "title": "决策树",
+      "progress": 100,
+      "status": "done"
+    },
+    {
+      "num": 5,
+      "title": "神经网络",
+      "progress": 60,
+      "status": "current"
+    },
+    {
+      "num": 6,
+      "title": "支持向量机",
+      "progress": 0,
+      "status": "todo"
+    },
+    {
+      "num": 7,
+      "title": "贝叶斯分类器",
+      "progress": 100,
+      "status": "done"
+    },
+    {
+      "num": 8,
+      "title": "集成学习",
+      "progress": 0,
+      "status": "todo"
+    }
+  ]
+}

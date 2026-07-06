@@ -1,0 +1,3789 @@
+{
+  "book": "机器学习 · 周志华",
+  "chapters": [
+    {
+      "num": 1,
+      "title": "绪论",
+      "page": 12,
+      "concept_count": 8
+    },
+    {
+      "num": 2,
+      "title": "模型评估与选择",
+      "page": 40,
+      "concept_count": 10
+    },
+    {
+      "num": 3,
+      "title": "线性模型",
+      "page": 68,
+      "concept_count": 5
+    },
+    {
+      "num": 4,
+      "title": "决策树",
+      "page": 96,
+      "concept_count": 9
+    },
+    {
+      "num": 5,
+      "title": "神经网络",
+      "page": 122,
+      "concept_count": 9
+    },
+    {
+      "num": 6,
+      "title": "支持向量机",
+      "page": 148,
+      "concept_count": 10
+    },
+    {
+      "num": 7,
+      "title": "贝叶斯分类器",
+      "page": 176,
+      "concept_count": 8
+    },
+    {
+      "num": 8,
+      "title": "集成学习",
+      "page": 196,
+      "concept_count": 9
+    },
+    {
+      "num": 9,
+      "title": "聚类",
+      "page": 220,
+      "concept_count": 8
+    },
+    {
+      "num": 10,
+      "title": "降维与度量学习",
+      "page": 244,
+      "concept_count": 9
+    },
+    {
+      "num": 11,
+      "title": "特征选择与稀疏学习",
+      "page": 268,
+      "concept_count": 9
+    },
+    {
+      "num": 12,
+      "title": "计算学习理论",
+      "page": 290,
+      "concept_count": 6
+    },
+    {
+      "num": 13,
+      "title": "半监督学习",
+      "page": 316,
+      "concept_count": 7
+    },
+    {
+      "num": 14,
+      "title": "概率图模型",
+      "page": 340,
+      "concept_count": 8
+    },
+    {
+      "num": 15,
+      "title": "规则学习",
+      "page": 368,
+      "concept_count": 6
+    },
+    {
+      "num": 16,
+      "title": "强化学习",
+      "page": 390,
+      "concept_count": 9
+    }
+  ],
+  "nodes": [
+    {
+      "id": "机器学习",
+      "label": "机器学习",
+      "level": "support",
+      "chapters": [
+        1
+      ],
+      "weight": 1,
+      "definition": "研究如何通过计算手段利用经验改善系统性能的学科"
+    },
+    {
+      "id": "监督学习",
+      "label": "监督学习",
+      "level": "support",
+      "chapters": [
+        1
+      ],
+      "weight": 1,
+      "definition": "从有标签训练数据中学习输入到输出的映射"
+    },
+    {
+      "id": "无监督学习",
+      "label": "无监督学习",
+      "level": "support",
+      "chapters": [
+        1
+      ],
+      "weight": 1,
+      "definition": "从无标签数据中发现内在结构"
+    },
+    {
+      "id": "泛化",
+      "label": "泛化",
+      "level": "support",
+      "chapters": [
+        1
+      ],
+      "weight": 1,
+      "definition": "模型对未见样本的预测能力"
+    },
+    {
+      "id": "假设空间",
+      "label": "假设空间",
+      "level": "support",
+      "chapters": [
+        1
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "归纳偏好",
+      "label": "归纳偏好",
+      "level": "support",
+      "chapters": [
+        1
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "奥卡姆剃刀",
+      "label": "奥卡姆剃刀",
+      "level": "support",
+      "chapters": [
+        1
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "NFL定理",
+      "label": "NFL定理",
+      "level": "support",
+      "chapters": [
+        1
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "过拟合",
+      "label": "过拟合",
+      "level": "support",
+      "chapters": [
+        2
+      ],
+      "weight": 1,
+      "definition": "模型在训练集表现好但泛化差"
+    },
+    {
+      "id": "欠拟合",
+      "label": "欠拟合",
+      "level": "support",
+      "chapters": [
+        2
+      ],
+      "weight": 1,
+      "definition": "模型在训练集上就表现不佳"
+    },
+    {
+      "id": "交叉验证",
+      "label": "交叉验证",
+      "level": "support",
+      "chapters": [
+        2
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "留一法",
+      "label": "留一法",
+      "level": "support",
+      "chapters": [
+        2
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "精度",
+      "label": "精度",
+      "level": "support",
+      "chapters": [
+        2
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "召回率",
+      "label": "召回率",
+      "level": "support",
+      "chapters": [
+        2
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "F1",
+      "label": "F1",
+      "level": "support",
+      "chapters": [
+        2
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "ROC",
+      "label": "ROC",
+      "level": "support",
+      "chapters": [
+        2
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "AUC",
+      "label": "AUC",
+      "level": "support",
+      "chapters": [
+        2
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "偏差与方差",
+      "label": "偏差与方差",
+      "level": "support",
+      "chapters": [
+        2
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "线性回归",
+      "label": "线性回归",
+      "level": "support",
+      "chapters": [
+        3
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "对数几率回归",
+      "label": "对数几率回归",
+      "level": "support",
+      "chapters": [
+        3
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "LDA",
+      "label": "LDA",
+      "level": "support",
+      "chapters": [
+        3
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "多分类学习",
+      "label": "多分类学习",
+      "level": "support",
+      "chapters": [
+        3
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "类别不平衡",
+      "label": "类别不平衡",
+      "level": "support",
+      "chapters": [
+        3
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "决策树",
+      "label": "决策树",
+      "level": "topic",
+      "chapters": [
+        4
+      ],
+      "weight": 1,
+      "definition": "基于树结构进行决策的分类方法"
+    },
+    {
+      "id": "信息熵",
+      "label": "信息熵",
+      "level": "support",
+      "chapters": [
+        4
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "信息增益",
+      "label": "信息增益",
+      "level": "support",
+      "chapters": [
+        4
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "增益率",
+      "label": "增益率",
+      "level": "support",
+      "chapters": [
+        4
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "基尼指数",
+      "label": "基尼指数",
+      "level": "support",
+      "chapters": [
+        4
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "剪枝",
+      "label": "剪枝",
+      "level": "topic",
+      "chapters": [
+        4,
+        15
+      ],
+      "weight": 2,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "预剪枝",
+      "label": "预剪枝",
+      "level": "support",
+      "chapters": [
+        4
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "后剪枝",
+      "label": "后剪枝",
+      "level": "support",
+      "chapters": [
+        4
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "CART",
+      "label": "CART",
+      "level": "support",
+      "chapters": [
+        4
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "神经网络",
+      "label": "神经网络",
+      "level": "topic",
+      "chapters": [
+        5
+      ],
+      "weight": 1,
+      "definition": "受生物神经元启发的连接主义模型"
+    },
+    {
+      "id": "感知机",
+      "label": "感知机",
+      "level": "support",
+      "chapters": [
+        5
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "激活函数",
+      "label": "激活函数",
+      "level": "support",
+      "chapters": [
+        5
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "Sigmoid",
+      "label": "Sigmoid",
+      "level": "support",
+      "chapters": [
+        5
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "前馈神经网络",
+      "label": "前馈神经网络",
+      "level": "support",
+      "chapters": [
+        5
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "反向传播",
+      "label": "反向传播",
+      "level": "support",
+      "chapters": [
+        5
+      ],
+      "weight": 1,
+      "definition": "神经网络误差反向传播算法"
+    },
+    {
+      "id": "梯度下降",
+      "label": "梯度下降",
+      "level": "support",
+      "chapters": [
+        5
+      ],
+      "weight": 1,
+      "definition": "沿负梯度方向迭代优化参数的方法"
+    },
+    {
+      "id": "隐藏层",
+      "label": "隐藏层",
+      "level": "support",
+      "chapters": [
+        5
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "BP算法",
+      "label": "BP算法",
+      "level": "support",
+      "chapters": [
+        5
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "支持向量机",
+      "label": "支持向量机",
+      "level": "topic",
+      "chapters": [
+        6
+      ],
+      "weight": 1,
+      "definition": "寻找最大间隔超平面的分类器"
+    },
+    {
+      "id": "间隔",
+      "label": "间隔",
+      "level": "support",
+      "chapters": [
+        6
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "超平面",
+      "label": "超平面",
+      "level": "support",
+      "chapters": [
+        6
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "核函数",
+      "label": "核函数",
+      "level": "support",
+      "chapters": [
+        6
+      ],
+      "weight": 1,
+      "definition": "将数据映射到高维空间的函数"
+    },
+    {
+      "id": "核技巧",
+      "label": "核技巧",
+      "level": "support",
+      "chapters": [
+        6
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "软间隔",
+      "label": "软间隔",
+      "level": "support",
+      "chapters": [
+        6
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "对偶问题",
+      "label": "对偶问题",
+      "level": "support",
+      "chapters": [
+        6
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "SMO",
+      "label": "SMO",
+      "level": "support",
+      "chapters": [
+        6
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "SVR",
+      "label": "SVR",
+      "level": "support",
+      "chapters": [
+        6
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "SVC",
+      "label": "SVC",
+      "level": "support",
+      "chapters": [
+        6
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "贝叶斯定理",
+      "label": "贝叶斯定理",
+      "level": "support",
+      "chapters": [
+        7
+      ],
+      "weight": 1,
+      "definition": "基于先验和似然计算后验的概率公式"
+    },
+    {
+      "id": "朴素贝叶斯",
+      "label": "朴素贝叶斯",
+      "level": "support",
+      "chapters": [
+        7
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "半朴素贝叶斯",
+      "label": "半朴素贝叶斯",
+      "level": "support",
+      "chapters": [
+        7
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "贝叶斯网",
+      "label": "贝叶斯网",
+      "level": "topic",
+      "chapters": [
+        7,
+        14
+      ],
+      "weight": 2,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "EM算法",
+      "label": "EM算法",
+      "level": "support",
+      "chapters": [
+        7
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "极大似然",
+      "label": "极大似然",
+      "level": "support",
+      "chapters": [
+        7
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "先验概率",
+      "label": "先验概率",
+      "level": "support",
+      "chapters": [
+        7
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "后验概率",
+      "label": "后验概率",
+      "level": "support",
+      "chapters": [
+        7
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "集成学习",
+      "label": "集成学习",
+      "level": "topic",
+      "chapters": [
+        8
+      ],
+      "weight": 1,
+      "definition": "结合多个学习器以提升性能"
+    },
+    {
+      "id": "Bagging",
+      "label": "Bagging",
+      "level": "support",
+      "chapters": [
+        8
+      ],
+      "weight": 1,
+      "definition": "并行训练有放样学习器的集成方法"
+    },
+    {
+      "id": "Boosting",
+      "label": "Boosting",
+      "level": "support",
+      "chapters": [
+        8
+      ],
+      "weight": 1,
+      "definition": "串行训练弱学习器的集成方法"
+    },
+    {
+      "id": "随机森林",
+      "label": "随机森林",
+      "level": "support",
+      "chapters": [
+        8
+      ],
+      "weight": 1,
+      "definition": "基于决策树的集成学习方法"
+    },
+    {
+      "id": "AdaBoost",
+      "label": "AdaBoost",
+      "level": "support",
+      "chapters": [
+        8
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "GBDT",
+      "label": "GBDT",
+      "level": "support",
+      "chapters": [
+        8
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "XGBoost",
+      "label": "XGBoost",
+      "level": "support",
+      "chapters": [
+        8
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": " stacking",
+      "label": " stacking",
+      "level": "support",
+      "chapters": [
+        8
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "多样性",
+      "label": "多样性",
+      "level": "support",
+      "chapters": [
+        8
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "聚类",
+      "label": "聚类",
+      "level": "topic",
+      "chapters": [
+        9
+      ],
+      "weight": 1,
+      "definition": "将样本划分为若干组的无监督方法"
+    },
+    {
+      "id": "K-Means",
+      "label": "K-Means",
+      "level": "support",
+      "chapters": [
+        9
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "原型聚类",
+      "label": "原型聚类",
+      "level": "support",
+      "chapters": [
+        9
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "层次聚类",
+      "label": "层次聚类",
+      "level": "support",
+      "chapters": [
+        9
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "密度聚类",
+      "label": "密度聚类",
+      "level": "support",
+      "chapters": [
+        9
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "高斯混合",
+      "label": "高斯混合",
+      "level": "support",
+      "chapters": [
+        9
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "距离度量",
+      "label": "距离度量",
+      "level": "support",
+      "chapters": [
+        9
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "轮廓系数",
+      "label": "轮廓系数",
+      "level": "support",
+      "chapters": [
+        9
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "降维",
+      "label": "降维",
+      "level": "topic",
+      "chapters": [
+        10
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "PCA",
+      "label": "PCA",
+      "level": "support",
+      "chapters": [
+        10
+      ],
+      "weight": 1,
+      "definition": "主成分分析，线性降维方法"
+    },
+    {
+      "id": "KPCA",
+      "label": "KPCA",
+      "level": "support",
+      "chapters": [
+        10
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "流形学习",
+      "label": "流形学习",
+      "level": "support",
+      "chapters": [
+        10
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "MDS",
+      "label": "MDS",
+      "level": "support",
+      "chapters": [
+        10
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "ISOMAP",
+      "label": "ISOMAP",
+      "level": "support",
+      "chapters": [
+        10
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "LLE",
+      "label": "LLE",
+      "level": "support",
+      "chapters": [
+        10
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "度量学习",
+      "label": "度量学习",
+      "level": "support",
+      "chapters": [
+        10
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "k近邻",
+      "label": "k近邻",
+      "level": "support",
+      "chapters": [
+        10
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "特征选择",
+      "label": "特征选择",
+      "level": "topic",
+      "chapters": [
+        11
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "过滤式",
+      "label": "过滤式",
+      "level": "support",
+      "chapters": [
+        11
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "包裹式",
+      "label": "包裹式",
+      "level": "support",
+      "chapters": [
+        11
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "嵌入式",
+      "label": "嵌入式",
+      "level": "support",
+      "chapters": [
+        11
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "L1正则化",
+      "label": "L1正则化",
+      "level": "support",
+      "chapters": [
+        11
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "L2正则化",
+      "label": "L2正则化",
+      "level": "support",
+      "chapters": [
+        11
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "稀疏表示",
+      "label": "稀疏表示",
+      "level": "support",
+      "chapters": [
+        11
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "字典学习",
+      "label": "字典学习",
+      "level": "support",
+      "chapters": [
+        11
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "岭回归",
+      "label": "岭回归",
+      "level": "support",
+      "chapters": [
+        11
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "计算学习理论",
+      "label": "计算学习理论",
+      "level": "topic",
+      "chapters": [
+        12
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "PAC学习",
+      "label": "PAC学习",
+      "level": "support",
+      "chapters": [
+        12
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "VC维",
+      "label": "VC维",
+      "level": "support",
+      "chapters": [
+        12
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "Rademacher复杂度",
+      "label": "Rademacher复杂度",
+      "level": "support",
+      "chapters": [
+        12
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "稳定性",
+      "label": "稳定性",
+      "level": "support",
+      "chapters": [
+        12
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "一致性",
+      "label": "一致性",
+      "level": "support",
+      "chapters": [
+        12
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "半监督学习",
+      "label": "半监督学习",
+      "level": "topic",
+      "chapters": [
+        13
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "生成式方法",
+      "label": "生成式方法",
+      "level": "support",
+      "chapters": [
+        13
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "TSVM",
+      "label": "TSVM",
+      "level": "support",
+      "chapters": [
+        13
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "图半监督",
+      "label": "图半监督",
+      "level": "support",
+      "chapters": [
+        13
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "协同训练",
+      "label": "协同训练",
+      "level": "support",
+      "chapters": [
+        13
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "自训练",
+      "label": "自训练",
+      "level": "support",
+      "chapters": [
+        13
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "伪标签",
+      "label": "伪标签",
+      "level": "support",
+      "chapters": [
+        13
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "概率图模型",
+      "label": "概率图模型",
+      "level": "topic",
+      "chapters": [
+        14
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "马尔可夫网",
+      "label": "马尔可夫网",
+      "level": "support",
+      "chapters": [
+        14
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "隐马尔可夫模型",
+      "label": "隐马尔可夫模型",
+      "level": "support",
+      "chapters": [
+        14
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "MCMC",
+      "label": "MCMC",
+      "level": "support",
+      "chapters": [
+        14
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "变分推断",
+      "label": "变分推断",
+      "level": "support",
+      "chapters": [
+        14
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "条件随机场",
+      "label": "条件随机场",
+      "level": "support",
+      "chapters": [
+        14
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "信念传播",
+      "label": "信念传播",
+      "level": "support",
+      "chapters": [
+        14
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "规则学习",
+      "label": "规则学习",
+      "level": "topic",
+      "chapters": [
+        15
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "序贯覆盖",
+      "label": "序贯覆盖",
+      "level": "support",
+      "chapters": [
+        15
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "一阶规则",
+      "label": "一阶规则",
+      "level": "support",
+      "chapters": [
+        15
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "归纳逻辑程序设计",
+      "label": "归纳逻辑程序设计",
+      "level": "support",
+      "chapters": [
+        15
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "FOIL",
+      "label": "FOIL",
+      "level": "support",
+      "chapters": [
+        15
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "强化学习",
+      "label": "强化学习",
+      "level": "topic",
+      "chapters": [
+        16
+      ],
+      "weight": 1,
+      "definition": "通过与环境交互学习最优策略"
+    },
+    {
+      "id": "马尔可夫决策过程",
+      "label": "马尔可夫决策过程",
+      "level": "support",
+      "chapters": [
+        16
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "Q学习",
+      "label": "Q学习",
+      "level": "support",
+      "chapters": [
+        16
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "Sarsa",
+      "label": "Sarsa",
+      "level": "support",
+      "chapters": [
+        16
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "策略梯度",
+      "label": "策略梯度",
+      "level": "support",
+      "chapters": [
+        16
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "探索与利用",
+      "label": "探索与利用",
+      "level": "support",
+      "chapters": [
+        16
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "奖励",
+      "label": "奖励",
+      "level": "support",
+      "chapters": [
+        16
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "值函数",
+      "label": "值函数",
+      "level": "support",
+      "chapters": [
+        16
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    },
+    {
+      "id": "时序差分",
+      "label": "时序差分",
+      "level": "support",
+      "chapters": [
+        16
+      ],
+      "weight": 1,
+      "definition": "机器学习核心概念之一"
+    }
+  ],
+  "edges": [
+    {
+      "source": "机器学习",
+      "target": "监督学习",
+      "weight": 1
+    },
+    {
+      "source": "无监督学习",
+      "target": "机器学习",
+      "weight": 1
+    },
+    {
+      "source": "机器学习",
+      "target": "泛化",
+      "weight": 1
+    },
+    {
+      "source": "假设空间",
+      "target": "机器学习",
+      "weight": 1
+    },
+    {
+      "source": "归纳偏好",
+      "target": "机器学习",
+      "weight": 1
+    },
+    {
+      "source": "奥卡姆剃刀",
+      "target": "机器学习",
+      "weight": 1
+    },
+    {
+      "source": "NFL定理",
+      "target": "机器学习",
+      "weight": 1
+    },
+    {
+      "source": "无监督学习",
+      "target": "监督学习",
+      "weight": 1
+    },
+    {
+      "source": "泛化",
+      "target": "监督学习",
+      "weight": 1
+    },
+    {
+      "source": "假设空间",
+      "target": "监督学习",
+      "weight": 1
+    },
+    {
+      "source": "归纳偏好",
+      "target": "监督学习",
+      "weight": 1
+    },
+    {
+      "source": "奥卡姆剃刀",
+      "target": "监督学习",
+      "weight": 1
+    },
+    {
+      "source": "NFL定理",
+      "target": "监督学习",
+      "weight": 1
+    },
+    {
+      "source": "无监督学习",
+      "target": "泛化",
+      "weight": 1
+    },
+    {
+      "source": "假设空间",
+      "target": "无监督学习",
+      "weight": 1
+    },
+    {
+      "source": "归纳偏好",
+      "target": "无监督学习",
+      "weight": 1
+    },
+    {
+      "source": "奥卡姆剃刀",
+      "target": "无监督学习",
+      "weight": 1
+    },
+    {
+      "source": "NFL定理",
+      "target": "无监督学习",
+      "weight": 1
+    },
+    {
+      "source": "假设空间",
+      "target": "泛化",
+      "weight": 1
+    },
+    {
+      "source": "归纳偏好",
+      "target": "泛化",
+      "weight": 1
+    },
+    {
+      "source": "奥卡姆剃刀",
+      "target": "泛化",
+      "weight": 1
+    },
+    {
+      "source": "NFL定理",
+      "target": "泛化",
+      "weight": 1
+    },
+    {
+      "source": "假设空间",
+      "target": "归纳偏好",
+      "weight": 1
+    },
+    {
+      "source": "假设空间",
+      "target": "奥卡姆剃刀",
+      "weight": 1
+    },
+    {
+      "source": "NFL定理",
+      "target": "假设空间",
+      "weight": 1
+    },
+    {
+      "source": "奥卡姆剃刀",
+      "target": "归纳偏好",
+      "weight": 1
+    },
+    {
+      "source": "NFL定理",
+      "target": "归纳偏好",
+      "weight": 1
+    },
+    {
+      "source": "NFL定理",
+      "target": "奥卡姆剃刀",
+      "weight": 1
+    },
+    {
+      "source": "欠拟合",
+      "target": "过拟合",
+      "weight": 1
+    },
+    {
+      "source": "交叉验证",
+      "target": "过拟合",
+      "weight": 1
+    },
+    {
+      "source": "留一法",
+      "target": "过拟合",
+      "weight": 1
+    },
+    {
+      "source": "精度",
+      "target": "过拟合",
+      "weight": 1
+    },
+    {
+      "source": "召回率",
+      "target": "过拟合",
+      "weight": 1
+    },
+    {
+      "source": "F1",
+      "target": "过拟合",
+      "weight": 1
+    },
+    {
+      "source": "ROC",
+      "target": "过拟合",
+      "weight": 1
+    },
+    {
+      "source": "AUC",
+      "target": "过拟合",
+      "weight": 1
+    },
+    {
+      "source": "偏差与方差",
+      "target": "过拟合",
+      "weight": 1
+    },
+    {
+      "source": "交叉验证",
+      "target": "欠拟合",
+      "weight": 1
+    },
+    {
+      "source": "欠拟合",
+      "target": "留一法",
+      "weight": 1
+    },
+    {
+      "source": "欠拟合",
+      "target": "精度",
+      "weight": 1
+    },
+    {
+      "source": "召回率",
+      "target": "欠拟合",
+      "weight": 1
+    },
+    {
+      "source": "F1",
+      "target": "欠拟合",
+      "weight": 1
+    },
+    {
+      "source": "ROC",
+      "target": "欠拟合",
+      "weight": 1
+    },
+    {
+      "source": "AUC",
+      "target": "欠拟合",
+      "weight": 1
+    },
+    {
+      "source": "偏差与方差",
+      "target": "欠拟合",
+      "weight": 1
+    },
+    {
+      "source": "交叉验证",
+      "target": "留一法",
+      "weight": 1
+    },
+    {
+      "source": "交叉验证",
+      "target": "精度",
+      "weight": 1
+    },
+    {
+      "source": "交叉验证",
+      "target": "召回率",
+      "weight": 1
+    },
+    {
+      "source": "F1",
+      "target": "交叉验证",
+      "weight": 1
+    },
+    {
+      "source": "ROC",
+      "target": "交叉验证",
+      "weight": 1
+    },
+    {
+      "source": "AUC",
+      "target": "交叉验证",
+      "weight": 1
+    },
+    {
+      "source": "交叉验证",
+      "target": "偏差与方差",
+      "weight": 1
+    },
+    {
+      "source": "留一法",
+      "target": "精度",
+      "weight": 1
+    },
+    {
+      "source": "召回率",
+      "target": "留一法",
+      "weight": 1
+    },
+    {
+      "source": "F1",
+      "target": "留一法",
+      "weight": 1
+    },
+    {
+      "source": "ROC",
+      "target": "留一法",
+      "weight": 1
+    },
+    {
+      "source": "AUC",
+      "target": "留一法",
+      "weight": 1
+    },
+    {
+      "source": "偏差与方差",
+      "target": "留一法",
+      "weight": 1
+    },
+    {
+      "source": "召回率",
+      "target": "精度",
+      "weight": 1
+    },
+    {
+      "source": "F1",
+      "target": "精度",
+      "weight": 1
+    },
+    {
+      "source": "ROC",
+      "target": "精度",
+      "weight": 1
+    },
+    {
+      "source": "AUC",
+      "target": "精度",
+      "weight": 1
+    },
+    {
+      "source": "偏差与方差",
+      "target": "精度",
+      "weight": 1
+    },
+    {
+      "source": "F1",
+      "target": "召回率",
+      "weight": 1
+    },
+    {
+      "source": "ROC",
+      "target": "召回率",
+      "weight": 1
+    },
+    {
+      "source": "AUC",
+      "target": "召回率",
+      "weight": 1
+    },
+    {
+      "source": "偏差与方差",
+      "target": "召回率",
+      "weight": 1
+    },
+    {
+      "source": "F1",
+      "target": "ROC",
+      "weight": 1
+    },
+    {
+      "source": "AUC",
+      "target": "F1",
+      "weight": 1
+    },
+    {
+      "source": "F1",
+      "target": "偏差与方差",
+      "weight": 1
+    },
+    {
+      "source": "AUC",
+      "target": "ROC",
+      "weight": 1
+    },
+    {
+      "source": "ROC",
+      "target": "偏差与方差",
+      "weight": 1
+    },
+    {
+      "source": "AUC",
+      "target": "偏差与方差",
+      "weight": 1
+    },
+    {
+      "source": "对数几率回归",
+      "target": "线性回归",
+      "weight": 1
+    },
+    {
+      "source": "LDA",
+      "target": "线性回归",
+      "weight": 1
+    },
+    {
+      "source": "多分类学习",
+      "target": "线性回归",
+      "weight": 1
+    },
+    {
+      "source": "类别不平衡",
+      "target": "线性回归",
+      "weight": 1
+    },
+    {
+      "source": "LDA",
+      "target": "对数几率回归",
+      "weight": 1
+    },
+    {
+      "source": "多分类学习",
+      "target": "对数几率回归",
+      "weight": 1
+    },
+    {
+      "source": "对数几率回归",
+      "target": "类别不平衡",
+      "weight": 1
+    },
+    {
+      "source": "LDA",
+      "target": "多分类学习",
+      "weight": 1
+    },
+    {
+      "source": "LDA",
+      "target": "类别不平衡",
+      "weight": 1
+    },
+    {
+      "source": "多分类学习",
+      "target": "类别不平衡",
+      "weight": 1
+    },
+    {
+      "source": "信息熵",
+      "target": "决策树",
+      "weight": 1
+    },
+    {
+      "source": "信息增益",
+      "target": "决策树",
+      "weight": 1
+    },
+    {
+      "source": "决策树",
+      "target": "增益率",
+      "weight": 1
+    },
+    {
+      "source": "决策树",
+      "target": "基尼指数",
+      "weight": 1
+    },
+    {
+      "source": "决策树",
+      "target": "剪枝",
+      "weight": 1
+    },
+    {
+      "source": "决策树",
+      "target": "预剪枝",
+      "weight": 1
+    },
+    {
+      "source": "决策树",
+      "target": "后剪枝",
+      "weight": 1
+    },
+    {
+      "source": "CART",
+      "target": "决策树",
+      "weight": 1
+    },
+    {
+      "source": "信息增益",
+      "target": "信息熵",
+      "weight": 1
+    },
+    {
+      "source": "信息熵",
+      "target": "增益率",
+      "weight": 1
+    },
+    {
+      "source": "信息熵",
+      "target": "基尼指数",
+      "weight": 1
+    },
+    {
+      "source": "信息熵",
+      "target": "剪枝",
+      "weight": 1
+    },
+    {
+      "source": "信息熵",
+      "target": "预剪枝",
+      "weight": 1
+    },
+    {
+      "source": "信息熵",
+      "target": "后剪枝",
+      "weight": 1
+    },
+    {
+      "source": "CART",
+      "target": "信息熵",
+      "weight": 1
+    },
+    {
+      "source": "信息增益",
+      "target": "增益率",
+      "weight": 1
+    },
+    {
+      "source": "信息增益",
+      "target": "基尼指数",
+      "weight": 1
+    },
+    {
+      "source": "信息增益",
+      "target": "剪枝",
+      "weight": 1
+    },
+    {
+      "source": "信息增益",
+      "target": "预剪枝",
+      "weight": 1
+    },
+    {
+      "source": "信息增益",
+      "target": "后剪枝",
+      "weight": 1
+    },
+    {
+      "source": "CART",
+      "target": "信息增益",
+      "weight": 1
+    },
+    {
+      "source": "基尼指数",
+      "target": "增益率",
+      "weight": 1
+    },
+    {
+      "source": "剪枝",
+      "target": "增益率",
+      "weight": 1
+    },
+    {
+      "source": "增益率",
+      "target": "预剪枝",
+      "weight": 1
+    },
+    {
+      "source": "后剪枝",
+      "target": "增益率",
+      "weight": 1
+    },
+    {
+      "source": "CART",
+      "target": "增益率",
+      "weight": 1
+    },
+    {
+      "source": "剪枝",
+      "target": "基尼指数",
+      "weight": 1
+    },
+    {
+      "source": "基尼指数",
+      "target": "预剪枝",
+      "weight": 1
+    },
+    {
+      "source": "后剪枝",
+      "target": "基尼指数",
+      "weight": 1
+    },
+    {
+      "source": "CART",
+      "target": "基尼指数",
+      "weight": 1
+    },
+    {
+      "source": "剪枝",
+      "target": "预剪枝",
+      "weight": 1
+    },
+    {
+      "source": "剪枝",
+      "target": "后剪枝",
+      "weight": 1
+    },
+    {
+      "source": "CART",
+      "target": "剪枝",
+      "weight": 1
+    },
+    {
+      "source": "后剪枝",
+      "target": "预剪枝",
+      "weight": 1
+    },
+    {
+      "source": "CART",
+      "target": "预剪枝",
+      "weight": 1
+    },
+    {
+      "source": "CART",
+      "target": "后剪枝",
+      "weight": 1
+    },
+    {
+      "source": "感知机",
+      "target": "神经网络",
+      "weight": 1
+    },
+    {
+      "source": "激活函数",
+      "target": "神经网络",
+      "weight": 1
+    },
+    {
+      "source": "Sigmoid",
+      "target": "神经网络",
+      "weight": 1
+    },
+    {
+      "source": "前馈神经网络",
+      "target": "神经网络",
+      "weight": 1
+    },
+    {
+      "source": "反向传播",
+      "target": "神经网络",
+      "weight": 1
+    },
+    {
+      "source": "梯度下降",
+      "target": "神经网络",
+      "weight": 1
+    },
+    {
+      "source": "神经网络",
+      "target": "隐藏层",
+      "weight": 1
+    },
+    {
+      "source": "BP算法",
+      "target": "神经网络",
+      "weight": 1
+    },
+    {
+      "source": "感知机",
+      "target": "激活函数",
+      "weight": 1
+    },
+    {
+      "source": "Sigmoid",
+      "target": "感知机",
+      "weight": 1
+    },
+    {
+      "source": "前馈神经网络",
+      "target": "感知机",
+      "weight": 1
+    },
+    {
+      "source": "反向传播",
+      "target": "感知机",
+      "weight": 1
+    },
+    {
+      "source": "感知机",
+      "target": "梯度下降",
+      "weight": 1
+    },
+    {
+      "source": "感知机",
+      "target": "隐藏层",
+      "weight": 1
+    },
+    {
+      "source": "BP算法",
+      "target": "感知机",
+      "weight": 1
+    },
+    {
+      "source": "Sigmoid",
+      "target": "激活函数",
+      "weight": 1
+    },
+    {
+      "source": "前馈神经网络",
+      "target": "激活函数",
+      "weight": 1
+    },
+    {
+      "source": "反向传播",
+      "target": "激活函数",
+      "weight": 1
+    },
+    {
+      "source": "梯度下降",
+      "target": "激活函数",
+      "weight": 1
+    },
+    {
+      "source": "激活函数",
+      "target": "隐藏层",
+      "weight": 1
+    },
+    {
+      "source": "BP算法",
+      "target": "激活函数",
+      "weight": 1
+    },
+    {
+      "source": "Sigmoid",
+      "target": "前馈神经网络",
+      "weight": 1
+    },
+    {
+      "source": "Sigmoid",
+      "target": "反向传播",
+      "weight": 1
+    },
+    {
+      "source": "Sigmoid",
+      "target": "梯度下降",
+      "weight": 1
+    },
+    {
+      "source": "Sigmoid",
+      "target": "隐藏层",
+      "weight": 1
+    },
+    {
+      "source": "BP算法",
+      "target": "Sigmoid",
+      "weight": 1
+    },
+    {
+      "source": "前馈神经网络",
+      "target": "反向传播",
+      "weight": 1
+    },
+    {
+      "source": "前馈神经网络",
+      "target": "梯度下降",
+      "weight": 1
+    },
+    {
+      "source": "前馈神经网络",
+      "target": "隐藏层",
+      "weight": 1
+    },
+    {
+      "source": "BP算法",
+      "target": "前馈神经网络",
+      "weight": 1
+    },
+    {
+      "source": "反向传播",
+      "target": "梯度下降",
+      "weight": 1
+    },
+    {
+      "source": "反向传播",
+      "target": "隐藏层",
+      "weight": 1
+    },
+    {
+      "source": "BP算法",
+      "target": "反向传播",
+      "weight": 1
+    },
+    {
+      "source": "梯度下降",
+      "target": "隐藏层",
+      "weight": 1
+    },
+    {
+      "source": "BP算法",
+      "target": "梯度下降",
+      "weight": 1
+    },
+    {
+      "source": "BP算法",
+      "target": "隐藏层",
+      "weight": 1
+    },
+    {
+      "source": "支持向量机",
+      "target": "间隔",
+      "weight": 1
+    },
+    {
+      "source": "支持向量机",
+      "target": "超平面",
+      "weight": 1
+    },
+    {
+      "source": "支持向量机",
+      "target": "核函数",
+      "weight": 1
+    },
+    {
+      "source": "支持向量机",
+      "target": "核技巧",
+      "weight": 1
+    },
+    {
+      "source": "支持向量机",
+      "target": "软间隔",
+      "weight": 1
+    },
+    {
+      "source": "对偶问题",
+      "target": "支持向量机",
+      "weight": 1
+    },
+    {
+      "source": "SMO",
+      "target": "支持向量机",
+      "weight": 1
+    },
+    {
+      "source": "SVR",
+      "target": "支持向量机",
+      "weight": 1
+    },
+    {
+      "source": "SVC",
+      "target": "支持向量机",
+      "weight": 1
+    },
+    {
+      "source": "超平面",
+      "target": "间隔",
+      "weight": 1
+    },
+    {
+      "source": "核函数",
+      "target": "间隔",
+      "weight": 1
+    },
+    {
+      "source": "核技巧",
+      "target": "间隔",
+      "weight": 1
+    },
+    {
+      "source": "软间隔",
+      "target": "间隔",
+      "weight": 1
+    },
+    {
+      "source": "对偶问题",
+      "target": "间隔",
+      "weight": 1
+    },
+    {
+      "source": "SMO",
+      "target": "间隔",
+      "weight": 1
+    },
+    {
+      "source": "SVR",
+      "target": "间隔",
+      "weight": 1
+    },
+    {
+      "source": "SVC",
+      "target": "间隔",
+      "weight": 1
+    },
+    {
+      "source": "核函数",
+      "target": "超平面",
+      "weight": 1
+    },
+    {
+      "source": "核技巧",
+      "target": "超平面",
+      "weight": 1
+    },
+    {
+      "source": "超平面",
+      "target": "软间隔",
+      "weight": 1
+    },
+    {
+      "source": "对偶问题",
+      "target": "超平面",
+      "weight": 1
+    },
+    {
+      "source": "SMO",
+      "target": "超平面",
+      "weight": 1
+    },
+    {
+      "source": "SVR",
+      "target": "超平面",
+      "weight": 1
+    },
+    {
+      "source": "SVC",
+      "target": "超平面",
+      "weight": 1
+    },
+    {
+      "source": "核函数",
+      "target": "核技巧",
+      "weight": 1
+    },
+    {
+      "source": "核函数",
+      "target": "软间隔",
+      "weight": 1
+    },
+    {
+      "source": "对偶问题",
+      "target": "核函数",
+      "weight": 1
+    },
+    {
+      "source": "SMO",
+      "target": "核函数",
+      "weight": 1
+    },
+    {
+      "source": "SVR",
+      "target": "核函数",
+      "weight": 1
+    },
+    {
+      "source": "SVC",
+      "target": "核函数",
+      "weight": 1
+    },
+    {
+      "source": "核技巧",
+      "target": "软间隔",
+      "weight": 1
+    },
+    {
+      "source": "对偶问题",
+      "target": "核技巧",
+      "weight": 1
+    },
+    {
+      "source": "SMO",
+      "target": "核技巧",
+      "weight": 1
+    },
+    {
+      "source": "SVR",
+      "target": "核技巧",
+      "weight": 1
+    },
+    {
+      "source": "SVC",
+      "target": "核技巧",
+      "weight": 1
+    },
+    {
+      "source": "对偶问题",
+      "target": "软间隔",
+      "weight": 1
+    },
+    {
+      "source": "SMO",
+      "target": "软间隔",
+      "weight": 1
+    },
+    {
+      "source": "SVR",
+      "target": "软间隔",
+      "weight": 1
+    },
+    {
+      "source": "SVC",
+      "target": "软间隔",
+      "weight": 1
+    },
+    {
+      "source": "SMO",
+      "target": "对偶问题",
+      "weight": 1
+    },
+    {
+      "source": "SVR",
+      "target": "对偶问题",
+      "weight": 1
+    },
+    {
+      "source": "SVC",
+      "target": "对偶问题",
+      "weight": 1
+    },
+    {
+      "source": "SMO",
+      "target": "SVR",
+      "weight": 1
+    },
+    {
+      "source": "SMO",
+      "target": "SVC",
+      "weight": 1
+    },
+    {
+      "source": "SVC",
+      "target": "SVR",
+      "weight": 1
+    },
+    {
+      "source": "朴素贝叶斯",
+      "target": "贝叶斯定理",
+      "weight": 1
+    },
+    {
+      "source": "半朴素贝叶斯",
+      "target": "贝叶斯定理",
+      "weight": 1
+    },
+    {
+      "source": "贝叶斯定理",
+      "target": "贝叶斯网",
+      "weight": 1
+    },
+    {
+      "source": "EM算法",
+      "target": "贝叶斯定理",
+      "weight": 1
+    },
+    {
+      "source": "极大似然",
+      "target": "贝叶斯定理",
+      "weight": 1
+    },
+    {
+      "source": "先验概率",
+      "target": "贝叶斯定理",
+      "weight": 1
+    },
+    {
+      "source": "后验概率",
+      "target": "贝叶斯定理",
+      "weight": 1
+    },
+    {
+      "source": "半朴素贝叶斯",
+      "target": "朴素贝叶斯",
+      "weight": 1
+    },
+    {
+      "source": "朴素贝叶斯",
+      "target": "贝叶斯网",
+      "weight": 1
+    },
+    {
+      "source": "EM算法",
+      "target": "朴素贝叶斯",
+      "weight": 1
+    },
+    {
+      "source": "朴素贝叶斯",
+      "target": "极大似然",
+      "weight": 1
+    },
+    {
+      "source": "先验概率",
+      "target": "朴素贝叶斯",
+      "weight": 1
+    },
+    {
+      "source": "后验概率",
+      "target": "朴素贝叶斯",
+      "weight": 1
+    },
+    {
+      "source": "半朴素贝叶斯",
+      "target": "贝叶斯网",
+      "weight": 1
+    },
+    {
+      "source": "EM算法",
+      "target": "半朴素贝叶斯",
+      "weight": 1
+    },
+    {
+      "source": "半朴素贝叶斯",
+      "target": "极大似然",
+      "weight": 1
+    },
+    {
+      "source": "先验概率",
+      "target": "半朴素贝叶斯",
+      "weight": 1
+    },
+    {
+      "source": "半朴素贝叶斯",
+      "target": "后验概率",
+      "weight": 1
+    },
+    {
+      "source": "EM算法",
+      "target": "贝叶斯网",
+      "weight": 1
+    },
+    {
+      "source": "极大似然",
+      "target": "贝叶斯网",
+      "weight": 1
+    },
+    {
+      "source": "先验概率",
+      "target": "贝叶斯网",
+      "weight": 1
+    },
+    {
+      "source": "后验概率",
+      "target": "贝叶斯网",
+      "weight": 1
+    },
+    {
+      "source": "EM算法",
+      "target": "极大似然",
+      "weight": 1
+    },
+    {
+      "source": "EM算法",
+      "target": "先验概率",
+      "weight": 1
+    },
+    {
+      "source": "EM算法",
+      "target": "后验概率",
+      "weight": 1
+    },
+    {
+      "source": "先验概率",
+      "target": "极大似然",
+      "weight": 1
+    },
+    {
+      "source": "后验概率",
+      "target": "极大似然",
+      "weight": 1
+    },
+    {
+      "source": "先验概率",
+      "target": "后验概率",
+      "weight": 1
+    },
+    {
+      "source": "Bagging",
+      "target": "集成学习",
+      "weight": 1
+    },
+    {
+      "source": "Boosting",
+      "target": "集成学习",
+      "weight": 1
+    },
+    {
+      "source": "随机森林",
+      "target": "集成学习",
+      "weight": 1
+    },
+    {
+      "source": "AdaBoost",
+      "target": "集成学习",
+      "weight": 1
+    },
+    {
+      "source": "GBDT",
+      "target": "集成学习",
+      "weight": 1
+    },
+    {
+      "source": "XGBoost",
+      "target": "集成学习",
+      "weight": 1
+    },
+    {
+      "source": " stacking",
+      "target": "集成学习",
+      "weight": 1
+    },
+    {
+      "source": "多样性",
+      "target": "集成学习",
+      "weight": 1
+    },
+    {
+      "source": "Bagging",
+      "target": "Boosting",
+      "weight": 1
+    },
+    {
+      "source": "Bagging",
+      "target": "随机森林",
+      "weight": 1
+    },
+    {
+      "source": "AdaBoost",
+      "target": "Bagging",
+      "weight": 1
+    },
+    {
+      "source": "Bagging",
+      "target": "GBDT",
+      "weight": 1
+    },
+    {
+      "source": "Bagging",
+      "target": "XGBoost",
+      "weight": 1
+    },
+    {
+      "source": " stacking",
+      "target": "Bagging",
+      "weight": 1
+    },
+    {
+      "source": "Bagging",
+      "target": "多样性",
+      "weight": 1
+    },
+    {
+      "source": "Boosting",
+      "target": "随机森林",
+      "weight": 1
+    },
+    {
+      "source": "AdaBoost",
+      "target": "Boosting",
+      "weight": 1
+    },
+    {
+      "source": "Boosting",
+      "target": "GBDT",
+      "weight": 1
+    },
+    {
+      "source": "Boosting",
+      "target": "XGBoost",
+      "weight": 1
+    },
+    {
+      "source": " stacking",
+      "target": "Boosting",
+      "weight": 1
+    },
+    {
+      "source": "Boosting",
+      "target": "多样性",
+      "weight": 1
+    },
+    {
+      "source": "AdaBoost",
+      "target": "随机森林",
+      "weight": 1
+    },
+    {
+      "source": "GBDT",
+      "target": "随机森林",
+      "weight": 1
+    },
+    {
+      "source": "XGBoost",
+      "target": "随机森林",
+      "weight": 1
+    },
+    {
+      "source": " stacking",
+      "target": "随机森林",
+      "weight": 1
+    },
+    {
+      "source": "多样性",
+      "target": "随机森林",
+      "weight": 1
+    },
+    {
+      "source": "AdaBoost",
+      "target": "GBDT",
+      "weight": 1
+    },
+    {
+      "source": "AdaBoost",
+      "target": "XGBoost",
+      "weight": 1
+    },
+    {
+      "source": " stacking",
+      "target": "AdaBoost",
+      "weight": 1
+    },
+    {
+      "source": "AdaBoost",
+      "target": "多样性",
+      "weight": 1
+    },
+    {
+      "source": "GBDT",
+      "target": "XGBoost",
+      "weight": 1
+    },
+    {
+      "source": " stacking",
+      "target": "GBDT",
+      "weight": 1
+    },
+    {
+      "source": "GBDT",
+      "target": "多样性",
+      "weight": 1
+    },
+    {
+      "source": " stacking",
+      "target": "XGBoost",
+      "weight": 1
+    },
+    {
+      "source": "XGBoost",
+      "target": "多样性",
+      "weight": 1
+    },
+    {
+      "source": " stacking",
+      "target": "多样性",
+      "weight": 1
+    },
+    {
+      "source": "K-Means",
+      "target": "聚类",
+      "weight": 1
+    },
+    {
+      "source": "原型聚类",
+      "target": "聚类",
+      "weight": 1
+    },
+    {
+      "source": "层次聚类",
+      "target": "聚类",
+      "weight": 1
+    },
+    {
+      "source": "密度聚类",
+      "target": "聚类",
+      "weight": 1
+    },
+    {
+      "source": "聚类",
+      "target": "高斯混合",
+      "weight": 1
+    },
+    {
+      "source": "聚类",
+      "target": "距离度量",
+      "weight": 1
+    },
+    {
+      "source": "聚类",
+      "target": "轮廓系数",
+      "weight": 1
+    },
+    {
+      "source": "K-Means",
+      "target": "原型聚类",
+      "weight": 1
+    },
+    {
+      "source": "K-Means",
+      "target": "层次聚类",
+      "weight": 1
+    },
+    {
+      "source": "K-Means",
+      "target": "密度聚类",
+      "weight": 1
+    },
+    {
+      "source": "K-Means",
+      "target": "高斯混合",
+      "weight": 1
+    },
+    {
+      "source": "K-Means",
+      "target": "距离度量",
+      "weight": 1
+    },
+    {
+      "source": "K-Means",
+      "target": "轮廓系数",
+      "weight": 1
+    },
+    {
+      "source": "原型聚类",
+      "target": "层次聚类",
+      "weight": 1
+    },
+    {
+      "source": "原型聚类",
+      "target": "密度聚类",
+      "weight": 1
+    },
+    {
+      "source": "原型聚类",
+      "target": "高斯混合",
+      "weight": 1
+    },
+    {
+      "source": "原型聚类",
+      "target": "距离度量",
+      "weight": 1
+    },
+    {
+      "source": "原型聚类",
+      "target": "轮廓系数",
+      "weight": 1
+    },
+    {
+      "source": "密度聚类",
+      "target": "层次聚类",
+      "weight": 1
+    },
+    {
+      "source": "层次聚类",
+      "target": "高斯混合",
+      "weight": 1
+    },
+    {
+      "source": "层次聚类",
+      "target": "距离度量",
+      "weight": 1
+    },
+    {
+      "source": "层次聚类",
+      "target": "轮廓系数",
+      "weight": 1
+    },
+    {
+      "source": "密度聚类",
+      "target": "高斯混合",
+      "weight": 1
+    },
+    {
+      "source": "密度聚类",
+      "target": "距离度量",
+      "weight": 1
+    },
+    {
+      "source": "密度聚类",
+      "target": "轮廓系数",
+      "weight": 1
+    },
+    {
+      "source": "距离度量",
+      "target": "高斯混合",
+      "weight": 1
+    },
+    {
+      "source": "轮廓系数",
+      "target": "高斯混合",
+      "weight": 1
+    },
+    {
+      "source": "距离度量",
+      "target": "轮廓系数",
+      "weight": 1
+    },
+    {
+      "source": "PCA",
+      "target": "降维",
+      "weight": 1
+    },
+    {
+      "source": "KPCA",
+      "target": "降维",
+      "weight": 1
+    },
+    {
+      "source": "流形学习",
+      "target": "降维",
+      "weight": 1
+    },
+    {
+      "source": "MDS",
+      "target": "降维",
+      "weight": 1
+    },
+    {
+      "source": "ISOMAP",
+      "target": "降维",
+      "weight": 1
+    },
+    {
+      "source": "LLE",
+      "target": "降维",
+      "weight": 1
+    },
+    {
+      "source": "度量学习",
+      "target": "降维",
+      "weight": 1
+    },
+    {
+      "source": "k近邻",
+      "target": "降维",
+      "weight": 1
+    },
+    {
+      "source": "KPCA",
+      "target": "PCA",
+      "weight": 1
+    },
+    {
+      "source": "PCA",
+      "target": "流形学习",
+      "weight": 1
+    },
+    {
+      "source": "MDS",
+      "target": "PCA",
+      "weight": 1
+    },
+    {
+      "source": "ISOMAP",
+      "target": "PCA",
+      "weight": 1
+    },
+    {
+      "source": "LLE",
+      "target": "PCA",
+      "weight": 1
+    },
+    {
+      "source": "PCA",
+      "target": "度量学习",
+      "weight": 1
+    },
+    {
+      "source": "PCA",
+      "target": "k近邻",
+      "weight": 1
+    },
+    {
+      "source": "KPCA",
+      "target": "流形学习",
+      "weight": 1
+    },
+    {
+      "source": "KPCA",
+      "target": "MDS",
+      "weight": 1
+    },
+    {
+      "source": "ISOMAP",
+      "target": "KPCA",
+      "weight": 1
+    },
+    {
+      "source": "KPCA",
+      "target": "LLE",
+      "weight": 1
+    },
+    {
+      "source": "KPCA",
+      "target": "度量学习",
+      "weight": 1
+    },
+    {
+      "source": "KPCA",
+      "target": "k近邻",
+      "weight": 1
+    },
+    {
+      "source": "MDS",
+      "target": "流形学习",
+      "weight": 1
+    },
+    {
+      "source": "ISOMAP",
+      "target": "流形学习",
+      "weight": 1
+    },
+    {
+      "source": "LLE",
+      "target": "流形学习",
+      "weight": 1
+    },
+    {
+      "source": "度量学习",
+      "target": "流形学习",
+      "weight": 1
+    },
+    {
+      "source": "k近邻",
+      "target": "流形学习",
+      "weight": 1
+    },
+    {
+      "source": "ISOMAP",
+      "target": "MDS",
+      "weight": 1
+    },
+    {
+      "source": "LLE",
+      "target": "MDS",
+      "weight": 1
+    },
+    {
+      "source": "MDS",
+      "target": "度量学习",
+      "weight": 1
+    },
+    {
+      "source": "MDS",
+      "target": "k近邻",
+      "weight": 1
+    },
+    {
+      "source": "ISOMAP",
+      "target": "LLE",
+      "weight": 1
+    },
+    {
+      "source": "ISOMAP",
+      "target": "度量学习",
+      "weight": 1
+    },
+    {
+      "source": "ISOMAP",
+      "target": "k近邻",
+      "weight": 1
+    },
+    {
+      "source": "LLE",
+      "target": "度量学习",
+      "weight": 1
+    },
+    {
+      "source": "LLE",
+      "target": "k近邻",
+      "weight": 1
+    },
+    {
+      "source": "k近邻",
+      "target": "度量学习",
+      "weight": 1
+    },
+    {
+      "source": "特征选择",
+      "target": "过滤式",
+      "weight": 1
+    },
+    {
+      "source": "包裹式",
+      "target": "特征选择",
+      "weight": 1
+    },
+    {
+      "source": "嵌入式",
+      "target": "特征选择",
+      "weight": 1
+    },
+    {
+      "source": "L1正则化",
+      "target": "特征选择",
+      "weight": 1
+    },
+    {
+      "source": "L2正则化",
+      "target": "特征选择",
+      "weight": 1
+    },
+    {
+      "source": "特征选择",
+      "target": "稀疏表示",
+      "weight": 1
+    },
+    {
+      "source": "字典学习",
+      "target": "特征选择",
+      "weight": 1
+    },
+    {
+      "source": "岭回归",
+      "target": "特征选择",
+      "weight": 1
+    },
+    {
+      "source": "包裹式",
+      "target": "过滤式",
+      "weight": 1
+    },
+    {
+      "source": "嵌入式",
+      "target": "过滤式",
+      "weight": 1
+    },
+    {
+      "source": "L1正则化",
+      "target": "过滤式",
+      "weight": 1
+    },
+    {
+      "source": "L2正则化",
+      "target": "过滤式",
+      "weight": 1
+    },
+    {
+      "source": "稀疏表示",
+      "target": "过滤式",
+      "weight": 1
+    },
+    {
+      "source": "字典学习",
+      "target": "过滤式",
+      "weight": 1
+    },
+    {
+      "source": "岭回归",
+      "target": "过滤式",
+      "weight": 1
+    },
+    {
+      "source": "包裹式",
+      "target": "嵌入式",
+      "weight": 1
+    },
+    {
+      "source": "L1正则化",
+      "target": "包裹式",
+      "weight": 1
+    },
+    {
+      "source": "L2正则化",
+      "target": "包裹式",
+      "weight": 1
+    },
+    {
+      "source": "包裹式",
+      "target": "稀疏表示",
+      "weight": 1
+    },
+    {
+      "source": "包裹式",
+      "target": "字典学习",
+      "weight": 1
+    },
+    {
+      "source": "包裹式",
+      "target": "岭回归",
+      "weight": 1
+    },
+    {
+      "source": "L1正则化",
+      "target": "嵌入式",
+      "weight": 1
+    },
+    {
+      "source": "L2正则化",
+      "target": "嵌入式",
+      "weight": 1
+    },
+    {
+      "source": "嵌入式",
+      "target": "稀疏表示",
+      "weight": 1
+    },
+    {
+      "source": "字典学习",
+      "target": "嵌入式",
+      "weight": 1
+    },
+    {
+      "source": "岭回归",
+      "target": "嵌入式",
+      "weight": 1
+    },
+    {
+      "source": "L1正则化",
+      "target": "L2正则化",
+      "weight": 1
+    },
+    {
+      "source": "L1正则化",
+      "target": "稀疏表示",
+      "weight": 1
+    },
+    {
+      "source": "L1正则化",
+      "target": "字典学习",
+      "weight": 1
+    },
+    {
+      "source": "L1正则化",
+      "target": "岭回归",
+      "weight": 1
+    },
+    {
+      "source": "L2正则化",
+      "target": "稀疏表示",
+      "weight": 1
+    },
+    {
+      "source": "L2正则化",
+      "target": "字典学习",
+      "weight": 1
+    },
+    {
+      "source": "L2正则化",
+      "target": "岭回归",
+      "weight": 1
+    },
+    {
+      "source": "字典学习",
+      "target": "稀疏表示",
+      "weight": 1
+    },
+    {
+      "source": "岭回归",
+      "target": "稀疏表示",
+      "weight": 1
+    },
+    {
+      "source": "字典学习",
+      "target": "岭回归",
+      "weight": 1
+    },
+    {
+      "source": "PAC学习",
+      "target": "计算学习理论",
+      "weight": 1
+    },
+    {
+      "source": "VC维",
+      "target": "计算学习理论",
+      "weight": 1
+    },
+    {
+      "source": "Rademacher复杂度",
+      "target": "计算学习理论",
+      "weight": 1
+    },
+    {
+      "source": "稳定性",
+      "target": "计算学习理论",
+      "weight": 1
+    },
+    {
+      "source": "一致性",
+      "target": "计算学习理论",
+      "weight": 1
+    },
+    {
+      "source": "PAC学习",
+      "target": "VC维",
+      "weight": 1
+    },
+    {
+      "source": "PAC学习",
+      "target": "Rademacher复杂度",
+      "weight": 1
+    },
+    {
+      "source": "PAC学习",
+      "target": "稳定性",
+      "weight": 1
+    },
+    {
+      "source": "PAC学习",
+      "target": "一致性",
+      "weight": 1
+    },
+    {
+      "source": "Rademacher复杂度",
+      "target": "VC维",
+      "weight": 1
+    },
+    {
+      "source": "VC维",
+      "target": "稳定性",
+      "weight": 1
+    },
+    {
+      "source": "VC维",
+      "target": "一致性",
+      "weight": 1
+    },
+    {
+      "source": "Rademacher复杂度",
+      "target": "稳定性",
+      "weight": 1
+    },
+    {
+      "source": "Rademacher复杂度",
+      "target": "一致性",
+      "weight": 1
+    },
+    {
+      "source": "一致性",
+      "target": "稳定性",
+      "weight": 1
+    },
+    {
+      "source": "半监督学习",
+      "target": "生成式方法",
+      "weight": 1
+    },
+    {
+      "source": "TSVM",
+      "target": "半监督学习",
+      "weight": 1
+    },
+    {
+      "source": "半监督学习",
+      "target": "图半监督",
+      "weight": 1
+    },
+    {
+      "source": "半监督学习",
+      "target": "协同训练",
+      "weight": 1
+    },
+    {
+      "source": "半监督学习",
+      "target": "自训练",
+      "weight": 1
+    },
+    {
+      "source": "伪标签",
+      "target": "半监督学习",
+      "weight": 1
+    },
+    {
+      "source": "TSVM",
+      "target": "生成式方法",
+      "weight": 1
+    },
+    {
+      "source": "图半监督",
+      "target": "生成式方法",
+      "weight": 1
+    },
+    {
+      "source": "协同训练",
+      "target": "生成式方法",
+      "weight": 1
+    },
+    {
+      "source": "生成式方法",
+      "target": "自训练",
+      "weight": 1
+    },
+    {
+      "source": "伪标签",
+      "target": "生成式方法",
+      "weight": 1
+    },
+    {
+      "source": "TSVM",
+      "target": "图半监督",
+      "weight": 1
+    },
+    {
+      "source": "TSVM",
+      "target": "协同训练",
+      "weight": 1
+    },
+    {
+      "source": "TSVM",
+      "target": "自训练",
+      "weight": 1
+    },
+    {
+      "source": "TSVM",
+      "target": "伪标签",
+      "weight": 1
+    },
+    {
+      "source": "协同训练",
+      "target": "图半监督",
+      "weight": 1
+    },
+    {
+      "source": "图半监督",
+      "target": "自训练",
+      "weight": 1
+    },
+    {
+      "source": "伪标签",
+      "target": "图半监督",
+      "weight": 1
+    },
+    {
+      "source": "协同训练",
+      "target": "自训练",
+      "weight": 1
+    },
+    {
+      "source": "伪标签",
+      "target": "协同训练",
+      "weight": 1
+    },
+    {
+      "source": "伪标签",
+      "target": "自训练",
+      "weight": 1
+    },
+    {
+      "source": "概率图模型",
+      "target": "贝叶斯网",
+      "weight": 1
+    },
+    {
+      "source": "概率图模型",
+      "target": "马尔可夫网",
+      "weight": 1
+    },
+    {
+      "source": "概率图模型",
+      "target": "隐马尔可夫模型",
+      "weight": 1
+    },
+    {
+      "source": "MCMC",
+      "target": "概率图模型",
+      "weight": 1
+    },
+    {
+      "source": "变分推断",
+      "target": "概率图模型",
+      "weight": 1
+    },
+    {
+      "source": "条件随机场",
+      "target": "概率图模型",
+      "weight": 1
+    },
+    {
+      "source": "信念传播",
+      "target": "概率图模型",
+      "weight": 1
+    },
+    {
+      "source": "贝叶斯网",
+      "target": "马尔可夫网",
+      "weight": 1
+    },
+    {
+      "source": "贝叶斯网",
+      "target": "隐马尔可夫模型",
+      "weight": 1
+    },
+    {
+      "source": "MCMC",
+      "target": "贝叶斯网",
+      "weight": 1
+    },
+    {
+      "source": "变分推断",
+      "target": "贝叶斯网",
+      "weight": 1
+    },
+    {
+      "source": "条件随机场",
+      "target": "贝叶斯网",
+      "weight": 1
+    },
+    {
+      "source": "信念传播",
+      "target": "贝叶斯网",
+      "weight": 1
+    },
+    {
+      "source": "隐马尔可夫模型",
+      "target": "马尔可夫网",
+      "weight": 1
+    },
+    {
+      "source": "MCMC",
+      "target": "马尔可夫网",
+      "weight": 1
+    },
+    {
+      "source": "变分推断",
+      "target": "马尔可夫网",
+      "weight": 1
+    },
+    {
+      "source": "条件随机场",
+      "target": "马尔可夫网",
+      "weight": 1
+    },
+    {
+      "source": "信念传播",
+      "target": "马尔可夫网",
+      "weight": 1
+    },
+    {
+      "source": "MCMC",
+      "target": "隐马尔可夫模型",
+      "weight": 1
+    },
+    {
+      "source": "变分推断",
+      "target": "隐马尔可夫模型",
+      "weight": 1
+    },
+    {
+      "source": "条件随机场",
+      "target": "隐马尔可夫模型",
+      "weight": 1
+    },
+    {
+      "source": "信念传播",
+      "target": "隐马尔可夫模型",
+      "weight": 1
+    },
+    {
+      "source": "MCMC",
+      "target": "变分推断",
+      "weight": 1
+    },
+    {
+      "source": "MCMC",
+      "target": "条件随机场",
+      "weight": 1
+    },
+    {
+      "source": "MCMC",
+      "target": "信念传播",
+      "weight": 1
+    },
+    {
+      "source": "变分推断",
+      "target": "条件随机场",
+      "weight": 1
+    },
+    {
+      "source": "信念传播",
+      "target": "变分推断",
+      "weight": 1
+    },
+    {
+      "source": "信念传播",
+      "target": "条件随机场",
+      "weight": 1
+    },
+    {
+      "source": "序贯覆盖",
+      "target": "规则学习",
+      "weight": 1
+    },
+    {
+      "source": "剪枝",
+      "target": "规则学习",
+      "weight": 1
+    },
+    {
+      "source": "一阶规则",
+      "target": "规则学习",
+      "weight": 1
+    },
+    {
+      "source": "归纳逻辑程序设计",
+      "target": "规则学习",
+      "weight": 1
+    },
+    {
+      "source": "FOIL",
+      "target": "规则学习",
+      "weight": 1
+    },
+    {
+      "source": "剪枝",
+      "target": "序贯覆盖",
+      "weight": 1
+    },
+    {
+      "source": "一阶规则",
+      "target": "序贯覆盖",
+      "weight": 1
+    },
+    {
+      "source": "序贯覆盖",
+      "target": "归纳逻辑程序设计",
+      "weight": 1
+    },
+    {
+      "source": "FOIL",
+      "target": "序贯覆盖",
+      "weight": 1
+    },
+    {
+      "source": "一阶规则",
+      "target": "剪枝",
+      "weight": 1
+    },
+    {
+      "source": "剪枝",
+      "target": "归纳逻辑程序设计",
+      "weight": 1
+    },
+    {
+      "source": "FOIL",
+      "target": "剪枝",
+      "weight": 1
+    },
+    {
+      "source": "一阶规则",
+      "target": "归纳逻辑程序设计",
+      "weight": 1
+    },
+    {
+      "source": "FOIL",
+      "target": "一阶规则",
+      "weight": 1
+    },
+    {
+      "source": "FOIL",
+      "target": "归纳逻辑程序设计",
+      "weight": 1
+    },
+    {
+      "source": "强化学习",
+      "target": "马尔可夫决策过程",
+      "weight": 1
+    },
+    {
+      "source": "Q学习",
+      "target": "强化学习",
+      "weight": 1
+    },
+    {
+      "source": "Sarsa",
+      "target": "强化学习",
+      "weight": 1
+    },
+    {
+      "source": "强化学习",
+      "target": "策略梯度",
+      "weight": 1
+    },
+    {
+      "source": "强化学习",
+      "target": "探索与利用",
+      "weight": 1
+    },
+    {
+      "source": "奖励",
+      "target": "强化学习",
+      "weight": 1
+    },
+    {
+      "source": "值函数",
+      "target": "强化学习",
+      "weight": 1
+    },
+    {
+      "source": "强化学习",
+      "target": "时序差分",
+      "weight": 1
+    },
+    {
+      "source": "Q学习",
+      "target": "马尔可夫决策过程",
+      "weight": 1
+    },
+    {
+      "source": "Sarsa",
+      "target": "马尔可夫决策过程",
+      "weight": 1
+    },
+    {
+      "source": "策略梯度",
+      "target": "马尔可夫决策过程",
+      "weight": 1
+    },
+    {
+      "source": "探索与利用",
+      "target": "马尔可夫决策过程",
+      "weight": 1
+    },
+    {
+      "source": "奖励",
+      "target": "马尔可夫决策过程",
+      "weight": 1
+    },
+    {
+      "source": "值函数",
+      "target": "马尔可夫决策过程",
+      "weight": 1
+    },
+    {
+      "source": "时序差分",
+      "target": "马尔可夫决策过程",
+      "weight": 1
+    },
+    {
+      "source": "Q学习",
+      "target": "Sarsa",
+      "weight": 1
+    },
+    {
+      "source": "Q学习",
+      "target": "策略梯度",
+      "weight": 1
+    },
+    {
+      "source": "Q学习",
+      "target": "探索与利用",
+      "weight": 1
+    },
+    {
+      "source": "Q学习",
+      "target": "奖励",
+      "weight": 1
+    },
+    {
+      "source": "Q学习",
+      "target": "值函数",
+      "weight": 1
+    },
+    {
+      "source": "Q学习",
+      "target": "时序差分",
+      "weight": 1
+    },
+    {
+      "source": "Sarsa",
+      "target": "策略梯度",
+      "weight": 1
+    },
+    {
+      "source": "Sarsa",
+      "target": "探索与利用",
+      "weight": 1
+    },
+    {
+      "source": "Sarsa",
+      "target": "奖励",
+      "weight": 1
+    },
+    {
+      "source": "Sarsa",
+      "target": "值函数",
+      "weight": 1
+    },
+    {
+      "source": "Sarsa",
+      "target": "时序差分",
+      "weight": 1
+    },
+    {
+      "source": "探索与利用",
+      "target": "策略梯度",
+      "weight": 1
+    },
+    {
+      "source": "奖励",
+      "target": "策略梯度",
+      "weight": 1
+    },
+    {
+      "source": "值函数",
+      "target": "策略梯度",
+      "weight": 1
+    },
+    {
+      "source": "时序差分",
+      "target": "策略梯度",
+      "weight": 1
+    },
+    {
+      "source": "奖励",
+      "target": "探索与利用",
+      "weight": 1
+    },
+    {
+      "source": "值函数",
+      "target": "探索与利用",
+      "weight": 1
+    },
+    {
+      "source": "探索与利用",
+      "target": "时序差分",
+      "weight": 1
+    },
+    {
+      "source": "值函数",
+      "target": "奖励",
+      "weight": 1
+    },
+    {
+      "source": "奖励",
+      "target": "时序差分",
+      "weight": 1
+    },
+    {
+      "source": "值函数",
+      "target": "时序差分",
+      "weight": 1
+    }
+  ],
+  "stats": {
+    "total_concepts": 128,
+    "topic_concepts": 14,
+    "support_concepts": 114,
+    "total_edges": 479,
+    "chapters": 16
+  }
+}

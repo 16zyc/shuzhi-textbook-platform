@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数智教材平台 - 概念图谱</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<style>
+  body { background: #0F172A; }
+  .topbar { background: linear-gradient(90deg, #0A1E5C, #122CA0); }
+  .graph-layout { display: flex; height: calc(100vh - 60px); }
+  .graph-side {
+    width: 340px;
+    background: #1E293B;
+    color: #E2E8F0;
+    overflow-y: auto;
+    flex-shrink: 0;
+    border-right: 1px solid rgba(255,255,255,.06);
+  }
+  .graph-side .sec { padding: 18px 20px; border-bottom: 1px solid rgba(255,255,255,.06); }
+  .graph-side .sec h3 { font-size: 13px; color: #94A3B8; letter-spacing: 1px; margin-bottom: 12px; text-transform: uppercase; }
+  .graph-side .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .graph-side .stat-box { background: rgba(255,255,255,.04); border-radius: 10px; padding: 12px; }
+  .graph-side .stat-box .n { font-size: 22px; font-weight: 700; color: #60A5FA; }
+  .graph-side .stat-box .l { font-size: 11px; color: #94A3B8; margin-top: 2px; }
+
+  .legend-item { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 13px; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 50%; }
+
+  .filters { display: flex; flex-wrap: wrap; gap: 6px; }
+  .filters .chip {
+    padding: 5px 11px; border-radius: 14px;
+    background: rgba(255,255,255,.05); color: #CBD5E1;
+    font-size: 12px; cursor: pointer; transition: .15s;
+    border: 1px solid transparent;
+  }
+  .filters .chip:hover { background: rgba(96,165,250,.2); }
+  .filters .chip.active { background: var(--primary); color: #fff; border-color: #60A5FA; }
+
+  .concept-detail { padding: 18px 20px; }
+  .concept-detail .name { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .concept-detail .lvl { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; margin-bottom: 12px; }
+  .concept-detail .lvl.topic { background: rgba(96,165,250,.2); color: #60A5FA; }
+  .concept-detail .lvl.support { background: rgba(148,163,184,.15); color: #94A3B8; }
+  .concept-detail .def { font-size: 13px; color: #CBD5E1; line-height: 1.7; margin-bottom: 14px; }
+  .concept-detail .meta-row { display: flex; justify-content: space-between; font-size: 12px; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,.05); }
+  .concept-detail .meta-row .k { color: #94A3B8; }
+  .concept-detail .meta-row .v { color: #E2E8F0; }
+  .concept-detail .rel-title { font-size: 12px; color: #94A3B8; margin: 14px 0 8px; }
+  .concept-detail .rel-list { display: flex; flex-wrap: wrap; gap: 6px; }
+  .concept-detail .rel-tag { padding: 4px 10px; background: rgba(96,165,250,.1); border: 1px solid rgba(96,165,250,.2); border-radius: 12px; font-size: 12px; color: #93C5FD; cursor: pointer; }
+  .concept-detail .rel-tag:hover { background: rgba(96,165,250,.25); }
+  .concept-detail .video-link {
+    display: flex; align-items: center; gap: 8px;
+    margin-top: 12px; padding: 10px 12px;
+    background: linear-gradient(135deg, #FB7299, #F479A5);
+    border-radius: 10px; color: #fff; font-size: 13px;
+    cursor: pointer; transition: .2s;
+  }
+  .concept-detail .video-link:hover { transform: translateX(2px); box-shadow: 0 4px 14px rgba(251,113,153,.4); }
+  .concept-detail .placeholder { color: #64748B; font-size: 13px; text-align: center; padding: 30px 0; }
+
+  .graph-main { flex: 1; position: relative; overflow: hidden; }
+  #graph-svg { width: 100%; height: 100%; cursor: grab; }
+  #graph-svg:active { cursor: grabbing; }
+  .graph-tooltip {
+    position: absolute; pointer-events: none;
+    background: rgba(15,23,42,.95); color: #fff;
+    padding: 8px 12px; border-radius: 8px;
+    font-size: 12px; border: 1px solid rgba(96,165,250,.3);
+    box-shadow: 0 4px 14px rgba(0,0,0,.4);
+    opacity: 0; transition: opacity .15s;
+    z-index: 10;
+  }
+  .graph-controls {
+    position: absolute; bottom: 20px; left: 20px;
+    display: flex; gap: 8px;
+  }
+  .graph-controls button {
+    background: rgba(30,41,59,.9); color: #E2E8F0;
+    border: 1px solid rgba(255,255,255,.1);
+    width: 38px; height: 38px; border-radius: 10px;
+    display: grid; place-items: center;
+    cursor: pointer; transition: .15s;
+    backdrop-filter: blur(8px);
+  }
+  .graph-controls button:hover { background: var(--primary); border-color: #60A5FA; }
+  .link { stroke: rgba(148,163,184,.25); }
+  .link.highlight { stroke: #60A5FA; stroke-opacity: .8; }
+  .link.dim { stroke-opacity: .05; }
+  .node circle { cursor: pointer; transition: r .15s; }
+  .node text { fill: #E2E8F0; font-size: 11px; pointer-events: none; text-anchor: middle; }
+  .node.dim { opacity: .2; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo"><div class="mark">数</div><span>数智教材平台</span></div>
+  <nav>
+    <a href="index.html">工作台</a>
+    <a href="#" class="active">教材中心</a>
+    <a href="concept-graph.html" class="active">概念图谱</a>
+    <a href="teacher.html">教师端</a>
+    <a href="parent.html">家长端</a>
+  </nav>
+  <div class="tools">
+    <div class="user"><div class="avatar">李</div><span class="name">李同学</span></div>
+  </div>
+</div>
+
+<div class="graph-layout">
+  <!-- 侧栏 -->
+  <aside class="graph-side">
+    <div class="sec">
+      <h3>📊 图谱统计</h3>
+      <div class="stats" id="stats"></div>
+    </div>
+    <div class="sec">
+      <h3>🎨 图例</h3>
+      <div class="legend-item"><span class="legend-dot" style="background:#60A5FA"></span> 主题概念（上层 · 章节标题）</div>
+      <div class="legend-item"><span class="legend-dot" style="background:#34D399"></span> 支撑概念（下层 · 正文技术）</div>
+      <div class="legend-item"><span class="legend-dot" style="background:rgba(148,163,184,.6)"></span> 共现关联（同章出现）</div>
+    </div>
+    <div class="sec">
+      <h3>🔖 章节筛选</h3>
+      <div class="filters" id="chapter-filters"></div>
+    </div>
+    <div class="sec concept-detail" id="detail">
+      <h3>💡 概念详情</h3>
+      <div class="placeholder">点击图谱中的节点查看详情</div>
+    </div>
+  </aside>
+
+  <!-- 图谱主区 -->
+  <div class="graph-main">
+    <svg id="graph-svg"></svg>
+    <div class="graph-tooltip" id="tooltip"></div>
+    <div class="graph-controls">
+      <button onclick="zoom(1.3)" title="放大">＋</button>
+      <button onclick="zoom(0.7)" title="缩小">－</button>
+      <button onclick="resetView()" title="重置">⟳</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let rawData = null, videoMap = {}, svg, g, link, node, simulation;
+let activeChapter = null, selectedNode = null;
+
+// 加载数据
+Promise.all([
+  fetch('data/concepts.json').then(r=>r.json()),
+  fetch('data/videos.json').then(r=>r.json())
+]).then(([concepts, videos]) => {
+  rawData = concepts;
+  videos.mappings.forEach(v => videoMap[v.concept] = v);
+  renderStats(concepts.stats);
+  renderFilters(concepts.chapters);
+  initGraph(concepts);
+});
+
+function renderStats(s){
+  document.getElementById('stats').innerHTML = `
+    <div class="stat-box"><div class="n">${s.total_concepts}</div><div class="l">概念总数</div></div>
+    <div class="stat-box"><div class="n">${s.topic_concepts}</div><div class="l">主题层</div></div>
+    <div class="stat-box"><div class="n">${s.support_concepts}</div><div class="l">支撑层</div></div>
+    <div class="stat-box"><div class="n">${s.total_edges}</div><div class="l">共现关联</div></div>
+  `;
+}
+
+function renderFilters(chapters){
+  const el = document.getElementById('chapter-filters');
+  el.innerHTML = `<span class="chip active" data-ch="all">全部</span>` +
+    chapters.map(c=>`<span class="chip" data-ch="${c.num}">第${c.num}章</span>`).join('');
+  el.querySelectorAll('.chip').forEach(chip=>{
+    chip.addEventListener('click', ()=>{
+      el.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+      chip.classList.add('active');
+      activeChapter = chip.dataset.ch === 'all' ? null : parseInt(chip.dataset.ch);
+      filterGraph();
+    });
+  });
+}
+
+function initGraph(data){
+  const W = document.querySelector('.graph-main').clientWidth;
+  const H = document.querySelector('.graph-main').clientHeight;
+
+  svg = d3.select('#graph-svg').attr('viewBox', `0 0 ${W} ${H}`);
+  svg.selectAll('*').remove();
+  g = svg.append('g');
+
+  // 缩放
+  svg.call(d3.zoom().scaleExtent([0.3, 3]).on('zoom', e => g.attr('transform', e.transform)));
+
+  const nodes = data.nodes.map(d => ({...d}));
+  const links = data.edges.map(d => ({...d}));
+
+  link = g.append('g').selectAll('line')
+    .data(links).enter().append('line')
+    .attr('class','link')
+    .attr('stroke-width', d => Math.min(3, d.weight * 0.5));
+
+  node = g.append('g').selectAll('g')
+    .data(nodes).enter().append('g')
+    .attr('class','node')
+    .call(d3.drag()
+      .on('start', dragStart)
+      .on('drag', dragging)
+      .on('end', dragEnd));
+
+  node.append('circle')
+    .attr('r', d => d.level === 'topic' ? 14 : 7)
+    .attr('fill', d => d.level === 'topic' ? '#60A5FA' : '#34D399')
+    .attr('stroke', '#0F172A')
+    .attr('stroke-width', 2);
+
+  node.append('text')
+    .text(d => d.label)
+    .attr('dy', d => d.level === 'topic' ? 28 : 18)
+    .attr('opacity', d => d.level === 'topic' ? 1 : 0.7);
+
+  // 力导向
+  simulation = d3.forceSimulation(nodes)
+    .force('link', d3.forceLink(links).id(d=>d.id).distance(d=> d.source.level==='topic' && d.target.level==='topic' ? 120 : 60).strength(0.3))
+    .force('charge', d3.forceManyBody().strength(d => d.level==='topic' ? -300 : -80))
+    .force('center', d3.forceCenter(W/2, H/2))
+    .force('collision', d3.forceCollide().radius(d => d.level==='topic' ? 24 : 14))
+    .on('tick', () => {
+      link.attr('x1',d=>d.source.x).attr('y1',d=>d.source.y)
+          .attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);
+      node.attr('transform', d=>`translate(${d.x},${d.y})`);
+    });
+
+  // 交互
+  node.on('mouseover', (e,d) => {
+    showTooltip(e, d);
+    highlightNeighbors(d);
+  }).on('mouseout', () => {
+    document.getElementById('tooltip').style.opacity = 0;
+    if(!selectedNode) resetHighlight();
+  }).on('click', (e,d) => {
+    selectedNode = d;
+    showDetail(d);
+    highlightNeighbors(d);
+  });
+}
+
+function showTooltip(e, d){
+  const t = document.getElementById('tooltip');
+  t.innerHTML = `<strong>${d.label}</strong><br><span style="color:#94A3B8">${d.level==='topic'?'主题概念':'支撑概念'} · 出现于 ${d.chapters.length} 章</span>`;
+  t.style.left = (e.offsetX + 12) + 'px';
+  t.style.top = (e.offsetY + 12) + 'px';
+  t.style.opacity = 1;
+}
+
+function highlightNeighbors(d){
+  const neighbors = new Set([d.id]);
+  rawData.edges.forEach(e => {
+    if(e.source === d.id) neighbors.add(e.target);
+    if(e.target === d.id) neighbors.add(e.source);
+  });
+  node.attr('class', n => neighbors.has(n.id) ? 'node' : 'node dim');
+  link.attr('class', l => (l.source.id===d.id || l.target.id===d.id) ? 'link highlight' : 'link dim');
+}
+
+function resetHighlight(){
+  node.attr('class','node');
+  link.attr('class','link');
+}
+
+function showDetail(d){
+  const v = videoMap[d.id];
+  const neighbors = [];
+  rawData.edges.forEach(e => {
+    if(e.source === d.id) neighbors.push({name:e.target, w:e.weight});
+    if(e.target === d.id) neighbors.push({name:e.source, w:e.weight});
+  });
+  neighbors.sort((a,b)=>b.w-a.w);
+  const chs = d.chapters.map(c => `第${c}章`).join('、');
+  const chInfo = rawData.chapters.filter(c => d.chapters.includes(c.num));
+
+  document.getElementById('detail').innerHTML = `
+    <div class="name">${d.label}</div>
+    <span class="lvl ${d.level}">${d.level==='topic'?'主题概念 · 上层':'支撑概念 · 下层'}</span>
+    <div class="def">${d.definition}</div>
+    <div class="meta-row"><span class="k">出现章节</span><span class="v">${chs}</span></div>
+    <div class="meta-row"><span class="k">共现概念数</span><span class="v">${neighbors.length}</span></div>
+    <div class="meta-row"><span class="k">度中心性</span><span class="v">${neighbors.length}</span></div>
+    <div class="rel-title">🔗 关联概念（按共现强度）</div>
+    <div class="rel-list">
+      ${neighbors.slice(0,10).map(n=>`<span class="rel-tag" onclick="focusNode('${n.name}')">${n.name} (${n.w})</span>`).join('') || '<span style="color:#64748B;font-size:12px">无关联</span>'}
+    </div>
+    ${v ? `<a class="video-link" href="https://www.bilibili.com/video/${v.bvid}" target="_blank">▶ ${v.title} · B站评分 ${v.score}</a>` : ''}
+    <div class="rel-title" style="margin-top:14px">📖 跳转学习</div>
+    ${chInfo.map(c=>`<div style="margin-top:6px"><a href="reader.html?book=ml-zhou&page=${c.page}" style="color:#60A5FA;font-size:13px">第${c.num}章 ${c.title} →</a></div>`).join('')}
+  `;
+}
+
+function focusNode(name){
+  const target = node.data().find(n => n.id === name);
+  if(target){
+    selectedNode = target;
+    showDetail(target);
+    highlightNeighbors(target);
+    // 视图聚焦
+    const W = document.querySelector('.graph-main').clientWidth;
+    const H = document.querySelector('.graph-main').clientHeight;
+    svg.transition().duration(600).call(
+      d3.zoom().scaleExtent([0.3,3]).on('zoom', e=>g.attr('transform',e.transform)).transform,
+      d3.zoomIdentity.translate(W/2 - target.x*1.5, H/2 - target.y*1.5).scale(1.5)
+    );
+  }
+}
+
+function filterGraph(){
+  if(activeChapter === null){
+    node.style('display', 'block');
+    link.style('display', 'block');
+  } else {
+    node.style('display', d => d.chapters.includes(activeChapter) ? 'block' : 'none');
+    link.style('display', d => {
+      const s = typeof d.source === 'object' ? d.source : rawData.nodes.find(n=>n.id===d.source);
+      const t = typeof d.target === 'object' ? d.target : rawData.nodes.find(n=>n.id===d.target);
+      return (s && s.chapters.includes(activeChapter) && t && t.chapters.includes(activeChapter)) ? 'block' : 'none';
+    });
+  }
+  if(selectedNode) resetHighlight();
+}
+
+function zoom(factor){
+  svg.transition().duration(300).call(d3.zoom().scaleBy, factor);
+}
+function resetView(){
+  svg.transition().duration(600).call(d3.zoom().transform, d3.zoomIdentity);
+  selectedNode = null;
+  resetHighlight();
+  document.getElementById('detail').innerHTML = '<h3>💡 概念详情</h3><div class="placeholder">点击图谱中的节点查看详情</div>';
+}
+
+function dragStart(e,d){ if(!e.active) simulation.alphaTarget(0.3).restart(); d.fx=d.x; d.fy=d.y; }
+function dragging(e,d){ d.fx=e.x; d.fy=e.y; }
+function dragEnd(e,d){ if(!e.active) simulation.alphaTarget(0); d.fx=null; d.fy=null; }
+</script>
+</body>
+</html>

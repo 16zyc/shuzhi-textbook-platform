@@ -7,3 +7,4 @@ slide_thumbnail.jpeg
 .DS_Store
 __pycache__/
 *.pyc
+.venv/
