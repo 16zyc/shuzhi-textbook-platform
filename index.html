@@ -135,12 +135,11 @@
   <div class="logo">
     <div class="mark">数</div>
     <span>数智教材平台</span>
+    <span class="role-badge" style="display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:12px;background:rgba(96,165,250,.2);color:#60A5FA;font-size:11px;font-weight:600;margin-left:8px">🧑‍🎓 学生视图</span>
   </div>
   <nav>
-    <a href="index.html" class="active">工作台</a>
-    <a href="#books">教材中心</a>
+    <a href="index.html" class="active">学生端</a>
     <a href="concept-graph.html">概念图谱</a>
-    <a href="#records">学习数据</a>
     <a href="teacher.html">教师端</a>
     <a href="parent.html">家长端</a>
   </nav>
@@ -164,7 +163,7 @@
     <div class="menu-item" data-scroll="todo"><span class="ico">📝</span> 习题作业</div>
     <div class="group-title">探索</div>
     <div class="menu-item" data-scroll="kg"><span class="ico">🕸</span> 知识图谱</div>
-    <div class="menu-item" onclick="alert('智能问答即将上线，敬请期待 🤖')"><span class="ico">🤖</span> 智能问答</div>
+    <div class="menu-item" onclick="openAIChat()"><span class="ico">🤖</span> 智能问答</div>
     <div class="menu-item" data-scroll="records"><span class="ico">📊</span> 学习数据</div>
     <div class="group-title">账户</div>
     <div class="menu-item" onclick="alert('设置功能开发中')"><span class="ico">⚙️</span> 设置</div>
@@ -189,11 +188,11 @@
     <div class="grid grid-4" style="margin-bottom:24px">
       <div class="stat fade-up" style="animation-delay:.05s">
         <div class="ico" style="background:#EBF2FF;color:var(--primary)">📖</div>
-        <div><div class="num">12</div><div class="lbl">学习中教材</div></div>
+        <div><div class="num">3</div><div class="lbl">学习中教材</div></div>
       </div>
       <div class="stat fade-up" style="animation-delay:.1s">
         <div class="ico" style="background:#E8F7EE;color:var(--success)">✅</div>
-        <div><div class="num">48</div><div class="lbl">已完成章节</div></div>
+        <div><div class="num">7<span style="font-size:14px">/16</span></div><div class="lbl">已完成章节</div></div>
       </div>
       <div class="stat fade-up" style="animation-delay:.15s">
         <div class="ico" style="background:#FFF4E5;color:var(--warning)">⏱</div>
@@ -401,7 +400,7 @@
           <div style="padding:14px;border:1px solid var(--border);border-radius:10px;margin-bottom:10px">
             <div style="display:flex;justify-content:space-between;margin-bottom:6px"><strong style="font-size:14px">机器学习 第5章习题</strong><span class="tag tag-orange">待提交</span></div>
             <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px">截止：2026-07-05 23:59 · 共 10 题</div>
-            <button class="btn btn-primary btn-sm" style="width:100%" onclick="alert('习题作答功能开发中，敬请期待 ✍️')">开始作答</button>
+            <button class="btn btn-primary btn-sm" style="width:100%" onclick="openQuiz()">开始作答</button>
           </div>
           <div style="padding:14px;border:1px solid var(--border);border-radius:10px;margin-bottom:10px">
             <div style="display:flex;justify-content:space-between;margin-bottom:6px"><strong style="font-size:14px">人工智能 第2章实验</strong><span class="tag tag-orange">待提交</span></div>
@@ -469,6 +468,124 @@
     const el = document.getElementById('detail-'+i);
     el.style.display = el.style.display === 'none' ? 'block' : 'none';
   };
+
+  // 智能问答浮窗
+  window.openAIChat = () => {
+    document.getElementById('ai-panel').style.display = 'flex';
+  };
+  window.closeAIChat = () => {
+    document.getElementById('ai-panel').style.display = 'none';
+  };
+  window.sendAIMsg = () => {
+    const input = document.getElementById('ai-input');
+    const msg = input.value.trim();
+    if(!msg) return;
+    const body = document.getElementById('ai-body');
+    body.innerHTML += `<div class="ai-msg user"><div class="ai-bubble user">${msg}</div></div>`;
+    input.value = '';
+    body.scrollTop = body.scrollHeight;
+    // 模拟回复
+    setTimeout(()=>{
+      const reply = getAIReply(msg);
+      body.innerHTML += `<div class="ai-msg bot"><div class="ai-avatar">🤖</div><div class="ai-bubble bot">${reply}</div></div>`;
+      body.scrollTop = body.scrollHeight;
+    }, 600);
+  };
+  function getAIReply(msg){
+    const lower = msg.toLowerCase();
+    if(msg.includes('过拟合')||msg.includes('欠拟合')) return '过拟合是模型在训练集表现好但泛化差，欠拟合是训练集上就表现差。<br>建议：过拟合→增加数据/正则化/降低模型复杂度；欠拟合→增加特征/提升模型复杂度。<br>📖 推荐：<a href="reader.html?book=ml-zhou&page=40" style="color:var(--primary)">第2章 模型评估与选择</a>';
+    if(msg.includes('神经网络')||msg.includes('BP')) return '神经网络通过反向传播(BP)算法学习权重。前向传播计算输出，反向传播用链式法则更新权重。<br>📖 推荐：<a href="reader.html?book=ml-zhou&page=122" style="color:var(--primary)">第5章 神经网络</a> · <a href="concept-graph.html" style="color:var(--primary)">查看概念图谱</a>';
+    if(msg.includes('svm')||msg.includes('支持向量')||msg.includes('核')) return 'SVM寻找最大间隔超平面，核技巧将数据映射到高维空间解决非线性问题。<br>🎬 B站讲解：<a href="https://www.bilibili.com/video/BV1cs411n7yQ" target="_blank" style="color:var(--primary)">SVM详解</a>';
+    if(msg.includes('决策树')) return '决策树基于信息增益/增益率/基尼指数选择划分属性，需剪枝防止过拟合。<br>📖 推荐：<a href="reader.html?book=ml-zhou&page=96" style="color:var(--primary)">第4章 决策树</a>';
+    if(msg.includes('进度')) return '你当前总进度 42%，其中阅读页数贡献 16.8%、章节完成 13.1%、习题正确率 15.6%、学习时长 7.3%。可在上方"进度溯源"面板查看明细。';
+    if(msg.includes('建议')||msg.includes('推荐')||msg.includes('下一步')) return '基于你的学习记录，建议：1️⃣ 完成第5章神经网络剩余 40%；2️⃣ 重点攻克第6章 SVM（班级薄弱点）；3️⃣ 观看 <a href="https://www.bilibili.com/video/BV1bx411M7Zp" target="_blank" style="color:var(--primary)">神经网络可视化</a> 巩固理解。';
+    return '我是你的 AI 助教 🤖，可以帮你解答机器学习相关问题、推荐学习路径、分析学习进度。试试问："什么是过拟合？"、"神经网络怎么学？"、"下一步学什么？"';
+  }
+  // 回车发送
+  document.addEventListener('keydown', e => {
+    if(e.key === 'Enter' && document.getElementById('ai-input') === document.activeElement) sendAIMsg();
+  });
+
+  // 习题作答
+  const quizData = [
+    { q: '下列哪种方法主要用于解决过拟合问题？', opts: ['增加模型复杂度','减少正则化项','增加训练数据','去除 dropout'], ans: 2 },
+    { q: 'BP 算法的核心思想是？', opts: ['前向传播计算输出','用链式法则反向计算梯度更新权重','随机搜索最优解','用遗传算法优化'], ans: 1 }
+  ];
+  let quizAns = [];
+  window.openQuiz = () => {
+    quizAns = [];
+    const body = document.getElementById('quiz-body');
+    body.innerHTML = quizData.map((item,i)=>`
+      <div style="margin-bottom:20px">
+        <div style="font-size:14px;font-weight:600;margin-bottom:10px">${i+1}. ${item.q}</div>
+        ${item.opts.map((o,j)=>`<label style="display:block;padding:10px 14px;border:1px solid var(--border);border-radius:8px;margin-bottom:6px;cursor:pointer;transition:.15s" onclick="selectQuiz(${i},${j},this)"><input type="radio" name="q${i}" style="margin-right:8px">${o}</label>`).join('')}
+      </div>
+    `).join('');
+    document.getElementById('quiz-modal').style.display = 'flex';
+  };
+  window.closeQuiz = () => { document.getElementById('quiz-modal').style.display = 'none'; };
+  window.selectQuiz = (qi, opt, el) => {
+    quizAns[qi] = opt;
+    el.parentElement.querySelectorAll('label').forEach(l=>{ l.style.borderColor='var(--border)'; l.style.background='#fff'; });
+    el.style.borderColor = 'var(--primary)';
+    el.style.background = '#EBF2FF';
+  };
+  window.submitQuiz = () => {
+    let correct = 0;
+    quizData.forEach((d,i)=>{ if(quizAns[i] === d.ans) correct++; });
+    const total = quizData.length;
+    const score = Math.round(correct/total*100);
+    const body = document.getElementById('quiz-body');
+    body.innerHTML = `
+      <div style="text-align:center;padding:30px 10px">
+        <div style="font-size:48px;margin-bottom:10px">${score>=60?'🎉':'💪'}</div>
+        <div style="font-size:28px;font-weight:700;color:${score>=60?'var(--success)':'var(--warning)'};margin-bottom:8px">${score} 分</div>
+        <div style="font-size:13px;color:var(--text-muted);margin-bottom:20px">答对 ${correct}/${total} 题</div>
+        <div style="text-align:left;background:var(--bg-soft);border-radius:10px;padding:14px;margin-bottom:20px">
+          ${quizData.map((d,i)=>`<div style="padding:8px 0;border-bottom:1px solid var(--border);font-size:13px"><span style="color:${quizAns[i]===d.ans?'var(--success)':'var(--danger)'}">${quizAns[i]===d.ans?'✓':'✗'}</span> 第${i+1}题：${d.opts[d.ans]}</div>`).join('')}
+        </div>
+        <div style="font-size:12px;color:var(--text-muted);margin-bottom:16px">本题成绩已计入"习题正确率"进度项</div>
+        <button class="btn btn-primary" style="width:100%" onclick="closeQuiz()">完成</button>
+      </div>
+    `;
+  };
 </script>
+
+<!-- 智能问答浮窗 -->
+<div id="ai-panel" style="display:none;position:fixed;right:24px;bottom:24px;width:380px;height:520px;background:#fff;border-radius:16px;box-shadow:0 12px 40px rgba(0,0,0,.2);flex-direction:column;z-index:999;overflow:hidden">
+  <div style="background:linear-gradient(90deg,var(--primary-deep),var(--primary));color:#fff;padding:14px 18px;display:flex;align-items:center;justify-content:space-between">
+    <div style="display:flex;align-items:center;gap:8px"><span style="font-size:20px">🤖</span><div><div style="font-size:14px;font-weight:600">AI 助教</div><div style="font-size:11px;opacity:.8">在线 · 基于教材知识库</div></div></div>
+    <span onclick="closeAIChat()" style="cursor:pointer;font-size:18px;opacity:.8">✕</span>
+  </div>
+  <div id="ai-body" style="flex:1;overflow-y:auto;padding:16px;background:var(--bg-soft)">
+    <div class="ai-msg bot"><div class="ai-avatar">🤖</div><div class="ai-bubble bot">你好李同学！我是你的 AI 助教，正在学习《机器学习》第5章神经网络。有什么问题尽管问我～<br><br>💡 你可以问：<br>· 什么是过拟合？<br>· 神经网络怎么学？<br>· 下一步学什么？<br>· 我的进度怎么样？</div></div>
+  </div>
+  <div style="padding:12px;border-top:1px solid var(--border);display:flex;gap:8px;background:#fff">
+    <input id="ai-input" type="text" placeholder="输入问题..." style="flex:1;border:1px solid var(--border);border-radius:20px;padding:10px 16px;font-size:13px;outline:none">
+    <button onclick="sendAIMsg()" style="background:var(--primary);color:#fff;border:none;border-radius:50%;width:38px;height:38px;cursor:pointer;font-size:16px">➤</button>
+  </div>
+</div>
+<style>
+  .ai-msg { display:flex; gap:8px; margin-bottom:14px; }
+  .ai-msg.user { justify-content: flex-end; }
+  .ai-bubble { max-width: 75%; padding: 10px 14px; border-radius: 14px; font-size: 13px; line-height: 1.6; }
+  .ai-bubble.bot { background: #fff; border: 1px solid var(--border); border-top-left-radius: 4px; color: var(--text); }
+  .ai-bubble.user { background: var(--primary); color: #fff; border-top-right-radius: 4px; }
+  .ai-avatar { width: 30px; height: 30px; border-radius: 50%; background: var(--primary); display: grid; place-items: center; font-size: 16px; flex-shrink: 0; }
+</style>
+
+<!-- 习题作答模态框 -->
+<div id="quiz-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center">
+  <div style="background:#fff;border-radius:16px;width:480px;max-height:80vh;display:flex;flex-direction:column;overflow:hidden">
+    <div style="background:linear-gradient(90deg,var(--primary-deep),var(--primary));color:#fff;padding:16px 20px;display:flex;justify-content:space-between;align-items:center">
+      <div><div style="font-size:15px;font-weight:600">📝 机器学习 第5章习题</div><div style="font-size:11px;opacity:.8">共 2 题 · 每题 50 分</div></div>
+      <span onclick="closeQuiz()" style="cursor:pointer;font-size:18px;opacity:.8">✕</span>
+    </div>
+    <div id="quiz-body" style="flex:1;overflow-y:auto;padding:20px 24px"></div>
+    <div id="quiz-foot" style="padding:14px 20px;border-top:1px solid var(--border);background:var(--bg-soft)">
+      <button class="btn btn-primary" style="width:100%" onclick="submitQuiz()">提交作答</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>

@@ -7,11 +7,13 @@
 <link rel="stylesheet" href="style.css">
 <style>
   body { background: #0F172A; color: #E2E8F0; }
-  .topbar { background: linear-gradient(90deg, #064E3B, #047857); }
+  .topbar { background: linear-gradient(90deg, #0A1E5C, #122CA0); position: relative; }
+  .topbar::after { content:''; position:absolute; left:0; top:0; height:100%; width:4px; background:#34D399; }
   .topbar nav a { color: rgba(255,255,255,.75); }
   .topbar nav a:hover { background: rgba(255,255,255,.1); }
   .topbar nav a.active { background: rgba(255,255,255,.18); color:#fff; }
   .topbar .user .avatar { background: linear-gradient(135deg,#34D399,#10B981); }
+  .role-badge { display:inline-flex; align-items:center; gap:5px; padding:3px 10px; border-radius:12px; background:rgba(52,211,153,.2); color:#6EE7B7; font-size:11px; font-weight:600; margin-left:8px; }
 
   .main { padding: 20px 24px; }
   .page-head h1 { color: #F1F5F9; }
@@ -81,7 +83,7 @@
 <body>
 
 <div class="topbar">
-  <div class="logo"><div class="mark" style="background:#34D399;color:#064E3B">师</div><span>教师工作台</span></div>
+  <div class="logo"><div class="mark">数</div><span>数智教材平台</span><span class="role-badge">🧑‍🏫 教师视图</span></div>
   <nav>
     <a href="index.html">学生端</a>
     <a href="concept-graph.html">概念图谱</a>
@@ -100,8 +102,8 @@
       <div class="crumb">计算机科学与技术 2024级 · 1班 · 共 35 人 · 《机器学习》周志华</div>
     </div>
     <div style="display:flex;gap:8px">
-      <button class="btn btn-ghost btn-sm" style="background:#1E293B;color:#E2E8F0;border-color:rgba(255,255,255,.1)">导出报告</button>
-      <button class="btn btn-primary btn-sm" style="background:#047857">布置作业</button>
+      <button class="btn btn-ghost btn-sm" style="background:#1E293B;color:#E2E8F0;border-color:rgba(255,255,255,.1)" onclick="exportReport()">导出报告</button>
+      <button class="btn btn-primary btn-sm" style="background:#047857" onclick="assignHomework()">布置作业</button>
     </div>
   </div>
 
@@ -243,7 +245,7 @@ list.innerHTML = studentNames.slice(0,15).map((n,i)=>{
     <td>${status}</td>
     <td><button class="btn btn-sm" style="background:rgba(96,165,250,.15);color:#60A5FA" onclick="alert('查看 ${n} 详情')">详情</button></td>
   </tr>`;
-}).join('') + `<tr><td colspan="7" style="text-align:center;padding:14px;color:#64748B">还有 20 名学生 · <a href="#" style="color:#60A5FA" onclick="alert('完整列表开发中');return false;">查看全部</a></td></tr>`;
+}).join('') + `<tr><td colspan="7" style="text-align:center;padding:14px;color:#64748B">还有 20 名学生 · <a href="#" style="color:#60A5FA" onclick="showAllStudents();return false;">查看全部 35 名学生</a></td></tr>`;
 
 // 仿真实时数据跳动
 let online = 23, todayMin = 1842;
@@ -258,6 +260,55 @@ setInterval(()=>{
   const sr = Math.min(95, 68 + Math.floor((todayMin-1842)/200));
   document.getElementById('submit-rate').textContent = sr + '%';
 }, 2500);
+
+// 导出 CSV 报告
+window.exportReport = () => {
+  let csv = '学生,学习进度,在线时长,习题正确率,状态\n';
+  for(let i=0;i<35;i++){
+    const n = studentNames[i];
+    const p = Math.round(20+Math.random()*70);
+    const h = (5+Math.random()*40).toFixed(1);
+    const a = Math.round(50+Math.random()*45);
+    const s = p<30?'需关注':p<60?'进度落后':p<85?'正常':'优秀';
+    csv += `${n},${p}%,${h}h,${a}%,${s}\n`;
+  }
+  const blob = new Blob(['\ufeff'+csv], {type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = '班级学习报告_2026-07-03.csv';
+  a.click();
+};
+
+// 布置作业弹窗
+window.assignHomework = () => {
+  if(confirm('确认为本班 35 名学生布置《机器学习》第6章课后习题？\n\n作业内容：\n· 10 道选择题 + 2 道编程题\n· 截止时间：2026-07-10 23:59\n· 自动推送到学生端')){
+    const btn = event.target;
+    btn.textContent = '✓ 已布置';
+    btn.style.background = '#34D399';
+    btn.onclick = null;
+    setTimeout(()=>alert('✅ 作业已推送到 35 名学生端，已有 23 名在线学生实时收到通知。'),300);
+  }
+};
+
+// 查看全部学生
+window.showAllStudents = () => {
+  const tbody = document.querySelector('#student-list');
+  tbody.innerHTML = studentNames.map((n,i)=>{
+    const prog = Math.round(20 + Math.random()*70);
+    const hours = (5 + Math.random()*40).toFixed(1);
+    const acc = Math.round(50 + Math.random()*45);
+    const status = prog < 30 ? '<span class="tag tag-red">需关注</span>' : prog < 60 ? '<span class="tag tag-orange">进度落后</span>' : prog < 85 ? '<span class="tag tag-blue">正常</span>' : '<span class="tag tag-green">优秀</span>';
+    return `<tr>
+      <td><span class="avatar-sm" style="background:${colors[i%8]}">${n[0]}</span>${n}</td>
+      <td><div style="display:flex;align-items:center;gap:8px"><div class="progress" style="flex:1"><span style="width:${prog}%"></span></div><span style="font-size:12px">${prog}%</span></div></td>
+      <td>${hours}h</td>
+      <td>${acc}%</td>
+      <td style="font-size:12px;color:#94A3B8">${Math.floor(Math.random()*1440)}分钟前</td>
+      <td>${status}</td>
+      <td><button class="btn btn-sm" style="background:rgba(96,165,250,.15);color:#60A5FA" onclick="alert('查看 ${n} 学习详情')">详情</button></td>
+    </tr>`;
+  }).join('');
+};
 </script>
 </body>
 </html>

@@ -7,9 +7,11 @@
 <link rel="stylesheet" href="style.css">
 <style>
   body { background: #FEF3F2; color: #1F2937; }
-  .topbar { background: linear-gradient(90deg, #9F1239, #BE185D); }
+  .topbar { background: linear-gradient(90deg, #0A1E5C, #122CA0); position: relative; }
+  .topbar::after { content:''; position:absolute; left:0; top:0; height:100%; width:4px; background:#EC4899; }
   .topbar .user .avatar { background: linear-gradient(135deg,#F472B6,#EC4899); }
-  .topbar .logo .mark { background:#fff; color:#BE185D; }
+  .topbar .logo .mark { background:#fff; color:var(--primary); }
+  .role-badge { display:inline-flex; align-items:center; gap:5px; padding:3px 10px; border-radius:12px; background:rgba(236,72,153,.25); color:#F9A8D4; font-size:11px; font-weight:600; margin-left:8px; }
 
   .main { padding: 20px 24px; max-width: 1280px; margin: 0 auto; }
   .page-head h1 { color: #1F2937; }
@@ -88,7 +90,7 @@
 <body>
 
 <div class="topbar">
-  <div class="logo"><div class="mark">长</div><span>家长视界</span></div>
+  <div class="logo"><div class="mark">数</div><span>数智教材平台</span><span class="role-badge">👨‍👩‍👧 家长视图</span></div>
   <nav>
     <a href="index.html">学生端</a>
     <a href="concept-graph.html">概念图谱</a>
@@ -335,6 +337,31 @@ scores.forEach((s,i)=>{
     document.getElementById('lbl'+i).style.opacity = 1;
   }, 200 + i*180);
 });
+
+// 仿真：本周学习时长缓慢累加 + 鼓励语轮播
+let weekMin = 0;
+setInterval(()=>{
+  weekMin += Math.floor(Math.random()*3);
+  const el = document.querySelector('.growth-banner p');
+  if(el){
+    const tips = [
+      `李同学本月连续学习 7 天，累计 ${weekMin+3650} 分钟，知识掌握度提升 12%。继续保持！`,
+      `李同学今日已学习 ${Math.floor(weekMin/60*10)/10} 小时，班级排名上升至第 8 名。`,
+      `智能助教建议：增加第6章 SVM 的实践练习，可观看 B站讲解视频巩固。`,
+      `李同学本月作业全部按时提交，正确率 78%，高于班级平均 9 个百分点。`
+    ];
+    el.textContent = tips[Math.floor((weekMin/12) % tips.length)];
+  }
+}, 3500);
+
+// 对比条目动画填充（入场时从 0 增长）
+setTimeout(()=>{
+  document.querySelectorAll('.compare-row .fill').forEach(f=>{
+    const w = f.style.width;
+    f.style.width = '0';
+    setTimeout(()=>{ f.style.transition='width 1.2s ease'; f.style.width = w; }, 50);
+  });
+}, 300);
 </script>
 </body>
 </html>
