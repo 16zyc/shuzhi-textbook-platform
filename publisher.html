@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数智教材平台 - 出版社端</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  body { background: #F0F4FA; color: #1A2233; }
+  .topbar { background: linear-gradient(90deg, #0A1E5C, #122CA0); position: relative; }
+  .topbar::after { content:''; position:absolute; left:0; top:0; height:100%; width:4px; background:#FCD34D; }
+  .topbar .user .avatar { background: linear-gradient(135deg,#FCD34D,#F59E0B); color:#0A1E5C; }
+  .topbar .logo .mark { background:#fff; color:var(--primary); }
+
+  .main { padding: 22px 28px; max-width: 1440px; margin: 0 auto; }
+  .page-head h1 { color: #0A1E5C; }
+  .page-head .crumb { color: #5A6478; }
+
+  /* 卡片学术风 */
+  .card { border-radius: 14px; border-color: #DCE3F0; }
+  .card .card-head h3 { color: #0A1E5C; }
+  .stat { border-radius: 14px; border-color: #DCE3F0; }
+
+  /* 指标看板顶部 banner */
+  .pub-banner {
+    background: linear-gradient(135deg, #0A1E5C 0%, #122CA0 60%, #1E40AF 100%);
+    border-radius: 16px; padding: 22px 26px; color: #fff;
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px; position: relative; overflow: hidden;
+    box-shadow: 0 8px 24px rgba(10,30,92,.25);
+  }
+  .pub-banner::after {
+    content:''; position:absolute; right:-40px; top:-40px;
+    width:220px; height:220px; border-radius:50%;
+    background: radial-gradient(circle, rgba(252,211,77,.18), transparent 60%);
+  }
+  .pub-banner h2 { font-size: 20px; font-weight: 600; margin-bottom: 6px; }
+  .pub-banner p { color: rgba(255,255,255,.82); font-size: 13px; }
+  .pub-banner .quick {
+    display: flex; gap: 10px;
+  }
+  .pub-banner .quick .qb {
+    background: rgba(255,255,255,.12); backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,.2);
+    padding: 10px 16px; border-radius: 10px; cursor: pointer;
+    transition: .2s; font-size: 13px; color: #fff;
+  }
+  .pub-banner .quick .qb:hover { background: rgba(255,255,255,.22); transform: translateY(-1px); }
+  .pub-banner .quick .qb.gold { background: rgba(252,211,77,.2); border-color: rgba(252,211,77,.4); color:#FCD34D; }
+
+  /* 统计卡 */
+  .stat .ico { box-shadow: 0 4px 12px rgba(10,30,92,.12); }
+  .stat .num { color: #0A1E5C; }
+
+  /* ========== 工作流步骤条 ========== */
+  .workflow-wrap {
+    background: #fff; border: 1px solid #DCE3F0; border-radius: 16px;
+    padding: 22px; margin-bottom: 20px; box-shadow: var(--shadow-sm);
+  }
+  .workflow-wrap > h3 {
+    font-size: 17px; color: #0A1E5C; margin-bottom: 4px; font-weight: 600;
+  }
+  .workflow-wrap > .sub { font-size: 12px; color: #5A6478; margin-bottom: 18px; }
+
+  .workflow {
+    display: flex; align-items: stretch; gap: 0; overflow-x: auto;
+    padding-bottom: 6px;
+  }
+  .step {
+    flex: 1; min-width: 130px; position: relative; cursor: pointer;
+    transition: .2s;
+  }
+  .step .step-head {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 10px 6px; position: relative;
+  }
+  .step .circle {
+    width: 44px; height: 44px; border-radius: 50%;
+    display: grid; place-items: center; font-size: 18px; font-weight: 600;
+    background: #EEF2FB; color: #5A6478; border: 2px solid #DCE3F0;
+    transition: .25s; position: relative; z-index: 2;
+  }
+  .step.done .circle { background: #0A1E5C; color: #fff; border-color: #0A1E5C; }
+  .step.active .circle {
+    background: #fff; color: #122CA0; border-color: #122CA0;
+    box-shadow: 0 0 0 4px rgba(18,44,160,.12);
+  }
+  .step .step-title {
+    font-size: 12px; font-weight: 600; margin-top: 8px; color: #1A2233;
+    text-align: center; white-space: nowrap;
+  }
+  .step .step-num {
+    font-size: 10px; color: #9AA3B5; margin-top: 2px;
+  }
+  /* 连接线 */
+  .step::after {
+    content: ''; position: absolute; top: 32px; left: 50%; right: -50%;
+    height: 2px; background: #DCE3F0; z-index: 1;
+  }
+  .step:last-child::after { display: none; }
+  .step.done::after { background: #0A1E5C; }
+
+  /* 步骤展开内容 */
+  .step-detail {
+    margin-top: 18px; display: none;
+    background: linear-gradient(135deg, #F5F7FB, #EEF2FB);
+    border: 1px solid #DCE3F0; border-radius: 12px; padding: 18px 22px;
+    animation: fadeUp .3s both;
+  }
+  .step-detail.show { display: block; }
+  .step-detail .sd-title {
+    font-size: 15px; font-weight: 600; color: #0A1E5C; margin-bottom: 6px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .step-detail .sd-desc { font-size: 13px; color: #5A6478; margin-bottom: 14px; line-height: 1.7; }
+  .step-detail .sd-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+  .step-detail .sd-item {
+    background: #fff; border: 1px solid #DCE3F0; border-radius: 10px; padding: 12px 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .step-detail .sd-item .si-ico {
+    width: 36px; height: 36px; border-radius: 9px; display: grid; place-items: center; font-size: 16px;
+    flex-shrink: 0;
+  }
+  .step-detail .sd-item .si-body .si-t { font-size: 13px; font-weight: 600; color: #1A2233; }
+  .step-detail .sd-item .si-body .si-d { font-size: 11px; color: #5A6478; margin-top: 2px; }
+  .step-detail .sd-actions { margin-top: 14px; display: flex; gap: 8px; flex-wrap: wrap; }
+
+  /* 三审子步骤 */
+  .review-trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px; }
+  .review-trio .rt {
+    background: #fff; border: 1px solid #DCE3F0; border-radius: 10px; padding: 14px;
+    text-align: center;
+  }
+  .review-trio .rt .rt-av {
+    width: 40px; height: 40px; border-radius: 50%; margin: 0 auto 8px;
+    display: grid; place-items: center; color: #fff; font-weight: 600; font-size: 14px;
+  }
+  .review-trio .rt .rt-name { font-size: 13px; font-weight: 600; color: #1A2233; }
+  .review-trio .rt .rt-role { font-size: 11px; color: #5A6478; margin-top: 2px; }
+  .review-trio .rt .rt-status { margin-top: 8px; }
+
+  /* ========== 表格 ========== */
+  table.tbl { font-size: 13px; }
+  table.tbl th { background: #F5F7FB; color: #0A1E5C; }
+  table.tbl tbody tr:hover { background: #F5F7FB; }
+  .type-badge {
+    display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px;
+    border-radius: 6px; font-size: 11px; font-weight: 600;
+  }
+  .type-pdf { background: #FEE2E2; color: #DC2626; }
+  .type-epub { background: #DBEAFE; color: #2563EB; }
+  .type-video { background: #FCE7F3; color: #BE185D; }
+
+  .status-pill {
+    display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px;
+    border-radius: 12px; font-size: 12px; font-weight: 500;
+  }
+  .status-pill::before { content:''; width:6px; height:6px; border-radius:50%; }
+  .st-import { background:#F0F2F6; color:#5A6478; }
+  .st-import::before { background:#9AA3B5; }
+  .st-gen { background:#FFF4E5; color:#B45309; }
+  .st-gen::before { background:#F59E0B; }
+  .st-review { background:#FFF7E6; color:#92400E; }
+  .st-review::before { background:#F59E0B; animation: blink 1.5s infinite; }
+  .st-published { background:#E8F7EE; color:#15803D; }
+  .st-published::before { background:#16A34A; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+  .progress { background: #E6EAF2; }
+  .progress > span { background: linear-gradient(90deg, #0A1E5C, #3B82F6); }
+
+  /* ========== 弹窗 ========== */
+  .modal-mask {
+    position: fixed; inset: 0; background: rgba(10,30,92,.45); backdrop-filter: blur(4px);
+    display: none; align-items: center; justify-content: center; z-index: 100;
+  }
+  .modal-mask.show { display: flex; animation: fade .2s; }
+  @keyframes fade { from{opacity:0} to{opacity:1} }
+  .modal {
+    background: #fff; border-radius: 16px;
+    width: 640px; max-width: 94vw; max-height: 90vh; overflow-y: auto;
+    box-shadow: 0 24px 60px rgba(10,30,92,.3); animation: pop .25s;
+  }
+  @keyframes pop { from{opacity:0;transform:scale(.96) translateY(10px)} to{opacity:1;transform:none} }
+  .modal .m-head {
+    padding: 18px 24px; border-bottom: 1px solid #E6EAF2;
+    display: flex; justify-content: space-between; align-items: center;
+    background: linear-gradient(90deg, #0A1E5C, #122CA0); color: #fff;
+    border-radius: 16px 16px 0 0;
+  }
+  .modal .m-head h3 { font-size: 16px; color: #fff; }
+  .modal .m-head .close { cursor: pointer; color: rgba(255,255,255,.7); font-size: 24px; line-height: 1; }
+  .modal .m-head .close:hover { color: #fff; }
+  .modal .m-body { padding: 22px 24px; }
+  .modal .m-foot { padding: 14px 24px; border-top: 1px solid #E6EAF2; display: flex; justify-content: flex-end; gap: 10px; }
+
+  /* 三审面板 */
+  .review-panel .rp-book {
+    background: #F5F7FB; border-radius: 10px; padding: 14px; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .review-panel .rp-book .cover {
+    width: 48px; height: 64px; border-radius: 6px; display: grid; place-items: center;
+    font-size: 22px; color: #fff; font-weight: 700; flex-shrink: 0;
+  }
+  .review-panel .rp-book .info .t { font-size: 15px; font-weight: 600; color: #0A1E5C; }
+  .review-panel .rp-book .info .d { font-size: 12px; color: #5A6478; margin-top: 3px; }
+
+  .review-card {
+    border: 1px solid #E6EAF2; border-radius: 12px; padding: 16px; margin-bottom: 12px;
+    transition: .2s;
+  }
+  .review-card:hover { box-shadow: var(--shadow-sm); border-color: #C7D2E8; }
+  .review-card .rc-head { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .review-card .rc-av {
+    width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center;
+    color: #fff; font-weight: 600; font-size: 15px; flex-shrink: 0;
+  }
+  .review-card .rc-info .rc-name { font-size: 14px; font-weight: 600; color: #1A2233; }
+  .review-card .rc-info .rc-role { font-size: 12px; color: #5A6478; margin-top: 2px; }
+  .review-card .rc-status { margin-left: auto; }
+  .review-card .rc-opinion {
+    background: #F5F7FB; border-radius: 8px; padding: 10px 12px; font-size: 13px;
+    color: #1A2233; margin-bottom: 10px; line-height: 1.6;
+    border-left: 3px solid #DCE3F0;
+  }
+  .review-card .rc-opinion.empty { color: #9AA3B5; font-style: italic; }
+  .review-card .rc-form { display: none; }
+  .review-card .rc-form.show { display: block; }
+  .review-card .rc-form .field { margin-bottom: 10px; }
+  .review-card .rc-form label { display:block; font-size:12px; color:#5A6478; margin-bottom:5px; }
+  .review-card .rc-form textarea {
+    width: 100%; padding: 9px 12px; border: 1px solid #E6EAF2; border-radius: 8px;
+    font-size: 13px; outline: none; resize: vertical; min-height: 60px; font-family: inherit;
+  }
+  .review-card .rc-form textarea:focus { border-color: #122CA0; box-shadow: 0 0 0 3px rgba(18,44,160,.1); }
+  .review-card .rc-form .radio-row { display: flex; gap: 8px; }
+  .review-card .rc-form .radio-row label {
+    flex: 1; cursor: pointer; padding: 8px; border: 1px solid #E6EAF2; border-radius: 8px;
+    text-align: center; font-size: 12px; color: #1A2233; transition: .15s; margin: 0;
+    display: flex; align-items: center; justify-content: center; gap: 4px;
+  }
+  .review-card .rc-form .radio-row input { display: none; }
+  .review-card .rc-form .radio-row input:checked + span { color: #fff; }
+  .review-card .rc-form .radio-row label:has(input:checked) { border-color: transparent; font-weight: 600; }
+  .review-card .rc-form .radio-row label.opt-pass:has(input:checked) { background: #16A34A; }
+  .review-card .rc-form .radio-row label.opt-modify:has(input:checked) { background: #F59E0B; }
+  .review-card .rc-form .radio-row label.opt-reject:has(input:checked) { background: #DC2626; }
+
+  /* ========== 图表 ========== */
+  .chart-card { background:#fff; border:1px solid #DCE3F0; border-radius:14px; padding:18px 20px; box-shadow: var(--shadow-sm); }
+  .chart-card h4 { font-size: 15px; color: #0A1E5C; margin-bottom: 4px; font-weight: 600; }
+  .chart-card .c-sub { font-size: 12px; color: #5A6478; margin-bottom: 16px; }
+
+  /* 柱状图 */
+  .bar-chart { display: flex; align-items: flex-end; gap: 14px; height: 200px; padding: 10px 4px 0; }
+  .bar-chart .bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; height: 100%; justify-content: flex-end; }
+  .bar-chart .bar-col .bar-val { font-size: 11px; color: #0A1E5C; font-weight: 600; }
+  .bar-chart .bar-col .bar {
+    width: 70%; max-width: 42px; border-radius: 6px 6px 0 0;
+    background: linear-gradient(180deg, #3B82F6, #0A1E5C);
+    transition: .6s; cursor: pointer; position: relative;
+  }
+  .bar-chart .bar-col .bar:hover { filter: brightness(1.15); }
+  .bar-chart .bar-col .barLbl { font-size: 11px; color: #5A6478; text-align: center; max-width: 60px; line-height: 1.3; }
+
+  /* 排行榜 */
+  .rank-list .rank-row {
+    display: flex; align-items: center; gap: 12px; padding: 10px 0;
+    border-bottom: 1px dashed #E6EAF2;
+  }
+  .rank-list .rank-row:last-child { border: none; }
+  .rank-list .rank-no {
+    width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
+    font-size: 12px; font-weight: 700; color: #fff; flex-shrink: 0;
+  }
+  .rank-list .rank-no.r1 { background: #F59E0B; }
+  .rank-list .rank-no.r2 { background: #9CA3AF; }
+  .rank-list .rank-no.r3 { background: #B45309; }
+  .rank-list .rank-no.rx { background: #C7D2E8; color: #5A6478; }
+  .rank-list .rank-row .rank-info { flex: 1; min-width: 0; }
+  .rank-list .rank-row .rank-info .rt { font-size: 13px; font-weight: 500; color: #1A2233; }
+  .rank-list .rank-row .rank-info .rbar { height: 6px; background: #EEF2FB; border-radius: 3px; margin-top: 5px; overflow: hidden; }
+  .rank-list .rank-row .rank-info .rbar > span { display: block; height: 100%; background: linear-gradient(90deg, #0A1E5C, #3B82F6); border-radius: 3px; }
+  .rank-list .rank-row .rank-val { font-size: 13px; font-weight: 600; color: #0A1E5C; flex-shrink: 0; }
+
+  /* 趋势线图 */
+  .trend-chart { padding: 12px 4px; }
+  .trend-svg { width: 100%; height: 200px; display: block; }
+  .trend-svg .grid line { stroke: #EEF2FB; stroke-width: 1; }
+  .trend-svg .axis text { font-size: 10px; fill: #9AA3B5; }
+  .trend-svg .axis line { stroke: #E6EAF2; }
+  .trend-svg .area { fill: url(#trendGrad); }
+  .trend-svg .line { fill: none; stroke: #122CA0; stroke-width: 2.5; stroke-linejoin: round; }
+  .trend-svg .point { fill: #122CA0; stroke: #fff; stroke-width: 2; cursor: pointer; transition: .15s; }
+  .trend-svg .point:hover { r: 6; fill: #0A1E5C; }
+  .trend-svg .point-label { font-size: 9px; fill: #0A1E5C; font-weight: 600; }
+
+  /* 标签色（出版社端） */
+  .tag-blue { background: #EBF2FF; color: #122CA0; }
+  .tag-green { background: #E8F7EE; color: #15803D; }
+  .tag-orange { background: #FFF4E5; color: #B45309; }
+  .tag-red { background: #FEE2E2; color: #B91C1C; }
+  .tag-gray { background: #F0F2F6; color: #5A6478; }
+  .tag-gold { background: #FEF3C7; color: #92400E; }
+
+  .btn-primary { background: #0A1E5C; }
+  .btn-primary:hover { background: #122CA0; box-shadow: 0 6px 16px rgba(10,30,92,.3); }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo"><div class="mark">数</div><span>数智教材平台</span><span class="role-badge" style="display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:12px;background:rgba(251,191,36,.2);color:#FCD34D;font-size:11px;font-weight:600;margin-left:8px">📚 出版社端</span></div>
+  <nav>
+    <a href="index.html">教材广场</a>
+    <a href="concept-graph.html">知识图谱</a>
+    <a href="teaching.html">教学端</a>
+    <a href="publisher.html" class="active">出版社端</a>
+    <a href="parent.html">家长端</a>
+  </nav>
+  <div class="tools"><div class="user"><div class="avatar">编</div><span class="name">编辑部</span></div></div>
+</div>
+
+<div class="main">
+  <div class="page-head">
+    <div>
+      <h1>📚 出版社发行工作台</h1>
+      <div class="crumb">教材发行全流程管理 · 从导入到上线到跟踪 · 多类型多本书并行管理</div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-ghost btn-sm" onclick="alert('打开导入向导')">📥 批量导入</button>
+      <button class="btn btn-primary btn-sm" onclick="openImportWizard()">＋ 新建教材</button>
+    </div>
+  </div>
+
+  <!-- Banner -->
+  <div class="pub-banner">
+    <div>
+      <h2>🎨 数智教材发行中心</h2>
+      <p>覆盖 PDF / EPUB / 视频多类型教材 · AI辅助知识点与图谱生成 · 三审制保障内容质量</p>
+    </div>
+    <div class="quick">
+      <div class="qb gold" onclick="scrollToSection('workflow')">🔄 发行流程</div>
+      <div class="qb" onclick="scrollToSection('booklist')">📖 教材列表</div>
+      <div class="qb" onclick="scrollToSection('dashboard')">📊 指标看板</div>
+    </div>
+  </div>
+
+  <!-- 指标看板 4卡 -->
+  <div class="grid grid-4" style="margin-bottom:20px">
+    <div class="stat">
+      <div class="ico" style="background:#EBF2FF;color:#122CA0">📖</div>
+      <div><div class="num">8</div><div class="lbl">已发行教材数</div></div>
+    </div>
+    <div class="stat">
+      <div class="ico" style="background:#FFF4E5;color:#B45309">🔍</div>
+      <div><div class="num">3</div><div class="lbl">三审中教材</div></div>
+    </div>
+    <div class="stat">
+      <div class="ico" style="background:#E8F7EE;color:#15803D">⬇️</div>
+      <div><div class="num">48,520</div><div class="lbl">累计下载量</div></div>
+    </div>
+    <div class="stat">
+      <div class="ico" style="background:#FEF3C7;color:#92400E">⏱️</div>
+      <div><div class="num">12,860<span style="font-size:14px;font-weight:500;color:#5A6478"> 小时</span></div><div class="lbl">在线学习总时长</div></div>
+    </div>
+  </div>
+
+  <!-- ========== 教材发行工作流 ========== -->
+  <div class="workflow-wrap" id="workflow">
+    <h3>🔄 教材发行工作流</h3>
+    <div class="sub">点击任一步骤查看详情 · 共 8 个环节 · 当前以《机器学习》为例展示进度</div>
+
+    <div class="workflow" id="workflow-steps">
+      <!-- 步骤由 JS 渲染 -->
+    </div>
+
+    <div id="step-detail-container"></div>
+  </div>
+
+  <!-- ========== 教材列表 ========== -->
+  <div class="card" id="booklist" style="margin-bottom:20px">
+    <div class="card-head">
+      <h3>📖 教材发行列表</h3>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-ghost btn-sm" onclick="filterBooks('all', this)">全部</button>
+        <button class="btn btn-ghost btn-sm" onclick="filterBooks('review', this)">三审中</button>
+        <button class="btn btn-ghost btn-sm" onclick="filterBooks('published', this)">已发行</button>
+      </div>
+    </div>
+    <div class="card-body" style="padding:0">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>教材名称</th>
+            <th>类型</th>
+            <th>当前状态</th>
+            <th>审核进度</th>
+            <th>更新时间</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody id="book-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ========== 指标看板详细 ========== -->
+  <div id="dashboard">
+    <div style="margin-bottom:8px">
+      <h2 style="font-size:17px;color:#0A1E5C;margin-bottom:4px">📊 发行与阅读指标看板</h2>
+      <div style="font-size:12px;color:#5A6478;margin-bottom:14px">跟踪已发行教材的下载量、学习时长与发行趋势</div>
+    </div>
+
+    <div class="grid" style="grid-template-columns:2fr 1fr; gap:20px; margin-bottom:20px">
+      <!-- 下载量柱状图 -->
+      <div class="chart-card">
+        <h4>📥 各教材累计下载量</h4>
+        <div class="c-sub">已发行 8 本教材的下载量分布 · 单位：次</div>
+        <div class="bar-chart" id="bar-chart"></div>
+      </div>
+
+      <!-- 学习时长排行 -->
+      <div class="chart-card">
+        <h4>⏱️ 在线学习时长排行</h4>
+        <div class="c-sub">TOP 5 教材 · 单位：小时</div>
+        <div class="rank-list" id="rank-list"></div>
+      </div>
+    </div>
+
+    <!-- 发行趋势线 -->
+    <div class="chart-card">
+      <h4>📈 近 30 天发行与上线趋势</h4>
+      <div class="c-sub">每日新发行教材数与累计上线数 · 悬停查看详情</div>
+      <div class="trend-chart">
+        <svg class="trend-svg" id="trend-svg" viewBox="0 0 800 200" preserveAspectRatio="none"></svg>
+      </div>
+      <div style="display:flex;gap:20px;margin-top:10px;font-size:12px;color:#5A6478">
+        <span style="display:flex;align-items:center;gap:6px"><span style="width:14px;height:3px;background:#122CA0;display:inline-block;border-radius:2px"></span>累计上线教材数</span>
+        <span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;background:#3B82F6;display:inline-block;border-radius:50%"></span>当日新发行数</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ========== 三审详情弹窗 ========== -->
+<div class="modal-mask" id="review-modal">
+  <div class="modal">
+    <div class="m-head">
+      <h3 id="review-modal-title">🔍 三审详情</h3>
+      <span class="close" onclick="closeReviewModal()">×</span>
+    </div>
+    <div class="m-body review-panel" id="review-modal-body"></div>
+    <div class="m-foot">
+      <button class="btn btn-ghost btn-sm" onclick="closeReviewModal()">关闭</button>
+      <button class="btn btn-primary btn-sm" id="review-confirm-btn">提交全部审核意见</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ================= 数据 =================
+const books = [
+  {
+    id: 1, name: '机器学习', author: '周志华', type: 'PDF', icon:'📘', cover:'#0A1E5C',
+    status: 'review', statusText:'三审中', progress: 75, step: 6,
+    updatedAt: '2026-07-09 14:32',
+    downloads: 12860, hours: 3280,
+    reviews: [
+      { name:'张教授', role:'内容准确性审核', color:'#0A1E5C', status:'pass', opinion:'概念定义准确，公式推导严谨，未发现事实性错误。建议第6章 SVM 部分补充核函数的几何直观解释。' },
+      { name:'李博士', role:'知识完整性审核', color:'#3B82F6', status:'modify', opinion:'知识点覆盖较全面，但强化学习章节内容偏少，建议增加 MDP 建模与 Q-learning 实例。' },
+      { name:'王老师', role:'教学适用性审核', color:'#16A34A', status:'pending', opinion:'' }
+    ]
+  },
+  {
+    id: 2, name: '数据科学基础', author: 'Wes McKinney', type: 'EPUB', icon:'📗', cover:'#15803D',
+    status: 'published', statusText:'已发行', progress: 100, step: 8,
+    updatedAt: '2026-07-05 10:18',
+    downloads: 9420, hours: 2480,
+    reviews: [
+      { name:'张教授', role:'内容准确性审核', color:'#0A1E5C', status:'pass', opinion:'内容准确，数据处理流程规范。' },
+      { name:'李博士', role:'知识完整性审核', color:'#3B82F6', status:'pass', opinion:'知识体系完整，涵盖采集、清洗、分析全流程。' },
+      { name:'王老师', role:'教学适用性审核', color:'#16A34A', status:'pass', opinion:'案例丰富，适合本科生入门教学。' }
+    ]
+  },
+  {
+    id: 3, name: '人工智能导论', author: 'Stuart Russell', type: 'PDF', icon:'📕', cover:'#B91C1C',
+    status: 'review', statusText:'三审中', progress: 72, step: 6,
+    updatedAt: '2026-07-08 16:45',
+    downloads: 0, hours: 0,
+    reviews: [
+      { name:'张教授', role:'内容准确性审核', color:'#0A1E5C', status:'pass', opinion:'AI 发展脉络清晰，经典算法描述准确。' },
+      { name:'李博士', role:'知识完整性审核', color:'#3B82F6', status:'pending', opinion:'' },
+      { name:'王老师', role:'教学适用性审核', color:'#16A34A', status:'modify', opinion:'部分章节理论密度过高，建议补充教学案例与思考题。' }
+    ]
+  },
+  {
+    id: 4, name: '深度学习实战', author: 'Ian Goodfellow', type: '视频', icon:'🎬', cover:'#7C3AED',
+    status: 'gen', statusText:'知识点生成中', progress: 35, step: 2,
+    updatedAt: '2026-07-10 09:20',
+    downloads: 0, hours: 0,
+    reviews: [
+      { name:'张教授', role:'内容准确性审核', color:'#0A1E5C', status:'pending', opinion:'' },
+      { name:'李博士', role:'知识完整性审核', color:'#3B82F6', status:'pending', opinion:'' },
+      { name:'王老师', role:'教学适用性审核', color:'#16A34A', status:'pending', opinion:'' }
+    ]
+  },
+  {
+    id: 5, name: '统计学习方法', author: '李航', type: 'PDF', icon:'📙', cover:'#92400E',
+    status: 'published', statusText:'已发行', progress: 100, step: 8,
+    updatedAt: '2026-06-28 11:05',
+    downloads: 11280, hours: 2960,
+    reviews: [
+      { name:'张教授', role:'内容准确性审核', color:'#0A1E5C', status:'pass', opinion:'数学推导严谨，定理证明完整。' },
+      { name:'李博士', role:'知识完整性审核', color:'#3B82F6', status:'pass', opinion:'十大经典方法覆盖全面。' },
+      { name:'王老师', role:'教学适用性审核', color:'#16A34A', status:'pass', opinion:'适合研究生层次教学，习题设置合理。' }
+    ]
+  },
+  {
+    id: 6, name: 'Python编程入门', author: 'Eric Matthes', type: 'EPUB', icon:'📔', cover:'#0891B2',
+    status: 'import', statusText:'待导入', progress: 5, step: 1,
+    updatedAt: '2026-07-10 08:50',
+    downloads: 0, hours: 0,
+    reviews: [
+      { name:'张教授', role:'内容准确性审核', color:'#0A1E5C', status:'pending', opinion:'' },
+      { name:'李博士', role:'知识完整性审核', color:'#3B82F6', status:'pending', opinion:'' },
+      { name:'王老师', role:'教学适用性审核', color:'#16A34A', status:'pending', opinion:'' }
+    ]
+  },
+  {
+    id: 7, name: '计算机网络', author: '谢希仁', type: 'PDF', icon:'📕', cover:'#1E40AF',
+    status: 'published', statusText:'已发行', progress: 100, step: 8,
+    updatedAt: '2026-06-20 15:30',
+    downloads: 8240, hours: 1980,
+    reviews: [
+      { name:'张教授', role:'内容准确性审核', color:'#0A1E5C', status:'pass', opinion:'协议描述准确，OSI 模型讲解清晰。' },
+      { name:'李博士', role:'知识完整性审核', color:'#3B82F6', status:'pass', opinion:'涵盖 TCP/IP 全栈知识。' },
+      { name:'王老师', role:'教学适用性审核', color:'#16A34A', status:'pass', opinion:'配套实验设计合理。' }
+    ]
+  },
+  {
+    id: 8, name: '现代操作系统', author: 'Andrew Tanenbaum', type: 'PDF', icon:'📗', cover:'#4B5563',
+    status: 'gen', statusText:'知识点生成中', progress: 45, step: 3,
+    updatedAt: '2026-07-09 19:12',
+    downloads: 0, hours: 0,
+    reviews: [
+      { name:'张教授', role:'内容准确性审核', color:'#0A1E5C', status:'pending', opinion:'' },
+      { name:'李博士', role:'知识完整性审核', color:'#3B82F6', status:'pending', opinion:'' },
+      { name:'王老师', role:'教学适用性审核', color:'#16A34A', status:'pending', opinion:'' }
+    ]
+  }
+];
+
+// 工作流步骤定义（actions 用 fnKey 引用全局函数，避免 toString 注入）
+const workflowSteps = [
+  { num:1, title:'教材导入', icon:'📥', desc:'上传 PDF / EPUB / 视频源文件，系统自动解析目录结构与元数据，支持批量导入与多类型混合。', items:[
+    { ico:'📄', t:'PDF 解析', d:'自动提取章节、页码、图表标题' },
+    { ico:'📚', t:'EPUB 解析', d:'识别章节层级与内嵌资源' },
+    { ico:'🎬', t:'视频处理', d:'转码切片、生成字幕与章节' }
+  ], actions:[{t:'上传教材',primary:true,fnKey:'openImportWizard'},{t:'查看导入历史',primary:false,fnKey:'stepActImportHistory'}] },
+  { num:2, title:'知识点生成', icon:'🧠', desc:'AI 自动从教材内容中提取知识点，识别定义、定理、公式与案例，支持人工编辑、合并、补充。', items:[
+    { ico:'✨', t:'AI 自动提取', d:'基于大模型识别核心概念' },
+    { ico:'✏️', t:'人工编辑', d:'可修改、合并、补充知识点' },
+    { ico:'🏷️', t:'自动分类', d:'按难度与认知层级标记' }
+  ], actions:[{t:'查看知识点列表',primary:true,fnKey:'stepActViewConcepts'},{t:'重新生成',primary:false,fnKey:'stepActRegen'}] },
+  { num:3, title:'知识图谱生成', icon:'🕸️', desc:'自动构建概念之间的关联关系（前置、依赖、衍生、对比），形成可视化知识图谱，可预览与调整。', items:[
+    { ico:'🔗', t:'关系识别', d:'前置/依赖/衍生/对比' },
+    { ico:'👁️', t:'图谱预览', d:'交互式可视化查看' },
+    { ico:'🛠️', t:'关系编辑', d:'可手动调整关联' }
+  ], actions:[{t:'预览知识图谱',primary:true,fnKey:'stepActPreviewGraph'},{t:'导出图谱',primary:false,fnKey:'stepActExportGraph'}] },
+  { num:4, title:'关键知识源设置', icon:'⭐', desc:'标记教材中的核心知识点、重点章节与必考内容，作为学习路径与评测的优先依据。', items:[
+    { ico:'🎯', t:'核心知识点', d:'标记为必学内容' },
+    { ico:'📌', t:'重点章节', d:'推荐学习顺序' },
+    { ico:'📝', t:'考点关联', d:'对接题库与评测' }
+  ], actions:[{t:'配置关键知识',primary:true,fnKey:'stepActConfigKey'}] },
+  { num:5, title:'相关讲解视频', icon:'🎥', desc:'关联 B 站公开视频或自制讲解视频，可按知识点搜索添加，支持视频与知识点双向绑定。', items:[
+    { ico:'🔍', t:'智能搜索', d:'按知识点匹配 B 站视频' },
+    { ico:'📤', t:'自制上传', d:'上传编辑部自制讲解' },
+    { ico:'↔️', t:'双向绑定', d:'视频↔知识点关联' }
+  ], actions:[{t:'搜索添加视频',primary:true,fnKey:'stepActSearchVideo'},{t:'管理已关联',primary:false,fnKey:'stepActManageVideo'}] },
+  { num:6, title:'三审流程', icon:'⚖️', desc:'三人分别从内容准确性、知识完整性、教学适用性三个角度独立审核，全部通过方可发行。', items:[
+    { ico:'✅', t:'审稿人 A', d:'内容准确性审核' },
+    { ico:'📚', t:'审稿人 B', d:'知识完整性审核' },
+    { ico:'🎓', t:'审稿人 C', d:'教学适用性审核' }
+  ], actions:[{t:'打开三审面板',primary:true,fnKey:'stepActOpenReview'},{t:'查看审核规范',primary:false,fnKey:'stepActReviewSpec'}] },
+  { num:7, title:'发行上线', icon:'🚀', desc:'设置定价策略（免费/付费）、发行范围（公开/指定学校）、上架时间，一键发行到教材广场。', items:[
+    { ico:'💰', t:'定价策略', d:'免费 / 付费 / 学校采购' },
+    { ico:'🌍', t:'发行范围', d:'公开 / 指定机构' },
+    { ico:'📅', t:'上架时间', d:'立即 / 定时发布' }
+  ], actions:[{t:'配置发行参数',primary:true,fnKey:'stepActConfigPublish'}] },
+  { num:8, title:'跟踪阅读学习', icon:'📊', desc:'发行后持续跟踪下载量、学习时长、完成率、薄弱知识点等指标，跳转指标看板查看详情。', items:[
+    { ico:'⬇️', t:'下载量', d:'累计与趋势' },
+    { ico:'⏱️', t:'学习时长', d:'总时长与人均' },
+    { ico:'🎯', t:'掌握度', d:'知识点掌握分布' }
+  ], actions:[{t:'查看指标看板',primary:true,fnKey:'stepActGotoDashboard'}] }
+];
+
+// 步骤动作函数（挂载到 window 供 onclick 调用）
+function stepActImportHistory(){ alert('打开导入历史记录'); }
+function stepActViewConcepts(){ alert('跳转知识点编辑器'); }
+function stepActRegen(){ alert('已触发 AI 重新提取'); }
+function stepActPreviewGraph(){ location.href='concept-graph.html'; }
+function stepActExportGraph(){ alert('已导出 JSON 格式图谱'); }
+function stepActConfigKey(){ alert('打开关键知识配置面板'); }
+function stepActSearchVideo(){ alert('打开视频搜索面板'); }
+function stepActManageVideo(){ alert('查看已关联视频列表'); }
+function stepActOpenReview(){ openReviewModal(1); }
+function stepActReviewSpec(){ alert('三审制审核规范文档'); }
+function stepActConfigPublish(){ alert('打开发行配置面板'); }
+function stepActGotoDashboard(){ scrollToSection('dashboard'); }
+
+// ================= 渲染工作流 =================
+let currentStep = 6; // 默认展开三审步骤
+
+function renderWorkflow(){
+  const wrap = document.getElementById('workflow-steps');
+  wrap.innerHTML = workflowSteps.map(s=>{
+    const done = s.num < currentStep;
+    const active = s.num === currentStep;
+    const cls = done ? 'done' : (active ? 'active' : '');
+    return `<div class="step ${cls}" onclick="selectStep(${s.num})">
+      <div class="step-head">
+        <div class="circle">${done ? '✓' : s.icon}</div>
+        <div class="step-title">${s.title}</div>
+        <div class="step-num">步骤 ${s.num}</div>
+      </div>
+    </div>`;
+  }).join('');
+  renderStepDetail(currentStep);
+}
+
+function selectStep(num){
+  currentStep = num;
+  renderWorkflow();
+}
+
+function renderStepDetail(num){
+  const s = workflowSteps[num-1];
+  const container = document.getElementById('step-detail-container');
+  let itemsHtml = s.items.map(it=>`
+    <div class="sd-item">
+      <div class="si-ico" style="background:#EBF2FF;color:#122CA0">${it.ico}</div>
+      <div class="si-body"><div class="si-t">${it.t}</div><div class="si-d">${it.d}</div></div>
+    </div>
+  `).join('');
+
+  let extraHtml = '';
+  // 三审步骤特殊渲染
+  if(num === 6){
+    const b = books[0]; // 以机器学习为例
+    extraHtml = `<div class="review-trio">
+      ${b.reviews.map(r=>{
+        const stMap = { pass:['通过','#16A34A'], modify:['需修改','#F59E0B'], reject:['驳回','#DC2626'], pending:['待审','#9AA3B5'] };
+        const st = stMap[r.status];
+        return `<div class="rt">
+          <div class="rt-av" style="background:${r.color}">${r.name[0]}</div>
+          <div class="rt-name">${r.name}</div>
+          <div class="rt-role">${r.role}</div>
+          <div class="rt-status"><span class="tag" style="background:${st[1]}1A;color:${st[1]}">${st[0]}</span></div>
+        </div>`;
+      }).join('')}
+    </div>`;
+  }
+
+  let actionsHtml = s.actions.map(a=>{
+    return `<button class="btn ${a.primary?'btn-primary':'btn-ghost'} btn-sm" onclick="${a.fnKey}()">${a.t}</button>`;
+  }).join('');
+
+  container.innerHTML = `<div class="step-detail show">
+    <div class="sd-title">${s.icon} 步骤${s.num}：${s.title}</div>
+    <div class="sd-desc">${s.desc}</div>
+    <div class="sd-grid">${itemsHtml}</div>
+    ${extraHtml}
+    <div class="sd-actions">${actionsHtml}</div>
+  </div>`;
+}
+
+// ================= 渲染教材列表 =================
+let currentFilter = 'all';
+function renderBooks(){
+  const tbody = document.getElementById('book-tbody');
+  const list = books.filter(b=>{
+    if(currentFilter === 'all') return true;
+    if(currentFilter === 'review') return b.status === 'review';
+    if(currentFilter === 'published') return b.status === 'published';
+    return true;
+  });
+  tbody.innerHTML = list.map(b=>{
+    const typeCls = b.type === 'PDF' ? 'type-pdf' : b.type === 'EPUB' ? 'type-epub' : 'type-video';
+    const stCls = b.status === 'import' ? 'st-import' : b.status === 'gen' ? 'st-gen' : b.status === 'review' ? 'st-review' : 'st-published';
+    const canReview = b.status === 'review';
+    const actionBtn = canReview
+      ? `<button class="btn btn-primary btn-sm" onclick="openReviewModal(${b.id})">三审详情</button>
+         <button class="btn btn-ghost btn-sm" onclick="alert('查看《${b.name}》详情')">查看详情</button>`
+      : b.status === 'published'
+      ? `<button class="btn btn-ghost btn-sm" onclick="alert('查看《${b.name}》发行数据')">查看详情</button>
+         <button class="btn btn-ghost btn-sm" onclick="scrollToSection('dashboard')">阅读数据</button>`
+      : `<button class="btn btn-ghost btn-sm" onclick="selectStep(${b.step});window.scrollTo({top:document.getElementById('workflow').offsetTop-80,behavior:'smooth'})">继续编辑</button>`;
+    return `<tr>
+      <td>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="width:32px;height:42px;border-radius:5px;background:${b.cover};color:#fff;display:grid;place-items:center;font-size:16px;flex-shrink:0">${b.icon}</div>
+          <div>
+            <div style="font-weight:600;color:#1A2233">${b.name}</div>
+            <div style="font-size:11px;color:#5A6478">${b.author}</div>
+          </div>
+        </div>
+      </td>
+      <td><span class="type-badge ${typeCls}">${b.type}</span></td>
+      <td><span class="status-pill ${stCls}">${b.statusText}</span></td>
+      <td>
+        <div style="display:flex;align-items:center;gap:8px;min-width:140px">
+          <div class="progress" style="flex:1"><span style="width:${b.progress}%"></span></div>
+          <span style="font-size:12px;color:#5A6478">${b.progress}%</span>
+        </div>
+        <div style="font-size:11px;color:#9AA3B5;margin-top:3px">步骤 ${b.step}/8</div>
+      </td>
+      <td style="color:#5A6478;font-size:12px">${b.updatedAt}</td>
+      <td><div style="display:flex;gap:6px">${actionBtn}</div></td>
+    </tr>`;
+  }).join('');
+}
+
+function filterBooks(filter, btn){
+  currentFilter = filter;
+  document.querySelectorAll('#booklist .card-head button').forEach(b=>{ b.style.background=''; b.style.color=''; b.style.borderColor=''; });
+  btn.style.background = '#0A1E5C'; btn.style.color = '#fff'; btn.style.borderColor = '#0A1E5C';
+  renderBooks();
+}
+
+// ================= 三审弹窗 =================
+let reviewModalBookId = null;
+
+function openReviewModal(bookId){
+  const b = books.find(x=>x.id===bookId);
+  if(!b) return;
+  reviewModalBookId = bookId;
+  document.getElementById('review-modal-title').textContent = `🔍 三审详情 ·《${b.name}》`;
+
+  const body = document.getElementById('review-modal-body');
+  const stMap = {
+    pass: { text:'通过', color:'#16A34A', bg:'#E8F7EE' },
+    modify: { text:'需修改', color:'#B45309', bg:'#FFF4E5' },
+    reject: { text:'驳回', color:'#B91C1C', bg:'#FEE2E2' },
+    pending: { text:'待审核', color:'#5A6478', bg:'#F0F2F6' }
+  };
+
+  const allPassed = b.reviews.every(r=>r.status==='pass');
+  const passCount = b.reviews.filter(r=>r.status==='pass').length;
+
+  body.innerHTML = `
+    <div class="rp-book">
+      <div class="cover" style="background:${b.cover}">${b.icon}</div>
+      <div class="info">
+        <div class="t">《${b.name}》</div>
+        <div class="d">作者：${b.author} · 类型：${b.type} · 审核进度 ${b.progress}%</div>
+        <div style="margin-top:6px">
+          <span class="tag ${allPassed?'tag-green':'tag-gold'}">${allPassed?'✓ 三审全部通过 · 可进入发行':`⏳ ${passCount}/3 已通过`}</span>
+        </div>
+      </div>
+    </div>
+    <div style="font-size:13px;color:#5A6478;margin-bottom:12px">
+      三位审稿人独立审核 · 全部通过方可发行 · 审核意见将返库给教材制作者
+    </div>
+    ${b.reviews.map((r,i)=>{
+      const st = stMap[r.status];
+      return `<div class="review-card">
+        <div class="rc-head">
+          <div class="rc-av" style="background:${r.color}">${r.name[0]}</div>
+          <div class="rc-info">
+            <div class="rc-name">${r.name}</div>
+            <div class="rc-role">${r.role}</div>
+          </div>
+          <div class="rc-status">
+            <span class="tag" style="background:${st.bg};color:${st.color}">${st.text}</span>
+          </div>
+        </div>
+        <div class="rc-opinion ${r.opinion?'':'empty'}">${r.opinion || '尚未提交审核意见'}</div>
+        ${r.status === 'pending' ? `
+          <button class="btn btn-ghost btn-sm" style="width:100%" onclick="toggleReviewForm(${i})">✏️ 提交审核意见</button>
+          <div class="rc-form" id="rc-form-${i}">
+            <div class="field">
+              <label>审核结论</label>
+              <div class="radio-row">
+                <label class="opt-pass"><input type="radio" name="verdict-${i}" value="pass"><span>✓ 通过</span></label>
+                <label class="opt-modify"><input type="radio" name="verdict-${i}" value="modify"><span>⚠ 需修改</span></label>
+                <label class="opt-reject"><input type="radio" name="verdict-${i}" value="reject"><span>✕ 驳回</span></label>
+              </div>
+            </div>
+            <div class="field">
+              <label>审核意见</label>
+              <textarea id="rc-text-${i}" placeholder="请填写审核意见，将返库给教材制作者..."></textarea>
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="submitReview(${i})">提交意见</button>
+          </div>
+        ` : ''}
+      </div>`;
+    }).join('')}
+  `;
+
+  document.getElementById('review-confirm-btn').onclick = ()=>{
+    const b2 = books.find(x=>x.id===reviewModalBookId);
+    const pending = b2.reviews.filter(r=>r.status==='pending').length;
+    if(pending > 0){
+      alert(`⚠ 还有 ${pending} 位审稿人未提交审核意见，无法完成三审。\n请先完成所有审核。`);
+    } else if(b2.reviews.every(r=>r.status==='pass')){
+      alert(`✅《${b2.name}》三审全部通过！\n\n可进入步骤7：发行上线。`);
+      closeReviewModal();
+    } else {
+      alert(`📥 审核意见已汇总返库给教材制作者。\n\n当前结论：${b2.reviews.map(r=>r.name+'：'+stMap[r.status].text).join('\n')}\n\n请制作者修改后重新提交审核。`);
+      closeReviewModal();
+    }
+  };
+
+  document.getElementById('review-modal').classList.add('show');
+}
+
+function closeReviewModal(){
+  document.getElementById('review-modal').classList.remove('show');
+  reviewModalBookId = null;
+}
+
+function toggleReviewForm(i){
+  const form = document.getElementById('rc-form-'+i);
+  form.classList.toggle('show');
+}
+
+function submitReview(i){
+  const b = books.find(x=>x.id===reviewModalBookId);
+  const verdict = document.querySelector(`input[name="verdict-${i}"]:checked`);
+  const text = document.getElementById('rc-text-'+i).value.trim();
+  if(!verdict){ alert('请选择审核结论'); return; }
+  if(!text){ alert('请填写审核意见'); return; }
+  b.reviews[i].status = verdict.value;
+  b.reviews[i].opinion = text;
+  alert(`✅ ${b.reviews[i].name} 的审核意见已提交\n\n结论：${ {pass:'通过',modify:'需修改',reject:'驳回'}[verdict.value] }\n意见：${text}`);
+  openReviewModal(reviewModalBookId); // 重新渲染
+}
+
+document.getElementById('review-modal').addEventListener('click', e=>{
+  if(e.target.id === 'review-modal') closeReviewModal();
+});
+
+// ================= 指标看板图表 =================
+// 柱状图：各教材下载量
+function renderBarChart(){
+  const published = books.filter(b=>b.status==='published');
+  const max = Math.max(...published.map(b=>b.downloads));
+  const wrap = document.getElementById('bar-chart');
+  wrap.innerHTML = published.map(b=>{
+    const h = (b.downloads / max * 100).toFixed(0);
+    return `<div class="bar-col">
+      <div class="bar-val">${b.downloads.toLocaleString()}</div>
+      <div class="bar" style="height:${h}%" title="${b.name}：${b.downloads.toLocaleString()} 次下载" onclick="alert('《${b.name}》累计下载 ${b.downloads.toLocaleString()} 次')"></div>
+      <div class="barLbl">${b.name}</div>
+    </div>`;
+  }).join('');
+}
+
+// 排行榜：学习时长
+function renderRankList(){
+  const published = books.filter(b=>b.status==='published').sort((a,b)=>b.hours-a.hours).slice(0,5);
+  const max = Math.max(...published.map(b=>b.hours));
+  const wrap = document.getElementById('rank-list');
+  wrap.innerHTML = published.map((b,i)=>{
+    const w = (b.hours / max * 100).toFixed(0);
+    const noCls = i===0?'r1':i===1?'r2':i===2?'r3':'rx';
+    return `<div class="rank-row">
+      <div class="rank-no ${noCls}">${i+1}</div>
+      <div class="rank-info">
+        <div class="rt">${b.name}</div>
+        <div class="rbar"><span style="width:${w}%"></span></div>
+      </div>
+      <div class="rank-val">${b.hours.toLocaleString()} h</div>
+    </div>`;
+  }).join('');
+}
+
+// 趋势线图：近30天
+function renderTrendChart(){
+  const svg = document.getElementById('trend-svg');
+  const W = 800, H = 200, padL = 40, padR = 20, padT = 20, padB = 30;
+  const innerW = W - padL - padR, innerH = H - padT - padB;
+
+  // 生成30天数据：累计上线数 + 当日新发行
+  const days = 30;
+  let cumulative = 3; // 起始已有3本
+  const data = [];
+  for(let i=0;i<days;i++){
+    const daily = Math.random() < 0.25 ? 1 : 0; // 约25%概率当天发行1本
+    cumulative += daily;
+    data.push({ day: i+1, daily, cumulative });
+  }
+  // 末尾对齐到8本
+  data[data.length-1].cumulative = 8;
+
+  const maxC = 10;
+  const xStep = innerW / (days - 1);
+  const yScale = v => padT + innerH - (v / maxC * innerH);
+  const xPos = i => padL + i * xStep;
+
+  // 网格线
+  let gridHtml = '';
+  for(let v=0; v<=maxC; v+=2){
+    const y = yScale(v);
+    gridHtml += `<line x1="${padL}" y1="${y}" x2="${W-padR}" y2="${y}" class="grid"/>`;
+    gridHtml += `<text x="${padL-8}" y="${y+3}" text-anchor="end" class="axis">${v}</text>`;
+  }
+
+  // X轴标签（每5天）
+  let xLabels = '';
+  for(let i=0;i<days;i+=5){
+    xLabels += `<text x="${xPos(i)}" y="${H-padB+16}" text-anchor="middle" class="axis">D${i+1}</text>`;
+  }
+
+  // 累计折线
+  const points = data.map((d,i)=>`${xPos(i)},${yScale(d.cumulative)}`).join(' ');
+  const areaPath = `M ${xPos(0)},${yScale(0)} L ${points.replace(/ /g,' L ')} L ${xPos(days-1)},${yScale(0)} Z`;
+
+  // 渐变定义
+  let defs = `<defs>
+    <linearGradient id="trendGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#122CA0" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#122CA0" stop-opacity="0"/>
+    </linearGradient>
+  </defs>`;
+
+  // 点
+  let pointsHtml = '';
+  data.forEach((d,i)=>{
+    if(d.daily > 0){
+      pointsHtml += `<circle class="point" cx="${xPos(i)}" cy="${yScale(d.cumulative)}" r="4" onclick="alert('第 ${d.day} 天：新发行 ${d.daily} 本 · 累计 ${d.cumulative} 本')">
+        <title>第${d.day}天 · 新发行${d.daily}本 · 累计${d.cumulative}本</title>
+      </circle>`;
+      pointsHtml += `<text class="point-label" x="${xPos(i)}" y="${yScale(d.cumulative)-10}" text-anchor="middle">${d.cumulative}</text>`;
+    }
+  });
+
+  svg.innerHTML = `${defs}
+    ${gridHtml}
+    ${xLabels}
+    <path class="area" d="${areaPath}"/>
+    <polyline class="line" points="${points}"/>
+    ${pointsHtml}
+    <line x1="${padL}" y1="${H-padB}" x2="${W-padR}" y2="${H-padB}" class="axis"/>
+  `;
+}
+
+// ================= 工具函数 =================
+function scrollToSection(id){
+  const el = document.getElementById(id);
+  if(el) window.scrollTo({ top: el.offsetTop - 70, behavior: 'smooth' });
+}
+
+function openImportWizard(){
+  alert('📥 打开教材导入向导\n\n支持格式：PDF / EPUB / 视频\n支持批量导入与多类型混合');
+}
+
+// ================= 初始化 =================
+renderWorkflow();
+renderBooks();
+renderBarChart();
+renderRankList();
+renderTrendChart();
+// 默认高亮"全部"按钮
+document.querySelector('#booklist .card-head button').style.background = '#0A1E5C';
+document.querySelector('#booklist .card-head button').style.color = '#fff';
+document.querySelector('#booklist .card-head button').style.borderColor = '#0A1E5C';
+</script>
+</body>
+</html>
