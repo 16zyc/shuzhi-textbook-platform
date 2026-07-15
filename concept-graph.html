@@ -3,834 +3,234 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>数智教材平台 - 知识图谱</title>
+<title>知识图谱 - 软件工程</title>
 <link rel="stylesheet" href="style.css">
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <style>
-  body { background: #0F172A; color: #E2E8F0; overflow: hidden; }
-  .topbar { background: linear-gradient(90deg, #0A1E5C, #122CA0); }
-
-  .graph-layout {
-    display: flex;
-    height: calc(100vh - 60px);
+  .graph-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+  .graph-toolbar { padding: 10px 20px; border-bottom: 1px solid var(--border-soft); display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .graph-toolbar .chapter-select { display: flex; gap: 4px; flex-wrap: wrap; }
+  .graph-toolbar .chapter-select .chip {
+    padding: 4px 10px; border-radius: var(--radius-full); font-size: 11px;
+    background: var(--bg-hover); color: var(--text-soft); cursor: pointer; transition: .12s;
   }
-
-  /* ===== 左侧章节面板 ===== */
-  .chapter-panel {
-    width: 230px;
-    background: #1E293B;
-    border-right: 1px solid rgba(255,255,255,.06);
-    overflow-y: auto;
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
+  .graph-toolbar .chapter-select .chip:hover { background: var(--primary-light); color: var(--primary); }
+  .graph-toolbar .chapter-select .chip.active { background: var(--primary); color: #fff; }
+  .graph-toolbar .controls { margin-left: auto; display: flex; gap: 6px; }
+  .graph-toolbar .controls button {
+    padding: 5px 12px; border-radius: var(--radius); font-size: 12px;
+    border: 1px solid var(--border); background: var(--surface); color: var(--text-soft); transition: .15s;
   }
-  .panel-header {
-    padding: 18px 20px 12px;
-    border-bottom: 1px solid rgba(255,255,255,.06);
-  }
-  .panel-header h2 {
-    font-size: 15px; font-weight: 600; color: #F1F5F9; margin-bottom: 4px;
-  }
-  .panel-header .sub { font-size: 12px; color: #94A3B8; }
-
-  .stats-row {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
-    padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,.06);
-  }
-  .stat-mini {
-    background: rgba(255,255,255,.04); border-radius: 8px; padding: 10px;
-  }
-  .stat-mini .num { font-size: 18px; font-weight: 700; color: #60A5FA; }
-  .stat-mini .lbl { font-size: 11px; color: #94A3B8; margin-top: 2px; }
-
-  .chapter-list { flex: 1; padding: 8px; }
-  .chapter-item {
-    display: flex; align-items: center; gap: 10px;
-    padding: 9px 10px; border-radius: 8px; cursor: pointer;
-    transition: .15s; margin-bottom: 2px;
-    border: 1px solid transparent;
-  }
-  .chapter-item:hover { background: rgba(96,165,250,.1); }
-  .chapter-item.active {
-    background: rgba(96,165,250,.18);
-    border-color: rgba(96,165,250,.3);
-  }
-  .chapter-item .ch-num {
-    width: 28px; height: 28px; border-radius: 6px;
-    background: rgba(96,165,250,.15); color: #60A5FA;
-    display: grid; place-items: center;
-    font-size: 12px; font-weight: 600; flex-shrink: 0;
-  }
-  .chapter-item.active .ch-num { background: #60A5FA; color: #fff; }
-  .chapter-item .ch-info { flex: 1; min-width: 0; }
-  .chapter-item .ch-title {
-    font-size: 13px; color: #E2E8F0;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  }
-  .chapter-item .ch-count { font-size: 11px; color: #64748B; margin-top: 1px; }
-  .chapter-item.all {
-    border-bottom: 1px solid rgba(255,255,255,.06);
-    margin-bottom: 6px; padding-bottom: 11px;
-  }
-  .chapter-item.all .ch-num { background: rgba(52,211,153,.15); color: #34D399; }
-  .chapter-item.all.active .ch-num { background: #34D399; color: #fff; }
-
-  /* ===== 中间图谱区 ===== */
-  .graph-main {
-    flex: 1; position: relative; overflow: hidden;
-    background: radial-gradient(ellipse at center, #16243f 0%, #0F172A 70%);
-  }
-  #graph-svg { width: 100%; height: 100%; cursor: grab; }
-  #graph-svg:active { cursor: grabbing; }
-
-  .graph-tooltip {
-    position: absolute; pointer-events: none;
-    background: rgba(15,23,42,.96); color: #fff;
-    padding: 10px 14px; border-radius: 10px; font-size: 12px;
-    border: 1px solid rgba(96,165,250,.35);
-    box-shadow: 0 8px 24px rgba(0,0,0,.5);
-    opacity: 0; transition: opacity .15s; z-index: 10; max-width: 260px;
-  }
-  .graph-tooltip .tt-name { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
-  .graph-tooltip .tt-meta { color: #94A3B8; font-size: 11px; }
-  .graph-tooltip .tt-video { color: #FB7299; font-size: 11px; margin-top: 4px; }
-
-  .graph-controls {
-    position: absolute; bottom: 20px; left: 20px; display: flex; gap: 8px;
-  }
-  .graph-controls button {
-    background: rgba(30,41,59,.9); color: #E2E8F0;
-    border: 1px solid rgba(255,255,255,.1);
-    width: 38px; height: 38px; border-radius: 10px;
-    display: grid; place-items: center; cursor: pointer;
-    transition: .15s; backdrop-filter: blur(8px); font-size: 16px;
-  }
-  .graph-controls button:hover { background: #60A5FA; border-color: #60A5FA; color: #fff; }
-
+  .graph-toolbar .controls button:hover { background: var(--bg-hover); }
+  .graph-canvas { flex: 1; position: relative; background: var(--bg); }
+  .graph-canvas svg { width: 100%; height: 100%; }
   .graph-legend {
-    position: absolute; top: 20px; right: 20px;
-    background: rgba(30,41,59,.85); border: 1px solid rgba(255,255,255,.08);
-    border-radius: 10px; padding: 12px 16px;
-    backdrop-filter: blur(8px); font-size: 12px;
+    position: absolute; bottom: 16px; left: 16px;
+    background: var(--surface); border: 1px solid var(--border-soft);
+    border-radius: var(--radius); padding: 10px 14px; box-shadow: var(--shadow);
+    font-size: 12px;
   }
-  .graph-legend .lg-item {
-    display: flex; align-items: center; gap: 8px; padding: 3px 0; color: #CBD5E1;
+  .graph-legend .item { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+  .graph-legend .item:last-child { margin-bottom: 0; }
+  .graph-legend .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .node-info {
+    position: absolute; top: 16px; right: 16px; width: 260px;
+    background: var(--surface); border: 1px solid var(--border-soft);
+    border-radius: var(--radius-lg); padding: 16px; box-shadow: var(--shadow-lg);
+    display: none;
   }
-  .graph-legend .lg-dot { width: 12px; height: 12px; border-radius: 50%; }
-
-  /* SVG 节点样式 */
-  .link {
-    fill: none; stroke: rgba(96,165,250,.18); stroke-width: 1.5;
-    transition: stroke .2s, stroke-opacity .2s;
-  }
-  .link.secondary { stroke-dasharray: 3,3; stroke-opacity: .12; }
-  .link.highlight { stroke: #60A5FA; stroke-opacity: .7; stroke-width: 2; }
-  .link.dim { stroke-opacity: .04 !important; }
-
-  .node { cursor: pointer; }
-  .node circle { transition: r .15s, fill .15s; }
-  .node text { fill: #E2E8F0; pointer-events: none; text-anchor: middle; font-family: inherit; }
-  .node.dim { opacity: .12; }
-  .node:hover circle { filter: brightness(1.25); }
-
-  .node-concept text { font-size: 10px; fill: #94A3B8; }
-  .node-concept.topic text { fill: #BFDBFE; font-weight: 500; }
-  .node-chapter text { font-size: 12px; font-weight: 600; fill: #E2E8F0; }
-  .node-root text { font-size: 15px; font-weight: 700; fill: #fff; }
-
-  .video-badge { cursor: pointer; }
-  .video-badge:hover circle { filter: brightness(1.3); }
-
-  /* ===== 右侧详情面板 ===== */
-  .detail-panel {
-    width: 330px; background: #1E293B;
-    border-left: 1px solid rgba(255,255,255,.06);
-    overflow-y: auto; flex-shrink: 0;
-  }
-  .detail-content { padding: 20px; }
-  .detail-placeholder {
-    text-align: center; padding: 60px 20px; color: #64748B;
-  }
-  .detail-placeholder .icon { font-size: 40px; margin-bottom: 12px; opacity: .4; }
-  .detail-placeholder .text { font-size: 13px; line-height: 1.8; }
-
-  .detail-name {
-    font-size: 20px; font-weight: 700; color: #fff;
-    margin-bottom: 6px; line-height: 1.3;
-  }
-  .detail-badge {
-    display: inline-block; padding: 3px 10px; border-radius: 12px;
-    font-size: 11px; font-weight: 500; margin-bottom: 14px;
-  }
-  .detail-badge.topic { background: rgba(96,165,250,.2); color: #60A5FA; }
-  .detail-badge.support { background: rgba(148,163,184,.15); color: #94A3B8; }
-  .detail-badge.chapter { background: rgba(52,211,153,.15); color: #34D399; }
-  .detail-badge.root { background: rgba(251,191,36,.15); color: #FBBF24; }
-
-  .detail-def {
-    font-size: 13px; color: #CBD5E1; line-height: 1.7;
-    padding: 12px 14px; background: rgba(255,255,255,.03);
-    border-radius: 10px; border-left: 3px solid #60A5FA; margin-bottom: 16px;
-  }
-
-  .detail-section { margin-bottom: 16px; }
-  .detail-section .sec-title {
-    font-size: 12px; color: #94A3B8; text-transform: uppercase;
-    letter-spacing: .5px; margin-bottom: 8px;
-  }
-
-  .chapter-link {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 10px 12px; background: rgba(255,255,255,.03);
-    border-radius: 8px; font-size: 13px; color: #E2E8F0;
-    margin-bottom: 6px; transition: .15s; cursor: pointer;
-  }
-  .chapter-link:hover { background: rgba(96,165,250,.12); color: #93C5FD; }
-  .chapter-link .arrow { color: #64748B; font-size: 14px; }
-
-  .video-card {
-    display: flex; align-items: center; gap: 10px;
-    padding: 12px 14px;
-    background: linear-gradient(135deg, rgba(251,114,153,.15), rgba(244,121,165,.08));
-    border: 1px solid rgba(251,114,153,.25);
-    border-radius: 10px; transition: .2s; cursor: pointer;
-  }
-  .video-card:hover {
-    background: linear-gradient(135deg, rgba(251,114,153,.25), rgba(244,121,165,.15));
-    transform: translateX(2px);
-    box-shadow: 0 4px 14px rgba(251,114,153,.2);
-  }
-  .video-card .play-icon {
-    width: 34px; height: 34px; border-radius: 50%;
-    background: #FB7299; display: grid; place-items: center;
-    color: #fff; font-size: 14px; flex-shrink: 0;
-  }
-  .video-card .v-info { flex: 1; min-width: 0; }
-  .video-card .v-title {
-    font-size: 13px; color: #fff; font-weight: 500;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  }
-  .video-card .v-score { font-size: 11px; color: #FB7299; margin-top: 2px; }
-
-  .rel-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-  .rel-tag {
-    padding: 5px 11px; background: rgba(96,165,250,.08);
-    border: 1px solid rgba(96,165,250,.2);
-    border-radius: 14px; font-size: 12px; color: #93C5FD;
-    cursor: pointer; transition: .15s;
-  }
-  .rel-tag:hover { background: rgba(96,165,250,.2); border-color: rgba(96,165,250,.4); }
-
-  .concept-mini {
-    display: flex; align-items: center; gap: 8px;
-    padding: 8px 12px; background: rgba(255,255,255,.03);
-    border-radius: 8px; font-size: 13px; color: #CBD5E1;
-    margin-bottom: 4px; cursor: pointer; transition: .15s;
-  }
-  .concept-mini:hover { background: rgba(96,165,250,.1); color: #93C5FD; }
-  .concept-mini .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-  .concept-mini .dot.topic { background: #60A5FA; }
-  .concept-mini .dot.support { background: #93C5FD; }
-  .concept-mini .has-video { color: #FB7299; font-size: 10px; margin-left: auto; }
+  .node-info.show { display: block; }
+  .node-info h4 { font-size: 14px; font-weight: 500; margin-bottom: 8px; }
+  .node-info .type-badge { font-size: 11px; padding: 2px 8px; border-radius: var(--radius-full); margin-bottom: 8px; display: inline-block; }
+  .node-info .meta { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; }
+  .node-info .text { font-size: 13px; color: var(--text-soft); line-height: 1.6; }
 </style>
 </head>
 <body>
 
 <div class="topbar">
-  <div class="logo"><div class="mark">数</div><span>数智教材平台</span><span class="role-badge" style="display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:12px;background:rgba(96,165,250,.2);color:#60A5FA;font-size:11px;font-weight:600;margin-left:8px">🧑‍🎓 学习者</span></div>
-  <nav>
-    <a href="index.html">教材广场</a>
-    <a href="concept-graph.html" class="active">知识图谱</a>
-    <a href="teaching.html">教学端</a>
-    <a href="publisher.html">出版社端</a>
-    <a href="parent.html">家长端</a>
-  </nav>
-  <div class="tools"><div class="user"><div class="avatar">李</div><span class="name">李同学</span></div></div>
+  <div class="nav-back" onclick="location.href='teaching.html'">← 备课工作台</div>
+  <div class="logo"><div class="mark">数</div><span>知识图谱 · 软件工程</span></div>
+  <div class="spacer"></div>
+  <div class="tools">
+    <div class="user"><div class="avatar">王</div><span class="name">王老师</span></div>
+  </div>
 </div>
 
-<div class="graph-layout">
-  <!-- 左侧：章节导航 -->
-  <aside class="chapter-panel">
-    <div class="panel-header">
-      <h2>章节导航</h2>
-      <div class="sub">机器学习 · 周志华</div>
-    </div>
-    <div class="stats-row" id="stats-row"></div>
-    <div class="chapter-list" id="chapter-list"></div>
-  </aside>
-
-  <!-- 中间：知识图谱 -->
-  <div class="graph-main">
-    <svg id="graph-svg"></svg>
-    <div class="graph-tooltip" id="tooltip"></div>
-    <div class="graph-legend">
-      <div class="lg-item"><span class="lg-dot" style="background:#FBBF24"></span> 根节点</div>
-      <div class="lg-item"><span class="lg-dot" style="background:#60A5FA"></span> 主题层（章节）</div>
-      <div class="lg-item"><span class="lg-dot" style="background:#93C5FD"></span> 支撑层（概念）</div>
-      <div class="lg-item"><span class="lg-dot" style="background:#FB7299"></span> 含视频讲解</div>
-    </div>
-    <div class="graph-controls">
-      <button onclick="zoomGraph(1.3)" title="放大">＋</button>
-      <button onclick="zoomGraph(0.7)" title="缩小">－</button>
-      <button onclick="resetGraph()" title="重置">⟳</button>
+<div class="graph-area">
+  <div class="graph-toolbar">
+    <div class="chapter-select" id="chapter-select"></div>
+    <div class="controls">
+      <button onclick="filterGraph('all')">全部节点</button>
+      <button onclick="filterGraph('chapter')">仅章节</button>
+      <button onclick="filterGraph('concept')">仅概念</button>
+      <button onclick="resetZoom()">重置视图</button>
     </div>
   </div>
-
-  <!-- 右侧：详情面板 -->
-  <aside class="detail-panel">
-    <div class="detail-content" id="detail">
-      <div class="detail-placeholder">
-        <div class="icon">🧭</div>
-        <div class="text">点击图谱节点查看详情<br>点击 ▶ 图标直达B站视频</div>
-      </div>
+  <div class="graph-canvas">
+    <svg id="graph-svg"></svg>
+    <div class="graph-legend">
+      <div class="item"><span class="dot" style="background:#1A73E8"></span>章</div>
+      <div class="item"><span class="dot" style="background:#188038"></span>节</div>
+      <div class="item"><span class="dot" style="background:#B06000"></span>概念</div>
     </div>
-  </aside>
+    <div class="node-info" id="node-info"></div>
+  </div>
 </div>
 
 <script>
-let rawData = null;
-let videoMap = {};
-let svg, g, gLinks, gNodes, zoomBehavior;
-let activeChapter = null;
-let selectedNode = null;
-let allNodes = [];
-let allLinks = [];
-let chapterNodes = [];
-let conceptNodes = [];
-let rootNode = null;
-let centerPos = { x: 0, y: 0 };
-let resizeTimer = null;
+let graphData = null;
+let currentChapter = 0; // 0 = 全部
+let simulation = null;
 
-// ===== 数据加载 =====
-Promise.all([
-  fetch('data/concepts.json').then(r => r.json()),
-  fetch('data/videos.json').then(r => r.json())
-]).then(([concepts, videos]) => {
-  rawData = concepts;
-  videos.mappings.forEach(v => { videoMap[v.concept.trim()] = v; });
-  renderStats(concepts.stats);
-  renderChapterList(concepts.chapters);
-  buildHierarchy(concepts);
-  initGraph();
-});
-
-// ===== 左侧渲染 =====
-function renderStats(s) {
-  document.getElementById('stats-row').innerHTML = `
-    <div class="stat-mini"><div class="num">${s.total_concepts}</div><div class="lbl">概念总数</div></div>
-    <div class="stat-mini"><div class="num">${s.chapters}</div><div class="lbl">章节数</div></div>
-    <div class="stat-mini"><div class="num">${s.total_edges}</div><div class="lbl">共现关联</div></div>
-    <div class="stat-mini"><div class="num">${Object.keys(videoMap).length}</div><div class="lbl">视频讲解</div></div>
-  `;
+async function loadData() {
+  const res = await fetch('data/se_graph.json');
+  graphData = await res.json();
+  renderChapterSelect();
+  renderGraph();
 }
 
-function renderChapterList(chapters) {
-  const el = document.getElementById('chapter-list');
-  let html = `<div class="chapter-item all active" data-ch="all">
-    <div class="ch-num">全</div>
-    <div class="ch-info"><div class="ch-title">全部章节</div><div class="ch-count">显示完整图谱</div></div>
-  </div>`;
-  html += chapters.map(c => `
-    <div class="chapter-item" data-ch="${c.num}">
-      <div class="ch-num">${c.num}</div>
-      <div class="ch-info"><div class="ch-title">${c.title}</div><div class="ch-count">${c.concept_count} 个概念</div></div>
-    </div>
-  `).join('');
-  el.innerHTML = html;
-  el.querySelectorAll('.chapter-item').forEach(item => {
-    item.addEventListener('click', () => {
-      el.querySelectorAll('.chapter-item').forEach(i => i.classList.remove('active'));
-      item.classList.add('active');
-      activeChapter = item.dataset.ch === 'all' ? null : parseInt(item.dataset.ch);
-      applyFilter();
-    });
+function renderChapterSelect() {
+  const container = document.getElementById('chapter-select');
+  let html = `<div class="chip ${currentChapter===0?'active':''}" onclick="selectChapter(0)">全部</div>`;
+  const chapters = [...new Set(graphData.nodes.filter(n => n.type === 'chapter').map(n => n.chapter))].sort((a,b)=>a-b);
+  chapters.forEach(ch => {
+    const chNode = graphData.nodes.find(n => n.type === 'chapter' && n.chapter === ch);
+    html += `<div class="chip ${currentChapter===ch?'active':''}" onclick="selectChapter(${ch})">第${ch}章 ${chNode ? chNode.label : ''}</div>`;
   });
+  container.innerHTML = html;
 }
 
-// ===== 构建层级结构 =====
-function buildHierarchy(data) {
-  const rootData = data.nodes.find(n => n.id === '机器学习') || {
-    id: '机器学习', label: '机器学习',
-    definition: '研究如何通过计算手段利用经验改善系统性能的学科'
-  };
-  rootNode = { ...rootData, type: 'root' };
-
-  chapterNodes = data.chapters.map((ch, i) => ({
-    id: 'ch_' + ch.num,
-    label: ch.title,
-    type: 'chapter',
-    chapterNum: ch.num,
-    chapterTitle: ch.title,
-    page: ch.page,
-    conceptCount: ch.concept_count,
-    angleIndex: i,
-    definition: '第' + ch.num + '章 ' + ch.title + '，共 ' + ch.concept_count + ' 个核心概念'
-  }));
-
-  conceptNodes = data.nodes
-    .filter(n => n.id !== '机器学习')
-    .map(n => ({
-      id: n.id,
-      trimmedId: n.id.trim(),
-      label: n.label,
-      type: 'concept',
-      level: n.level,
-      primaryChapter: n.chapters[0],
-      chapters: n.chapters,
-      weight: n.weight,
-      definition: n.definition,
-      hasVideo: !!videoMap[n.id.trim()]
-    }));
-
-  allNodes = [rootNode, ...chapterNodes, ...conceptNodes];
-
-  // 构建树状连接
-  allLinks = [];
-  chapterNodes.forEach(ch => {
-    allLinks.push({ source: '机器学习', target: ch.id, type: 'tree' });
-  });
-  conceptNodes.forEach(con => {
-    allLinks.push({ source: 'ch_' + con.primaryChapter, target: con.id, type: 'tree' });
-    // 跨章概念添加虚线次级连接
-    con.chapters.slice(1).forEach(chNum => {
-      allLinks.push({ source: 'ch_' + chNum, target: con.id, type: 'tree-secondary' });
-    });
-  });
+function selectChapter(num) {
+  currentChapter = num;
+  renderChapterSelect();
+  renderGraph();
 }
 
-// ===== 布局计算（放射状层级树） =====
-function computeLayout(W, H) {
-  centerPos = { x: W / 2, y: H / 2 };
-  const minDim = Math.min(W, H);
-  const R1 = minDim * 0.2;   // 章节层半径
-  const R2 = minDim * 0.38;  // 概念层半径
-
-  rootNode.x = centerPos.x;
-  rootNode.y = centerPos.y;
-
-  // 章节节点均匀分布在圆周上
-  chapterNodes.forEach((ch, i) => {
-    const angle = (i / chapterNodes.length) * 2 * Math.PI - Math.PI / 2;
-    ch.x = centerPos.x + R1 * Math.cos(angle);
-    ch.y = centerPos.y + R1 * Math.sin(angle);
-    ch.angle = angle;
-  });
-
-  // 概念节点分布在所属章节的扇区内
-  chapterNodes.forEach(ch => {
-    const chConcepts = conceptNodes.filter(c => c.primaryChapter === ch.chapterNum);
-    const sectorWidth = (2 * Math.PI / chapterNodes.length) * 0.82;
-    const startAngle = ch.angle - sectorWidth / 2;
-    chConcepts.forEach((con, j) => {
-      const conAngle = chConcepts.length === 1
-        ? ch.angle
-        : startAngle + (j / (chConcepts.length - 1)) * sectorWidth;
-      con.x = centerPos.x + R2 * Math.cos(conAngle);
-      con.y = centerPos.y + R2 * Math.sin(conAngle);
-      con.angle = conAngle;
-    });
-  });
+let filterMode = 'all';
+function filterGraph(mode) {
+  filterMode = mode;
+  renderGraph();
 }
 
-// ===== 图谱初始化 =====
-function initGraph() {
-  const mainEl = document.querySelector('.graph-main');
-  const W = mainEl.clientWidth;
-  const H = mainEl.clientHeight;
-
-  computeLayout(W, H);
-
-  svg = d3.select('#graph-svg').attr('viewBox', `0 0 ${W} ${H}`);
+function renderGraph() {
+  const svg = d3.select('#graph-svg');
   svg.selectAll('*').remove();
-  g = svg.append('g');
 
-  zoomBehavior = d3.zoom().scaleExtent([0.3, 3]).on('zoom', e => g.attr('transform', e.transform));
-  svg.call(zoomBehavior);
+  const width = document.querySelector('.graph-canvas').clientWidth;
+  const height = document.querySelector('.graph-canvas').clientHeight;
 
-  gLinks = g.append('g').attr('class', 'links');
-  gNodes = g.append('g').attr('class', 'nodes');
+  // 过滤节点
+  let nodes = graphData.nodes;
+  let links = graphData.links;
 
-  drawLinks();
-  drawNodes();
-}
+  if(currentChapter > 0) {
+    const chIds = new Set();
+    nodes.forEach(n => {
+      if(n.type === 'chapter' && n.chapter === currentChapter) chIds.add(n.id);
+      if(n.type === 'section' && n.chapter === currentChapter) chIds.add(n.id);
+    });
+    // 关联概念
+    links.forEach(l => {
+      if(chIds.has(l.source)) chIds.add(l.target);
+      if(chIds.has(l.target)) chIds.add(l.source);
+    });
+    nodes = nodes.filter(n => chIds.has(n.id));
+    links = links.filter(l => chIds.has(l.source) && chIds.has(l.target));
+  }
 
-// ===== 绘制连接曲线 =====
-function drawLinks() {
-  const linkData = allLinks.map(l => {
-    const sourceNode = allNodes.find(n => n.id === l.source);
-    const targetNode = allNodes.find(n => n.id === l.target);
-    return { ...l, sourceNode, targetNode };
-  }).filter(l => l.sourceNode && l.targetNode);
+  if(filterMode === 'chapter') {
+    nodes = nodes.filter(n => n.type === 'chapter' || n.type === 'section');
+    links = links.filter(l => l.type === 'contains');
+  } else if(filterMode === 'concept') {
+    const conceptIds = new Set(nodes.filter(n => n.type === 'concept').map(n => n.id));
+    nodes = nodes.filter(n => n.type === 'concept');
+    links = links.filter(l => conceptIds.has(l.source) && conceptIds.has(l.target));
+  }
 
-  gLinks.selectAll('path')
-    .data(linkData)
-    .enter()
-    .append('path')
-    .attr('class', d => 'link' + (d.type === 'tree-secondary' ? ' secondary' : ''))
-    .attr('d', d => curvedPath(d.sourceNode, d.targetNode));
-}
+  // 限制节点数量
+  if(nodes.length > 150) {
+    nodes = nodes.slice(0, 150);
+    const nodeIds = new Set(nodes.map(n => n.id));
+    links = links.filter(l => nodeIds.has(l.source) && nodeIds.has(l.target));
+  }
 
-// 放射状曲线：从父节点弧形过渡到子节点
-function curvedPath(source, target) {
-  const sx = source.x - centerPos.x, sy = source.y - centerPos.y;
-  const tx = target.x - centerPos.x, ty = target.y - centerPos.y;
-  const sr = Math.sqrt(sx * sx + sy * sy);
-  const ta = Math.atan2(ty, tx);
-  // 控制点：在父节点半径处、子节点角度方向
-  const c1x = centerPos.x + sr * Math.cos(ta);
-  const c1y = centerPos.y + sr * Math.sin(ta);
-  return `M${source.x},${source.y} Q${c1x},${c1y} ${target.x},${target.y}`;
-}
+  nodes = nodes.map(n => ({...n}));
+  links = links.map(l => ({...l}));
 
-// ===== 绘制节点 =====
-function drawNodes() {
-  const nodeG = gNodes.selectAll('g.node')
-    .data(allNodes, d => d.id)
-    .enter()
-    .append('g')
-    .attr('class', d => 'node node-' + d.type + (d.type === 'concept' ? ' ' + d.level : ''))
-    .attr('transform', d => `translate(${d.x},${d.y})`);
+  const colorMap = { chapter: '#1A73E8', section: '#188038', concept: '#B06000' };
+  const sizeMap = { chapter: 12, section: 8, concept: 4 };
 
-  // 根节点：机器学习
-  nodeG.filter(d => d.type === 'root').each(function(d) {
-    const sel = d3.select(this);
-    sel.append('circle')
-      .attr('r', 26)
-      .attr('fill', '#FBBF24')
-      .attr('stroke', '#F59E0B')
-      .attr('stroke-width', 2)
-      .style('filter', 'drop-shadow(0 0 14px rgba(251,191,36,.45))');
-    sel.append('text').text(d.label).attr('dy', 40);
+  const g = svg.append('g');
+  const zoom = d3.zoom().scaleExtent([0.2, 4]).on('zoom', e => g.attr('transform', e.transform));
+  svg.call(zoom);
+
+  simulation = d3.forceSimulation(nodes)
+    .force('link', d3.forceLink(links).id(d => d.id).distance(d => d.type === 'contains' ? 50 : 70))
+    .force('charge', d3.forceManyBody().strength(d => d.type === 'chapter' ? -200 : -60))
+    .force('center', d3.forceCenter(width/2, height/2))
+    .force('collision', d3.forceCollide().radius(d => (sizeMap[d.type]||4) + 3));
+
+  const link = g.append('g').selectAll('line')
+    .data(links).join('line')
+    .attr('stroke', d => d.type === 'contains' ? '#D2E3FC' : '#E8EAED')
+    .attr('stroke-width', d => d.type === 'contains' ? 1.5 : 0.8)
+    .attr('opacity', 0.6);
+
+  const node = g.append('g').selectAll('g')
+    .data(nodes).join('g')
+    .attr('cursor', 'pointer')
+    .call(d3.drag().on('start', dragStart).on('drag', dragging).on('end', dragEnd));
+
+  node.append('circle')
+    .attr('r', d => sizeMap[d.type] || 4)
+    .attr('fill', d => colorMap[d.type] || '#BDC1C6')
+    .attr('stroke', '#fff')
+    .attr('stroke-width', 1.5);
+
+  node.append('text')
+    .text(d => d.label.length > 6 ? d.label.slice(0,6)+'…' : d.label)
+    .attr('font-size', d => d.type === 'chapter' ? 11 : 9)
+    .attr('fill', d => d.type === 'chapter' ? '#202124' : '#5F6368')
+    .attr('text-anchor', 'middle')
+    .attr('dy', d => (sizeMap[d.type]||4) + 11)
+    .attr('pointer-events', 'none');
+
+  node.on('click', (e, d) => showNodeInfo(d));
+
+  simulation.on('tick', () => {
+    link.attr('x1', d => d.source.x).attr('y1', d => d.source.y)
+        .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+    node.attr('transform', d => `translate(${d.x},${d.y})`);
   });
 
-  // 章节节点（主题层 - 蓝色）
-  nodeG.filter(d => d.type === 'chapter').each(function(d) {
-    const sel = d3.select(this);
-    sel.append('circle')
-      .attr('r', 16)
-      .attr('fill', '#60A5FA')
-      .attr('stroke', '#0F172A')
-      .attr('stroke-width', 2)
-      .style('filter', 'drop-shadow(0 2px 8px rgba(96,165,250,.35))');
-    // 标签位置根据角度调整
-    const labelOffset = Math.sin(d.angle) > 0.1 ? 32 : (Math.sin(d.angle) < -0.1 ? -24 : 30);
-    sel.append('text').text(d.label).attr('dy', labelOffset);
-  });
-
-  // 概念节点（支撑层 - 浅蓝）
-  nodeG.filter(d => d.type === 'concept').each(function(d) {
-    const sel = d3.select(this);
-    const r = d.level === 'topic' ? 8 : 6;
-    sel.append('circle')
-      .attr('r', r)
-      .attr('fill', d.level === 'topic' ? '#60A5FA' : '#93C5FD')
-      .attr('stroke', '#0F172A')
-      .attr('stroke-width', 1.5);
-
-    // 标签沿径向外侧放置
-    const labelDist = r + 8;
-    const lx = labelDist * Math.cos(d.angle);
-    const ly = labelDist * Math.sin(d.angle);
-    const anchor = Math.cos(d.angle) > 0.15 ? 'start' : (Math.cos(d.angle) < -0.15 ? 'end' : 'middle');
-    sel.append('text')
-      .text(d.label.trim())
-      .attr('x', lx)
-      .attr('y', ly)
-      .attr('dy', '0.32em')
-      .style('text-anchor', anchor);
-
-    // 视频 ▶ 图标
-    if (d.hasVideo) {
-      const bx = r * 0.7, by = -r * 0.9;
-      const badge = sel.append('g')
-        .attr('class', 'video-badge')
-        .attr('transform', `translate(${bx},${by})`);
-      badge.append('circle')
-        .attr('r', 7)
-        .attr('fill', '#FB7299')
-        .attr('stroke', '#0F172A')
-        .attr('stroke-width', 1)
-        .style('filter', 'drop-shadow(0 1px 4px rgba(251,114,153,.5))');
-      badge.append('text')
-        .text('▶')
-        .attr('text-anchor', 'middle')
-        .attr('dy', '0.28em')
-        .style('font-size', '7px')
-        .style('fill', '#fff')
-        .style('pointer-events', 'none');
-      badge.on('click', function(e) {
-        e.stopPropagation();
-        const v = videoMap[d.trimmedId];
-        if (v) window.open('https://www.bilibili.com/video/' + v.bvid, '_blank');
-      });
-    }
-  });
-
-  // 节点交互
-  nodeG.on('mouseover', function(e, d) {
-    showTooltip(e, d);
-    highlightNode(d);
-  }).on('mousemove', function(e) {
-    moveTooltip(e);
-  }).on('mouseout', function() {
-    document.getElementById('tooltip').style.opacity = 0;
-    if (!selectedNode) resetHighlight();
-    else highlightNode(selectedNode);
-  }).on('click', function(e, d) {
-    if (e.target.closest('.video-badge')) return;
-    selectedNode = d;
-    showDetail(d);
-    highlightNode(d);
-  });
-
-  // 入场动画
-  gNodes.selectAll('g.node')
-    .style('opacity', 0)
-    .transition()
-    .duration(500)
-    .delay((d, i) => i * 3)
-    .style('opacity', 1);
-
-  gLinks.selectAll('path')
-    .style('opacity', 0)
-    .transition()
-    .duration(600)
-    .delay(200)
-    .style('opacity', 1);
+  function dragStart(e, d) { if(!e.active) simulation.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; }
+  function dragging(e, d) { d.fx = e.x; d.fy = e.y; }
+  function dragEnd(e, d) { if(!e.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; }
 }
 
-// ===== Tooltip =====
-function showTooltip(e, d) {
-  const t = document.getElementById('tooltip');
-  let html = '<div class="tt-name">' + d.label.trim() + '</div>';
-  if (d.type === 'root') {
-    html += '<div class="tt-meta">根节点 · 全书核心</div>';
-  } else if (d.type === 'chapter') {
-    html += '<div class="tt-meta">第' + d.chapterNum + '章 · ' + d.conceptCount + '个概念</div>';
-  } else {
-    const chs = d.chapters.map(c => '第' + c + '章').join('、');
-    const levelText = d.level === 'topic' ? '主题概念' : '支撑概念';
-    html += '<div class="tt-meta">' + levelText + ' · ' + chs + '</div>';
-    if (d.hasVideo) {
-      const v = videoMap[d.trimmedId];
-      html += '<div class="tt-video">▶ ' + v.title + ' · 评分' + v.score + '</div>';
-    }
-  }
-  t.innerHTML = html;
-  moveTooltip(e);
-  t.style.opacity = 1;
+function showNodeInfo(d) {
+  const info = document.getElementById('node-info');
+  const typeLabel = { chapter: '章', section: '节', concept: '概念' }[d.type] || '';
+  const typeColor = { chapter: '#1A73E8', section: '#188038', concept: '#B06000' }[d.type] || '#BDC1C6';
+  let html = `<span class="type-badge" style="background:${typeColor}20;color:${typeColor}">${typeLabel}</span>`;
+  html += `<h4>${d.label}</h4>`;
+  if(d.full) html += `<div class="meta">${d.full}</div>`;
+  if(d.page) html += `<div class="meta">📍 第${d.page}页</div>`;
+  if(d.page_count) html += `<div class="meta">出现于 ${d.page_count} 页</div>`;
+  if(d.freq) html += `<div class="meta">频次：${d.freq}</div>`;
+  html += `<div class="text"><button class="btn btn-sm btn-text" onclick="location.href='teaching.html'">→ 在备课中查看</button></div>`;
+  info.innerHTML = html;
+  info.classList.add('show');
 }
 
-function moveTooltip(e) {
-  const t = document.getElementById('tooltip');
-  const rect = document.querySelector('.graph-main').getBoundingClientRect();
-  let x = e.clientX - rect.left + 14;
-  let y = e.clientY - rect.top + 14;
-  // 防止溢出
-  if (x + 260 > rect.width) x = e.clientX - rect.left - 270;
-  if (y + 80 > rect.height) y = e.clientY - rect.top - 90;
-  t.style.left = x + 'px';
-  t.style.top = y + 'px';
+function resetZoom() {
+  const svg = d3.select('#graph-svg');
+  svg.transition().duration(500).call(d3.zoom().transform, d3.zoomIdentity);
 }
 
-// ===== 高亮逻辑 =====
-function highlightNode(d) {
-  const highlightIds = new Set([d.id]);
-  if (d.type === 'concept') {
-    highlightIds.add('ch_' + d.primaryChapter);
-    highlightIds.add('机器学习');
-    // 跨章连接
-    d.chapters.forEach(chNum => highlightIds.add('ch_' + chNum));
-  } else if (d.type === 'chapter') {
-    highlightIds.add('机器学习');
-    conceptNodes
-      .filter(c => c.chapters.includes(d.chapterNum))
-      .forEach(c => highlightIds.add(c.id));
-  }
-
-  gNodes.selectAll('g.node').classed('dim', n => !highlightIds.has(n.id));
-  gLinks.selectAll('path')
-    .classed('highlight', l => highlightIds.has(l.source) && highlightIds.has(l.target))
-    .classed('dim', l => !(highlightIds.has(l.source) && highlightIds.has(l.target)));
-}
-
-function resetHighlight() {
-  gNodes.selectAll('g.node').classed('dim', false);
-  gLinks.selectAll('path').classed('highlight', false).classed('dim', false);
-}
-
-// ===== 右侧详情面板 =====
-function showDetail(d) {
-  const el = document.getElementById('detail');
-
-  if (d.type === 'root') {
-    const s = rawData.stats;
-    el.innerHTML = `
-      <div class="detail-name">${d.label}</div>
-      <span class="detail-badge root">根节点 · 全书核心</span>
-      <div class="detail-def">${d.definition}</div>
-      <div class="detail-section">
-        <div class="sec-title">📊 全书统计</div>
-        <div class="stats-row" style="padding:0;border:0;grid-template-columns:1fr 1fr">
-          <div class="stat-mini"><div class="num">${s.total_concepts}</div><div class="lbl">概念总数</div></div>
-          <div class="stat-mini"><div class="num">${s.chapters}</div><div class="lbl">章节数</div></div>
-          <div class="stat-mini"><div class="num">${s.topic_concepts}</div><div class="lbl">主题概念</div></div>
-          <div class="stat-mini"><div class="num">${s.total_edges}</div><div class="lbl">共现关联</div></div>
-        </div>
-      </div>
-      <div class="detail-section">
-        <div class="sec-title">📖 章节列表</div>
-        ${rawData.chapters.map(c => `
-          <div class="chapter-link" onclick="focusChapter(${c.num})">
-            <span>第${c.num}章 ${c.title}</span><span class="arrow">→</span>
-          </div>`).join('')}
-      </div>`;
-    return;
-  }
-
-  if (d.type === 'chapter') {
-    const chConcepts = conceptNodes.filter(c => c.primaryChapter === d.chapterNum);
-    const chInfo = rawData.chapters.find(c => c.num === d.chapterNum);
-    el.innerHTML = `
-      <div class="detail-name">第${d.chapterNum}章 ${d.label}</div>
-      <span class="detail-badge chapter">章节 · ${d.conceptCount}个概念</span>
-      <div class="detail-def">本章涵盖机器学习核心概念 ${d.conceptCount} 个，起始页码 ${chInfo.page}。点击下方概念可在图谱中定位。</div>
-      <div class="detail-section">
-        <div class="sec-title">📖 跳转学习</div>
-        <a class="chapter-link" href="reader.html?book=ml-zhou&page=${chInfo.page}">
-          <span>前往教材阅读 · 第${chInfo.page}页</span><span class="arrow">→</span>
-        </a>
-      </div>
-      <div class="detail-section">
-        <div class="sec-title">💡 本章概念</div>
-        ${chConcepts.map(c => `
-          <div class="concept-mini" onclick="focusNode('${c.id.replace(/'/g, "\\'")}')">
-            <span class="dot ${c.level}"></span>
-            <span>${c.label.trim()}</span>
-            ${c.hasVideo ? '<span class="has-video">▶ 有视频</span>' : ''}
-          </div>`).join('')}
-      </div>`;
-    return;
-  }
-
-  // 概念详情
-  const v = videoMap[d.trimmedId];
-  const neighbors = [];
-  rawData.edges.forEach(e => {
-    if (e.source === d.id) neighbors.push({ name: e.target, w: e.weight });
-    if (e.target === d.id) neighbors.push({ name: e.source, w: e.weight });
-  });
-  neighbors.sort((a, b) => b.w - a.w);
-
-  const chInfo = rawData.chapters.filter(c => d.chapters.includes(c.num));
-
-  el.innerHTML = `
-    <div class="detail-name">${d.label.trim()}</div>
-    <span class="detail-badge ${d.level}">${d.level === 'topic' ? '主题概念' : '支撑概念'}</span>
-    <div class="detail-def">${d.definition}</div>
-    <div class="detail-section">
-      <div class="sec-title">📚 所属章节</div>
-      ${chInfo.map(c => `
-        <a class="chapter-link" href="reader.html?book=ml-zhou&page=${c.page}">
-          <span>第${c.num}章 ${c.title}</span><span class="arrow">→</span>
-        </a>`).join('')}
-    </div>
-    ${v ? `
-    <div class="detail-section">
-      <div class="sec-title">🎬 关联视频</div>
-      <a class="video-card" href="https://www.bilibili.com/video/${v.bvid}" target="_blank">
-        <div class="play-icon">▶</div>
-        <div class="v-info">
-          <div class="v-title">${v.title}</div>
-          <div class="v-score">B站评分 ${v.score} · 点击播放</div>
-        </div>
-      </a>
-    </div>` : ''}
-    <div class="detail-section">
-      <div class="sec-title">🔗 共现概念（${neighbors.length}）</div>
-      <div class="rel-tags">
-        ${neighbors.slice(0, 15).map(n => `<span class="rel-tag" onclick="focusNode('${n.name.trim().replace(/'/g, "\\'")}')">${n.name.trim()}</span>`).join('') || '<span style="color:#64748B;font-size:12px">无关联概念</span>'}
-      </div>
-    </div>`;
-}
-
-// ===== 节点定位与聚焦 =====
-function focusNode(name) {
-  const target = allNodes.find(n => n.id.trim() === name.trim());
-  if (target) {
-    selectedNode = target;
-    showDetail(target);
-    highlightNode(target);
-    const mainEl = document.querySelector('.graph-main');
-    const W = mainEl.clientWidth, H = mainEl.clientHeight;
-    const scale = 1.6;
-    const tx = W / 2 - target.x * scale;
-    const ty = H / 2 - target.y * scale;
-    svg.transition().duration(600).call(
-      zoomBehavior.transform,
-      d3.zoomIdentity.translate(tx, ty).scale(scale)
-    );
-  }
-}
-
-function focusChapter(num) {
-  const target = chapterNodes.find(c => c.chapterNum === num);
-  if (target) focusNode(target.id);
-}
-
-// ===== 章节筛选 =====
-function applyFilter() {
-  if (activeChapter === null) {
-    gNodes.selectAll('g.node').style('display', null);
-    gLinks.selectAll('path').style('display', null);
-    resetHighlight();
-  } else {
-    const visibleIds = new Set(['机器学习', 'ch_' + activeChapter]);
-    conceptNodes
-      .filter(c => c.chapters.includes(activeChapter))
-      .forEach(c => visibleIds.add(c.id));
-
-    gNodes.selectAll('g.node')
-      .style('display', d => visibleIds.has(d.id) ? null : 'none');
-    gLinks.selectAll('path')
-      .style('display', l => (visibleIds.has(l.source) && visibleIds.has(l.target)) ? null : 'none');
-
-    if (selectedNode) resetHighlight();
-  }
-}
-
-// ===== 缩放控制 =====
-function zoomGraph(factor) {
-  svg.transition().duration(300).call(zoomBehavior.scaleBy, factor);
-}
-
-function resetGraph() {
-  svg.transition().duration(600).call(zoomBehavior.transform, d3.zoomIdentity);
-  selectedNode = null;
-  resetHighlight();
-  document.getElementById('detail').innerHTML = `
-    <div class="detail-placeholder">
-      <div class="icon">🧭</div>
-      <div class="text">点击图谱节点查看详情<br>点击 ▶ 图标直达B站视频</div>
-    </div>`;
-}
-
-// ===== 窗口缩放 =====
-window.addEventListener('resize', () => {
-  if (!rawData) return;
-  clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(() => {
-    const mainEl = document.querySelector('.graph-main');
-    const W = mainEl.clientWidth, H = mainEl.clientHeight;
-    computeLayout(W, H);
-    svg.attr('viewBox', `0 0 ${W} ${H}`);
-    g.selectAll('*').remove();
-    drawLinks();
-    drawNodes();
-    if (activeChapter !== null) applyFilter();
-  }, 250);
-});
+window.addEventListener('resize', () => { if(simulation) renderGraph(); });
+loadData();
 </script>
 </body>
 </html>

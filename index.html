@@ -3,338 +3,179 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>数智教材平台 · 教材广场</title>
+<title>数智教材 - 智能备课平台</title>
 <link rel="stylesheet" href="style.css">
 <style>
-  /* ========== 教材广场 - 兴趣岛模式 ========== */
-  .plaza-hero {
-    background: linear-gradient(135deg, var(--primary-deep) 0%, var(--primary) 60%, #1E40AF 100%);
-    color: #fff; padding: 36px 32px 28px; border-radius: 0 0 20px 20px;
-    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  body { overflow: auto; }
+  .home-header {
+    max-width: 900px; margin: 0 auto; padding: 60px 24px 40px; text-align: center;
   }
-  .plaza-hero h1 { font-size: 26px; margin-bottom: 6px; }
-  .plaza-hero p { font-size: 13px; opacity: .85; max-width: 500px; }
-  .plaza-hero .stats { display: flex; gap: 24px; }
-  .plaza-hero .stats .s { text-align: center; }
-  .plaza-hero .stats .s .n { font-size: 24px; font-weight: 700; }
-  .plaza-hero .stats .s .l { font-size: 11px; opacity: .75; }
+  .home-header .logo-big {
+    width: 56px; height: 56px; background: var(--primary); color: #fff;
+    border-radius: 14px; display: grid; place-items: center;
+    font-size: 24px; font-weight: 700; margin: 0 auto 20px;
+  }
+  .home-header h1 { font-size: 32px; font-weight: 400; color: var(--text); margin-bottom: 10px; }
+  .home-header .sub { font-size: 15px; color: var(--text-muted); line-height: 1.6; }
 
-  /* 紧凑分类筛选 */
-  .filter-bar {
-    display: flex; gap: 8px; padding: 16px 32px 0; flex-wrap: wrap;
+  .notebooks {
+    max-width: 900px; margin: 0 auto; padding: 0 24px 60px;
   }
-  .filter-bar .chip {
-    padding: 6px 16px; border-radius: 20px; background: var(--bg-soft);
-    color: var(--text-soft); font-size: 13px; cursor: pointer; transition: .2s; border: 1px solid transparent;
+  .section-label {
+    font-size: 13px; font-weight: 600; color: var(--text-soft);
+    margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
   }
-  .filter-bar .chip:hover { background: #E8EDF8; }
-  .filter-bar .chip.active { background: var(--primary); color: #fff; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border-soft); }
 
-  /* 教材岛卡片 */
-  .island-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 20px; padding: 20px 32px;
+  .notebook-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+  .nb-card {
+    border: 1px solid var(--border-soft); border-radius: var(--radius-xl);
+    padding: 20px; cursor: pointer; transition: .2s; background: var(--surface);
   }
-  .island-card {
-    background: #fff; border-radius: 16px; overflow: hidden;
-    border: 1px solid var(--border); transition: .25s; position: relative;
+  .nb-card:hover { box-shadow: var(--shadow-lg); border-color: var(--primary-soft); transform: translateY(-2px); }
+  .nb-card .cover {
+    width: 48px; height: 48px; border-radius: var(--radius-md);
+    display: grid; place-items: center; font-size: 24px; margin-bottom: 14px;
   }
-  .island-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--primary); }
-  .island-cover {
-    height: 140px; position: relative; display: flex; align-items: center; justify-content: center;
-    overflow: hidden;
-  }
-  .island-cover .cover-bg { position: absolute; inset: 0; opacity: .9; }
-  .island-cover .book-3d {
-    position: relative; width: 72px; height: 96px; border-radius: 4px 8px 8px 4px;
-    box-shadow: -4px 0 0 rgba(0,0,0,.15), 0 8px 24px rgba(0,0,0,.3);
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    color: #fff; text-align: center; padding: 8px; z-index: 1;
-  }
-  .island-cover .book-3d .bt { font-size: 13px; font-weight: 700; line-height: 1.3; }
-  .island-cover .book-3d .ba { font-size: 10px; opacity: .85; margin-top: 6px; }
-  .island-cover .badge {
-    position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,.4); backdrop-filter: blur(8px);
-    color: #fff; font-size: 11px; padding: 3px 10px; border-radius: 12px; z-index: 2;
-  }
-  .island-body { padding: 16px 18px; }
-  .island-body h3 { font-size: 16px; margin-bottom: 4px; }
-  .island-body .meta { font-size: 12px; color: var(--text-muted); margin-bottom: 10px; }
-  .island-body .desc { font-size: 13px; color: var(--text-soft); line-height: 1.5; margin-bottom: 12px;
-    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-  .island-stats { display: flex; gap: 16px; margin-bottom: 14px; }
-  .island-stats .st { font-size: 12px; color: var(--text-muted); }
-  .island-stats .st span { font-size: 16px; font-weight: 700; color: var(--text); display: block; }
-  .island-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-  .island-actions .act {
-    flex: 1; min-width: 70px; padding: 8px; border-radius: 8px; text-align: center;
-    font-size: 12px; cursor: pointer; transition: .2s; border: 1px solid var(--border);
-    background: #fff; color: var(--text-soft);
-  }
-  .island-actions .act:hover { background: var(--bg-soft); }
-  .island-actions .act.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
-  .island-actions .act.primary:hover { background: var(--primary-dark); }
+  .nb-card h3 { font-size: 16px; font-weight: 500; margin-bottom: 4px; }
+  .nb-card .meta { font-size: 12px; color: var(--text-muted); margin-bottom: 10px; }
+  .nb-card .desc { font-size: 13px; color: var(--text-soft); line-height: 1.5;
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .nb-card .tags { display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap; }
+  .nb-card .stats-row { display: flex; gap: 14px; margin-top: 12px; font-size: 12px; color: var(--text-muted); }
+  .nb-card .stats-row span { display: flex; align-items: center; gap: 4px; }
 
-  /* 我的进度条 */
-  .progress-strip {
-    height: 4px; background: var(--bg-soft); border-radius: 2px; margin-bottom: 12px; overflow: hidden;
+  .nb-card.featured { border-color: var(--primary-soft); background: linear-gradient(135deg, var(--primary-light) 0%, var(--surface) 40%); }
+  .nb-card.featured .featured-tag {
+    display: inline-block; font-size: 11px; font-weight: 600; color: var(--primary);
+    background: var(--surface); padding: 3px 10px; border-radius: var(--radius-full);
+    margin-bottom: 10px; border: 1px solid var(--primary-soft);
   }
-  .progress-strip .fill { height: 100%; background: linear-gradient(90deg, var(--primary), #3B82F6); border-radius: 2px; transition: width .8s; }
 
-  /* 紧凑面板：右侧快速入口 */
-  .side-panel {
-    position: fixed; right: 20px; bottom: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 40;
+  .new-card {
+    border: 2px dashed var(--border); border-radius: var(--radius-xl);
+    padding: 20px; cursor: pointer; transition: .15s;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    min-height: 200px; color: var(--text-muted);
   }
-  .side-panel .fab {
-    width: 48px; height: 48px; border-radius: 50%; background: #fff; box-shadow: var(--shadow);
-    display: grid; place-items: center; font-size: 22px; cursor: pointer; transition: .2s; border: 2px solid var(--border);
+  .new-card:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
+  .new-card .ico { font-size: 32px; margin-bottom: 8px; }
+  .new-card .label { font-size: 14px; font-weight: 500; }
+
+  .features-bar {
+    max-width: 900px; margin: 0 auto; padding: 20px 24px 40px;
+    display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;
   }
-  .side-panel .fab:hover { transform: scale(1.1); border-color: var(--primary); }
-  .side-panel .fab.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+  .feature-pill {
+    display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-soft);
+  }
+  .feature-pill .ico { font-size: 18px; }
 </style>
 </head>
 <body>
 
-<!-- 顶部导航 -->
+<!-- 极简顶栏 -->
 <div class="topbar">
-  <div class="logo">
-    <div class="mark">数</div>
-    <span>数智教材平台</span>
-    <span class="role-badge" style="display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:12px;background:rgba(96,165,250,.2);color:#60A5FA;font-size:11px;font-weight:600;margin-left:8px">🧑‍🎓 学习者</span>
-  </div>
-  <nav>
-    <a href="index.html" class="active">教材广场</a>
-    <a href="concept-graph.html">知识图谱</a>
-    <a href="teaching.html">教学端</a>
-    <a href="publisher.html">出版社端</a>
-    <a href="parent.html">家长端</a>
-  </nav>
+  <div class="logo"><div class="mark">数</div><span>数智教材</span></div>
+  <div class="spacer"></div>
   <div class="tools">
-    <div class="user"><div class="avatar">李</div><span class="name">李同学</span></div>
+    <div class="user">
+      <div class="avatar">王</div>
+      <span class="name">王老师</span>
+    </div>
   </div>
 </div>
 
-<!-- 广场 Hero -->
-<div class="plaza-hero">
-  <div>
-    <h1>📚 教材广场</h1>
-    <p>以教材为核心，组织学习活动。每本教材都是一个「学习岛」——看书、探索知识图谱、玩游戏、问书童、与同学讨论。</p>
+<div class="main" style="padding-top: 0;">
+  <!-- Hero -->
+  <div class="home-header">
+    <div class="logo-big">数</div>
+    <h1>引经据典，智能备课</h1>
+    <div class="sub">上传教材 → AI 拆解知识点 → 关联图谱与资料 → 生成教案与课件<br>每个知识点都可溯源到教材原文</div>
   </div>
-  <div class="stats">
-    <div class="s"><div class="n">3</div><div class="l">学习中</div></div>
-    <div class="s"><div class="n">7/16</div><div class="l">章节完成</div></div>
-    <div class="s"><div class="n">42%</div><div class="l">总进度</div></div>
-    <div class="s"><div class="n">28h</div><div class="l">本月时长</div></div>
+
+  <!-- 功能亮点 -->
+  <div class="features-bar">
+    <div class="feature-pill"><span class="ico">📖</span> 教材拆分</div>
+    <div class="feature-pill"><span class="ico">🕸️</span> 知识图谱</div>
+    <div class="feature-pill"><span class="ico">📜</span> 引经据典</div>
+    <div class="feature-pill"><span class="ico">📝</span> 智能教案</div>
+    <div class="feature-pill"><span class="ico">📊</span> PPT生成</div>
+    <div class="feature-pill"><span class="ico">🎬</span> 视频关联</div>
+  </div>
+
+  <!-- 我的笔记本 -->
+  <div class="notebooks">
+    <div class="section-label">📚 我的教材笔记本</div>
+    <div class="notebook-grid" id="notebook-grid"></div>
   </div>
 </div>
 
-<!-- 分类筛选 -->
-<div class="filter-bar">
-  <div class="chip active">全部教材</div>
-  <div class="chip"> machine learning</div>
-  <div class="chip">数据科学</div>
-  <div class="chip">人工智能</div>
-  <div class="chip">公共课程</div>
-  <div class="chip">已发行</div>
-  <div class="chip">三审中</div>
-</div>
-
-<!-- 教材岛 -->
-<div class="island-grid" id="island-grid"></div>
-
-<!-- 右下角悬浮入口 -->
-<div class="side-panel">
-  <div class="fab" title="书童" onclick="openTutor()">🧑‍🏫</div>
-  <div class="fab primary" title="AI助教" onclick="openAIChat()">🤖</div>
-</div>
+<div class="toast" id="toast"></div>
 
 <script>
-const islands = [
+const notebooks = [
   {
-    title: '软件工程 第3版', author: '钱乐秋 等', publisher: '清华大学出版社',
-    desc: '引经据典智能备课示例 · 16章87节已OCR全文拆分，含50条定义溯源、421节点知识图谱、B站视频关联，一键生成PPT课件。',
-    progress: 100, chapters: '16/16', learners: 0, videos: 42,
-    coverColor: 'linear-gradient(135deg,#047857,#10B981)', bookColor: '#047857',
-    status: '已拆分', statusColor: '#10B981',
-    badge: '📌 备课示例',
-    actions: [
-      { label: '🧑‍🏫 备课', url: 'teaching.html', primary: true },
-      { label: '🕸 图谱', url: 'teaching.html' },
-      { label: '📖 阅读', url: 'reader.html?book=ml-zhou&page=14' },
-      { label: '📊 概览', url: 'teaching.html' }
-    ]
+    title: '软件工程 第3版',
+    author: '钱乐秋 等 · 清华大学出版社',
+    desc: '已OCR全文拆分：16章87节，50条定义溯源，421节点知识图谱，48个B站视频关联。完整的引经据典备课示例。',
+    cover: '📘',
+    coverBg: 'linear-gradient(135deg, #E8F0FE, #D2E3FC)',
+    featured: true,
+    stats: [
+      { ico: '📄', text: '398页已拆分' },
+      { ico: '💡', text: '87节知识点' },
+      { ico: '🕸️', text: '421图谱节点' }
+    ],
+    url: 'teaching.html'
   },
   {
-    title: '机器学习', author: '周志华', publisher: '清华大学出版社',
-    desc: '系统介绍机器学习基本概念、原理与方法，涵盖监督学习、无监督学习、强化学习等核心主题。',
-    progress: 42, chapters: '7/16', learners: 12860, videos: 30,
-    coverColor: 'linear-gradient(135deg,#1E40AF,#3B82F6)', bookColor: '#1E40AF',
-    status: '学习中', statusColor: '#3B82F6',
-    actions: [
-      { label: '📖 阅读', url: 'reader.html?book=ml-zhou&page=122', primary: true },
-      { label: '🕸 图谱', url: 'concept-graph.html' },
-      { label: '🎮 乐园', url: 'game.html' },
-      { label: '📊 进度', url: '#', onclick: 'showProgress()' }
-    ]
-  },
-  {
-    title: '数据科学基础', author: '教材编委会', publisher: '高等教育出版社',
-    desc: '涵盖数据采集、清洗、分析、可视化全流程，结合 Python 实战案例，适合数据科学入门。',
-    progress: 15, chapters: '3/12', learners: 8530, videos: 18,
-    coverColor: 'linear-gradient(135deg,#059669,#10B981)', bookColor: '#059669',
-    status: '学习中', statusColor: '#10B981',
-    actions: [
-      { label: '📖 阅读', url: '#', primary: true },
-      { label: '🕸 图谱', url: 'concept-graph.html' },
-      { label: '🎮 乐园', url: 'game.html' },
-      { label: '📊 进度', url: '#', onclick: 'showProgress()' }
-    ]
-  },
-  {
-    title: '人工智能导论', author: '实验室编写组', publisher: '机械工业出版社',
-    desc: '从搜索推理到深度学习，全面覆盖 AI 发展脉络与核心技术，配套丰富实验项目。',
-    progress: 0, chapters: '0/14', learners: 6240, videos: 22,
-    coverColor: 'linear-gradient(135deg,#7C3AED,#A78BFA)', bookColor: '#7C3AED',
-    status: '未开始', statusColor: '#9CA3AF',
-    actions: [
-      { label: '📖 阅读', url: '#', primary: true },
-      { label: '🕸 图谱', url: 'concept-graph.html' },
-      { label: '🎮 乐园', url: 'game.html' },
-      { label: '📊 进度', url: '#', onclick: 'showProgress()' }
-    ]
+    title: '机器学习',
+    author: '周志华 · 清华大学出版社',
+    desc: '西瓜书，系统介绍机器学习基本概念、原理与方法，涵盖监督学习、无监督学习、强化学习等核心主题。',
+    cover: '🍉',
+    coverBg: 'linear-gradient(135deg, #E6F4EA, #CEEAD6)',
+    featured: false,
+    stats: [
+      { ico: '📄', text: '425页' },
+      { ico: '💡', text: '128概念' },
+      { ico: '🎬', text: '30视频' }
+    ],
+    url: 'teaching.html?book=ml'
   }
 ];
 
-const grid = document.getElementById('island-grid');
-grid.innerHTML = islands.map(b => `
-  <div class="island-card">
-    <div class="island-cover">
-      <div class="cover-bg" style="background:${b.coverColor}"></div>
-      <span class="badge" style="color:${b.statusColor};background:rgba(255,255,255,.9)">${b.status}</span>
-      ${b.badge ? `<span class="badge" style="position:absolute;top:12px;left:12px;background:#FBBF24;color:#92400E;font-size:11px;font-weight:600;padding:3px 10px;border-radius:12px">${b.badge}</span>` : ''}
-      <div class="book-3d" style="background:${b.bookColor}">
-        <div class="bt">${b.title}</div>
-        <div class="ba">${b.author}</div>
-      </div>
-    </div>
-    <div class="island-body">
-      <h3>${b.title}</h3>
-      <div class="meta">${b.author} · ${b.publisher}</div>
-      <div class="desc">${b.desc}</div>
-      <div class="progress-strip"><div class="fill" style="width:${b.progress}%"></div></div>
-      <div class="island-stats">
-        <div class="st"><span>${b.chapters}</span>章节</div>
-        <div class="st"><span>${b.progress}%</span>进度</div>
-        <div class="st"><span>${b.learners.toLocaleString()}</span>学习者</div>
-        <div class="st"><span>${b.videos}</span>视频</div>
-      </div>
-      <div class="island-actions">
-        ${b.actions.map(a => `<a class="act ${a.primary?'primary':''}" href="${a.url}" ${a.onclick?`onclick="${a.onclick};return false"`:''}>${a.label}</a>`).join('')}
-      </div>
-    </div>
-  </div>
-`).join('');
-
-// 进度溯源
-function showProgress() {
-  alert('📊 进度溯源\n\n总进度 42% = \n  · 阅读页数 42% × 0.4 = 16.8%\n  · 章节完成 7/16 × 0.3 = 13.1%\n  · 习题正确率 78% × 0.2 = 15.6%\n  · 学习时长 × 0.1 = 7.3%\n\n点击「AI助教」可问"我的进度怎么样？"');
+function render() {
+  const grid = document.getElementById('notebook-grid');
+  let html = '';
+  notebooks.forEach(nb => {
+    html += `<div class="nb-card ${nb.featured ? 'featured' : ''}" onclick="location.href='${nb.url}'">`;
+    if(nb.featured) html += `<div class="featured-tag">📌 备课示例</div>`;
+    html += `<div class="cover" style="background:${nb.coverBg}">${nb.cover}</div>`;
+    html += `<h3>${nb.title}</h3>`;
+    html += `<div class="meta">${nb.author}</div>`;
+    html += `<div class="desc">${nb.desc}</div>`;
+    html += `<div class="stats-row">`;
+    nb.stats.forEach(s => html += `<span>${s.ico} ${s.text}</span>`);
+    html += `</div>`;
+    html += `</div>`;
+  });
+  // 新建卡片
+  html += `<div class="new-card" onclick="showToast('📤 教材上传功能开发中')">`;
+  html += `<div class="ico">＋</div>`;
+  html += `<div class="label">添加新教材</div>`;
+  html += `</div>`;
+  grid.innerHTML = html;
 }
 
-// AI助教浮窗
-function openAIChat() {
-  if (document.getElementById('ai-panel')) { document.getElementById('ai-panel').style.display = 'flex'; return; }
-  const panel = document.createElement('div');
-  panel.id = 'ai-panel';
-  panel.style.cssText = 'display:flex;position:fixed;right:24px;bottom:80px;width:380px;height:520px;background:#fff;border-radius:16px;box-shadow:0 12px 40px rgba(0,0,0,.2);flex-direction:column;z-index:999;overflow:hidden';
-  panel.innerHTML = `
-    <div style="background:linear-gradient(90deg,var(--primary-deep),var(--primary));color:#fff;padding:14px 18px;display:flex;align-items:center;justify-content:space-between">
-      <div style="display:flex;align-items:center;gap:8px"><span style="font-size:20px">🤖</span><div><div style="font-size:14px;font-weight:600">AI 助教</div><div style="font-size:11px;opacity:.8">在线 · 基于教材知识库</div></div></div>
-      <span onclick="document.getElementById('ai-panel').style.display='none'" style="cursor:pointer;font-size:18px;opacity:.8">✕</span>
-    </div>
-    <div id="ai-body" style="flex:1;overflow-y:auto;padding:16px;background:var(--bg-soft)">
-      <div style="display:flex;gap:8px;margin-bottom:14px"><div style="width:30px;height:30px;border-radius:50%;background:var(--primary);display:grid;place-items:center;font-size:16px;flex-shrink:0">🤖</div><div style="max-width:75%;padding:10px 14px;border-radius:14px;background:#fff;border:1px solid var(--border);font-size:13px;line-height:1.6">你好！我是 AI 助教。可以问我机器学习相关问题、推荐学习路径。<br><br>💡 试试问：<br>· 什么是过拟合？<br>· 神经网络怎么学？<br>· 下一步学什么？</div></div>
-    </div>
-    <div style="padding:12px;border-top:1px solid var(--border);display:flex;gap:8px;background:#fff">
-      <input id="ai-input" type="text" placeholder="输入问题..." style="flex:1;border:1px solid var(--border);border-radius:20px;padding:10px 16px;font-size:13px;outline:none" onkeydown="if(event.key==='Enter')sendMsg()">
-      <button onclick="sendMsg()" style="background:var(--primary);color:#fff;border:none;border-radius:50%;width:38px;height:38px;cursor:pointer;font-size:16px">➤</button>
-    </div>
-  `;
-  document.body.appendChild(panel);
-}
-function sendMsg() {
-  const input = document.getElementById('ai-input');
-  const msg = input.value.trim();
-  if(!msg) return;
-  const body = document.getElementById('ai-body');
-  body.innerHTML += `<div style="display:flex;justify-content:flex-end;margin-bottom:14px"><div style="max-width:75%;padding:10px 14px;border-radius:14px;background:var(--primary);color:#fff;font-size:13px;line-height:1.6">${msg}</div></div>`;
-  input.value = '';
-  body.scrollTop = body.scrollHeight;
-  setTimeout(()=>{
-    let reply = '我是你的 AI 助教 🤖，可以帮你解答机器学习相关问题。试试问"什么是过拟合？"或"神经网络怎么学？"';
-    if(msg.includes('过拟合')) reply = '过拟合是模型在训练集表现好但泛化差。<br>建议：增加数据/正则化/降低模型复杂度。<br>📖 <a href="reader.html?book=ml-zhou&page=40" style="color:var(--primary)">第2章 模型评估与选择</a>';
-    if(msg.includes('神经网络')||msg.includes('BP')) reply = '神经网络通过反向传播(BP)学习权重。<br>📖 <a href="reader.html?book=ml-zhou&page=122" style="color:var(--primary)">第5章 神经网络</a> · <a href="concept-graph.html" style="color:var(--primary)">概念图谱</a>';
-    if(msg.includes('进度')) reply = '你当前总进度 42%。可在教材卡片查看进度条。';
-    if(msg.includes('下一步')||msg.includes('推荐')) reply = '建议：1️⃣ 完成第5章神经网络 2️⃣ 攻克第6章SVM 3️⃣ 进🎮学习乐园巩固';
-    body.innerHTML += `<div style="display:flex;gap:8px;margin-bottom:14px"><div style="width:30px;height:30px;border-radius:50%;background:var(--primary);display:grid;place-items:center;font-size:16px;flex-shrink:0">🤖</div><div style="max-width:75%;padding:10px 14px;border-radius:14px;background:#fff;border:1px solid var(--border);font-size:13px;line-height:1.6">${reply}</div></div>`;
-    body.scrollTop = body.scrollHeight;
-  }, 600);
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
 }
 
-// 书童数字人
-function openTutor() {
-  if (document.getElementById('tutor-panel')) { document.getElementById('tutor-panel').style.display = 'flex'; return; }
-  const panel = document.createElement('div');
-  panel.id = 'tutor-panel';
-  panel.style.cssText = 'display:flex;position:fixed;right:24px;bottom:80px;width:340px;height:480px;background:#fff;border-radius:16px;box-shadow:0 12px 40px rgba(0,0,0,.2);flex-direction:column;z-index:999;overflow:hidden';
-  panel.innerHTML = `
-    <div style="background:linear-gradient(135deg,#7C3AED,#A78BFA);color:#fff;padding:14px 18px;display:flex;align-items:center;justify-content:space-between">
-      <div style="display:flex;align-items:center;gap:10px">
-        <div style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.2);display:grid;place-items:center;font-size:20px">🧑‍🏫</div>
-        <div><div style="font-size:14px;font-weight:600">书童 · 小数</div><div style="font-size:11px;opacity:.85">你的专属数字学习伙伴</div></div>
-      </div>
-      <span onclick="document.getElementById('tutor-panel').style.display='none'" style="cursor:pointer;font-size:18px;opacity:.8">✕</span>
-    </div>
-    <div id="tutor-body" style="flex:1;overflow-y:auto;padding:16px;background:var(--bg-soft)">
-      <div style="display:flex;gap:8px;margin-bottom:14px">
-        <div style="width:30px;height:30px;border-radius:50%;background:#7C3AED;display:grid;place-items:center;font-size:16px;flex-shrink:0">🧑‍🏫</div>
-        <div style="max-width:75%;padding:10px 14px;border-radius:14px;background:#fff;border:1px solid var(--border);font-size:13px;line-height:1.6">
-          李同学你好！我是书童小数 👋<br>你正在学习《机器学习》第5章，我发现你昨天在"反向传播"那里停留了较久，需要我帮你讲解吗？<br><br>
-          <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">
-            <button onclick="tutorReply('讲解反向传播')" style="padding:4px 10px;border-radius:12px;background:#F3E8FF;color:#7C3AED;border:1px solid #D8B4FE;font-size:12px;cursor:pointer">讲解反向传播</button>
-            <button onclick="tutorReply('推荐视频')" style="padding:4px 10px;border-radius:12px;background:#F3E8FF;color:#7C3AED;border:1px solid #D8B4FE;font-size:12px;cursor:pointer">推荐视频</button>
-            <button onclick="tutorReply('来个游戏')" style="padding:4px 10px;border-radius:12px;background:#F3E8FF;color:#7C3AED;border:1px solid #D8B4FE;font-size:12px;cursor:pointer">来个游戏</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div style="padding:12px;border-top:1px solid var(--border);display:flex;gap:8px;background:#fff">
-      <input id="tutor-input" type="text" placeholder="和书童聊天..." style="flex:1;border:1px solid var(--border);border-radius:20px;padding:10px 16px;font-size:13px;outline:none" onkeydown="if(event.key==='Enter')tutorSend()">
-      <button onclick="tutorSend()" style="background:#7C3AED;color:#fff;border:none;border-radius:50%;width:38px;height:38px;cursor:pointer;font-size:16px">➤</button>
-    </div>
-  `;
-  document.body.appendChild(panel);
-}
-function tutorReply(msg) {
-  document.getElementById('tutor-input').value = msg;
-  tutorSend();
-}
-function tutorSend() {
-  const input = document.getElementById('tutor-input');
-  const msg = input.value.trim();
-  if(!msg) return;
-  const body = document.getElementById('tutor-body');
-  body.innerHTML += `<div style="display:flex;justify-content:flex-end;margin-bottom:14px"><div style="max-width:75%;padding:10px 14px;border-radius:14px;background:#7C3AED;color:#fff;font-size:13px;line-height:1.6">${msg}</div></div>`;
-  input.value = '';
-  body.scrollTop = body.scrollHeight;
-  setTimeout(()=>{
-    let reply = '我随时陪你学习！有什么问题尽管问我～';
-    if(msg.includes('反向传播')||msg.includes('BP')) reply = '反向传播其实不复杂！想象你在做蛋糕🎂：前向传播=按配方做蛋糕，发现不好吃（loss），反向传播=倒推哪一步出了问题（算梯度），然后调整配方（更新权重）。<br><br>📖 <a href="reader.html?book=ml-zhou&page=122" style="color:#7C3AED">去第5章看详细推导</a>';
-    if(msg.includes('视频')) reply = '我为你找到了几个优质讲解视频：<br>🎬 <a href="https://www.bilibili.com/video/BV1bx411M7Zp" target="_blank" style="color:#7C3AED">3Blue1Brown: 神经网络可视化</a><br>🎬 <a href="https://www.bilibili.com/video/BV1cs411n7yQ" target="_blank" style="color:#7C3AED">吴恩达: 反向传播详解</a>';
-    if(msg.includes('游戏')) reply = '好呀！去🎮<a href="game.html" style="color:#7C3AED">学习乐园</a>玩"知识消消乐"，把刚学的概念配对消除，既好玩又巩固记忆！';
-    body.innerHTML += `<div style="display:flex;gap:8px;margin-bottom:14px"><div style="width:30px;height:30px;border-radius:50%;background:#7C3AED;display:grid;place-items:center;font-size:16px;flex-shrink:0">🧑‍🏫</div><div style="max-width:75%;padding:10px 14px;border-radius:14px;background:#fff;border:1px solid var(--border);font-size:13px;line-height:1.6">${reply}</div></div>`;
-    body.scrollTop = body.scrollHeight;
-  }, 800);
-}
+render();
 </script>
 </body>
 </html>
