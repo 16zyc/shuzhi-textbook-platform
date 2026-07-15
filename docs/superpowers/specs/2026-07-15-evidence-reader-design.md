@@ -188,12 +188,12 @@
     "boxes": [[0.2, 0.3, 0.1, 0.02]],
     "expected_evidence_id": "evidence:software-crisis:primary"
   }],
-  "figures": [{"figure_id": "figure:1-1", "page_id": "abc123:20", "classification": "numbered", "figure_number": "图1-1", "boxes": [], "caption_text_nfc": "...", "concept_ids": []}],
+  "figures": [{"figure_id": "figure:1-1", "page_id": "abc123:20", "classification": "numbered", "figure_number": "图1-1", "image_boxes": [[0.2, 0.3, 0.5, 0.2]], "caption_boxes": [[0.3, 0.51, 0.3, 0.02]], "caption_text_nfc": "...", "concept_ids": []}],
   "resources": [{"resource_id": "resource:example", "required_platform": "arxiv"}]
 }
 ```
 
-`classification` 只能是 `numbered | unnumbered_teaching`。`gold_char_boxes` 中每项为 `[Unicode code point index, box]`，只记录正文金标字符。证据回跳的期望目标由每个概念的 `canonical_occurrence_id` 指向的金标出现项和 `expected_evidence_id` 唯一确定。
+`classification` 只能是 `numbered | unnumbered_teaching`。金标图和运行时图均使用 `image_boxes` 与 `caption_boxes`；`image_boxes` 至少一项，编号图的 `caption_boxes` 至少一项。`gold_char_boxes` 中每项为 `[Unicode code point index, box]`，只记录正文金标字符。证据回跳的期望目标由每个概念的 `canonical_occurrence_id` 指向的金标出现项和 `expected_evidence_id` 唯一确定。
 
 ## 8. 状态与降级
 
@@ -225,10 +225,19 @@
 
 ## 11. 验收标准
 
-第1章必须满足。所有指标使用冻结的 `chapter-1-gold.json` 作为分母，并由 `scripts/validate_chapter.py` 输出机器可读报告：
+第1章必须满足。所有指标使用冻结的 `chapter-1-gold.json` 作为分母，并由 `scripts/validate_chapter.py` 输出机器可读报告。固定调用方式为：
 
-- 正文坐标覆盖率不低于 98%：对预测文本和 `gold_text_nfc` 执行 Unicode NFC、连续 ASCII 空白折叠和全半角标点统一后进行最小编辑距离对齐；字符相等且预测框与金标字符框相交的金标字符数 / `gold_char_boxes` 总数。页眉页脚不计入分母。
-- 核心概念点击准确率不低于 95%：金标概念出现项中，预测框与金标框的聚合 IoU >= 0.5 且打开正确 `concept_id` 的数量 / 金标概念出现项总数。聚合 IoU 将每组框先求几何并集，再计算两个并集区域的 `intersection_area / union_area`；另报告误报率，自动框不得通过隐藏来规避统计。
+```bash
+python3 scripts/validate_chapter.py \
+  --gold data/chapter-1-gold.json \
+  --candidate data/chapter-1-candidate.json \
+  --report data/chapter-1-validation.json
+```
+
+候选清单顶层 schema 为 `{schema_version, source_sha256, pages[], concepts[], occurrences[], figures[], evidence[], resources[]}`，各数组实体使用第5节 schema。`occurrence` 和 `figure` 额外包含 `visible: boolean`；所有用户界面可交互的实体必须为 `true`，验收只把 `visible == true` 视为可见预测项。缺少必需数组、ID 重复、来源摘要不匹配或引用不存在均为输入错误并退出 2。
+
+- 正文坐标覆盖率不低于 98%：对预测文本和 `gold_text_nfc` 执行 Unicode NFC、连续 ASCII 空白折叠和全半角标点统一后进行最小编辑距离对齐；字符相等且预测框与金标字符框相交的金标字符数 / `gold_char_boxes` 总数。页眉页脚不计入分母。动态规划出现同成本路径时，固定按“相等字符对齐、替换、删除预测字符、插入金标字符”的顺序选择。
+- 核心概念点击准确率不低于 95%：金标概念出现项中，预测框与金标框的聚合 IoU >= 0.5 且打开正确 `concept_id` 的数量 / 金标概念出现项总数。聚合 IoU 将每组框先求几何并集，再计算两个并集区域的 `intersection_area / union_area`。同一 `concept_id` 和 `page_id` 内执行一对一最大权重匹配，权重为聚合 IoU；总权重相同则按金标 `occurrence_id`、预测 `occurrence_id` 字典序选择。未匹配可见预测项计为误报，重复预测不能重复命中同一金标项。
 - 教材一级证据回跳率为 100%：金标核心概念中，点击一级证据后到达该概念 `canonical_occurrence_id` 对应的正确 `page_id`，且目标框并集中心与金标框并集中心距离不超过页面短边 1% 的概念数 / 金标核心概念总数。每个概念只计一次。
 - 用户界面展示的外部链接可访问率为 100%：展示记录中，在最近 30 天内按第7节协议得到 `reachable`，或得到 `auth_required` 且有人工确认记录的数量 / 展示记录总数。
 - 概念误报率 = 未匹配任何金标出现项的可见预测出现项数 / 全部可见预测出现项数，必须不高于 5%。
