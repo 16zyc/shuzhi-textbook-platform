@@ -6,6 +6,7 @@
 <title>数智教材平台 - 软件工程 第3版</title>
 <link rel="stylesheet" href="style.css">
 <script src="https://unpkg.com/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <style>
   body { overflow: hidden; }
   .reader-layout {
@@ -330,10 +331,11 @@
     <div class="content-body" id="content-body">加载中...</div>
   </div>
 
-  <!-- 右栏：信息/图片/外部资源/智能问答 -->
+  <!-- 右栏：关联详情(动态) / 信息 / 书中图片 / 外部资源 / 智能问答 -->
   <div class="info-panel">
     <div class="info-tabs">
-      <div class="info-tab active" onclick="switchTab('info',this)">信息</div>
+      <div class="info-tab active" onclick="switchTab('detail',this)">关联详情</div>
+      <div class="info-tab" onclick="switchTab('info',this)">信息</div>
       <div class="info-tab" onclick="switchTab('images',this)">书中图片</div>
       <div class="info-tab" onclick="switchTab('resources',this)">外部资源</div>
       <div class="info-tab" onclick="switchTab('qa',this)">智能问答</div>
@@ -341,19 +343,6 @@
     <div class="info-body" id="info-body">
       <!-- Tab内容动态渲染 -->
     </div>
-  </div>
-</div>
-
-<!-- 关键词弹窗 -->
-<div class="kw-popup" id="kw-popup">
-  <div class="head">
-    <div class="term" id="kw-term"></div>
-    <div class="close" onclick="hideKwPopup()">✕</div>
-  </div>
-  <div class="body" id="kw-body"></div>
-  <div class="actions">
-    <button onclick="goToKwPage()">📖 查看原文</button>
-    <button onclick="addKwToLesson()">📝 加入教案</button>
   </div>
 </div>
 
@@ -390,9 +379,14 @@ async function loadData() {
     fetch('data/se_images.json').then(r=>r.json())
   ]);
   fulltext=f; knowledge=k; kwIndex=ki; extRes=e; images=img;
+  // 初始化PDF.js
+  if(window.pdfjsLib) {
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  }
   renderToc();
   goToPage(14);
-  switchTab('info', document.querySelector('.info-tab'));
+  switchTab('detail', document.querySelector('.info-tab'));
+  renderDetailEmpty();
 }
 
 // ===== 左栏：目录树 =====
@@ -516,88 +510,139 @@ function toggleHighlight(el) {
 function prevPage() { goToPage(currentPage-1); }
 function nextPage() { goToPage(currentPage+1); }
 
-// ===== 关键词弹窗 =====
+// ===== 关键词点击 → 右栏动态加载关联详情 =====
 function showKwPopup(el, event) {
   event.stopPropagation();
   const data = JSON.parse(el.dataset.kw.replace(/&quot;/g,'"'));
   activeKwData = data;
-  const kwDetail = kwIndex.keywords.find(k => k.term === data.term);
-
-  document.getElementById('kw-term').textContent = data.term;
-  let body = '';
-
-  if(kwDetail && kwDetail.definition) {
-    body += `<div class="section"><div class="label">📖 定义</div>`;
-    body += `<div class="def-box">${kwDetail.definition}</div>`;
-    body += `<div class="def-source">${kwDetail.def_source ? '《'+kwDetail.def_source+'》' : '《软件工程第3版》'} 第${kwDetail.def_page}页</div>`;
-    body += `</div>`;
-  }
-
-  // 外部资源关联
-  const chRes = extRes.chapters.find(c => c.chapter === currentChapter);
-  if(chRes) {
-    // 视频
-    const vids = chRes.videos.filter(v => v.title.includes(data.term) || data.term.includes(v.title.split('')[0]));
-    const allVids = chRes.videos.slice(0, 3);
-    if(allVids.length) {
-      body += `<div class="section"><div class="label">🎬 相关视频</div>`;
-      allVids.forEach(v => {
-        body += `<div class="occ-item" onclick="window.open('${v.url}')">▶ ${v.title}</div>`;
-      });
-      body += `</div>`;
-    }
-    // GitHub
-    if(chRes.github.length) {
-      body += `<div class="section"><div class="label">💻 相关代码</div>`;
-      chRes.github.slice(0,2).forEach(g => {
-        body += `<div class="occ-item" onclick="window.open('${g.url}')">⭐ ${g.title} (${g.stars})</div>`;
-      });
-      body += `</div>`;
-    }
-    // arXiv
-    if(chRes.arxiv.length) {
-      body += `<div class="section"><div class="label">📄 相关文献</div>`;
-      chRes.arxiv.slice(0,2).forEach(a => {
-        body += `<div class="occ-item" onclick="window.open('${a.url}')">📑 ${a.title} (被引${a.citations})</div>`;
-      });
-      body += `</div>`;
-    }
-  }
-
-  // 出现位置
-  if(kwDetail && kwDetail.occurrences.length > 1) {
-    body += `<div class="section"><div class="label">📍 出现位置 (${kwDetail.occurrences.length}处)</div>`;
-    kwDetail.occurrences.slice(0,5).forEach(occ => {
-      body += `<div class="occ-item" onclick="goToPage(${occ.page})">第${occ.page}页: ...${occ.context.substring(0,35)}...</div>`;
-    });
-    body += `</div>`;
-  }
-
-  document.getElementById('kw-body').innerHTML = body || '<div style="font-size:12px;color:var(--text-muted)">暂无关联信息</div>';
-
-  const rect = el.getBoundingClientRect();
-  const popup = document.getElementById('kw-popup');
-  let left = rect.left, top = rect.bottom + 4;
-  if(left + 300 > window.innerWidth) left = window.innerWidth - 310;
-  if(top + 300 > window.innerHeight) top = rect.top - 300;
-  popup.style.left = left+'px'; popup.style.top = top+'px';
-  popup.classList.add('show');
+  // 自动切换到"关联详情"Tab
+  switchTab('detail', document.querySelector('.info-tab'));
+  renderDetail(data);
 }
 
-function hideKwPopup() { document.getElementById('kw-popup').classList.remove('show'); }
-function goToKwPage() { if(activeKwData) { goToPage(activeKwData.page); hideKwPopup(); } }
-function addKwToLesson() { if(activeKwData) { showToast(`✓ "${activeKwData.term}" 已加入教案素材`); hideKwPopup(); } }
+function renderDetailEmpty() {
+  if(currentTab !== 'detail') return;
+  document.getElementById('info-body').innerHTML = `
+    <div style="text-align:center;padding:40px 20px;color:var(--text-muted)">
+      <div style="font-size:36px;margin-bottom:12px">👆</div>
+      <div style="font-size:13px;line-height:1.8">
+        点击原文中<span style="color:var(--primary)">蓝色</span>或<span style="color:var(--warning)">黄色</span>的关键词<br>
+        查看该概念的关联资料
+      </div>
+      <div style="margin-top:16px;font-size:11px;color:var(--text-faint)">
+        <div>🔵 蓝色 = 有定义可溯源</div>
+        <div>🟡 黄色 = 普通术语</div>
+        <div>🎬 标记 = 有视频关联</div>
+      </div>
+    </div>
+  `;
+}
 
-document.addEventListener('click', e => {
-  if(!e.target.closest('.kw-popup') && !e.target.closest('.kw')) hideKwPopup();
-});
+function renderDetail(data) {
+  const kwDetail = kwIndex.keywords.find(k => k.term === data.term);
+  const term = data.term;
+  let html = '';
+
+  // 头部：术语名
+  html += `<div style="background:var(--primary-light);padding:14px;border-radius:10px;margin-bottom:14px">`;
+  html += `<div style="font-size:18px;font-weight:600;color:var(--primary)">${term}</div>`;
+  html += `<div style="font-size:11px;color:var(--text-muted);margin-top:4px">`;
+  if(kwDetail) {
+    html += `频次:${kwDetail.freq}次 · `;
+    if(kwDetail.chapter) html += `第${kwDetail.chapter}章 · `;
+    html += `${kwDetail.occurrences.length}处出现`;
+  }
+  html += `</div></div>`;
+
+  // 1. 定义（引经据典）
+  if(kwDetail && kwDetail.definition) {
+    html += `<div class="ext-group"><div class="head"><span class="ico">📖</span> 定义 · 引经据典</div>`;
+    html += `<div style="background:var(--primary-light);border-radius:8px;padding:12px;font-size:13px;color:var(--text);line-height:1.6">${kwDetail.definition}</div>`;
+    html += `<div style="font-size:11px;color:var(--primary);margin-top:6px">📜 出处：${kwDetail.def_source ? '《'+kwDetail.def_source+'》' : '《软件工程第3版》'} 第${kwDetail.def_page}页</div>`;
+    html += `</div>`;
+  }
+
+  // 2. 原文出处（出现位置）
+  if(kwDetail && kwDetail.occurrences.length > 0) {
+    html += `<div class="ext-group"><div class="head"><span class="ico">📍</span> 原文出处 <span class="count">${kwDetail.occurrences.length}</span></div>`;
+    kwDetail.occurrences.slice(0, 6).forEach(occ => {
+      html += `<div class="ext-item" onclick="goToPage(${occ.page})">`;
+      html += `<div class="ico">📄</div>`;
+      html += `<div class="body"><div class="title" style="font-size:11px">第${occ.page}页</div>`;
+      html += `<div style="font-size:11px;color:var(--text-muted);margin-top:2px;line-height:1.4">...${occ.context.substring(0,40)}...</div></div>`;
+      html += `</div>`;
+    });
+    html += `</div>`;
+  }
+
+  // 3. 相关视频（B站）
+  if(kwDetail && kwDetail.videos && kwDetail.videos.length) {
+    html += `<div class="ext-group"><div class="head"><span class="ico">🎬</span> 相关视频 <span class="count">${kwDetail.videos.length}</span></div>`;
+    kwDetail.videos.forEach(v => {
+      html += `<a class="ext-item" href="${v.url}" target="_blank">`;
+      html += `<div class="ico">▶</div>`;
+      html += `<div class="body"><div class="title">${v.title}</div>`;
+      html += `<div class="meta"><span class="tag bili">B站</span><span>${v.duration||''}</span><span>👁 ${v.views||''}</span></div></div>`;
+      html += `</a>`;
+    });
+    html += `</div>`;
+  }
+
+  // 4. 相关代码（GitHub）
+  if(kwDetail && kwDetail.github && kwDetail.github.length) {
+    html += `<div class="ext-group"><div class="head"><span class="ico">💻</span> 相关代码 <span class="count">${kwDetail.github.length}</span></div>`;
+    kwDetail.github.forEach(g => {
+      html += `<a class="ext-item" href="${g.url}" target="_blank">`;
+      html += `<div class="ico">⭐</div>`;
+      html += `<div class="body"><div class="title">${g.title}</div>`;
+      html += `<div class="meta"><span class="tag gh">GitHub</span><span>${g.stars}</span></div></div>`;
+      html += `</a>`;
+    });
+    html += `</div>`;
+  }
+
+  // 5. 相关文献（arXiv）
+  if(kwDetail && kwDetail.arxiv && kwDetail.arxiv.length) {
+    html += `<div class="ext-group"><div class="head"><span class="ico">📄</span> 相关文献 <span class="count">${kwDetail.arxiv.length}</span></div>`;
+    kwDetail.arxiv.forEach(a => {
+      html += `<a class="ext-item" href="${a.url}" target="_blank">`;
+      html += `<div class="ico">📑</div>`;
+      html += `<div class="body"><div class="title">${a.title}</div>`;
+      html += `<div class="meta"><span class="tag arxiv">arXiv</span><span>被引${a.citations}</span></div></div>`;
+      html += `</a>`;
+    });
+    html += `</div>`;
+  }
+
+  // 如果没有任何关联
+  if(!kwDetail || (!kwDetail.definition && !kwDetail.videos.length && !kwDetail.github.length && !kwDetail.arxiv.length && !kwDetail.occurrences.length)) {
+    html += `<div style="text-align:center;padding:30px;color:var(--text-muted);font-size:12px">该术语暂无关联资料</div>`;
+  }
+
+  // 操作按钮
+  html += `<div style="margin-top:16px;display:flex;gap:6px">`;
+  html += `<button class="action-btn primary" style="flex:1" onclick="addKwToLesson()">📝 加入教案</button>`;
+  html += `</div>`;
+
+  document.getElementById('info-body').innerHTML = html;
+}
+
+function addKwToLesson() {
+  if(activeKwData) {
+    showToast(`✓ "${activeKwData.term}" 已加入教案素材`);
+  }
+}
 
 // ===== 右栏Tab =====
 function switchTab(tab, el) {
   currentTab = tab;
   document.querySelectorAll('.info-tab').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
-  if(tab === 'info') renderInfo();
+  if(tab === 'detail') {
+    if(activeKwData) renderDetail(activeKwData);
+    else renderDetailEmpty();
+  }
+  else if(tab === 'info') renderInfo();
   else if(tab === 'images') renderImages();
   else if(tab === 'resources') renderResources();
   else if(tab === 'qa') renderQA();
@@ -637,65 +682,54 @@ function renderInfo() {
 }
 
 function renderImages() {
-  if(!images || !images.images) {
-    document.getElementById('info-body').innerHTML = '<div style="text-align:center;color:var(--text-muted);padding:20px">图片数据加载中...</div>';
-    return;
-  }
-  // 过滤当前章节的图片
-  const chImgs = images.images.filter(i => i.chapter === currentChapter);
-  // 也包含当前页的图片
-  const pageImgs = images.images.filter(i => i.page === currentPage);
-
-  let html = '';
-  // 当前页的图片优先显示
-  if(pageImgs.length) {
-    html += `<div class="info-section">
-      <div class="label">当前页图片（第${currentPage}页）</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">`;
-    pageImgs.slice(0,6).forEach(img => {
-      html += `<div style="background:var(--surface);border:1px solid var(--border-soft);border-radius:8px;overflow:hidden;cursor:pointer" onclick="showImagePreview('${img.file}')">
-        <img src="${img.file}" style="width:100%;height:120px;object-fit:contain;background:#f8f9fa;display:block" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div style=\\'height:120px;display:grid;place-items:center;color:var(--text-muted);font-size:11px\\'>加载失败</div>'">
-        <div style="padding:4px 8px;font-size:10px;color:var(--text-muted)">p${img.page} · ${img.width}×${img.height}</div>
-      </div>`;
+  // 用PDF.js渲染当前页的高清原图
+  document.getElementById('info-body').innerHTML = `
+    <div class="info-section">
+      <div class="label">当前页原图（第${currentPage}页）</div>
+      <div style="background:var(--surface);border:1px solid var(--border-soft);border-radius:8px;padding:8px;text-align:center">
+        <canvas id="pdf-page-canvas" style="max-width:100%;background:#f8f9fa;border-radius:4px"></canvas>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:6px">高清扫描原图 · 可放大查看</div>
+      </div>
+    </div>
+    <div class="info-section">
+      <div class="label">翻页查看其他页</div>
+      <div style="display:flex;gap:6px">
+        <button class="action-btn" style="flex:1" onclick="prevPage();renderImages()">‹ 上一页</button>
+        <button class="action-btn" style="flex:1" onclick="nextPage();renderImages()">下一页 ›</button>
+      </div>
+    </div>
+  `;
+  // 用PDF.js渲染
+  if(window.pdfjsLib) {
+    pdfjsLib.getDocument('books/se-14043807.pdf').promise.then(pdf => {
+      pdf.getPage(currentPage).then(page => {
+        const canvas = document.getElementById('pdf-page-canvas');
+        if(!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const viewport = page.getViewport({scale: 1.0});
+        // 适应右栏宽度
+        const maxWidth = 280;
+        const scale = maxWidth / viewport.width;
+        const scaledViewport = page.getViewport({scale: scale});
+        canvas.width = scaledViewport.width;
+        canvas.height = scaledViewport.height;
+        page.render({canvasContext: ctx, viewport: scaledViewport});
+      });
+    }).catch(err => {
+      const canvas = document.getElementById('pdf-page-canvas');
+      if(canvas) canvas.parentElement.innerHTML = '<div style="padding:20px;color:var(--text-muted);font-size:12px">原图加载失败：'+err.message+'</div>';
     });
-    html += `</div></div>`;
   }
-
-  // 本章所有图片
-  if(chImgs.length) {
-    html += `<div class="info-section">
-      <div class="label">本章图片（第${currentChapter}章 · ${chImgs.length}张）</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;max-height:500px;overflow-y:auto">`;
-    chImgs.slice(0, 20).forEach(img => {
-      html += `<div style="background:var(--surface);border:1px solid var(--border-soft);border-radius:8px;overflow:hidden;cursor:pointer" onclick="goToPage(${img.page})">
-        <img src="${img.file}" style="width:100%;height:100px;object-fit:contain;background:#f8f9fa;display:block" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div style=\\'height:100px;display:grid;place-items:center;color:var(--text-muted);font-size:11px\\'>加载失败</div>'">
-        <div style="padding:3px 6px;font-size:10px;color:var(--text-muted)">p${img.page}</div>
-      </div>`;
-    });
-    html += `</div></div>`;
-  }
-
-  if(!pageImgs.length && !chImgs.length) {
-    html = '<div style="text-align:center;color:var(--text-muted);padding:30px;font-size:13px">本章暂无图片</div>';
-  }
-
-  document.getElementById('info-body').innerHTML = html;
-}
-
-function showImagePreview(src) {
-  // 简单的图片预览
-  const overlay = document.createElement('div');
-  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:300;display:grid;place-items:center;cursor:pointer';
-  overlay.innerHTML = `<img src="${src}" style="max-width:90%;max-height:90%;border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,.5)">`;
-  overlay.onclick = () => overlay.remove();
-  document.body.appendChild(overlay);
 }
 
 function renderResources() {
   const chRes = extRes.chapters.find(c => c.chapter === currentChapter);
-  if(!chRes) { document.getElementById('info-body').innerHTML = '<div style="text-align:center;color:var(--text-muted);padding:20px">暂无资源</div>'; return; }
+  if(!chRes) { document.getElementById('info-body').innerHTML = '<div style="text-align:center;color:var(--text-muted);padding:30px;font-size:13px">本章暂无外部资源</div>'; return; }
 
-  let html = '';
+  let html = `<div style="background:var(--bg-soft);padding:10px 12px;border-radius:8px;margin-bottom:14px;font-size:12px;color:var(--text-muted)">
+    📚 第${currentChapter}章「${chRes.title}」的外部资源，共
+    <strong style="color:var(--primary)">${chRes.videos.length + chRes.github.length + chRes.arxiv.length + chRes.blogs.length + chRes.slides.length}</strong> 条
+  </div>`;
 
   // 相关视频
   if(chRes.videos.length) {

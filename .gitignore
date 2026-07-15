@@ -1,7 +1,9 @@
 # 只保留网站文件，排除原始素材
 *.pptx
 *.mp4
-*.pdf
+# 允许 books/ 目录下的 PDF（教材原文）
+14043807.pdf
+!books/*.pdf
 platform_screenshot.png
 logo.jpeg
 slide_thumbnail.jpeg
