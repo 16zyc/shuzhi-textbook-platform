@@ -3,244 +3,211 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>软件工程 第3版 - 备课工作台</title>
+<title>软件工程 第3版 - 数智教材备课系统</title>
 <link rel="stylesheet" href="style.css">
 <script src="https://unpkg.com/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
 <style>
-  /* 左栏来源展开样式 */
-  .source-expanded {
-    padding: 8px 8px 12px 24px;
-  }
-  .source-expanded .tree-row { padding: 5px 10px; }
+  body { overflow: hidden; }
+  .content-area { flex: 1; overflow-y: auto; padding: 20px 24px; }
+  .section-title { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
 
-  /* 中栏 Notebook Guide */
-  .guide-card {
-    background: var(--surface); border: 1px solid var(--border-soft);
-    border-radius: var(--radius-xl); padding: 24px; margin-bottom: 16px;
-  }
-  .guide-card h2 { font-size: 18px; font-weight: 400; margin-bottom: 6px; }
-  .guide-card .sub { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
-  .guide-actions { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; }
-  .guide-btn {
-    display: flex; align-items: center; gap: 10px; padding: 12px 14px;
-    border: 1px solid var(--border-soft); border-radius: var(--radius-lg);
-    cursor: pointer; transition: .15s; background: var(--surface);
-  }
-  .guide-btn:hover { border-color: var(--primary); background: var(--primary-light); }
-  .guide-btn .ico { font-size: 20px; }
-  .guide-btn .text { font-size: 13px; font-weight: 500; }
-  .guide-btn .text .d { font-size: 11px; color: var(--text-muted); font-weight: 400; margin-top: 2px; }
+  /* 知识点列表 */
+  .kp-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .kp-table th { background: var(--surface-2); padding: 10px 14px; text-align: left; font-weight: 600; color: var(--text-soft); font-size: 12px; border-bottom: 1px solid var(--border-soft); }
+  .kp-table td { padding: 10px 14px; border-bottom: 1px solid var(--border-soft); }
+  .kp-table tr:hover { background: var(--surface-2); }
+  .kp-table .term { font-weight: 500; color: var(--primary); cursor: pointer; }
+  .kp-table .def { color: var(--text-soft); max-width: 400px; }
+  .kp-table .src { font-size: 11px; color: var(--warning); }
+  .kp-table .page { font-size: 11px; color: var(--text-muted); }
 
-  /* 引文抽屉 */
-  .citation-drawer {
-    position: fixed; right: 0; top: 56px; bottom: 0; width: 400px;
-    background: var(--surface); border-left: 1px solid var(--border);
-    box-shadow: var(--shadow-lg); z-index: 100;
-    transform: translateX(100%); transition: .25s; display: flex; flex-direction: column;
-  }
-  .citation-drawer.open { transform: translateX(0); }
-  .citation-drawer .head {
-    padding: 14px 20px; border-bottom: 1px solid var(--border-soft);
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .citation-drawer .head h3 { font-size: 15px; font-weight: 500; }
-  .citation-drawer .body { flex: 1; overflow-y: auto; padding: 16px 20px; }
-  .citation-drawer .body .src-block {
-    margin-bottom: 16px; padding: 14px; border-radius: var(--radius);
-    background: var(--surface-2); border-left: 3px solid var(--primary);
-  }
-  .citation-drawer .body .src-block .ref { font-size: 12px; color: var(--primary); font-weight: 600; margin-bottom: 6px; }
-  .citation-drawer .body .src-block .text { font-size: 13px; color: var(--text-soft); line-height: 1.7; }
+  /* 图谱容器 */
+  #graph-container { width: 100%; height: calc(100vh - 300px); background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); }
+  #graph-container svg { width: 100%; height: 100%; }
 
-  /* PPT预览模态框 */
-  .ppt-modal { max-width: 900px; }
-  .ppt-slides-container { display: flex; flex-direction: column; gap: 16px; }
-
-  /* 搜索高亮 */
-  mark { background: var(--warning-light); color: var(--warning); padding: 1px 3px; border-radius: 3px; }
-
-  /* 来源正文查看器 */
-  .source-viewer {
-    padding: 12px 16px; border-top: 1px solid var(--border-soft);
-    background: var(--surface); max-height: 240px; overflow-y: auto;
-  }
-  .source-viewer .page-info { font-size: 11px; color: var(--text-muted); margin-bottom: 8px; }
-  .source-viewer .page-text { font-size: 12px; color: var(--text-soft); line-height: 1.7; white-space: pre-wrap; }
-
-  /* 笔记输入 */
-  .note-input-area {
-    padding: 10px 12px; border-top: 1px solid var(--border-soft);
-  }
-  .note-input-area textarea {
-    width: 100%; min-height: 36px; max-height: 100px;
-    border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 8px 12px; font-size: 12px; resize: none; outline: none;
-    background: var(--surface); transition: .15s;
-  }
-  .note-input-area textarea:focus { border-color: var(--primary); }
-  .note-input-area .actions { display: flex; justify-content: flex-end; gap: 6px; margin-top: 6px; }
-
-  /* 章节快速选择器 */
-  .chapter-quick {
-    display: flex; gap: 6px; padding: 8px 12px; flex-wrap: wrap;
-    border-bottom: 1px solid var(--border-soft);
-  }
-  .chapter-quick .chip {
-    padding: 4px 10px; border-radius: var(--radius-full); font-size: 11px;
-    background: var(--bg-hover); color: var(--text-soft); cursor: pointer; transition: .12s;
-  }
-  .chapter-quick .chip:hover { background: var(--primary-light); color: var(--primary); }
-  .chapter-quick .chip.active { background: var(--primary); color: #fff; }
+  /* PPT 预览 */
+  .ppt-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
 </style>
 </head>
 <body>
 
-<!-- 极简顶栏 -->
+<!-- 顶栏 -->
 <div class="topbar">
-  <div class="nav-back" onclick="location.href='index.html'">← 笔记本</div>
-  <div class="logo"><div class="mark">数</div><span>软件工程 第3版</span></div>
+  <div class="nav-back" onclick="location.href='index.html'">← 教材库</div>
+  <div class="logo"><div class="mark">数</div><span>软件工程 第3版 · 备课系统</span></div>
   <div class="spacer"></div>
   <div class="tools">
-    <button class="btn-icon" title="搜索" onclick="showToast('🔍 全文搜索开发中')">🔍</button>
+    <button class="btn btn-sm btn-primary" onclick="generatePPT()">📊 生成课件</button>
     <div class="user"><div class="avatar">王</div><span class="name">王老师</span></div>
   </div>
 </div>
 
-<!-- 三栏工作台 -->
-<div class="workspace">
-  <!-- ========== 左栏：源材料 ========== -->
-  <div class="panel left">
-    <div class="panel-head">
-      <div class="title"><span class="ico">📚</span> 来源</div>
-      <div class="actions">
-        <button title="展开/折叠全部" onclick="toggleAllSources()">⇕</button>
+<!-- 系统布局 -->
+<div class="app-layout">
+  <!-- 侧边导航 -->
+  <aside class="sidebar">
+    <div class="nav-section">
+      <div class="nav-label">教材分析</div>
+      <div class="nav-item active" data-module="dashboard"><span class="ico">📊</span> 总览看板</div>
+      <div class="nav-item" data-module="reader"><span class="ico">📖</span> 原文阅读</div>
+      <div class="nav-item" data-module="knowledge"><span class="ico">💡</span> 知识点</div>
+      <div class="nav-item" data-module="graph"><span class="ico">🕸️</span> 知识图谱</div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-label">备课工具</div>
+      <div class="nav-item" data-module="lesson"><span class="ico">📝</span> 教案编写</div>
+      <div class="nav-item" data-module="ppt"><span class="ico">📑</span> 课件生成</div>
+      <div class="nav-item" data-module="quiz"><span class="ico">✏️</span> 随堂测验</div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-label">资源</div>
+      <div class="nav-item" data-module="videos"><span class="ico">🎬</span> 视频资源<span class="badge-count" id="vid-count">0</span></div>
+      <div class="nav-item" data-module="citations"><span class="ico">📜</span> 引经据典<span class="badge-count" id="cite-count">0</span></div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-label">章节</div>
+      <div id="chapter-nav" style="max-height:200px;overflow-y:auto"></div>
+    </div>
+  </aside>
+
+  <!-- 主内容区 -->
+  <div class="content-area" id="content-area">
+    <!-- 模块: 总览看板 -->
+    <div class="module-panel" id="module-dashboard">
+      <div class="section-title">📊 教材分析总览</div>
+      <div class="dashboard-row cols-4">
+        <div class="kpi-card" style="color:var(--primary)">
+          <div class="icon-box" style="background:var(--primary-light)">📄</div>
+          <div class="data"><div class="value">398</div><div class="label">总页数</div><div class="trend up">✓ 已全部OCR</div></div>
+        </div>
+        <div class="kpi-card" style="color:var(--success)">
+          <div class="icon-box" style="background:var(--success-light)">💡</div>
+          <div class="data"><div class="value" id="kp-count">0</div><div class="label">知识点</div><div class="trend up" id="def-count">0 条定义</div></div>
+        </div>
+        <div class="kpi-card" style="color:var(--warning)">
+          <div class="icon-box" style="background:var(--warning-light)">🏷️</div>
+          <div class="data"><div class="value" id="term-count">0</div><div class="label">术语标注</div><div class="trend up" id="anno-count">0 处关联</div></div>
+        </div>
+        <div class="kpi-card" style="color:var(--purple)">
+          <div class="icon-box" style="background:var(--purple-light)">🕸️</div>
+          <div class="data"><div class="value" id="node-count">0</div><div class="label">图谱节点</div><div class="trend up" id="edge-count">0 条关系</div></div>
+        </div>
+      </div>
+
+      <div class="dashboard-row cols-2">
+        <div class="card">
+          <div class="card-head"><h3>📚 章节知识点分布</h3></div>
+          <div class="card-body" id="chapter-distribution"></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h3>📜 引经据典 · 定义溯源</h3></div>
+          <div class="card-body" id="def-list" style="max-height:300px;overflow-y:auto"></div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <div class="card-head"><h3>🎯 快捷备课</h3><span style="font-size:12px;color:var(--text-muted)">选择章节开始备课</span></div>
+        <div class="card-body">
+          <div class="tab-bar" id="chapter-tabs"></div>
+          <div id="chapter-detail"></div>
+        </div>
       </div>
     </div>
-    <!-- 章节快速选择 -->
-    <div class="chapter-quick" id="chapter-quick"></div>
-    <!-- 来源列表 -->
-    <div class="panel-body" id="source-list"></div>
-  </div>
 
-  <!-- ========== 中栏：AI对话 + Notebook Guide ========== -->
-  <div class="panel center">
-    <div class="chat-area">
-      <div class="chat-messages" id="chat-messages">
-        <!-- Notebook Guide 首屏 -->
-        <div class="chat-welcome" id="welcome">
-          <h1>软件工程 第3版</h1>
-          <div class="sub">钱乐秋 等 · 清华大学出版社 · 398页已OCR拆分<br>选择左侧章节来源，或从下方开始备课</div>
-          <div class="guide-actions">
-            <div class="guide-btn" onclick="askAI('帮我梳理第3章需求工程的知识结构和教学重点')">
-              <span class="ico">🧭</span>
-              <div class="text">章节梳理<div class="d">AI整理知识结构</div></div>
-            </div>
-            <div class="guide-btn" onclick="askAI('生成第3章的教学目标和重难点')">
-              <span class="ico">📝</span>
-              <div class="text">教学目标<div class="d">自动生成目标</div></div>
-            </div>
-            <div class="guide-btn" onclick="generatePPT()">
-              <span class="ico">📊</span>
-              <div class="text">生成PPT<div class="d">一键生成课件</div></div>
-            </div>
-            <div class="guide-btn" onclick="generateLesson()">
-              <span class="ico">📄</span>
-              <div class="text">生成教案<div class="d">完整教案文档</div></div>
-            </div>
-            <div class="guide-btn" onclick="askAI('第3章有哪些核心概念需要引经据典？')">
-              <span class="ico">📜</span>
-              <div class="text">引经据典<div class="d">溯源定义出处</div></div>
-            </div>
-            <div class="guide-btn" onclick="askAI('第3章可以关联哪些B站讲解视频？')">
-              <span class="ico">🎬</span>
-              <div class="text">视频关联<div class="d">推荐讲解资源</div></div>
-            </div>
+    <!-- 模块: 原文阅读 -->
+    <div class="module-panel" id="module-reader" style="display:none">
+      <div class="section-title">📖 原文阅读 · 关键词可点击</div>
+      <div class="reader-view">
+        <div class="reader-toolbar">
+          <div class="page-nav">
+            <button onclick="prevPage()">‹</button>
+            <input type="number" id="page-input" value="14" min="1" max="398" onchange="goToPage(this.value)">
+            <span style="font-size:12px;color:var(--text-muted)">/ 398</span>
+            <button onclick="nextPage()">›</button>
+          </div>
+          <div class="chapter-name" id="reader-ch-name">第1章 概论</div>
+          <div class="highlight-toggle on" id="hl-toggle" onclick="toggleHighlight(this)">
+            <span>关键词高亮</span>
+            <div class="switch"></div>
+          </div>
+          <div style="font-size:11px;color:var(--text-muted)">
+            <span style="color:var(--primary)">■</span>有定义
+            <span style="color:var(--warning);margin-left:6px">■</span>普通术语
+            <span style="margin-left:6px">🎬</span>有视频
           </div>
         </div>
-      </div>
-      <!-- 输入区 -->
-      <div class="chat-input">
-        <div class="wrap">
-          <textarea id="chat-input" placeholder="基于教材内容提问，或输入备课指令..." rows="1"></textarea>
-          <button class="send-btn" id="send-btn" onclick="sendChat()">➤</button>
-        </div>
-        <div class="hint" id="chat-hint">已选择 0 个来源 · 回车发送</div>
+        <div class="reader-content" id="reader-content">加载中...</div>
       </div>
     </div>
-  </div>
 
-  <!-- ========== 右栏：笔记 + 生成物 ========== -->
-  <div class="panel right">
-    <div class="panel-head">
-      <div class="title"><span class="ico">✨</span> Studio</div>
-      <button class="btn btn-sm btn-text" onclick="clearNotes()">清空</button>
+    <!-- 模块: 知识点 -->
+    <div class="module-panel" id="module-knowledge" style="display:none">
+      <div class="section-title">💡 知识点管理</div>
+      <div class="tab-bar" id="kp-tabs"></div>
+      <div id="kp-content"></div>
     </div>
-    <div class="panel-body" id="studio-panel">
-      <!-- 生成物区 -->
-      <div class="studio-section">
-        <div class="label">生成物</div>
-        <div class="gen-card" onclick="generatePPT()">
-          <div class="ico" style="background:var(--primary-light)">📊</div>
-          <div class="body"><div class="name">PPT 课件</div><div class="desc">生成可下载的 .pptx</div></div>
-          <span class="arrow">›</span>
-        </div>
-        <div class="gen-card" onclick="generateLesson()">
-          <div class="ico" style="background:var(--success-light)">📄</div>
-          <div class="body"><div class="name">教案文档</div><div class="desc">教学目标/重难点/过程</div></div>
-          <span class="arrow">›</span>
-        </div>
-        <div class="gen-card" onclick="generateMindMap()">
-          <div class="ico" style="background:var(--purple-light)">🕸️</div>
-          <div class="body"><div class="name">知识图谱</div><div class="desc">概念关联可视化</div></div>
-          <span class="arrow">›</span>
-        </div>
-        <div class="gen-card" onclick="generateQuiz()">
-          <div class="ico" style="background:var(--warning-light)">📝</div>
-          <div class="body"><div class="name">随堂测验</div><div class="desc">自动生成练习题</div></div>
-          <span class="arrow">›</span>
-        </div>
-      </div>
 
-      <!-- 笔记区 -->
-      <div class="studio-section">
-        <div class="label">笔记 (<span id="note-count">0</span>)</div>
-        <div id="notes-list">
-          <div style="text-align:center;padding:20px;color:var(--text-faint);font-size:12px">
-            暂无笔记<br>保存AI回答或添加自己的笔记
-          </div>
-        </div>
+    <!-- 模块: 知识图谱 -->
+    <div class="module-panel" id="module-graph" style="display:none">
+      <div class="section-title">🕸️ 知识图谱</div>
+      <div class="tab-bar">
+        <div class="tab-item active" onclick="filterGraph(0,this)">全部</div>
       </div>
+      <div id="chapter-graph-tabs"></div>
+      <div id="graph-container"></div>
+    </div>
 
-      <!-- 笔记输入 -->
-      <div class="note-input-area">
-        <textarea id="note-input" placeholder="写一条笔记..." rows="1"></textarea>
-        <div class="actions">
-          <button class="btn btn-sm btn-ghost" onclick="addUserNote()">保存笔记</button>
-        </div>
-      </div>
+    <!-- 模块: 教案 -->
+    <div class="module-panel" id="module-lesson" style="display:none">
+      <div class="section-title">📝 教案编写</div>
+      <div id="lesson-editor"></div>
+    </div>
+
+    <!-- 模块: PPT -->
+    <div class="module-panel" id="module-ppt" style="display:none">
+      <div class="section-title">📑 课件生成</div>
+      <div id="ppt-area"></div>
+    </div>
+
+    <!-- 模块: 测验 -->
+    <div class="module-panel" id="module-quiz" style="display:none">
+      <div class="section-title">✏️ 随堂测验</div>
+      <div id="quiz-area"></div>
+    </div>
+
+    <!-- 模块: 视频 -->
+    <div class="module-panel" id="module-videos" style="display:none">
+      <div class="section-title">🎬 视频资源</div>
+      <div id="video-area"></div>
+    </div>
+
+    <!-- 模块: 引经据典 -->
+    <div class="module-panel" id="module-citations" style="display:none">
+      <div class="section-title">📜 引经据典 · 定义溯源库</div>
+      <div id="cite-area"></div>
     </div>
   </div>
 </div>
 
-<!-- 引文抽屉 -->
-<div class="citation-drawer" id="citation-drawer">
+<!-- 关键词弹窗 -->
+<div class="kw-popup" id="kw-popup">
   <div class="head">
-    <h3>📜 引经据典 · 原文溯源</h3>
-    <button class="btn-icon" onclick="closeCitationDrawer()">✕</button>
+    <div class="term" id="kw-term"></div>
+    <div class="close" onclick="hideKwPopup()">✕</div>
   </div>
-  <div class="body" id="citation-body"></div>
+  <div class="body" id="kw-body"></div>
+  <div class="actions">
+    <button class="btn btn-sm btn-text" onclick="goToKwPage()">📖 查看原文</button>
+    <button class="btn btn-sm btn-text" onclick="addKwToLesson()">📝 加入教案</button>
+  </div>
 </div>
 
 <!-- PPT预览模态框 -->
 <div class="modal-overlay" id="ppt-modal">
-  <div class="modal ppt-modal">
-    <div class="head">
-      <h2>📊 PPT 课件预览</h2>
-      <button class="btn-icon" onclick="closeModal('ppt-modal')">✕</button>
-    </div>
-    <div class="body">
-      <div class="ppt-slides-container" id="ppt-slides"></div>
-    </div>
+  <div class="modal" style="max-width:900px">
+    <div class="head"><h2>📊 课件预览</h2><button class="btn-icon" onclick="closeModal('ppt-modal')">✕</button></div>
+    <div class="body"><div id="ppt-slides"></div></div>
     <div class="foot">
       <button class="btn btn-ghost" onclick="closeModal('ppt-modal')">关闭</button>
       <button class="btn btn-primary" onclick="downloadPPT()">⬇ 下载 .pptx</button>
@@ -252,732 +219,632 @@
 
 <script>
 // ===== 全局状态 =====
-let knowledgeData = null;
-let graphData = null;
-let videoData = null;
-let fulltextData = null;
+let fulltext=null, knowledge=null, graph=null, videos=null, kwIndex=null;
+let currentPage = 14;
 let currentChapter = 1;
-let selectedSources = new Set();      // 勾选的章节来源
-let notes = [];                        // 笔记列表
-let chatHistory = [];                  // 对话历史
-let pptSlides = [];                    // PPT幻灯片
-let generatedResults = {};             // 已生成的产物
+let highlightOn = true;
+let pptSlides = [];
+let activeKwData = null;
 
-// ===== 加载数据 =====
+// ===== 加载 =====
 async function loadData() {
-  try {
-    const [kpRes, graphRes, vidRes, ftRes] = await Promise.all([
-      fetch('data/se_knowledge.json'),
-      fetch('data/se_graph.json'),
-      fetch('data/se_videos.json'),
-      fetch('data/se_fulltext.json')
-    ]);
-    knowledgeData = await kpRes.json();
-    graphData = await graphRes.json();
-    videoData = await vidRes.json();
-    fulltextData = await ftRes.json();
-    renderChapterQuick();
-    renderSources();
-    updateHint();
-  } catch(e) {
-    console.error('数据加载失败:', e);
-    showToast('⚠️ 数据加载失败');
-  }
+  const [f,k,g,v,ki] = await Promise.all([
+    fetch('data/se_fulltext.json').then(r=>r.json()),
+    fetch('data/se_knowledge.json').then(r=>r.json()),
+    fetch('data/se_graph.json').then(r=>r.json()),
+    fetch('data/se_videos.json').then(r=>r.json()),
+    fetch('data/se_keyword_index.json').then(r=>r.json())
+  ]);
+  fulltext=f; knowledge=k; graph=g; videos=v; kwIndex=ki;
+  initDashboard();
+  initChapterNav();
+  initReader();
+  initKnowledge();
+  initGraph();
+  initLesson();
+  initVideos();
+  initCitations();
 }
 
-// ===== 章节快速选择 =====
-function renderChapterQuick() {
-  const container = document.getElementById('chapter-quick');
-  let html = '';
-  knowledgeData.chapters.forEach(ch => {
-    html += `<div class="chip ${ch.num===currentChapter?'active':''}" onclick="selectChapter(${ch.num})" id="chip-ch-${ch.num}">第${ch.num}章</div>`;
+// ===== 侧边导航切换 =====
+document.querySelectorAll('.sidebar .nav-item[data-module]').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.sidebar .nav-item').forEach(i => i.classList.remove('active'));
+    item.classList.add('active');
+    const mod = item.dataset.module;
+    document.querySelectorAll('.module-panel').forEach(p => p.style.display = 'none');
+    document.getElementById('module-'+mod).style.display = 'block';
+    if(mod === 'graph') setTimeout(renderGraph, 100);
   });
-  container.innerHTML = html;
+});
+
+// ===== 看板 =====
+function initDashboard() {
+  const defCount = knowledge.total_definitions;
+  const termCount = kwIndex.total_terms;
+  const annoCount = kwIndex.total_page_annotations;
+  document.getElementById('kp-count').textContent = knowledge.total_sections;
+  document.getElementById('def-count').textContent = defCount + ' 条定义';
+  document.getElementById('term-count').textContent = termCount;
+  document.getElementById('anno-count').textContent = annoCount + ' 处关联';
+  document.getElementById('node-count').textContent = graph.node_count;
+  document.getElementById('edge-count').textContent = graph.edge_count + ' 条关系';
+  document.getElementById('vid-count').textContent = videos.chapters.reduce((s,c)=>s+c.resources.length,0);
+  document.getElementById('cite-count').textContent = defCount;
+
+  // 章节分布
+  const dist = document.getElementById('chapter-distribution');
+  let html = '';
+  const maxSecs = Math.max(...knowledge.chapters.map(c=>c.section_count));
+  knowledge.chapters.forEach(ch => {
+    const pct = (ch.section_count / maxSecs * 100).toFixed(0);
+    html += `<div class="ch-progress" style="margin-bottom:8px">
+      <span style="font-size:12px;width:80px;flex-shrink:0">第${ch.num}章 ${ch.title}</span>
+      <div class="bar"><div class="fill" style="width:${pct}%"></div></div>
+      <span class="pct">${ch.section_count}节</span>
+    </div>`;
+  });
+  dist.innerHTML = html;
+
+  // 定义列表
+  const defList = document.getElementById('def-list');
+  let defHtml = '';
+  let shown = 0;
+  knowledge.sections.forEach(sec => {
+    sec.definitions.forEach(d => {
+      if(shown < 8) {
+        defHtml += `<div style="padding:10px;border-bottom:1px solid var(--border-soft);cursor:pointer" onclick="goToPage(${sec.page_start});switchModule('reader')">`;
+        defHtml += `<div style="font-size:13px;font-weight:500;color:var(--primary)">${d.term || sec.section_title}</div>`;
+        defHtml += `<div style="font-size:12px;color:var(--text-soft);margin-top:2px">${d.text.substring(0,60)}...</div>`;
+        if(d.source) defHtml += `<div style="font-size:11px;color:var(--warning);margin-top:2px">📖 《${d.source}》· p${sec.page_start}</div>`;
+        else defHtml += `<div style="font-size:11px;color:var(--text-muted);margin-top:2px">📖 p${sec.page_start}</div>`;
+        defHtml += `</div>`;
+        shown++;
+      }
+    });
+  });
+  defList.innerHTML = defHtml;
+
+  // 章节Tab
+  const tabs = document.getElementById('chapter-tabs');
+  let tabHtml = '';
+  knowledge.chapters.forEach(ch => {
+    tabHtml += `<div class="tab-item ${ch.num===1?'active':''}" onclick="selectDashboardChapter(${ch.num})" id="dtab-${ch.num}">第${ch.num}章</div>`;
+  });
+  tabs.innerHTML = tabHtml;
+  selectDashboardChapter(1);
 }
 
-function selectChapter(num) {
+function selectDashboardChapter(num) {
   currentChapter = num;
-  // 更新高亮
-  document.querySelectorAll('.chapter-quick .chip').forEach(c => c.classList.remove('active'));
-  const chip = document.getElementById(`chip-ch-${num}`);
-  if(chip) chip.classList.add('active');
-  renderSources();
-  // 自动勾选该章
-  const chId = `ch-${num}`;
-  if(!selectedSources.has(chId)) {
-    selectedSources.add(chId);
-    updateHint();
-    renderSources();
-  }
-}
-
-// ===== 左栏：来源列表 =====
-function renderSources() {
-  const container = document.getElementById('source-list');
-  const ch = knowledgeData.chapters.find(c => c.num === currentChapter);
-  const secs = knowledgeData.sections.filter(s => s.chapter === currentChapter);
-  const chRes = videoData.chapters.find(c => c.chapter === currentChapter);
-
-  let html = '';
-  // 教材整体
-  html += `<div class="source-item" onclick="toggleSource('book', this)">`;
-  html += `<div class="check ${selectedSources.has('book')?'checked':''}"></div>`;
-  html += `<div class="icon" style="background:var(--primary-light)">📖</div>`;
-  html += `<div class="body"><div class="name">软件工程 第3版</div><div class="meta">全书 · 398页 · 16章</div></div>`;
-  html += `</div>`;
-
-  // 当前章
-  const chId = `ch-${currentChapter}`;
-  html += `<div class="source-item ${selectedSources.has(chId)?'active':''}" onclick="toggleSource('${chId}', this)">`;
-  html += `<div class="check ${selectedSources.has(chId)?'checked':''}"></div>`;
-  html += `<div class="icon" style="background:var(--success-light)">📘</div>`;
-  html += `<div class="body"><div class="name">第${currentChapter}章 ${ch.title}</div><div class="meta">p${ch.page_start}-${ch.page_end} · ${secs.length}节</div></div>`;
-  html += `</div>`;
-
-  // 展开该章的节
-  html += `<div class="source-expanded">`;
+  document.querySelectorAll('#chapter-tabs .tab-item').forEach(t => t.classList.remove('active'));
+  document.getElementById('dtab-'+num)?.classList.add('active');
+  const ch = knowledge.chapters.find(c=>c.num===num);
+  const secs = knowledge.sections.filter(s=>s.chapter===num);
+  const detail = document.getElementById('chapter-detail');
+  let html = `<div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:12px">`;
   secs.forEach(sec => {
-    const secId = `sec-${currentChapter}-${sec.section}`;
-    const hasDef = sec.definitions.length > 0;
-    html += `<div class="tree-row" onclick="event.stopPropagation();toggleSource('${secId}', this);showSourceText(${sec.page_start}, '${sec.section} ${sec.section_title}')">`;
-    html += `<span class="toggle">○</span>`;
-    html += `<span class="label">${sec.section} ${sec.section_title}${hasDef?' 📜':''}</span>`;
-    html += `<span class="page">p${sec.page_start}</span>`;
-    html += `</div>`;
+    html += `<div style="flex:1;min-width:200px;padding:12px;border:1px solid var(--border-soft);border-radius:8px;cursor:pointer" onclick="goToPage(${sec.page_start});switchModule('reader')">`;
+    html += `<div style="font-weight:500;font-size:13px">${sec.section} ${sec.section_title}</div>`;
+    html += `<div style="font-size:11px;color:var(--text-muted);margin-top:4px">p${sec.page_start}-${sec.page_end} · ${sec.text_length}字`;
+    if(sec.definitions.length) html += ` · 📜${sec.definitions.length}定义`;
+    html += `</div></div>`;
   });
   html += `</div>`;
+  html += `<div style="margin-top:12px;display:flex;gap:8px">
+    <button class="btn btn-sm btn-primary" onclick="switchModule('lesson');loadLessonForChapter(${num})">📝 生成教案</button>
+    <button class="btn btn-sm btn-ghost" onclick="generatePPTForChapter(${num})">📊 生成课件</button>
+    <button class="btn btn-sm btn-ghost" onclick="switchModule('quiz');loadQuizForChapter(${num})">✏️ 生成测验</button>
+  </div>`;
+  detail.innerHTML = html;
+}
 
-  // B站视频资源
-  if(chRes && chRes.resources) {
-    chRes.resources.forEach((res, i) => {
-      const resId = `vid-${currentChapter}-${i}`;
-      html += `<div class="source-item" onclick="toggleSource('${resId}', this);event.stopPropagation()">`;
-      html += `<div class="check ${selectedSources.has(resId)?'checked':''}"></div>`;
-      html += `<div class="icon" style="background:#FCE8E6">🎬</div>`;
-      html += `<div class="body"><div class="name">${res.title}</div><div class="meta">B站 · ${res.keyword}</div></div>`;
-      html += `</div>`;
-    });
-  }
-
+// ===== 侧边章节导航 =====
+function initChapterNav() {
+  const container = document.getElementById('chapter-nav');
+  let html = '';
+  knowledge.chapters.forEach(ch => {
+    html += `<div class="nav-item" style="font-size:12px" onclick="goToPage(${ch.page_start});switchModule('reader')"><span class="ico">📄</span>第${ch.num}章 ${ch.title}</div>`;
+  });
   container.innerHTML = html;
 }
 
-function toggleSource(id, el) {
-  if(selectedSources.has(id)) {
-    selectedSources.delete(id);
-  } else {
-    selectedSources.add(id);
-  }
-  updateHint();
-  renderSources();
+function switchModule(mod) {
+  document.querySelectorAll('.sidebar .nav-item[data-module]').forEach(i => i.classList.remove('active'));
+  document.querySelector(`.nav-item[data-module="${mod}"]`)?.classList.add('active');
+  document.querySelectorAll('.module-panel').forEach(p => p.style.display = 'none');
+  document.getElementById('module-'+mod).style.display = 'block';
 }
 
-function toggleAllSources() {
-  const ch = knowledgeData.chapters.find(c => c.num === currentChapter);
-  const secs = knowledgeData.sections.filter(s => s.chapter === currentChapter);
-  const chRes = videoData.chapters.find(c => c.chapter === currentChapter);
-  const allIds = [`ch-${currentChapter}`, ...secs.map(s => `sec-${currentChapter}-${s.section}`)];
-  if(chRes) chRes.resources.forEach((r, i) => allIds.push(`vid-${currentChapter}-${i}`));
-
-  const allSelected = allIds.every(id => selectedSources.has(id));
-  if(allSelected) {
-    allIds.forEach(id => selectedSources.delete(id));
-  } else {
-    allIds.forEach(id => selectedSources.add(id));
-  }
-  updateHint();
-  renderSources();
+// ===== 原文阅读器（核心：关键词高亮+点击） =====
+function initReader() {
+  goToPage(14);
 }
 
-function updateHint() {
-  document.getElementById('chat-hint').textContent = `已选择 ${selectedSources.size} 个来源 · 回车发送`;
+function getPageText(page) {
+  const p = fulltext.pages.find(p => p.page === page);
+  return p ? p.text : '';
 }
 
-// 显示来源正文
-function showSourceText(pageNum, title) {
-  if(!fulltextData) return;
-  const pageData = fulltextData.pages.find(p => p.page === pageNum);
-  if(!pageData) return;
+function goToPage(page) {
+  page = parseInt(page);
+  if(isNaN(page) || page < 1) page = 1;
+  if(page > 398) page = 398;
+  currentPage = page;
+  document.getElementById('page-input').value = page;
 
-  // 在引文抽屉里显示
-  const drawer = document.getElementById('citation-drawer');
-  const body = document.getElementById('citation-body');
-  body.innerHTML = `
-    <div class="src-block">
-      <div class="ref">📖 第${pageNum}页 · ${title}</div>
-      <div class="text">${pageData.text.substring(0, 500).replace(/\n/g, '<br>')}...</div>
-    </div>
-    <div style="margin-top:12px;font-size:12px;color:var(--text-muted)">原文共 ${pageData.text.length} 字符</div>
-  `;
-  drawer.classList.add('open');
-}
+  // 找到所属章节
+  const ch = knowledge.chapters.find(c => page >= c.page_start && page <= c.page_end);
+  document.getElementById('reader-ch-name').textContent = ch ? `第${ch.num}章 ${ch.title}` : '';
 
-function closeCitationDrawer() {
-  document.getElementById('citation-drawer').classList.remove('open');
-}
-
-// ===== 中栏：AI对话 =====
-function askAI(question) {
-  document.getElementById('chat-input').value = question;
-  sendChat();
-}
-
-function sendChat() {
-  const input = document.getElementById('chat-input');
-  const question = input.value.trim();
-  if(!question) return;
-
-  // 隐藏欢迎屏
-  const welcome = document.getElementById('welcome');
-  if(welcome) welcome.style.display = 'none';
-
-  // 添加用户消息
-  addChatMessage('user', question);
-  input.value = '';
-  input.style.height = 'auto';
-
-  // 模拟AI思考
-  const thinkingId = addChatMessage('ai', '<div class="gen-loading" style="padding:20px"><div class="spinner" style="width:24px;height:24px"></div><div class="text">正在基于教材内容分析...</div></div>', true);
-
-  setTimeout(() => {
-    const answer = generateAnswer(question);
-    updateChatMessage(thinkingId, answer);
-  }, 800 + Math.random() * 600);
-}
-
-function generateAnswer(question) {
-  const ch = knowledgeData.chapters.find(c => c.num === currentChapter);
-  const secs = knowledgeData.sections.filter(s => s.chapter === currentChapter);
-  const chRes = videoData.chapters.find(c => c.chapter === currentChapter);
-
-  // 简单关键词匹配生成回答
-  let answer = '';
-  const citations = [];
-
-  if(question.includes('知识结构') || question.includes('梳理') || question.includes('重点')) {
-    answer = `根据《软件工程 第3版》第${currentChapter}章「${ch.title}」的内容，本章知识结构如下：\n\n`;
-    secs.forEach((sec, i) => {
-      answer += `**${sec.section} ${sec.section_title}**\n`;
-      if(sec.definitions.length > 0) {
-        sec.definitions.forEach(d => {
-          answer += `- ${d.term || sec.section_title}：${d.text.substring(0, 60)}...`;
-          citations.push({ page: sec.page_start, title: `${sec.section} ${sec.section_title}`, text: d.text });
-          answer += ` [${citations.length}]`;
-          answer += '\n';
-        });
-      } else {
-        answer += `- 核心内容：${sec.text_preview.substring(0, 80)}...\n`;
-      }
-    });
-    answer += `\n**教学重点**：${secs.filter(s => s.definitions.length > 0).map(s => s.section_title).slice(0, 3).join('、')}`;
-  } else if(question.includes('教学目标') || question.includes('目标') || question.includes('重难点')) {
-    answer = `基于第${currentChapter}章「${ch.title}」的教材内容，建议教学目标如下：\n\n`;
-    answer += `**知识目标**：\n`;
-    secs.slice(0, 4).forEach(sec => {
-      if(sec.definitions.length > 0) {
-        answer += `- 掌握${sec.definitions[0].term || sec.section_title}的概念`;
-        citations.push({ page: sec.page_start, title: sec.section_title, text: sec.definitions[0].text });
-        answer += ` [${citations.length}]\n`;
-      }
-    });
-    answer += `\n**能力目标**：\n- 能够运用本章知识解决实际软件工程问题\n\n`;
-    answer += `**教学重点**：${secs.filter(s => s.definitions.length > 0).map(s => s.section_title).slice(0, 3).join('、')}\n`;
-    answer += `**教学难点**：抽象概念的理解与实际应用\n\n`;
-    answer += `建议课时：2课时（90分钟）`;
-  } else if(question.includes('引经据典') || question.includes('定义') || question.includes('出处')) {
-    answer = `第${currentChapter}章「${ch.title}」中可引经据典的核心定义：\n\n`;
-    let defCount = 0;
-    secs.forEach(sec => {
-      sec.definitions.forEach(d => {
-        if(defCount < 5) {
-          answer += `**${d.term || sec.section_title}**\n"${d.text}"\n`;
-          if(d.source) answer += `📖 出处：《${d.source}》`;
-          else answer += `📖 出处：《软件工程 第3版》第${sec.page_start}页`;
-          answer += '\n\n';
-          citations.push({ page: sec.page_start, title: sec.section_title, text: d.text, source: d.source });
-          defCount++;
-        }
-      });
-    });
-    if(defCount === 0) answer += '本章暂无自动抽取的定义，可在原文中手动标注。';
-  } else if(question.includes('视频') || question.includes('B站') || question.includes('资料')) {
-    answer = `第${currentChapter}章「${ch.title}」可关联的B站讲解资源：\n\n`;
-    if(chRes && chRes.resources) {
-      chRes.resources.forEach(r => {
-        answer += `- [${r.title}](搜索：${r.keyword})\n`;
-      });
-      answer += `\n点击左栏来源中的🎬视频卡片，或在B站搜索对应关键词获取高分讲解视频。`;
-    }
-  } else {
-    // 默认：基于章节内容回答
-    answer = `关于「${question}」，根据《软件工程 第3版》第${currentChapter}章的内容：\n\n`;
-    const relevantSec = secs.find(s => 
-      question.includes(s.section_title) || s.section_title.includes(question) ||
-      s.keywords.some(k => question.includes(k.term))
-    ) || secs[0];
-    if(relevantSec) {
-      answer += `${relevantSec.section} ${relevantSec.section_title}：\n`;
-      answer += relevantSec.text_preview;
-      citations.push({ page: relevantSec.page_start, title: relevantSec.section_title, text: relevantSec.text_preview });
-      answer += ` [1]`;
-    }
-    answer += `\n\n💡 您可以点击引文标记查看教材原文出处。`;
-  }
-
-  // 把引文标记转成HTML
-  let htmlAnswer = answer.replace(/\n/g, '<br>').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-  citations.forEach((c, i) => {
-    const tooltipText = c.text.substring(0, 100).replace(/"/g, '&quot;');
-    const srcText = c.source ? `《${c.source}》` : `《软件工程》第${c.page}页`;
-    htmlAnswer = htmlAnswer.replace(`[${i+1}]`,
-      `<span class="citation" onclick="showCitation(${c.page}, '${c.title.replace(/'/g,"\\'")}', this)">${i+1}<div class="tooltip"><div class="src">${srcText}</div>${tooltipText}...</div></span>`);
-  });
-
-  // 保存按钮
-  htmlAnswer += `<div style="margin-top:12px"><button class="btn btn-sm btn-text" onclick="saveAsNote(this)">📌 保存为笔记</button></div>`;
-
-  return htmlAnswer;
-}
-
-function addChatMessage(role, content, isThinking) {
-  const messages = document.getElementById('chat-messages');
-  const msgId = 'msg-' + Date.now() + '-' + Math.random().toString(36).substr(2, 5);
-  const msg = document.createElement('div');
-  msg.className = `chat-msg ${role}`;
-  msg.id = msgId;
-  const roleLabel = role === 'user' ? '王老师' : 'AI 助教';
-  const avText = role === 'user' ? '王' : '✨';
-  msg.innerHTML = `
-    <div class="role"><div class="av">${avText}</div>${roleLabel}</div>
-    <div class="bubble">${content}</div>
-  `;
-  messages.appendChild(msg);
-  messages.scrollTop = messages.scrollHeight;
-  return msgId;
-}
-
-function updateChatMessage(msgId, content) {
-  const msg = document.getElementById(msgId);
-  if(msg) {
-    const bubble = msg.querySelector('.bubble');
-    bubble.innerHTML = content;
-    bubble.classList.add('fade-in');
-  }
-  document.getElementById('chat-messages').scrollTop = 999999;
-}
-
-function showCitation(page, title, el) {
-  showSourceText(page, title);
-}
-
-// ===== 右栏：笔记 =====
-function saveAsNote(btn) {
-  const bubble = btn.closest('.bubble');
-  const text = bubble.textContent.replace('📌 保存为笔记', '').trim();
-  notes.push({ type: 'ai', text, time: new Date().toLocaleTimeString('zh-CN', {hour:'2-digit',minute:'2-digit'}) });
-  renderNotes();
-  showToast('✓ 已保存为笔记');
-  btn.textContent = '✓ 已保存';
-  btn.disabled = true;
-}
-
-function addUserNote() {
-  const input = document.getElementById('note-input');
-  const text = input.value.trim();
-  if(!text) return;
-  notes.push({ type: 'user', text, time: new Date().toLocaleTimeString('zh-CN', {hour:'2-digit',minute:'2-digit'}) });
-  input.value = '';
-  input.style.height = 'auto';
-  renderNotes();
-  showToast('✓ 笔记已添加');
-}
-
-function renderNotes() {
-  const container = document.getElementById('notes-list');
-  document.getElementById('note-count').textContent = notes.length;
-  if(notes.length === 0) {
-    container.innerHTML = `<div style="text-align:center;padding:20px;color:var(--text-faint);font-size:12px">暂无笔记<br>保存AI回答或添加自己的笔记</div>`;
+  const text = getPageText(page);
+  if(!text) {
+    document.getElementById('reader-content').innerHTML = '<div style="color:var(--text-muted)">该页无内容</div>';
     return;
   }
-  let html = '';
-  notes.slice().reverse().forEach((note, i) => {
-    const realIdx = notes.length - 1 - i;
-    html += `<div class="note-item ${note.type==='user'?'user-note':''}">`;
-    html += `<div class="head">`;
-    html += `<span class="badge ${note.type==='ai'?'ai':'user'}">${note.type==='ai'?'AI':'我'}</span>`;
-    html += `<span class="time">${note.time}</span>`;
-    html += `</div>`;
-    html += `<div class="text">${note.text.replace(/\n/g,'<br>')}</div>`;
-    html += `<div class="actions"><button onclick="deleteNote(${realIdx})">删除</button></div>`;
-    html += `</div>`;
-  });
-  container.innerHTML = html;
+
+  if(highlightOn) {
+    renderHighlightedText(text, page);
+  } else {
+    document.getElementById('reader-content').textContent = text;
+  }
 }
 
-function deleteNote(idx) {
-  notes.splice(idx, 1);
-  renderNotes();
-}
-
-function clearNotes() {
-  if(notes.length === 0) return;
-  notes = [];
-  renderNotes();
-  showToast('笔记已清空');
-}
-
-// ===== 生成物：PPT =====
-function generatePPT() {
-  const ch = knowledgeData.chapters.find(c => c.num === currentChapter);
-  const secs = knowledgeData.sections.filter(s => s.chapter === currentChapter);
-
-  // 收集选中来源的知识点
-  const kps = [];
-  secs.forEach(sec => {
-    const secId = `sec-${currentChapter}-${sec.section}`;
-    // 如果该章被选中，或该节被选中，则包含
-    if(selectedSources.has(`ch-${currentChapter}`) || selectedSources.has(secId)) {
-      if(sec.definitions.length > 0) {
-        sec.definitions.forEach(d => kps.push({ ...d, section: sec.section, page: sec.page_start }));
-      } else {
-        kps.push({ term: sec.section_title, text: sec.text_preview, section: sec.section, page: sec.page_start });
-      }
-    }
-  });
-  // 如果没有选中的，取前5个
-  if(kps.length === 0) {
-    secs.slice(0, 5).forEach(sec => {
-      if(sec.definitions.length > 0) kps.push({ ...sec.definitions[0], section: sec.section, page: sec.page_start });
-      else kps.push({ term: sec.section_title, text: sec.text_preview, section: sec.section, page: sec.page_start });
-    });
+function renderHighlightedText(text, page) {
+  // 获取该页的术语标注
+  const annotations = kwIndex.page_terms[String(page)] || [];
+  if(annotations.length === 0) {
+    document.getElementById('reader-content').textContent = text;
+    return;
   }
 
-  // 收集视频
-  const chRes = videoData.chapters.find(c => c.chapter === currentChapter);
-  const videos = chRes ? chRes.resources.slice(0, 4) : [];
+  // 按位置排序，从后往前插入避免位置偏移
+  const sorted = [...annotations].sort((a,b) => b.pos - a.pos);
+  let html = text;
+
+  // 转义HTML
+  html = html.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+
+  // 重新计算位置（因为转义可能改变长度，这里简化处理，用原始text定位）
+  let result = '';
+  let lastPos = 0;
+  const sortedAsc = [...annotations].sort((a,b) => a.pos - b.pos);
+
+  // 去重叠
+  const filtered = [];
+  let lastEnd = 0;
+  for(const ann of sortedAsc) {
+    if(ann.pos >= lastEnd) {
+      filtered.push(ann);
+      lastEnd = ann.pos + ann.length;
+    }
+  }
+
+  for(const ann of filtered) {
+    // 添加前面的文本
+    let before = text.substring(lastPos, ann.pos);
+    before = before.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+    result += before;
+
+    // 添加高亮词
+    const term = text.substring(ann.pos, ann.pos + ann.length);
+    const cls = ann.has_def ? 'kw has-def' : 'kw';
+    const videoCls = ann.has_video ? ' has-video' : '';
+    const kwData = JSON.stringify({term, page, pos: ann.pos, has_def: ann.has_def, has_video: ann.has_video}).replace(/"/g, '&quot;');
+    result += `<span class="${cls}${videoCls}" data-kw='${kwData}' onclick="showKwPopup(this, event)">${term}</span>`;
+
+    lastPos = ann.pos + ann.length;
+  }
+  // 最后一段
+  let after = text.substring(lastPos);
+  after = after.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+  result += after;
+
+  document.getElementById('reader-content').innerHTML = result;
+}
+
+function toggleHighlight(el) {
+  highlightOn = !highlightOn;
+  el.classList.toggle('on');
+  goToPage(currentPage);
+}
+
+function prevPage() { goToPage(currentPage - 1); }
+function nextPage() { goToPage(currentPage + 1); }
+
+// ===== 关键词弹窗 =====
+function showKwPopup(el, event) {
+  event.stopPropagation();
+  const data = JSON.parse(el.dataset.kw.replace(/&quot;/g, '"'));
+  activeKwData = data;
+
+  // 查找术语详情
+  const kwDetail = kwIndex.keywords.find(k => k.term === data.term);
+
+  const popup = document.getElementById('kw-popup');
+  document.getElementById('kw-term').textContent = data.term;
+
+  let body = '';
+
+  // 定义
+  if(kwDetail && kwDetail.definition) {
+    body += `<div class="section">
+      <div class="label">📖 定义</div>
+      <div class="def-box">${kwDetail.definition}</div>
+      ${kwDetail.def_source ? `<div class="def-source">出处：《${kwDetail.def_source}》第${kwDetail.def_page}页</div>` : `<div class="def-source">出处：《软件工程第3版》第${kwDetail.def_page}页</div>`}
+    </div>`;
+  } else if(data.has_def) {
+    body += `<div class="section"><div class="label">📖 定义</div><div class="text">该术语有定义，点击"查看原文"跳转</div></div>`;
+  }
+
+  // 视频关联
+  if(kwDetail && kwDetail.videos && kwDetail.videos.length > 0) {
+    body += `<div class="section"><div class="label">🎬 关联视频</div>`;
+    kwDetail.videos.forEach(v => {
+      body += `<a class="video-link" href="${v.url}" target="_blank">🎬 ${v.title}</a>`;
+    });
+    body += `</div>`;
+  }
+
+  // 出现位置
+  if(kwDetail && kwDetail.occurrences.length > 1) {
+    body += `<div class="section"><div class="label">📍 出现位置 (${kwDetail.occurrences.length}处)</div>`;
+    kwDetail.occurrences.slice(0, 5).forEach(occ => {
+      body += `<div class="occ-item" onclick="goToPage(${occ.page})">第${occ.page}页: ...${occ.context.substring(0, 40)}...</div>`;
+    });
+    body += `</div>`;
+  }
+
+  // 章节归属
+  if(kwDetail && kwDetail.chapter) {
+    const ch = knowledge.chapters.find(c => c.num === kwDetail.chapter);
+    body += `<div class="section"><div class="label">📚 所属章节</div><div class="text">第${kwDetail.chapter}章 ${ch ? ch.title : ''} · ${kwDetail.section}</div></div>`;
+  }
+
+  document.getElementById('kw-body').innerHTML = body || '<div class="text">暂无关联信息</div>';
+
+  // 定位弹窗
+  const rect = el.getBoundingClientRect();
+  let left = rect.left;
+  let top = rect.bottom + 4;
+  if(left + 340 > window.innerWidth) left = window.innerWidth - 350;
+  if(top + 300 > window.innerHeight) top = rect.top - 300;
+  popup.style.left = left + 'px';
+  popup.style.top = top + 'px';
+  popup.classList.add('show');
+}
+
+function hideKwPopup() {
+  document.getElementById('kw-popup').classList.remove('show');
+}
+
+function goToKwPage() {
+  if(activeKwData) {
+    switchModule('reader');
+    goToPage(activeKwData.page);
+    hideKwPopup();
+  }
+}
+
+function addKwToLesson() {
+  if(activeKwData) {
+    showToast(`✓ "${activeKwData.term}" 已加入教案素材`);
+    hideKwPopup();
+  }
+}
+
+// 点击其他地方关闭弹窗
+document.addEventListener('click', e => {
+  if(!e.target.closest('.kw-popup') && !e.target.closest('.kw')) {
+    hideKwPopup();
+  }
+});
+
+// ===== 知识点模块 =====
+function initKnowledge() {
+  const tabs = document.getElementById('kp-tabs');
+  let html = '';
+  knowledge.chapters.forEach(ch => {
+    html += `<div class="tab-item ${ch.num===1?'active':''}" onclick="selectKpChapter(${ch.num})" id="kptab-${ch.num}">第${ch.num}章</div>`;
+  });
+  tabs.innerHTML = html;
+  selectKpChapter(1);
+}
+
+function selectKpChapter(num) {
+  document.querySelectorAll('#kp-tabs .tab-item').forEach(t => t.classList.remove('active'));
+  document.getElementById('kptab-'+num)?.classList.add('active');
+  const secs = knowledge.sections.filter(s => s.chapter === num);
+  const ch = knowledge.chapters.find(c => c.num === num);
+  let html = `<table class="kp-table"><thead><tr><th>章节</th><th>术语</th><th>定义/描述</th><th>出处</th><th>页码</th></tr></thead><tbody>`;
+  secs.forEach(sec => {
+    if(sec.definitions.length > 0) {
+      sec.definitions.forEach(d => {
+        html += `<tr>`;
+        html += `<td>${sec.section}</td>`;
+        html += `<td class="term" onclick="goToPage(${sec.page_start});switchModule('reader')">${d.term || sec.section_title}</td>`;
+        html += `<td class="def">${d.text.substring(0, 80)}...</td>`;
+        html += `<td class="src">${d.source ? '《'+d.source+'》' : '本书'}</td>`;
+        html += `<td class="page">p${sec.page_start}</td>`;
+        html += `</tr>`;
+      });
+    } else {
+      html += `<tr><td>${sec.section}</td><td class="term">${sec.section_title}</td><td class="def">${sec.text_preview.substring(0,80)}</td><td class="src">本书</td><td class="page">p${sec.page_start}</td></tr>`;
+    }
+  });
+  html += `</tbody></table>`;
+  document.getElementById('kp-content').innerHTML = html;
+}
+
+// ===== 知识图谱模块 =====
+function initGraph() {
+  const tabs = document.getElementById('chapter-graph-tabs');
+  let html = '<div class="tab-bar">';
+  html += `<div class="tab-item active" onclick="filterGraph(0,this)">全部</div>`;
+  knowledge.chapters.forEach(ch => {
+    html += `<div class="tab-item" onclick="filterGraph(${ch.num},this)">第${ch.num}章</div>`;
+  });
+  html += '</div>';
+  tabs.innerHTML = html;
+}
+
+let graphChapter = 0;
+function filterGraph(num, el) {
+  graphChapter = num;
+  el.parentElement.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  renderGraph();
+}
+
+function renderGraph() {
+  const svg = d3.select('#graph-container svg').remove();
+  const container = document.getElementById('graph-container');
+  const width = container.clientWidth;
+  const height = container.clientHeight;
+
+  let nodes = graph.nodes.map(n => ({...n}));
+  let links = graph.links.map(l => ({...l}));
+
+  if(graphChapter > 0) {
+    const chIds = new Set();
+    nodes.forEach(n => {
+      if((n.type === 'chapter' || n.type === 'section') && n.chapter === graphChapter) chIds.add(n.id);
+    });
+    links.forEach(l => {
+      if(chIds.has(l.source)) chIds.add(l.target);
+      if(chIds.has(l.target)) chIds.add(l.source);
+    });
+    nodes = nodes.filter(n => chIds.has(n.id));
+    links = links.filter(l => chIds.has(l.source) && chIds.has(l.target));
+  }
+
+  if(nodes.length > 120) {
+    nodes = nodes.slice(0, 120);
+    const ids = new Set(nodes.map(n => n.id));
+    links = links.filter(l => ids.has(l.source) && ids.has(l.target));
+  }
+
+  const colorMap = { chapter: '#1A73E8', section: '#188038', concept: '#B06000' };
+  const sizeMap = { chapter: 10, section: 7, concept: 4 };
+
+  const svgEl = d3.select(container).append('svg');
+  const g = svgEl.append('g');
+  const zoom = d3.zoom().scaleExtent([0.2,4]).on('zoom', e => g.attr('transform', e.transform));
+  svgEl.call(zoom);
+
+  const sim = d3.forceSimulation(nodes)
+    .force('link', d3.forceLink(links).id(d=>d.id).distance(d=>d.type==='contains'?50:70))
+    .force('charge', d3.forceManyBody().strength(d=>d.type==='chapter'?-200:-60))
+    .force('center', d3.forceCenter(width/2, height/2))
+    .force('collision', d3.forceCollide().radius(d=>(sizeMap[d.type]||4)+3));
+
+  const link = g.append('g').selectAll('line').data(links).join('line')
+    .attr('stroke', d=>d.type==='contains'?'#D2E3FC':'#E8EAED')
+    .attr('stroke-width', d=>d.type==='contains'?1.5:0.8).attr('opacity',.6);
+
+  const node = g.append('g').selectAll('g').data(nodes).join('g')
+    .attr('cursor','pointer')
+    .call(d3.drag().on('start',dragStart).on('drag',dragging).on('end',dragEnd));
+
+  node.append('circle').attr('r',d=>sizeMap[d.type]||4)
+    .attr('fill',d=>colorMap[d.type]||'#BDC1C6').attr('stroke','#fff').attr('stroke-width',1.5);
+
+  node.append('text').text(d=>d.label.length>6?d.label.slice(0,6)+'…':d.label)
+    .attr('font-size',d=>d.type==='chapter'?11:9).attr('fill','#5F6368')
+    .attr('text-anchor','middle').attr('dy',d=>(sizeMap[d.type]||4)+11).attr('pointer-events','none');
+
+  node.on('click', (e,d) => {
+    if(d.page) { goToPage(d.page); switchModule('reader'); }
+  });
+
+  sim.on('tick', () => {
+    link.attr('x1',d=>d.source.x).attr('y1',d=>d.source.y).attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);
+    node.attr('transform',d=>`translate(${d.x},${d.y})`);
+  });
+
+  function dragStart(e,d){if(!e.active)sim.alphaTarget(.3).restart();d.fx=d.x;d.fy=d.y;}
+  function dragging(e,d){d.fx=e.x;d.fy=e.y;}
+  function dragEnd(e,d){if(!e.active)sim.alphaTarget(0);d.fx=null;d.fy=null;}
+}
+
+// ===== 教案模块 =====
+function initLesson() {
+  loadLessonForChapter(1);
+}
+
+function loadLessonForChapter(num) {
+  const ch = knowledge.chapters.find(c=>c.num===num);
+  const secs = knowledge.sections.filter(s=>s.chapter===num);
+  const kps = [];
+  secs.forEach(sec => sec.definitions.forEach(d => kps.push({...d, section:sec.section, page:sec.page_start})));
+
+  document.getElementById('lesson-editor').innerHTML = `
+    <div class="card">
+      <div class="card-head"><h3>第${num}章 ${ch.title} · 教案</h3>
+        <button class="btn btn-sm btn-primary" onclick="downloadLesson(${num})">⬇ 下载教案</button>
+      </div>
+      <div class="card-body">
+        <div class="field"><label>课程名称</label><input class="input" value="软件工程"></div>
+        <div class="grid grid-3">
+          <div class="field"><label>章节</label><input class="input" value="第${num}章 ${ch.title}" readonly></div>
+          <div class="field"><label>课时</label><select class="input"><option>2课时(90分钟)</option><option>1课时(45分钟)</option></select></div>
+          <div class="field"><label>教材</label><input class="input" value="软件工程第3版 p${ch.page_start}-${ch.page_end}" readonly></div>
+        </div>
+        <div class="field"><label>教学目标</label><textarea class="input" rows="3">1. 知识目标：掌握${ch.title}的基本概念和原理\n2. 能力目标：能运用相关知识解决实际问题\n3. 素质目标：培养软件工程思维</textarea></div>
+        <div class="grid grid-2">
+          <div class="field"><label>教学重点</label><textarea class="input" rows="2">${kps.slice(0,3).map(k=>k.term||k.section).join('、')}</textarea></div>
+          <div class="field"><label>教学难点</label><textarea class="input" rows="2">抽象概念理解与实际应用</textarea></div>
+        </div>
+        <div class="field"><label>教学过程</label><textarea class="input" rows="6">1. 导入(5分钟)：案例引入\n2. 新课讲授(60分钟)：\n${kps.slice(0,6).map((k,i)=>`   ${i+1}) ${k.term||k.section}：${k.text.substring(0,50)}... 📖(p${k.page})`).join('\n')}\n3. 课堂练习(15分钟)\n4. 小结(5分钟)\n5. 作业(5分钟)</textarea></div>
+        <div class="field"><label>引经据典</label>
+          <div style="background:var(--primary-light);border-radius:8px;padding:12px">
+            ${kps.slice(0,4).map(k=>`<div style="margin-bottom:8px"><strong>${k.term}：</strong>"${k.text.substring(0,60)}..."<br><span style="font-size:11px;color:var(--primary)">📖 ${k.source?'《'+k.source+'》':'《软件工程第3版》'} p${k.page}</span></div>`).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function downloadLesson(num) {
+  showToast('✓ 教案已生成（演示版）');
+}
+
+// ===== PPT 模块 =====
+function generatePPT() {
+  generatePPTForChapter(currentChapter);
+}
+
+function generatePPTForChapter(num) {
+  const ch = knowledge.chapters.find(c=>c.num===num);
+  const secs = knowledge.sections.filter(s=>s.chapter===num);
+  const kps = [];
+  secs.forEach(sec => sec.definitions.forEach(d => kps.push({...d, section:sec.section, page:sec.page_start})));
+  if(kps.length === 0) secs.slice(0,5).forEach(sec => kps.push({term:sec.section_title, text:sec.text_preview, section:sec.section, page:sec.page_start}));
+  const chRes = videos.chapters.find(c=>c.chapter===num);
+  const vids = chRes ? chRes.resources.slice(0,4) : [];
 
   pptSlides = [];
+  pptSlides.push({type:'title', title:`第${num}章 ${ch.title}`, subtitle:`《软件工程第3版》钱乐秋等编著\n备课教师：王老师`});
+  pptSlides.push({type:'toc', title:'本章目录', items:secs.map(s=>`${s.section} ${s.section_title}`)});
+  pptSlides.push({type:'content', title:'教学目标', items:['知识目标：掌握核心概念','能力目标：解决实际问题','素质目标：培养工程思维']});
 
-  // 1. 封面
-  pptSlides.push({ type: 'title', title: `第${currentChapter}章 ${ch.title}`, subtitle: `《软件工程 第3版》钱乐秋等编著\n备课教师：王老师` });
-
-  // 2. 目录
-  pptSlides.push({ type: 'toc', title: '本章目录', items: secs.map(s => `${s.section} ${s.section_title}`) });
-
-  // 3. 教学目标
-  pptSlides.push({ type: 'content', title: '教学目标', items: [
-    '知识目标：掌握本章核心概念和基本原理',
-    '能力目标：能够运用所学知识解决实际问题',
-    '素质目标：培养软件工程思维和规范意识'
-  ]});
-
-  // 4-5. 知识点页
-  for(let i = 0; i < kps.length; i += 3) {
-    const chunk = kps.slice(i, i + 3);
-    pptSlides.push({ type: 'content', title: i === 0 ? '核心知识点' : `核心知识点（续）`, items: chunk.map(k => `${k.term || k.section}：${k.text.substring(0, 60)}`) });
-    // 引经据典页
+  for(let i=0;i<kps.length;i+=3){
+    const chunk = kps.slice(i,i+3);
+    pptSlides.push({type:'content', title:'核心知识点', items:chunk.map(k=>`${k.term||k.section}：${k.text.substring(0,60)}`)});
     chunk.forEach(k => {
-      if(k.text.length > 15) {
-        pptSlides.push({ type: 'def', title: `📜 ${k.term || k.section}`, quote: k.text, source: k.source ? `《${k.source}》` : `《软件工程 第3版》第${k.page}页` });
-      }
+      if(k.text.length>15) pptSlides.push({type:'def', title:`📜 ${k.term||k.section}`, quote:k.text, source:k.source?`《${k.source}》`:`《软件工程第3版》p${k.page}`});
     });
   }
 
-  // 教学重难点
-  pptSlides.push({ type: 'content', title: '教学重点与难点', items: [
-    `重点：${kps.slice(0, 3).map(k => k.term || k.section).join('、')}`,
-    '难点：抽象概念的理解与实际工程应用'
-  ]});
+  pptSlides.push({type:'content', title:'教学重难点', items:[`重点：${kps.slice(0,3).map(k=>k.term||k.section).join('、')}`,'难点：概念理解与工程应用']});
+  pptSlides.push({type:'content', title:'教学过程', items:['1.导入(5min)','2.讲授(60min)','3.练习(15min)','4.小结(5min)','5.作业(5min)']});
+  if(vids.length) pptSlides.push({type:'content', title:'参考资料', items:vids.map(v=>`🎬 ${v.title}（B站：${v.keyword}）`)});
+  pptSlides.push({type:'content', title:'本章小结', items:kps.map(k=>k.term||k.section)});
+  pptSlides.push({type:'end', title:'谢谢！', subtitle:'《软件工程第3版》· 王老师'});
 
-  // 教学过程
-  pptSlides.push({ type: 'content', title: '教学过程', items: [
-    '1. 导入（5分钟）：通过案例引入主题',
-    '2. 新课讲授（60分钟）：讲解核心知识点',
-    '3. 课堂练习（15分钟）：针对重点进行练习',
-    '4. 小结（5分钟）：总结本章要点',
-    '5. 作业布置（5分钟）：课后习题'
-  ]});
-
-  // 参考资料
-  if(videos.length > 0) {
-    pptSlides.push({ type: 'content', title: '参考资料', items: videos.map(v => `🎬 ${v.title}（B站搜索：${v.keyword}）`) });
-  }
-
-  // 小结
-  pptSlides.push({ type: 'content', title: '本章小结', items: kps.map(k => k.term || k.section) });
-
-  // 结束
-  pptSlides.push({ type: 'end', title: '谢谢！', subtitle: '《软件工程 第3版》· 王老师' });
-
-  // 渲染预览
-  renderPPTPreview();
+  renderPPT();
   openModal('ppt-modal');
-
-  // 在右栏添加生成结果
-  addGeneratedResult('ppt', '📊 PPT 课件', `${pptSlides.length} 页幻灯片`, 'openModal("ppt-modal")');
+  showToast(`✓ 已生成 ${pptSlides.length} 页课件`);
 }
 
-function renderPPTPreview() {
-  const container = document.getElementById('ppt-slides');
-  let html = '';
-  pptSlides.forEach((slide, i) => {
-    html += `<div class="ppt-slide slide-${slide.type}">`;
-    html += `<div class="slide-num">${i+1} / ${pptSlides.length}</div>`;
-    if(slide.type === 'title') {
-      html += `<h1>${slide.title}</h1><div class="sub">${slide.subtitle.replace(/\n/g,'<br>')}</div>`;
-    } else if(slide.type === 'toc' || slide.type === 'content') {
-      html += `<h2>${slide.title}</h2><ul>${slide.items.map(it => `<li>${it}</li>`).join('')}</ul>`;
-    } else if(slide.type === 'def') {
-      html += `<h2>${slide.title}</h2><div class="quote">"${slide.quote}"</div><div class="source">出处：${slide.source}</div>`;
-    } else if(slide.type === 'end') {
-      html += `<h1>${slide.title}</h1><div class="sub">${slide.subtitle || ''}</div>`;
-    }
+function renderPPT() {
+  const c = document.getElementById('ppt-slides');
+  let html = '<div class="ppt-grid">';
+  pptSlides.forEach((s,i) => {
+    html += `<div class="ppt-slide slide-${s.type}"><div class="slide-num">${i+1}/${pptSlides.length}</div>`;
+    if(s.type==='title') html += `<h1>${s.title}</h1><div class="sub">${s.subtitle.replace(/\n/g,'<br>')}</div>`;
+    else if(s.type==='toc'||s.type==='content') html += `<h2>${s.title}</h2><ul>${s.items.map(it=>`<li>${it}</li>`).join('')}</ul>`;
+    else if(s.type==='def') html += `<h2>${s.title}</h2><div class="quote">"${s.quote}"</div><div class="source">出处：${s.source}</div>`;
+    else if(s.type==='end') html += `<h1>${s.title}</h1><div class="sub">${s.subtitle||''}</div>`;
     html += `</div>`;
   });
-  container.innerHTML = html;
+  html += '</div>';
+  c.innerHTML = html;
 }
 
 function downloadPPT() {
-  if(pptSlides.length === 0) { showToast('⚠️ 请先生成PPT'); return; }
+  if(!pptSlides.length){showToast('请先生成');return;}
   const pptx = new PptxGenJS();
-  pptx.defineLayout({ name: 'CUSTOM', width: 13.33, height: 7.5 });
-  pptx.layout = 'CUSTOM';
-  const ch = knowledgeData.chapters.find(c => c.num === currentChapter);
-
-  pptSlides.forEach(slide => {
-    const s = pptx.addSlide();
-    if(slide.type === 'title') {
-      s.background = { color: '1A73E8' };
-      s.addText(slide.title, { x: 0.5, y: 2.5, w: 12, h: 1.2, align: 'center', fontSize: 36, color: 'FFFFFF', bold: false });
-      s.addText(slide.subtitle || '', { x: 0.5, y: 4, w: 12, h: 1, align: 'center', fontSize: 16, color: 'D2E3FC' });
-    } else if(slide.type === 'toc' || slide.type === 'content') {
-      s.addText(slide.title, { x: 0.5, y: 0.3, w: 12, h: 0.8, fontSize: 28, color: '1A73E8', bold: true, underline: { color: '1A73E8' } });
-      slide.items.forEach((it, i) => {
-        s.addText(`• ${it}`, { x: 0.8, y: 1.4 + i * 0.7, w: 11.5, h: 0.6, fontSize: 14, color: '3C4043', valign: 'top' });
-      });
-    } else if(slide.type === 'def') {
-      s.background = { color: 'FEF7E0' };
-      s.addText(slide.title, { x: 0.5, y: 0.3, w: 12, h: 0.8, fontSize: 22, color: 'B06000', bold: true });
-      s.addText(`"${slide.quote}"`, { x: 1, y: 1.8, w: 11, h: 3, fontSize: 18, color: '202124', italic: true, valign: 'middle' });
-      s.addText(`出处：${slide.source}`, { x: 1, y: 5.5, w: 11, h: 0.5, fontSize: 12, color: 'B06000' });
-    } else if(slide.type === 'end') {
-      s.background = { color: '1A73E8' };
-      s.addText(slide.title, { x: 0.5, y: 3, w: 12, h: 1, align: 'center', fontSize: 36, color: 'FFFFFF' });
-      s.addText(slide.subtitle || '', { x: 0.5, y: 4.2, w: 12, h: 0.6, align: 'center', fontSize: 14, color: 'D2E3FC' });
-    }
+  pptx.defineLayout({name:'C',width:13.33,height:7.5}); pptx.layout='C';
+  const ch = knowledge.chapters.find(c=>c.num===currentChapter);
+  pptSlides.forEach(s => {
+    const sl = pptx.addSlide();
+    if(s.type==='title'){sl.background={color:'1A73E8'};sl.addText(s.title,{x:.5,y:2.5,w:12,h:1.2,align:'center',fontSize:36,color:'FFFFFF'});sl.addText(s.subtitle||'',{x:.5,y:4,w:12,h:1,align:'center',fontSize:16,color:'D2E3FC'});}
+    else if(s.type==='toc'||s.type==='content'){sl.addText(s.title,{x:.5,y:.3,w:12,h:.8,fontSize:28,color:'1A73E8',bold:true,underline:{color:'1A73E8'}});s.items.forEach((it,i)=>sl.addText(`• ${it}`,{x:.8,y:1.4+i*.7,w:11.5,h:.6,fontSize:14,color:'3C4043',valign:'top'}));}
+    else if(s.type==='def'){sl.background={color:'FEF7E0'};sl.addText(s.title,{x:.5,y:.3,w:12,h:.8,fontSize:22,color:'B06000',bold:true});sl.addText(`"${s.quote}"`,{x:1,y:1.8,w:11,h:3,fontSize:18,color:'202124',italic:true,valign:'middle'});sl.addText(`出处：${s.source}`,{x:1,y:5.5,w:11,h:.5,fontSize:12,color:'B06000'});}
+    else if(s.type==='end'){sl.background={color:'1A73E8'};sl.addText(s.title,{x:.5,y:3,w:12,h:1,align:'center',fontSize:36,color:'FFFFFF'});sl.addText(s.subtitle||'',{x:.5,y:4.2,w:12,h:.6,align:'center',fontSize:14,color:'D2E3FC'});}
   });
-
-  pptx.writeFile({ fileName: `软件工程_第${currentChapter}章${ch.title}_课件.pptx` });
+  pptx.writeFile({fileName:`软件工程_第${currentChapter}章_课件.pptx`});
   showToast('✓ PPT已下载！');
 }
 
-// ===== 生成物：教案 =====
-function generateLesson() {
-  const ch = knowledgeData.chapters.find(c => c.num === currentChapter);
-  const secs = knowledgeData.sections.filter(s => s.chapter === currentChapter);
+// ===== 测验模块 =====
+function initQuiz() {}
+function loadQuizForChapter(num) {
+  const secs = knowledge.sections.filter(s=>s.chapter===num);
   const kps = [];
-  secs.forEach(sec => {
-    sec.definitions.forEach(d => kps.push({ ...d, section: sec.section, page: sec.page_start }));
+  secs.forEach(sec => sec.definitions.forEach(d => kps.push({...d, page:sec.page_start})));
+  let html = '<div class="card"><div class="card-body">';
+  kps.slice(0,8).forEach((k,i) => {
+    html += `<div style="margin-bottom:14px;padding:14px;background:var(--surface-2);border-radius:8px">
+      <div style="font-weight:500;margin-bottom:6px">${i+1}. ${k.term}的定义是什么？</div>
+      <div style="font-size:12px;color:var(--text-muted)">📖 第${k.page}页</div>
+      <details style="margin-top:8px"><summary style="cursor:pointer;font-size:12px;color:var(--primary)">查看答案</summary>
+      <div style="padding:8px;background:var(--success-light);border-radius:6px;margin-top:6px;font-size:13px">${k.text}</div></details>
+    </div>`;
   });
-
-  const content = `
-<div style="font-size:15px;line-height:1.8">
-<h2 style="font-size:18px;color:var(--primary);margin-bottom:12px">第${currentChapter}章 ${ch.title} · 教案</h2>
-
-<p><strong>课程名称：</strong>软件工程</p>
-<p><strong>章节：</strong>第${currentChapter}章 ${ch.title}</p>
-<p><strong>课时：</strong>2课时（90分钟）</p>
-<p><strong>教材：</strong>《软件工程 第3版》钱乐秋等编著，清华大学出版社，第${ch.page_start}-${ch.page_end}页</p>
-
-<h3 style="margin-top:16px;color:var(--text)">一、教学目标</h3>
-<p><strong>知识目标：</strong>掌握${ch.title}的基本概念、原理和方法</p>
-<p><strong>能力目标：</strong>能够运用所学知识分析和解决实际软件工程问题</p>
-<p><strong>素质目标：</strong>培养软件工程思维和规范化开发意识</p>
-
-<h3 style="margin-top:16px;color:var(--text)">二、教学重点</h3>
-<p>${kps.slice(0,3).map(k => k.term || k.section).join('、')}</p>
-
-<h3 style="margin-top:16px;color:var(--text)">三、教学难点</h3>
-<p>抽象概念的理解与实际工程应用</p>
-
-<h3 style="margin-top:16px;color:var(--text)">四、教学过程</h3>
-<p>1. 导入（5分钟）：通过实际案例引入主题</p>
-<p>2. 新课讲授（60分钟）：</p>
-${kps.slice(0,6).map((k,i) => `<p style="padding-left:20px">${i+1}) ${k.term || k.section}：${k.text.substring(0,80)}...📖（第${k.page}页）</p>`).join('')}
-<p>3. 课堂练习（15分钟）：针对重点知识练习</p>
-<p>4. 小结（5分钟）：总结本章核心知识点</p>
-<p>5. 作业布置（5分钟）：课后习题</p>
-
-<h3 style="margin-top:16px;color:var(--text)">五、引经据典</h3>
-${kps.slice(0,4).map(k => `<p><strong>${k.term}：</strong>"${k.text.substring(0,80)}..."${k.source ? `<br>📖 出处：《${k.source}》` : `<br>📖 出处：《软件工程 第3版》第${k.page}页`}</p>`).join('')}
-</div>
-  `.trim();
-
-  addGeneratedResult('lesson', '📄 教案文档', `${kps.length} 个知识点 · ${secs.length} 节`, '', content);
-  showToast('✓ 教案已生成');
+  html += '</div></div>';
+  document.getElementById('quiz-area').innerHTML = html;
 }
 
-// ===== 生成物：知识图谱 =====
-function generateMindMap() {
-  const ch = knowledgeData.chapters.find(c => c.num === currentChapter);
-  const chNodes = graphData.nodes.filter(n => n.chapter === currentChapter || (n.type === 'concept' && graphData.links.some(l => (l.source === `ch${currentChapter}` || l.source === n.id) && n.id === l.target)));
-  const chLinks = graphData.links.filter(l => chNodes.some(n => n.id === l.source) && chNodes.some(n => n.id === l.target));
-
-  const content = `
-<div style="text-align:center;padding:20px">
-  <div style="font-size:14px;color:var(--text-soft);margin-bottom:16px">第${currentChapter}章 ${ch.title} · ${chNodes.length} 节点 · ${chLinks.length} 关联</div>
-  <div id="mini-graph" style="width:100%;height:300px;background:var(--surface-2);border-radius:var(--radius);border:1px solid var(--border-soft)"></div>
-  <div style="font-size:12px;color:var(--text-muted);margin-top:12px">💡 完整图谱请访问知识图谱页面</div>
-</div>
-<script>
-  // 简易图谱渲染
-  setTimeout(() => {
-    const container = document.getElementById('mini-graph');
-    if(!container) return;
-    const nodes = ${JSON.stringify(chNodes.slice(0, 30))};
-    const links = ${JSON.stringify(chLinks.slice(0, 40))};
-    let html = '<svg width="100%" height="300">';
-    // 简单布局
-    nodes.forEach((n, i) => {
-      const angle = (i / nodes.length) * 2 * Math.PI;
-      const r = 100;
-      n.x = 150 + r * Math.cos(angle);
-      n.y = 150 + r * Math.sin(angle);
+// ===== 视频模块 =====
+function initVideos() {
+  let html = '';
+  videos.chapters.forEach(ch => {
+    html += `<div class="card" style="margin-bottom:12px"><div class="card-head"><h3>第${ch.chapter}章 ${ch.title}</h3></div><div class="card-body">`;
+    html += '<div class="grid grid-2">';
+    ch.resources.forEach(r => {
+      html += `<div style="display:flex;gap:10px;padding:12px;border:1px solid var(--border-soft);border-radius:8px">
+        <div style="width:36px;height:36px;border-radius:8px;background:#FCE8E6;display:grid;place-items:center;font-size:18px">🎬</div>
+        <div style="flex:1"><div style="font-size:13px;font-weight:500">${r.title}</div><div style="font-size:11px;color:var(--text-muted)">关键词：${r.keyword}</div>
+        <a href="${r.url}" target="_blank" class="btn btn-sm btn-text" style="margin-top:4px">打开B站 →</a></div></div>`;
     });
-    links.forEach(l => {
-      const s = nodes.find(n => n.id === l.source || n.id === (l.source.id || l.source));
-      const t = nodes.find(n => n.id === l.target || n.id === (l.target.id || l.target));
-      if(s && t) html += '<line x1="'+s.x+'" y1="'+s.y+'" x2="'+t.x+'" y2="'+t.y+'" stroke="#DADCE0" stroke-width="1"/>';
-    });
-    nodes.forEach(n => {
-      const color = n.type === 'chapter' ? '#1A73E8' : n.type === 'section' ? '#188038' : '#B06000';
-      const r = n.type === 'chapter' ? 8 : n.type === 'section' ? 5 : 3;
-      html += '<circle cx="'+n.x+'" cy="'+n.y+'" r="'+r+'" fill="'+color+'"/>';
-      html += '<text x="'+n.x+'" y="'+(n.y+15)+'" font-size="9" text-anchor="middle" fill="#3C4043">'+(n.label||'').substring(0,6)+'</text>';
-    });
-    html += '</svg>';
-    container.innerHTML = html;
-  }, 100);
-<\/script>
-  `.trim();
-
-  addGeneratedResult('graph', '🕸️ 知识图谱', `${chNodes.length} 节点`, '', content);
-  showToast('✓ 知识图谱已生成');
+    html += '</div></div></div>';
+  });
+  document.getElementById('video-area').innerHTML = html;
 }
 
-// ===== 生成物：测验 =====
-function generateQuiz() {
-  const secs = knowledgeData.sections.filter(s => s.chapter === currentChapter);
-  const kps = [];
-  secs.forEach(sec => sec.definitions.forEach(d => kps.push({ ...d, section: sec.section, page: sec.page_start })));
-
-  const content = `
-<div style="font-size:14px;line-height:1.8">
-  <h2 style="font-size:16px;color:var(--primary);margin-bottom:12px">📝 第${currentChapter}章 随堂测验</h2>
-  ${kps.slice(0, 5).map((k, i) => `
-    <div style="margin-bottom:14px;padding:12px;background:var(--surface-2);border-radius:8px">
-      <div style="font-weight:500;margin-bottom:6px">${i+1}. ${k.term || k.section} 的定义是什么？</div>
-      <div style="font-size:12px;color:var(--text-muted)">📖 参考：第${k.page}页</div>
-      <details style="margin-top:8px"><summary style="cursor:pointer;font-size:12px;color:var(--primary)">查看答案</summary><div style="padding:8px;background:var(--success-light);border-radius:6px;margin-top:6px;font-size:13px">${k.text}</div></details>
-    </div>
-  `).join('')}
-</div>
-  `.trim();
-
-  addGeneratedResult('quiz', '📝 随堂测验', `${Math.min(5, kps.length)} 道题`, '', content);
-  showToast('✓ 测验已生成');
-}
-
-// ===== 添加生成结果到右栏 =====
-function addGeneratedResult(key, name, desc, onclick, content) {
-  generatedResults[key] = { name, desc, content };
-  renderGeneratedResults();
-}
-
-function renderGeneratedResults() {
-  const panel = document.getElementById('studio-panel');
-  const resultsHtml = Object.entries(generatedResults).map(([key, r]) => {
-    if(r.content) {
-      return `<div class="gen-result">
-        <div class="head">
-          <div class="name">${r.name}</div>
-          <div class="actions">
-            ${key === 'ppt' ? `<button class="primary" onclick="openModal('ppt-modal')">查看</button>` : ''}
-            <button onclick="deleteResult('${key}')">删除</button>
-          </div>
-        </div>
-        <div class="content">${r.content}</div>
+// ===== 引经据典模块 =====
+function initCitations() {
+  let html = '<div class="card"><div class="card-body">';
+  knowledge.sections.forEach(sec => {
+    sec.definitions.forEach(d => {
+      html += `<div style="padding:12px;border-bottom:1px solid var(--border-soft);cursor:pointer" onclick="goToPage(${sec.page_start});switchModule('reader')">
+        <div style="font-size:14px;font-weight:500;color:var(--primary)">${d.term||sec.section_title}</div>
+        <div style="font-size:13px;color:var(--text-soft);margin-top:4px;line-height:1.6">${d.text}</div>
+        <div style="font-size:11px;color:var(--warning);margin-top:4px">📖 ${d.source?'《'+d.source+'》':'《软件工程第3版》'} · 第${sec.chapter}章${sec.section} · p${sec.page_start}</div>
       </div>`;
-    }
-    return '';
-  }).join('');
-
-  // 在生成物区后面插入结果
-  let existing = document.getElementById('gen-results-area');
-  if(!existing) {
-    existing = document.createElement('div');
-    existing.id = 'gen-results-area';
-    existing.className = 'studio-section';
-    existing.innerHTML = `<div class="label">已生成</div><div id="gen-results-list"></div>`;
-    panel.querySelector('.panel-body').insertBefore(existing, panel.querySelector('.studio-section:nth-child(2)'));
-  }
-  document.getElementById('gen-results-list').innerHTML = resultsHtml;
-}
-
-function deleteResult(key) {
-  delete generatedResults[key];
-  renderGeneratedResults();
-}
-
-// ===== 模态框 =====
-function openModal(id) {
-  document.getElementById(id).classList.add('show');
-}
-function closeModal(id) {
-  document.getElementById(id).classList.remove('show');
-}
-
-// ===== Toast =====
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
-}
-
-// ===== 输入框自适应高度 + 回车发送 =====
-const chatInput = document.getElementById('chat-input');
-chatInput.addEventListener('input', () => {
-  chatInput.style.height = 'auto';
-  chatInput.style.height = Math.min(chatInput.scrollHeight, 200) + 'px';
-});
-chatInput.addEventListener('keydown', e => {
-  if(e.key === 'Enter' && !e.shiftKey) {
-    e.preventDefault();
-    sendChat();
-  }
-});
-
-const noteInput = document.getElementById('note-input');
-noteInput.addEventListener('input', () => {
-  noteInput.style.height = 'auto';
-  noteInput.style.height = Math.min(noteInput.scrollHeight, 100) + 'px';
-});
-noteInput.addEventListener('keydown', e => {
-  if(e.key === 'Enter' && !e.shiftKey) {
-    e.preventDefault();
-    addUserNote();
-  }
-});
-
-// 关闭模态框点击外部
-document.querySelectorAll('.modal-overlay').forEach(m => {
-  m.addEventListener('click', e => {
-    if(e.target === m) m.classList.remove('show');
+    });
   });
+  html += '</div></div>';
+  document.getElementById('cite-area').innerHTML = html;
+}
+
+// ===== 通用 =====
+function openModal(id){document.getElementById(id).classList.add('show');}
+function closeModal(id){document.getElementById(id).classList.remove('show');}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+
+// 键盘翻页
+document.addEventListener('keydown', e => {
+  if(document.getElementById('module-reader').style.display !== 'none') {
+    if(e.key==='ArrowLeft') prevPage();
+    if(e.key==='ArrowRight') nextPage();
+  }
 });
 
-// ===== 启动 =====
+// 启动
 loadData();
 </script>
 </body>
