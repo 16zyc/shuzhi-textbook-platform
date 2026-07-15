@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>数智教材平台 - 软件工程 第3版</title>
 <link rel="stylesheet" href="style.css">
-<!-- PDF.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <style>
   body { background: #525659; overflow: hidden; }
   .reader-topbar {
@@ -46,6 +44,7 @@
     display: grid; place-items: center;
     font-size: 15px;
     transition: .15s;
+    border: none;
   }
   .reader-topbar .tools button:hover { background: rgba(255,255,255,.22); }
   .reader-topbar .tools .page-input {
@@ -94,9 +93,9 @@
   }
   .toc .toc-item:hover { background: rgba(255,255,255,.05); color: #fff; }
   .toc .toc-item.active {
-    background: rgba(18,44,160,.25);
+    background: rgba(26,115,232,.25);
     color: #fff;
-    border-left-color: var(--primary);
+    border-left-color: #1A73E8;
   }
   .toc .toc-item .num { color: #888; margin-right: 8px; font-size: 12px; }
 
@@ -109,28 +108,23 @@
     align-items: center;
     padding: 24px 0;
     background: #525659;
+    position: relative;
   }
-  #pdf-canvas {
+  #page-img {
     box-shadow: 0 8px 30px rgba(0,0,0,.5);
     background: #fff;
     max-width: 100%;
+    transition: opacity .15s;
   }
-  .loading {
-    color: rgba(255,255,255,.6);
-    font-size: 14px;
-    margin-top: 40px;
+  #page-img.loading { opacity: .3; }
+  .page-placeholder {
+    width: 600px; max-width: 90%;
+    background: #fff; border-radius: 8px;
+    padding: 60px 40px; text-align: center;
+    color: #80868B; font-size: 14px;
+    box-shadow: 0 8px 30px rgba(0,0,0,.5);
   }
-  .loading .spin {
-    display: inline-block;
-    width: 18px; height: 18px;
-    border: 2px solid rgba(255,255,255,.2);
-    border-top-color: #fff;
-    border-radius: 50%;
-    animation: spin .8s linear infinite;
-    vertical-align: middle;
-    margin-right: 8px;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
+  .page-placeholder .ico { font-size: 48px; margin-bottom: 16px; }
 
   /* 翻页按钮（浮在阅读区两侧） */
   .nav-btn {
@@ -146,14 +140,33 @@
     font-size: 18px;
     transition: .2s;
     z-index: 5;
+    user-select: none;
   }
-  .nav-btn:hover { background: rgba(18,44,160,.8); }
+  .nav-btn:hover { background: rgba(26,115,232,.8); }
   .nav-btn.prev { left: 260px; }
   .nav-btn.next { right: 20px; }
   @media (max-width: 700px) {
     .toc { display: none; }
     .nav-btn.prev { left: 12px; }
   }
+
+  /* 加载指示器 */
+  .load-indicator {
+    position: absolute; top: 12px; right: 12px;
+    background: rgba(0,0,0,.6); color: #fff;
+    padding: 4px 12px; border-radius: 16px;
+    font-size: 12px; display: none;
+    z-index: 6;
+  }
+  .load-indicator.show { display: block; }
+  .load-indicator .spin {
+    display: inline-block; width: 12px; height: 12px;
+    border: 2px solid rgba(255,255,255,.3);
+    border-top-color: #fff; border-radius: 50%;
+    animation: spin .8s linear infinite;
+    vertical-align: middle; margin-right: 6px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
@@ -165,8 +178,8 @@
     <button onclick="zoom(-0.2)" title="缩小">－</button>
     <button onclick="zoom(0.2)" title="放大">＋</button>
     <button onclick="toggleToc()" title="目录">☰</button>
-    <input type="number" class="page-input" id="page-input" min="1" value="14" onchange="goToPage(this.value)">
-    <span class="page-info" id="page-info">/ -</span>
+    <input type="number" class="page-input" id="page-input" min="1" max="398" value="14" onchange="goToPage(this.value)">
+    <span class="page-info" id="page-info">/ 398</span>
   </div>
 </div>
 
@@ -196,9 +209,14 @@
     </div>
   </aside>
 
-  <div class="viewer-wrap">
-    <div class="loading" id="loading"><span class="spin"></span>正在加载电子书...</div>
-    <canvas id="pdf-canvas" style="display:none"></canvas>
+  <div class="viewer-wrap" id="viewer">
+    <div class="load-indicator" id="load-ind"><span class="spin"></span>加载中</div>
+    <img id="page-img" src="" alt="页面" style="display:none">
+    <div class="page-placeholder" id="placeholder" style="display:none">
+      <div class="ico">📄</div>
+      <div>该页图片暂未提取</div>
+      <div style="font-size:12px;margin-top:8px;color:#BDC1C6">第 <span id="ph-num"></span> 页</div>
+    </div>
   </div>
 </div>
 
@@ -206,91 +224,116 @@
 <div class="nav-btn next" onclick="nextPage()" title="下一页">›</div>
 
 <script>
-pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+// 图片总页数（已提取的页面图片），PDF 实际 398 页
+const TOTAL_PAGES = 398;
+const IMG_PAGES = 388;  // 图片提取到第 388 页
 
-const url = 'books/se-14043807.pdf';
-let pdfDoc = null;
 let pageNum = 14;
-let pageRendering = false;
-let pageNumPending = null;
-let scale = 1.3;
-const canvas = document.getElementById('pdf-canvas');
-const ctx = canvas.getContext('2d');
+let scale = 1;
+const img = document.getElementById('page-img');
+const placeholder = document.getElementById('placeholder');
+const loadInd = document.getElementById('load-ind');
 
 // 从 URL 参数读取起始页
 const params = new URLSearchParams(location.search);
-const startPage = parseInt(params.get('page')) || 1;
-const bookParam = params.get('book'); // 预留多本书
+const startPage = parseInt(params.get('page')) || 14;
+pageNum = Math.min(Math.max(1, startPage), TOTAL_PAGES);
 
-function renderPage(num){
-  pageRendering = true;
-  pdfDoc.getPage(num).then(function(page){
-    const viewport = page.getViewport({ scale: scale });
-    canvas.height = viewport.height;
-    canvas.width = viewport.width;
-    const renderCtx = { canvasContext: ctx, viewport: viewport };
-    page.render(renderCtx).promise.then(function(){
-      pageRendering = false;
-      if(pageNumPending !== null){
-        renderPage(pageNumPending);
-        pageNumPending = null;
-      }
-    });
-  });
+// 生成图片路径：页码 → p0XX_0.jpeg
+function pageToImgSrc(n) {
+  return `images/se/p${String(n).padStart(3,'0')}_0.jpeg`;
+}
+
+// 渲染指定页
+function renderPage(num) {
   document.getElementById('page-input').value = num;
-  document.getElementById('page-info').textContent = '/ ' + pdfDoc.numPages;
+  document.getElementById('page-info').textContent = `/ ${TOTAL_PAGES}`;
+
   // 高亮目录
   document.querySelectorAll('.toc-item').forEach(it => it.classList.remove('active'));
+
+  if (num > IMG_PAGES) {
+    // 超出图片范围，显示占位
+    img.style.display = 'none';
+    placeholder.style.display = 'block';
+    document.getElementById('ph-num').textContent = num;
+    loadInd.classList.remove('show');
+    return;
+  }
+
+  placeholder.style.display = 'none';
+  img.style.display = 'block';
+  img.classList.add('loading');
+  loadInd.classList.add('show');
+
+  // 设置缩放（通过 CSS transform）
+  img.style.transform = scale !== 1 ? `scale(${scale})` : '';
+  img.style.transformOrigin = 'top center';
+
+  // 加载图片
+  const newSrc = pageToImgSrc(num);
+  if (img.src.indexOf(newSrc) === -1) {
+    img.onload = function() {
+      img.classList.remove('loading');
+      loadInd.classList.remove('show');
+      // 预加载下一页
+      preload(num + 1);
+    };
+    img.onerror = function() {
+      img.style.display = 'none';
+      placeholder.style.display = 'block';
+      document.getElementById('ph-num').textContent = num;
+      loadInd.classList.remove('show');
+    };
+    img.src = newSrc;
+  } else {
+    img.classList.remove('loading');
+    loadInd.classList.remove('show');
+  }
 }
 
-function queueRenderPage(num){
-  if(pageRendering) pageNumPending = num;
-  else renderPage(num);
+// 预加载下一页图片（提升翻页体验）
+function preload(num) {
+  if (num > IMG_PAGES || num < 1) return;
+  const preImg = new Image();
+  preImg.src = pageToImgSrc(num);
 }
 
-function prevPage(){
-  if(pageNum <= 1) return;
+function prevPage() {
+  if (pageNum <= 1) return;
   pageNum--;
-  queueRenderPage(pageNum);
+  renderPage(pageNum);
 }
-function nextPage(){
-  if(pageNum >= pdfDoc.numPages) return;
+function nextPage() {
+  if (pageNum >= TOTAL_PAGES) return;
   pageNum++;
-  queueRenderPage(pageNum);
+  renderPage(pageNum);
 }
-function goToPage(n){
+function goToPage(n) {
   n = parseInt(n);
-  if(isNaN(n) || n < 1) n = 1;
-  if(pdfDoc && n > pdfDoc.numPages) n = pdfDoc.numPages;
+  if (isNaN(n) || n < 1) n = 1;
+  if (n > TOTAL_PAGES) n = TOTAL_PAGES;
   pageNum = n;
-  queueRenderPage(n);
+  renderPage(n);
 }
-function zoom(delta){
-  scale = Math.max(0.6, Math.min(3, scale + delta));
-  queueRenderPage(pageNum);
+function zoom(delta) {
+  scale = Math.max(0.5, Math.min(2.5, scale + delta));
+  img.style.transform = scale !== 1 ? `scale(${scale})` : '';
+  img.style.transformOrigin = 'top center';
 }
-function toggleToc(){
+function toggleToc() {
   const t = document.getElementById('toc');
   t.style.display = (t.style.display === 'none') ? 'block' : 'none';
 }
 
 // 键盘翻页
 document.addEventListener('keydown', e => {
-  if(e.key === 'ArrowLeft' || e.key === 'PageUp') prevPage();
-  if(e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); nextPage(); }
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp') prevPage();
+  if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); nextPage(); }
 });
 
-// 加载 PDF
-pdfjsLib.getDocument(url).promise.then(function(pdf){
-  pdfDoc = pdf;
-  document.getElementById('loading').style.display = 'none';
-  canvas.style.display = 'block';
-  document.getElementById('page-info').textContent = '/ ' + pdf.numPages;
-  pageNum = Math.min(startPage, pdf.numPages);
-  renderPage(pageNum);
-}).catch(function(err){
-  document.getElementById('loading').innerHTML = '⚠️ 电子书加载失败：' + err.message;
-});
+// 初始渲染（图片秒开，无需等待）
+renderPage(pageNum);
 </script>
 </body>
 </html>

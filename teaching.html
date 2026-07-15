@@ -6,7 +6,6 @@
 <title>数智教材平台 - 软件工程 第3版</title>
 <link rel="stylesheet" href="style.css">
 <script src="https://unpkg.com/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <style>
   body { overflow: hidden; }
   .reader-layout {
@@ -396,10 +395,6 @@ async function loadData() {
     fetch('data/se_concept_graph.json').then(r=>r.json())
   ]);
   fulltext=f; knowledge=k; kwIndex=ki; extRes=e; images=img; defs=d; graph=g;
-  // 初始化PDF.js
-  if(window.pdfjsLib) {
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-  }
   renderToc();
   goToPage(14);
   switchTab('detail', document.querySelector('.info-tab'));
@@ -810,12 +805,17 @@ function renderInfo() {
 }
 
 function renderImages() {
-  // 用PDF.js渲染当前页的高清原图
+  // 用页面图片显示当前页原图（秒开，无需加载整个PDF）
+  const imgSrc = `images/se/p${String(currentPage).padStart(3,'0')}_0.jpeg`;
   document.getElementById('info-body').innerHTML = `
     <div class="info-section">
       <div class="label">当前页原图（第${currentPage}页）</div>
       <div style="background:var(--surface);border:1px solid var(--border-soft);border-radius:8px;padding:8px;text-align:center">
-        <canvas id="pdf-page-canvas" style="max-width:100%;background:#f8f9fa;border-radius:4px"></canvas>
+        <img id="page-img-el" src="${imgSrc}" alt="第${currentPage}页"
+          style="max-width:100%;border-radius:4px;opacity:0;transition:opacity .2s;display:block"
+          onload="this.style.opacity=1"
+          onerror="this.style.display='none';document.getElementById('img-fallback').style.display='block'">
+        <div id="img-fallback" style="display:none;padding:20px;color:var(--text-muted);font-size:12px">该页图片暂未提取</div>
         <div style="font-size:11px;color:var(--text-muted);margin-top:6px">高清扫描原图 · 可放大查看</div>
       </div>
     </div>
@@ -826,28 +826,11 @@ function renderImages() {
         <button class="action-btn" style="flex:1" onclick="nextPage();renderImages()">下一页 ›</button>
       </div>
     </div>
+    <div class="info-section">
+      <div class="label">完整阅读</div>
+      <button class="action-btn primary" style="width:100%" onclick="openReader()">📖 打开完整电子书阅读器</button>
+    </div>
   `;
-  // 用PDF.js渲染
-  if(window.pdfjsLib) {
-    pdfjsLib.getDocument('books/se-14043807.pdf').promise.then(pdf => {
-      pdf.getPage(currentPage).then(page => {
-        const canvas = document.getElementById('pdf-page-canvas');
-        if(!canvas) return;
-        const ctx = canvas.getContext('2d');
-        const viewport = page.getViewport({scale: 1.0});
-        // 适应右栏宽度
-        const maxWidth = 280;
-        const scale = maxWidth / viewport.width;
-        const scaledViewport = page.getViewport({scale: scale});
-        canvas.width = scaledViewport.width;
-        canvas.height = scaledViewport.height;
-        page.render({canvasContext: ctx, viewport: scaledViewport});
-      });
-    }).catch(err => {
-      const canvas = document.getElementById('pdf-page-canvas');
-      if(canvas) canvas.parentElement.innerHTML = '<div style="padding:20px;color:var(--text-muted);font-size:12px">原图加载失败：'+err.message+'</div>';
-    });
-  }
 }
 
 function renderResources() {
