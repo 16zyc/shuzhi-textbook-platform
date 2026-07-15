@@ -372,7 +372,7 @@
 <div class="toast" id="toast"></div>
 
 <script>
-let fulltext=null, knowledge=null, kwIndex=null, extRes=null;
+let fulltext=null, knowledge=null, kwIndex=null, extRes=null, images=null;
 let currentPage = 14;
 let currentChapter = 1;
 let highlightOn = true;
@@ -382,13 +382,14 @@ let currentTab = 'info';
 
 // ===== 加载数据 =====
 async function loadData() {
-  const [f,k,ki,e] = await Promise.all([
+  const [f,k,ki,e,img] = await Promise.all([
     fetch('data/se_fulltext.json').then(r=>r.json()),
     fetch('data/se_knowledge.json').then(r=>r.json()),
     fetch('data/se_keyword_index.json').then(r=>r.json()),
-    fetch('data/se_external_resources.json').then(r=>r.json())
+    fetch('data/se_external_resources.json').then(r=>r.json()),
+    fetch('data/se_images.json').then(r=>r.json())
   ]);
-  fulltext=f; knowledge=k; kwIndex=ki; extRes=e;
+  fulltext=f; knowledge=k; kwIndex=ki; extRes=e; images=img;
   renderToc();
   goToPage(14);
   switchTab('info', document.querySelector('.info-tab'));
@@ -636,21 +637,58 @@ function renderInfo() {
 }
 
 function renderImages() {
-  document.getElementById('info-body').innerHTML = `
-    <div class="info-section">
-      <div class="label">书中图片（第${currentChapter}章）</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-        ${[1,2,3,4,5,6].map(i => `
-          <div style="aspect-ratio:4/3;background:var(--surface);border:1px solid var(--border-soft);border-radius:8px;display:grid;place-items:center;cursor:pointer" onclick="showToast('图${currentChapter}-${i}')">
-            <div style="text-align:center">
-              <div style="font-size:24px">📊</div>
-              <div style="font-size:10px;color:var(--text-muted);margin-top:4px">图${currentChapter}-${i}</div>
-            </div>
-          </div>
-        `).join('')}
-      </div>
-    </div>
-  `;
+  if(!images || !images.images) {
+    document.getElementById('info-body').innerHTML = '<div style="text-align:center;color:var(--text-muted);padding:20px">图片数据加载中...</div>';
+    return;
+  }
+  // 过滤当前章节的图片
+  const chImgs = images.images.filter(i => i.chapter === currentChapter);
+  // 也包含当前页的图片
+  const pageImgs = images.images.filter(i => i.page === currentPage);
+
+  let html = '';
+  // 当前页的图片优先显示
+  if(pageImgs.length) {
+    html += `<div class="info-section">
+      <div class="label">当前页图片（第${currentPage}页）</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">`;
+    pageImgs.slice(0,6).forEach(img => {
+      html += `<div style="background:var(--surface);border:1px solid var(--border-soft);border-radius:8px;overflow:hidden;cursor:pointer" onclick="showImagePreview('${img.file}')">
+        <img src="${img.file}" style="width:100%;height:120px;object-fit:contain;background:#f8f9fa;display:block" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div style=\\'height:120px;display:grid;place-items:center;color:var(--text-muted);font-size:11px\\'>加载失败</div>'">
+        <div style="padding:4px 8px;font-size:10px;color:var(--text-muted)">p${img.page} · ${img.width}×${img.height}</div>
+      </div>`;
+    });
+    html += `</div></div>`;
+  }
+
+  // 本章所有图片
+  if(chImgs.length) {
+    html += `<div class="info-section">
+      <div class="label">本章图片（第${currentChapter}章 · ${chImgs.length}张）</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;max-height:500px;overflow-y:auto">`;
+    chImgs.slice(0, 20).forEach(img => {
+      html += `<div style="background:var(--surface);border:1px solid var(--border-soft);border-radius:8px;overflow:hidden;cursor:pointer" onclick="goToPage(${img.page})">
+        <img src="${img.file}" style="width:100%;height:100px;object-fit:contain;background:#f8f9fa;display:block" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div style=\\'height:100px;display:grid;place-items:center;color:var(--text-muted);font-size:11px\\'>加载失败</div>'">
+        <div style="padding:3px 6px;font-size:10px;color:var(--text-muted)">p${img.page}</div>
+      </div>`;
+    });
+    html += `</div></div>`;
+  }
+
+  if(!pageImgs.length && !chImgs.length) {
+    html = '<div style="text-align:center;color:var(--text-muted);padding:30px;font-size:13px">本章暂无图片</div>';
+  }
+
+  document.getElementById('info-body').innerHTML = html;
+}
+
+function showImagePreview(src) {
+  // 简单的图片预览
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:300;display:grid;place-items:center;cursor:pointer';
+  overlay.innerHTML = `<img src="${src}" style="max-width:90%;max-height:90%;border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,.5)">`;
+  overlay.onclick = () => overlay.remove();
+  document.body.appendChild(overlay);
 }
 
 function renderResources() {
