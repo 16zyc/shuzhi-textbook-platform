@@ -1,0 +1,8824 @@
+{
+  "book": {
+    "title": "软件工程 第3版",
+    "authors": "钱乐秋，赵文耘，牛军钰编著",
+    "publisher": "清华大学出版社",
+    "total_pages": 398,
+    "source": "14043807.pdf",
+    "ocr_date": "2026-07-15 09:12",
+    "ocr_engine": "macOS Vision Framework (zh-Hans)",
+    "avg_confidence": "95%+"
+  },
+  "nodes": [
+    {
+      "id": "1.1.1",
+      "label": "计算机软件",
+      "type": "section",
+      "chapter": 1,
+      "page": 14,
+      "full": "第1章 概论 → 1.1 计算机软件"
+    },
+    {
+      "id": "ch1",
+      "label": "习题",
+      "type": "section",
+      "chapter": 1,
+      "page": 39,
+      "full": "第1章 概论 →  习题"
+    },
+    {
+      "id": "kw_程序设计语言",
+      "label": "程序设计语言",
+      "type": "concept",
+      "freq": 5,
+      "pages": [
+        10,
+        15,
+        16,
+        17,
+        20,
+        60,
+        70,
+        71,
+        75,
+        133
+      ],
+      "page_count": 33
+    },
+    {
+      "id": "kw_计算机的应用",
+      "label": "计算机的应用",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        14,
+        15
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "kw_软件工程",
+      "label": "软件工程",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        2,
+        3,
+        4,
+        5,
+        7,
+        9,
+        11,
+        13,
+        14,
+        15
+      ],
+      "page_count": 234
+    },
+    {
+      "id": "kw_计算机科学技",
+      "label": "计算机科学技",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        3,
+        14,
+        16,
+        19,
+        198,
+        249,
+        384,
+        388
+      ],
+      "page_count": 8
+    },
+    {
+      "id": "kw_术百科全书",
+      "label": "术百科全书",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        3,
+        14,
+        16,
+        19,
+        20,
+        198,
+        249,
+        384,
+        388
+      ],
+      "page_count": 9
+    },
+    {
+      "id": "1.1.2",
+      "label": "软件工程",
+      "type": "section",
+      "chapter": 1,
+      "page": 18,
+      "full": "第1章 概论 → 1.2 软件工程"
+    },
+    {
+      "id": "kw_语言",
+      "label": "语言",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        4,
+        6,
+        10,
+        14,
+        15,
+        16,
+        17,
+        18,
+        20,
+        34
+      ],
+      "page_count": 83
+    },
+    {
+      "id": "kw_FORTRAN",
+      "label": "FORTRAN",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        17,
+        18,
+        253,
+        254,
+        317,
+        345
+      ],
+      "page_count": 6
+    },
+    {
+      "id": "kw_Modula",
+      "label": "Modula",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        18
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "kw_计算机软件文",
+      "label": "计算机软件文",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        18
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "1.1.3",
+      "label": "软件过程",
+      "type": "section",
+      "chapter": 1,
+      "page": 20,
+      "full": "第1章 概论 → 1.3 软件过程"
+    },
+    {
+      "id": "kw_过程实施",
+      "label": "过程实施",
+      "type": "concept",
+      "freq": 16,
+      "pages": [
+        19,
+        22,
+        23
+      ],
+      "page_count": 3
+    },
+    {
+      "id": "kw_CL",
+      "label": "CL",
+      "type": "concept",
+      "freq": 13,
+      "pages": [
+        27,
+        28,
+        62,
+        334
+      ],
+      "page_count": 4
+    },
+    {
+      "id": "kw_IEC",
+      "label": "IEC",
+      "type": "concept",
+      "freq": 12,
+      "pages": [
+        21,
+        23,
+        24,
+        334,
+        337,
+        339,
+        340,
+        374
+      ],
+      "page_count": 8
+    },
+    {
+      "id": "kw_ISO",
+      "label": "ISO",
+      "type": "concept",
+      "freq": 11,
+      "pages": [
+        3,
+        21,
+        23,
+        24,
+        73,
+        334,
+        337,
+        339,
+        340,
+        365
+      ],
+      "page_count": 12
+    },
+    {
+      "id": "kw_CMM",
+      "label": "CMM",
+      "type": "concept",
+      "freq": 11,
+      "pages": [
+        3,
+        24,
+        25,
+        26,
+        27,
+        39,
+        374,
+        384
+      ],
+      "page_count": 8
+    },
+    {
+      "id": "1.1.4",
+      "label": "软件过程模型",
+      "type": "section",
+      "chapter": 1,
+      "page": 29,
+      "full": "第1章 概论 → 1.4 软件过程模型"
+    },
+    {
+      "id": "kw_测试",
+      "label": "测试",
+      "type": "concept",
+      "freq": 8,
+      "pages": [
+        10,
+        11,
+        16,
+        20,
+        22,
+        23,
+        24,
+        30,
+        31,
+        33
+      ],
+      "page_count": 137
+    },
+    {
+      "id": "kw_需求",
+      "label": "需求",
+      "type": "concept",
+      "freq": 7,
+      "pages": [
+        5,
+        9,
+        11,
+        14,
+        16,
+        17,
+        19,
+        20,
+        22,
+        23
+      ],
+      "page_count": 141
+    },
+    {
+      "id": "kw_增量",
+      "label": "增量",
+      "type": "concept",
+      "freq": 7,
+      "pages": [
+        4,
+        29,
+        30,
+        31,
+        35,
+        39,
+        155,
+        215,
+        216,
+        217
+      ],
+      "page_count": 27
+    },
+    {
+      "id": "kw_代码",
+      "label": "代码",
+      "type": "concept",
+      "freq": 6,
+      "pages": [
+        12,
+        20,
+        35,
+        46,
+        57,
+        58,
+        59,
+        62,
+        64,
+        65
+      ],
+      "page_count": 65
+    },
+    {
+      "id": "kw_验证",
+      "label": "验证",
+      "type": "concept",
+      "freq": 5,
+      "pages": [
+        5,
+        19,
+        22,
+        24,
+        26,
+        27,
+        29,
+        32,
+        33,
+        35
+      ],
+      "page_count": 38
+    },
+    {
+      "id": "1.1.5",
+      "label": "CASE工具与环境",
+      "type": "section",
+      "chapter": 1,
+      "page": 36,
+      "full": "第1章 概论 → 1.5 CASE工具与环境"
+    },
+    {
+      "id": "kw_软件开发工具",
+      "label": "软件开发工具",
+      "type": "concept",
+      "freq": 6,
+      "pages": [
+        37,
+        38,
+        254
+      ],
+      "page_count": 3
+    },
+    {
+      "id": "kw_CASE",
+      "label": "CASE",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        4,
+        14,
+        15,
+        36,
+        39,
+        102,
+        121,
+        252,
+        348,
+        374
+      ],
+      "page_count": 11
+    },
+    {
+      "id": "kw_维护",
+      "label": "维护",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        11,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "page_count": 90
+    },
+    {
+      "id": "kw_工具",
+      "label": "工具",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        4,
+        9,
+        11,
+        14,
+        15,
+        16,
+        24,
+        32,
+        36,
+        37
+      ],
+      "page_count": 74
+    },
+    {
+      "id": "kw_支持软件开发",
+      "label": "支持软件开发",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        36,
+        37,
+        38,
+        39,
+        213
+      ],
+      "page_count": 5
+    },
+    {
+      "id": "kw_简述",
+      "label": "简述",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        28,
+        39,
+        45,
+        78,
+        79,
+        96,
+        97,
+        98,
+        99,
+        100
+      ],
+      "page_count": 16
+    },
+    {
+      "id": "kw_方法与过程集",
+      "label": "方法与过程集",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        38,
+        39
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "kw_软件生存周期",
+      "label": "软件生存周期",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        4,
+        20,
+        21,
+        23,
+        29,
+        36,
+        37,
+        39,
+        208,
+        310
+      ],
+      "page_count": 17
+    },
+    {
+      "id": "kw_CMMI",
+      "label": "CMMI",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        3,
+        26,
+        27,
+        39,
+        374,
+        384
+      ],
+      "page_count": 6
+    },
+    {
+      "id": "2.2.1",
+      "label": "基于计算机的系统",
+      "type": "section",
+      "chapter": 2,
+      "page": 40,
+      "full": "第2章 系统工程 → 2.1 基于计算机的系统"
+    },
+    {
+      "id": "ch2",
+      "label": "习题",
+      "type": "section",
+      "chapter": 2,
+      "page": 45,
+      "full": "第2章 系统工程 →  习题"
+    },
+    {
+      "id": "kw_人员",
+      "label": "人员",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        3,
+        12,
+        15,
+        18,
+        21,
+        31,
+        40,
+        41,
+        43,
+        44
+      ],
+      "page_count": 99
+    },
+    {
+      "id": "kw_数据库",
+      "label": "数据库",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        15,
+        16,
+        20,
+        36,
+        40,
+        41,
+        42,
+        43,
+        45,
+        48
+      ],
+      "page_count": 45
+    },
+    {
+      "id": "kw_基于计算机的",
+      "label": "基于计算机的",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        5,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        55,
+        56,
+        67
+      ],
+      "page_count": 14
+    },
+    {
+      "id": "kw_统元素",
+      "label": "统元素",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        20,
+        40,
+        41,
+        42,
+        45,
+        56
+      ],
+      "page_count": 6
+    },
+    {
+      "id": "kw_数据体系结构",
+      "label": "数据体系结构",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        40
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "2.2.2",
+      "label": "系统工程的任务",
+      "type": "section",
+      "chapter": 2,
+      "page": 41,
+      "full": "第2章 系统工程 → 2.2 系统工程的任务"
+    },
+    {
+      "id": "kw_一个基于计算",
+      "label": "一个基于计算",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        41,
+        42,
+        43,
+        44,
+        55
+      ],
+      "page_count": 5
+    },
+    {
+      "id": "kw_硬件系统模型",
+      "label": "硬件系统模型",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        41
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "kw_程或控制",
+      "label": "程或控制",
+      "type": "concept",
+      "freq": 1,
+      "pages": [
+        41
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "2.2.3",
+      "label": "可行性分析",
+      "type": "section",
+      "chapter": 2,
+      "page": 42,
+      "full": "第2章 系统工程 → 2.3 可行性分析"
+    },
+    {
+      "id": "kw_计算机的系统",
+      "label": "计算机的系统",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        5,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        55,
+        56,
+        67
+      ],
+      "page_count": 14
+    },
+    {
+      "id": "kw_成本",
+      "label": "成本",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        8,
+        15,
+        20,
+        21,
+        25,
+        31,
+        33,
+        35,
+        36,
+        38
+      ],
+      "page_count": 52
+    },
+    {
+      "id": "kw_效益",
+      "label": "效益",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        42,
+        43,
+        44,
+        202,
+        214,
+        327,
+        329,
+        353
+      ],
+      "page_count": 8
+    },
+    {
+      "id": "kw_零时",
+      "label": "零时",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        44
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "kw_计算机系统工",
+      "label": "计算机系统工",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        20,
+        41,
+        45
+      ],
+      "page_count": 3
+    },
+    {
+      "id": "kw_由于系统的功",
+      "label": "由于系统的功",
+      "type": "concept",
+      "freq": 1,
+      "pages": [
+        45
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "kw_能和性能受到",
+      "label": "能和性能受到",
+      "type": "concept",
+      "freq": 1,
+      "pages": [
+        45
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "3.3.1",
+      "label": "需求工程概述",
+      "type": "section",
+      "chapter": 3,
+      "page": 46,
+      "full": "第3章 需求工程 → 3.1 需求工程概述"
+    },
+    {
+      "id": "ch3",
+      "label": "习题",
+      "type": "section",
+      "chapter": 3,
+      "page": 58,
+      "full": "第3章 需求工程 →  习题"
+    },
+    {
+      "id": "kw_需求规约",
+      "label": "需求规约",
+      "type": "concept",
+      "freq": 5,
+      "pages": [
+        5,
+        20,
+        46,
+        47,
+        55,
+        56,
+        58,
+        61,
+        94,
+        109
+      ],
+      "page_count": 17
+    },
+    {
+      "id": "kw_系统建模",
+      "label": "系统建模",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        40,
+        41,
+        42,
+        46,
+        47
+      ],
+      "page_count": 5
+    },
+    {
+      "id": "kw_世纪",
+      "label": "世纪",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        1,
+        2,
+        3,
+        15,
+        18,
+        36,
+        46,
+        80,
+        123,
+        133
+      ],
+      "page_count": 19
+    },
+    {
+      "id": "kw_需求分析与协",
+      "label": "需求分析与协",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        46,
+        47,
+        58
+      ],
+      "page_count": 3
+    },
+    {
+      "id": "kw_需求获取",
+      "label": "需求获取",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        5,
+        46,
+        47,
+        48,
+        49,
+        50,
+        52,
+        58,
+        138,
+        240
+      ],
+      "page_count": 13
+    },
+    {
+      "id": "3.3.2",
+      "label": "需求获取",
+      "type": "section",
+      "chapter": 3,
+      "page": 48,
+      "full": "第3章 需求工程 → 3.2 需求获取"
+    },
+    {
+      "id": "kw_FAST",
+      "label": "FAST",
+      "type": "concept",
+      "freq": 11,
+      "pages": [
+        51,
+        52,
+        58,
+        379
+      ],
+      "page_count": 4
+    },
+    {
+      "id": "kw_用况",
+      "label": "用况",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        7,
+        52,
+        53,
+        60,
+        137,
+        138,
+        139,
+        143,
+        144,
+        145
+      ],
+      "page_count": 41
+    },
+    {
+      "id": "kw_需求工程",
+      "label": "需求工程",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        5,
+        46,
+        47,
+        48,
+        50,
+        52,
+        54,
+        56,
+        58,
+        69
+      ],
+      "page_count": 14
+    },
+    {
+      "id": "kw_获取",
+      "label": "获取",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        5,
+        14,
+        22,
+        23,
+        30,
+        34,
+        44,
+        46,
+        47,
+        48
+      ],
+      "page_count": 42
+    },
+    {
+      "id": "3.3.3",
+      "label": "需求分析、协商与建模",
+      "type": "section",
+      "chapter": 3,
+      "page": 53,
+      "full": "第3章 需求工程 → 3.3 需求分析、协商与建模"
+    },
+    {
+      "id": "kw_工资",
+      "label": "工资",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        53,
+        93,
+        148
+      ],
+      "page_count": 3
+    },
+    {
+      "id": "kw_需求分析",
+      "label": "需求分析",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        5,
+        19,
+        20,
+        22,
+        23,
+        24,
+        30,
+        35,
+        36,
+        37
+      ],
+      "page_count": 45
+    },
+    {
+      "id": "kw_必须能够表示",
+      "label": "必须能够表示",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        53
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "kw_信息域",
+      "label": "信息域",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        5,
+        53,
+        162,
+        300,
+        331,
+        333,
+        391
+      ],
+      "page_count": 7
+    },
+    {
+      "id": "kw_功能和行为的",
+      "label": "功能和行为的",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        53
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "3.3.4",
+      "label": "需求规约与验证",
+      "type": "section",
+      "chapter": 3,
+      "page": 55,
+      "full": "第3章 需求工程 → 3.4 需求规约与验证"
+    },
+    {
+      "id": "kw_功能描述",
+      "label": "功能描述",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        56,
+        92
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "kw_Balzer",
+      "label": "Balzer",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        55
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "kw_Goldman",
+      "label": "Goldman",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        55
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "kw_做什么",
+      "label": "做什么",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        17,
+        20,
+        48,
+        52,
+        54,
+        55,
+        59,
+        78,
+        101,
+        137
+      ],
+      "page_count": 17
+    },
+    {
+      "id": "kw_软件需求规约",
+      "label": "软件需求规约",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        20,
+        47,
+        55,
+        56,
+        58,
+        109,
+        280,
+        285,
+        286
+      ],
+      "page_count": 9
+    },
+    {
+      "id": "3.3.5",
+      "label": "需求管理",
+      "type": "section",
+      "chapter": 3,
+      "page": 57,
+      "full": "第3章 需求工程 → 3.5 需求管理"
+    },
+    {
+      "id": "kw_需求管理",
+      "label": "需求管理",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        5,
+        9,
+        26,
+        27,
+        29,
+        46,
+        47,
+        57,
+        58,
+        218
+      ],
+      "page_count": 13
+    },
+    {
+      "id": "kw_参考书目",
+      "label": "参考书目",
+      "type": "concept",
+      "freq": 1,
+      "pages": [
+        56,
+        57
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "kw_参考书目包含",
+      "label": "参考书目包含",
+      "type": "concept",
+      "freq": 1,
+      "pages": [
+        57
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "kw_了对所有和该",
+      "label": "了对所有和该",
+      "type": "concept",
+      "freq": 1,
+      "pages": [
+        57
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "kw_段重点介绍了",
+      "label": "段重点介绍了",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        58
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "4.4.1",
+      "label": "软件设计工程概述",
+      "type": "section",
+      "chapter": 4,
+      "page": 59,
+      "full": "第4章 设计工程 → 4.1 软件设计工程概述"
+    },
+    {
+      "id": "ch4",
+      "label": "习题",
+      "type": "section",
+      "chapter": 4,
+      "page": 78,
+      "full": "第4章 设计工程 →  习题"
+    },
+    {
+      "id": "kw_体系结构设计",
+      "label": "体系结构设计",
+      "type": "concept",
+      "freq": 5,
+      "pages": [
+        5,
+        22,
+        59,
+        60,
+        62,
+        66,
+        70,
+        71,
+        76,
+        204
+      ],
+      "page_count": 14
+    },
+    {
+      "id": "kw_类设计",
+      "label": "类设计",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        59,
+        60,
+        61,
+        274
+      ],
+      "page_count": 4
+    },
+    {
+      "id": "kw_软件体系结构",
+      "label": "软件体系结构",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        5,
+        6,
+        22,
+        24,
+        59,
+        60,
+        62,
+        66,
+        67,
+        70
+      ],
+      "page_count": 15
+    },
+    {
+      "id": "kw_接口设计",
+      "label": "接口设计",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        59,
+        60,
+        61,
+        76,
+        228,
+        234
+      ],
+      "page_count": 6
+    },
+    {
+      "id": "kw_设计工程",
+      "label": "设计工程",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        5,
+        59,
+        60,
+        62,
+        64,
+        66,
+        68,
+        70,
+        72,
+        76
+      ],
+      "page_count": 14
+    },
+    {
+      "id": "4.4.2",
+      "label": "软件设计原则",
+      "type": "section",
+      "chapter": 4,
+      "page": 61,
+      "full": "第4章 设计工程 → 4.2 软件设计原则"
+    },
+    {
+      "id": "kw_模块",
+      "label": "模块",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        5,
+        19,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66
+      ],
+      "page_count": 77
+    },
+    {
+      "id": "kw_原则",
+      "label": "原则",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        5,
+        9,
+        10,
+        18,
+        19,
+        21,
+        39,
+        50,
+        51,
+        53
+      ],
+      "page_count": 68
+    },
+    {
+      "id": "kw_内容耦合",
+      "label": "内容耦合",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        65,
+        109
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "4.4.3",
+      "label": "软件体系结构设计",
+      "type": "section",
+      "chapter": 4,
+      "page": 66,
+      "full": "第4章 设计工程 → 4.3 软件体系结构设计"
+    },
+    {
+      "id": "kw_客户部件",
+      "label": "客户部件",
+      "type": "concept",
+      "freq": 8,
+      "pages": [
+        67,
+        68
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "kw_体系结构",
+      "label": "体系结构",
+      "type": "concept",
+      "freq": 7,
+      "pages": [
+        5,
+        6,
+        8,
+        17,
+        20,
+        22,
+        24,
+        34,
+        35,
+        40
+      ],
+      "page_count": 53
+    },
+    {
+      "id": "kw_过滤器",
+      "label": "过滤器",
+      "type": "concept",
+      "freq": 6,
+      "pages": [
+        67,
+        68,
+        281
+      ],
+      "page_count": 3
+    },
+    {
+      "id": "kw_子程序风格体",
+      "label": "子程序风格体",
+      "type": "concept",
+      "freq": 5,
+      "pages": [
+        68,
+        69
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "kw_主程序",
+      "label": "主程序",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        68,
+        69,
+        283,
+        317,
+        362,
+        363,
+        375
+      ],
+      "page_count": 7
+    },
+    {
+      "id": "4.4.4",
+      "label": "部件级设计技术",
+      "type": "section",
+      "chapter": 4,
+      "page": 70,
+      "full": "第4章 设计工程 → 4.4 部件级设计技术"
+    },
+    {
+      "id": "kw_PAD",
+      "label": "PAD",
+      "type": "concept",
+      "freq": 12,
+      "pages": [
+        73,
+        74,
+        374
+      ],
+      "page_count": 3
+    },
+    {
+      "id": "kw_PDL",
+      "label": "PDL",
+      "type": "concept",
+      "freq": 8,
+      "pages": [
+        6,
+        17,
+        75,
+        76,
+        269,
+        374,
+        391
+      ],
+      "page_count": 7
+    },
+    {
+      "id": "kw_种基本控制结",
+      "label": "种基本控制结",
+      "type": "concept",
+      "freq": 7,
+      "pages": [
+        71,
+        72,
+        73
+      ],
+      "page_count": 3
+    },
+    {
+      "id": "kw_结构化程序设",
+      "label": "结构化程序设",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        6,
+        71,
+        72,
+        73,
+        80,
+        105,
+        123,
+        203,
+        316,
+        317
+      ],
+      "page_count": 15
+    },
+    {
+      "id": "kw_ATAM",
+      "label": "ATAM",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        70
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "4.4.5",
+      "label": "设计规约与设计评审",
+      "type": "section",
+      "chapter": 4,
+      "page": 76,
+      "full": "第4章 设计工程 → 4.5 设计规约与设计评审"
+    },
+    {
+      "id": "kw_描述",
+      "label": "描述",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        6,
+        7,
+        8,
+        14,
+        17,
+        18,
+        25,
+        28,
+        35,
+        39
+      ],
+      "page_count": 164
+    },
+    {
+      "id": "kw_设计规约",
+      "label": "设计规约",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        6,
+        17,
+        35,
+        76,
+        78,
+        79,
+        391
+      ],
+      "page_count": 7
+    },
+    {
+      "id": "kw_限制",
+      "label": "限制",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        17,
+        33,
+        42,
+        47,
+        48,
+        49,
+        50,
+        56,
+        57,
+        59
+      ],
+      "page_count": 40
+    },
+    {
+      "id": "kw_叉索引",
+      "label": "叉索引",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        76,
+        77
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "kw_确认该软件设",
+      "label": "确认该软件设",
+      "type": "concept",
+      "freq": 5,
+      "pages": [
+        77,
+        78
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "kw_的问题",
+      "label": "的问题",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        6,
+        16,
+        20,
+        24,
+        30,
+        44,
+        49,
+        50,
+        51,
+        52
+      ],
+      "page_count": 62
+    },
+    {
+      "id": "kw_风险",
+      "label": "风险",
+      "type": "concept",
+      "freq": 1,
+      "pages": [
+        12,
+        23,
+        27,
+        29,
+        30,
+        31,
+        33,
+        44,
+        57,
+        78
+      ],
+      "page_count": 31
+    },
+    {
+      "id": "kw_计在现有技术",
+      "label": "计在现有技术",
+      "type": "concept",
+      "freq": 1,
+      "pages": [
+        78
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "5.5.1",
+      "label": "结构化分析方法概述",
+      "type": "section",
+      "chapter": 5,
+      "page": 80,
+      "full": "第5章 结构化分析与设计 → 5.1 结构化分析方法概述"
+    },
+    {
+      "id": "ch5",
+      "label": "习题",
+      "type": "section",
+      "chapter": 5,
+      "page": 121,
+      "full": "第5章 结构化分析与设计 →  习题"
+    },
+    {
+      "id": "kw_结构化分析与",
+      "label": "结构化分析与",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        6,
+        68,
+        70,
+        80,
+        82,
+        84,
+        86,
+        88,
+        90,
+        92
+      ],
+      "page_count": 27
+    },
+    {
+      "id": "kw_结构化设计",
+      "label": "结构化设计",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        6,
+        37,
+        80,
+        104,
+        105,
+        107,
+        108,
+        109,
+        110,
+        121
+      ],
+      "page_count": 13
+    },
+    {
+      "id": "kw_结构化分析方",
+      "label": "结构化分析方",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        6,
+        54,
+        80,
+        81,
+        82,
+        96,
+        109,
+        121,
+        122,
+        391
+      ],
+      "page_count": 10
+    },
+    {
+      "id": "kw_分解",
+      "label": "分解",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        6,
+        12,
+        42,
+        46,
+        52,
+        53,
+        62,
+        63,
+        68,
+        70
+      ],
+      "page_count": 57
+    },
+    {
+      "id": "5.5.2",
+      "label": "数据流图",
+      "type": "section",
+      "chapter": 5,
+      "page": 82,
+      "full": "第5章 结构化分析与设计 → 5.2 数据流图"
+    },
+    {
+      "id": "kw_DFD",
+      "label": "DFD",
+      "type": "concept",
+      "freq": 18,
+      "pages": [
+        6,
+        7,
+        82,
+        83,
+        84,
+        86,
+        87,
+        88,
+        89,
+        90
+      ],
+      "page_count": 28
+    },
+    {
+      "id": "kw_数据流",
+      "label": "数据流",
+      "type": "concept",
+      "freq": 17,
+      "pages": [
+        6,
+        10,
+        18,
+        41,
+        47,
+        49,
+        54,
+        56,
+        57,
+        67
+      ],
+      "page_count": 54
+    },
+    {
+      "id": "kw_加工",
+      "label": "加工",
+      "type": "concept",
+      "freq": 13,
+      "pages": [
+        6,
+        61,
+        75,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86
+      ],
+      "page_count": 40
+    },
+    {
+      "id": "kw_报名单",
+      "label": "报名单",
+      "type": "concept",
+      "freq": 9,
+      "pages": [
+        82,
+        85,
+        86,
+        87,
+        88,
+        89,
+        91,
+        92,
+        93,
+        97
+      ],
+      "page_count": 19
+    },
+    {
+      "id": "kw_据流",
+      "label": "据流",
+      "type": "concept",
+      "freq": 8,
+      "pages": [
+        6,
+        10,
+        18,
+        41,
+        47,
+        49,
+        54,
+        56,
+        57,
+        67
+      ],
+      "page_count": 54
+    },
+    {
+      "id": "5.5.3",
+      "label": "分层数据流图的审查",
+      "type": "section",
+      "chapter": 5,
+      "page": 89,
+      "full": "第5章 结构化分析与设计 → 5.3 分层数据流图的审查"
+    },
+    {
+      "id": "kw_考生名册",
+      "label": "考生名册",
+      "type": "concept",
+      "freq": 9,
+      "pages": [
+        83,
+        85,
+        88,
+        89,
+        91,
+        92,
+        101,
+        113
+      ],
+      "page_count": 8
+    },
+    {
+      "id": "kw_考生通知单",
+      "label": "考生通知单",
+      "type": "concept",
+      "freq": 9,
+      "pages": [
+        85,
+        86,
+        88,
+        89,
+        91,
+        101,
+        109,
+        110,
+        113,
+        114
+      ],
+      "page_count": 14
+    },
+    {
+      "id": "kw_正式成绩清单",
+      "label": "正式成绩清单",
+      "type": "concept",
+      "freq": 9,
+      "pages": [
+        89,
+        91,
+        101,
+        110,
+        113,
+        114,
+        116
+      ],
+      "page_count": 7
+    },
+    {
+      "id": "5.5.4",
+      "label": "数据字典",
+      "type": "section",
+      "chapter": 5,
+      "page": 95,
+      "full": "第5章 结构化分析与设计 → 5.4 数据字典"
+    },
+    {
+      "id": "kw_别名",
+      "label": "别名",
+      "type": "concept",
+      "freq": 9,
+      "pages": [
+        96,
+        97,
+        98,
+        99,
+        100
+      ],
+      "page_count": 5
+    },
+    {
+      "id": "kw_注解",
+      "label": "注解",
+      "type": "concept",
+      "freq": 8,
+      "pages": [
+        77,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        143,
+        144,
+        254
+      ],
+      "page_count": 14
+    },
+    {
+      "id": "5.5.5",
+      "label": "描述基本加工的小说明",
+      "type": "section",
+      "chapter": 5,
+      "page": 101,
+      "full": "第5章 结构化分析与设计 → 5.5 描述基本加工的小说明"
+    },
+    {
+      "id": "kw_准考证号十考",
+      "label": "准考证号十考",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        85,
+        98,
+        100,
+        101
+      ],
+      "page_count": 4
+    },
+    {
+      "id": "kw_文件",
+      "label": "文件",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        41,
+        44,
+        67,
+        76,
+        81,
+        82,
+        83,
+        85,
+        86,
+        87
+      ],
+      "page_count": 54
+    },
+    {
+      "id": "kw_的小说明",
+      "label": "的小说明",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        6,
+        101,
+        392
+      ],
+      "page_count": 3
+    },
+    {
+      "id": "kw_Case",
+      "label": "Case",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        102
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "5.5.6",
+      "label": "结构化设计概述",
+      "type": "section",
+      "chapter": 5,
+      "page": 104,
+      "full": "第5章 结构化分析与设计 → 5.6 结构化设计概述"
+    },
+    {
+      "id": "kw_赊欠天数",
+      "label": "赊欠天数",
+      "type": "concept",
+      "freq": 8,
+      "pages": [
+        103,
+        104
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "kw_审批发货单",
+      "label": "审批发货单",
+      "type": "concept",
+      "freq": 5,
+      "pages": [
+        103,
+        104
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "kw_发货单金额",
+      "label": "发货单金额",
+      "type": "concept",
+      "freq": 5,
+      "pages": [
+        103,
+        104
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "kw_SD",
+      "label": "SD",
+      "type": "concept",
+      "freq": 5,
+      "pages": [
+        7,
+        8,
+        80,
+        104,
+        105,
+        123,
+        131,
+        197,
+        200,
+        202
+      ],
+      "page_count": 20
+    },
+    {
+      "id": "5.5.7",
+      "label": "数据流图到软件体系结构的映射",
+      "type": "section",
+      "chapter": 5,
+      "page": 110,
+      "full": "第5章 结构化分析与设计 → 5.7 数据流图到软件体系结构的映射"
+    },
+    {
+      "id": "kw_统计成绩",
+      "label": "统计成绩",
+      "type": "concept",
+      "freq": 19,
+      "pages": [
+        82,
+        83,
+        88,
+        89,
+        91,
+        93,
+        109,
+        110,
+        112,
+        113
+      ],
+      "page_count": 15
+    },
+    {
+      "id": "kw_成绩清单",
+      "label": "成绩清单",
+      "type": "concept",
+      "freq": 8,
+      "pages": [
+        85,
+        86,
+        88,
+        89,
+        91,
+        101,
+        109,
+        110,
+        113,
+        114
+      ],
+      "page_count": 14
+    },
+    {
+      "id": "kw_输入",
+      "label": "输入",
+      "type": "concept",
+      "freq": 8,
+      "pages": [
+        10,
+        15,
+        21,
+        28,
+        48,
+        59,
+        67,
+        82,
+        83,
+        85
+      ],
+      "page_count": 81
+    },
+    {
+      "id": "5.5.8",
+      "label": "初始结构图的改进",
+      "type": "section",
+      "chapter": 5,
+      "page": 117,
+      "full": "第5章 结构化分析与设计 → 5.8 初始结构图的改进"
+    },
+    {
+      "id": "kw_考试报名",
+      "label": "考试报名",
+      "type": "concept",
+      "freq": 12,
+      "pages": [
+        88,
+        109,
+        110,
+        116,
+        117,
+        118,
+        119,
+        120
+      ],
+      "page_count": 8
+    },
+    {
+      "id": "kw_打印",
+      "label": "打印",
+      "type": "concept",
+      "freq": 11,
+      "pages": [
+        109,
+        110,
+        113,
+        114,
+        116,
+        117,
+        118,
+        119,
+        120,
+        125
+      ],
+      "page_count": 21
+    },
+    {
+      "id": "kw_输入并检查",
+      "label": "输入并检查",
+      "type": "concept",
+      "freq": 9,
+      "pages": [
+        110,
+        117,
+        118,
+        119,
+        120
+      ],
+      "page_count": 5
+    },
+    {
+      "id": "kw_控制",
+      "label": "控制",
+      "type": "concept",
+      "freq": 6,
+      "pages": [
+        15,
+        18,
+        22,
+        23,
+        25,
+        26,
+        27,
+        28,
+        29,
+        33
+      ],
+      "page_count": 132
+    },
+    {
+      "id": "kw_PHTRS",
+      "label": "PHTRS",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        121,
+        122
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "kw_书店",
+      "label": "书店",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        3,
+        122,
+        132,
+        195,
+        331
+      ],
+      "page_count": 5
+    },
+    {
+      "id": "kw_销售",
+      "label": "销售",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        3,
+        58,
+        122,
+        132,
+        162,
+        193,
+        194,
+        215,
+        286,
+        292
+      ],
+      "page_count": 12
+    },
+    {
+      "id": "kw_其他书店",
+      "label": "其他书店",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        122
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "6.6.1",
+      "label": "JSP方法",
+      "type": "section",
+      "chapter": 6,
+      "page": 123,
+      "full": "第6章 面向数据结构的分析与设计 → 6.1 JSP方法"
+    },
+    {
+      "id": "ch6",
+      "label": "习题",
+      "type": "section",
+      "chapter": 6,
+      "page": 132,
+      "full": "第6章 面向数据结构的分析与设计 →  习题"
+    },
+    {
+      "id": "kw_元素",
+      "label": "元素",
+      "type": "concept",
+      "freq": 15,
+      "pages": [
+        20,
+        38,
+        40,
+        41,
+        42,
+        45,
+        55,
+        56,
+        59,
+        60
+      ],
+      "page_count": 46
+    },
+    {
+      "id": "kw_Jackson",
+      "label": "Jackson",
+      "type": "concept",
+      "freq": 14,
+      "pages": [
+        123,
+        124,
+        127,
+        128,
+        131,
+        132,
+        374,
+        384
+      ],
+      "page_count": 8
+    },
+    {
+      "id": "kw_JSP",
+      "label": "JSP",
+      "type": "concept",
+      "freq": 10,
+      "pages": [
+        7,
+        123,
+        124,
+        127,
+        131,
+        132,
+        334,
+        374,
+        392
+      ],
+      "page_count": 9
+    },
+    {
+      "id": "kw_字符串",
+      "label": "字符串",
+      "type": "concept",
+      "freq": 10,
+      "pages": [
+        99,
+        127,
+        128,
+        129,
+        130,
+        131,
+        135,
+        164,
+        165
+      ],
+      "page_count": 9
+    },
+    {
+      "id": "kw_组成",
+      "label": "组成",
+      "type": "concept",
+      "freq": 8,
+      "pages": [
+        20,
+        21,
+        38,
+        40,
+        41,
+        45,
+        51,
+        60,
+        62,
+        64
+      ],
+      "page_count": 84
+    },
+    {
+      "id": "6.6.2",
+      "label": "JSD方法简介",
+      "type": "section",
+      "chapter": 6,
+      "page": 131,
+      "full": "第6章 面向数据结构的分析与设计 → 6.2 JSD方法简介"
+    },
+    {
+      "id": "kw_JSD",
+      "label": "JSD",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        7,
+        123,
+        131,
+        374,
+        392
+      ],
+      "page_count": 5
+    },
+    {
+      "id": "kw_印空格数",
+      "label": "印空格数",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        128,
+        129,
+        130,
+        131
+      ],
+      "page_count": 4
+    },
+    {
+      "id": "kw_印空格总数",
+      "label": "印空格总数",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        129,
+        130,
+        131
+      ],
+      "page_count": 3
+    },
+    {
+      "id": "kw_出版年月",
+      "label": "出版年月",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        132
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "kw_面向数据结构",
+      "label": "面向数据结构",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        3,
+        7,
+        47,
+        54,
+        55,
+        123,
+        124,
+        126,
+        128,
+        130
+      ],
+      "page_count": 13
+    },
+    {
+      "id": "kw_采用",
+      "label": "采用",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        3,
+        15,
+        19,
+        30,
+        32,
+        34,
+        35,
+        38,
+        39,
+        44
+      ],
+      "page_count": 98
+    },
+    {
+      "id": "kw_库存数量",
+      "label": "库存数量",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        132
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "7.7.1",
+      "label": "面向对象的基本概念",
+      "type": "section",
+      "chapter": 7,
+      "page": 134,
+      "full": "第7章 面向对象方法基础 → 7.1 面向对象的基本概念"
+    },
+    {
+      "id": "ch7",
+      "label": "习题",
+      "type": "section",
+      "chapter": 7,
+      "page": 149,
+      "full": "第7章 面向对象方法基础 →  习题"
+    },
+    {
+      "id": "kw_汽车",
+      "label": "汽车",
+      "type": "concept",
+      "freq": 7,
+      "pages": [
+        134,
+        135,
+        138,
+        152,
+        169,
+        181,
+        182,
+        183,
+        197,
+        216
+      ],
+      "page_count": 10
+    },
+    {
+      "id": "kw_轿车",
+      "label": "轿车",
+      "type": "concept",
+      "freq": 7,
+      "pages": [
+        135,
+        138,
+        167,
+        169,
+        177
+      ],
+      "page_count": 5
+    },
+    {
+      "id": "kw_操作",
+      "label": "操作",
+      "type": "concept",
+      "freq": 7,
+      "pages": [
+        15,
+        16,
+        21,
+        37,
+        41,
+        43,
+        48,
+        49,
+        51,
+        52
+      ],
+      "page_count": 112
+    },
+    {
+      "id": "kw_面向对象方法",
+      "label": "面向对象方法",
+      "type": "concept",
+      "freq": 6,
+      "pages": [
+        7,
+        34,
+        36,
+        47,
+        133,
+        134,
+        136,
+        138,
+        140,
+        142
+      ],
+      "page_count": 17
+    },
+    {
+      "id": "kw_对象",
+      "label": "对象",
+      "type": "concept",
+      "freq": 5,
+      "pages": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        14,
+        15,
+        17,
+        19,
+        34
+      ],
+      "page_count": 127
+    },
+    {
+      "id": "7.7.2",
+      "label": "面向对象分析和设计过程",
+      "type": "section",
+      "chapter": 7,
+      "page": 137,
+      "full": "第7章 面向对象方法基础 → 7.2 面向对象分析和设计过程"
+    },
+    {
+      "id": "kw_OOD",
+      "label": "OOD",
+      "type": "concept",
+      "freq": 7,
+      "pages": [
+        133,
+        139,
+        140,
+        374
+      ],
+      "page_count": 4
+    },
+    {
+      "id": "kw_面向对象分析",
+      "label": "面向对象分析",
+      "type": "concept",
+      "freq": 6,
+      "pages": [
+        7,
+        70,
+        133,
+        137,
+        149,
+        380,
+        392,
+        393
+      ],
+      "page_count": 8
+    },
+    {
+      "id": "kw_OOA",
+      "label": "OOA",
+      "type": "concept",
+      "freq": 5,
+      "pages": [
+        138,
+        139,
+        374
+      ],
+      "page_count": 3
+    },
+    {
+      "id": "kw_计算面积",
+      "label": "计算面积",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        135,
+        136,
+        137,
+        170
+      ],
+      "page_count": 4
+    },
+    {
+      "id": "7.7.3",
+      "label": "UML概述",
+      "type": "section",
+      "chapter": 7,
+      "page": 142,
+      "full": "第7章 面向对象方法基础 → 7.3 UML概述"
+    },
+    {
+      "id": "kw_UML",
+      "label": "UML",
+      "type": "concept",
+      "freq": 28,
+      "pages": [
+        7,
+        133,
+        142,
+        143,
+        144,
+        146,
+        149,
+        150,
+        152,
+        155
+      ],
+      "page_count": 30
+    },
+    {
+      "id": "kw_基础",
+      "label": "基础",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        3,
+        7,
+        10,
+        14,
+        15,
+        17,
+        21,
+        23,
+        25,
+        35
+      ],
+      "page_count": 65
+    },
+    {
+      "id": "kw_包图",
+      "label": "包图",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        143,
+        144,
+        146,
+        148,
+        376
+      ],
+      "page_count": 5
+    },
+    {
+      "id": "kw_Booch",
+      "label": "Booch",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        133,
+        142,
+        143,
+        384
+      ],
+      "page_count": 4
+    },
+    {
+      "id": "kw_简述面向对象",
+      "label": "简述面向对象",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        149
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "kw_小结",
+      "label": "小结",
+      "type": "concept",
+      "freq": 1,
+      "pages": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "page_count": 24
+    },
+    {
+      "id": "8.8.1",
+      "label": "用况建模",
+      "type": "section",
+      "chapter": 8,
+      "page": 150,
+      "full": "第8章 面向对象建模 → 8.1 用况建模"
+    },
+    {
+      "id": "ch8",
+      "label": "习题",
+      "type": "section",
+      "chapter": 8,
+      "page": 195,
+      "full": "第8章 面向对象建模 →  习题"
+    },
+    {
+      "id": "kw_网上在线订购",
+      "label": "网上在线订购",
+      "type": "concept",
+      "freq": 9,
+      "pages": [
+        157,
+        158,
+        159,
+        191
+      ],
+      "page_count": 4
+    },
+    {
+      "id": "kw_面向对象建模",
+      "label": "面向对象建模",
+      "type": "concept",
+      "freq": 6,
+      "pages": [
+        7,
+        150,
+        152,
+        154,
+        156,
+        158,
+        160,
+        162,
+        164,
+        166
+      ],
+      "page_count": 25
+    },
+    {
+      "id": "kw_客户",
+      "label": "客户",
+      "type": "concept",
+      "freq": 6,
+      "pages": [
+        14,
+        19,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        40,
+        46
+      ],
+      "page_count": 75
+    },
+    {
+      "id": "kw_用况结束",
+      "label": "用况结束",
+      "type": "concept",
+      "freq": 6,
+      "pages": [
+        154,
+        155,
+        159
+      ],
+      "page_count": 3
+    },
+    {
+      "id": "8.8.2",
+      "label": "静态建模",
+      "type": "section",
+      "chapter": 8,
+      "page": 160,
+      "full": "第8章 面向对象建模 → 8.2 静态建模"
+    },
+    {
+      "id": "kw_CRC",
+      "label": "CRC",
+      "type": "concept",
+      "freq": 9,
+      "pages": [
+        8,
+        59,
+        138,
+        161,
+        163,
+        166,
+        374,
+        393
+      ],
+      "page_count": 8
+    },
+    {
+      "id": "8.8.3",
+      "label": "动态建模",
+      "type": "section",
+      "chapter": 8,
+      "page": 176,
+      "full": "第8章 面向对象建模 → 8.3 动态建模"
+    },
+    {
+      "id": "kw_状态",
+      "label": "状态",
+      "type": "concept",
+      "freq": 17,
+      "pages": [
+        8,
+        18,
+        22,
+        53,
+        56,
+        60,
+        81,
+        94,
+        125,
+        126
+      ],
+      "page_count": 66
+    },
+    {
+      "id": "kw_Customer",
+      "label": "Customer",
+      "type": "concept",
+      "freq": 6,
+      "pages": [
+        102,
+        151,
+        185,
+        188,
+        191
+      ],
+      "page_count": 5
+    },
+    {
+      "id": "8.8.4",
+      "label": "物理体系结构建模",
+      "type": "section",
+      "chapter": 8,
+      "page": 192,
+      "full": "第8章 面向对象建模 → 8.4 物理体系结构建模"
+    },
+    {
+      "id": "kw_应用收费",
+      "label": "应用收费",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        193,
+        194
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "kw_顾客访问",
+      "label": "顾客访问",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        193,
+        194
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "kw_营业员访问",
+      "label": "营业员访问",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        193,
+        194
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "kw_订单对象的状",
+      "label": "订单对象的状",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        191,
+        192
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "kw_取消订单",
+      "label": "取消订单",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        153,
+        155,
+        157,
+        158,
+        160,
+        175,
+        192
+      ],
+      "page_count": 7
+    },
+    {
+      "id": "kw_PC",
+      "label": "PC",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        51,
+        195
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "kw_以习题",
+      "label": "以习题",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        195,
+        196
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "kw_ATM",
+      "label": "ATM",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        87,
+        195
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "kw_为例",
+      "label": "为例",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        52,
+        85,
+        100,
+        109,
+        117,
+        173,
+        195,
+        196,
+        197,
+        232
+      ],
+      "page_count": 12
+    },
+    {
+      "id": "kw_Client",
+      "label": "Client",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        195
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "9.9.1",
+      "label": "基于构件的软件开发概述",
+      "type": "section",
+      "chapter": 9,
+      "page": 197,
+      "full": "第9章 基于构件的软件开发 → 9.1 基于构件的软件开发概述"
+    },
+    {
+      "id": "ch9",
+      "label": "习题",
+      "type": "section",
+      "chapter": 9,
+      "page": 211,
+      "full": "第9章 基于构件的软件开发 →  习题"
+    },
+    {
+      "id": "kw_COM",
+      "label": "COM",
+      "type": "concept",
+      "freq": 12,
+      "pages": [
+        198,
+        199,
+        200,
+        211,
+        299,
+        374
+      ],
+      "page_count": 6
+    },
+    {
+      "id": "kw_基于构件的软",
+      "label": "基于构件的软",
+      "type": "concept",
+      "freq": 7,
+      "pages": [
+        8,
+        35,
+        197,
+        198,
+        200,
+        202,
+        204,
+        206,
+        208,
+        210
+      ],
+      "page_count": 14
+    },
+    {
+      "id": "kw_构件",
+      "label": "构件",
+      "type": "concept",
+      "freq": 7,
+      "pages": [
+        3,
+        4,
+        8,
+        29,
+        34,
+        35,
+        39,
+        43,
+        46,
+        62
+      ],
+      "page_count": 53
+    },
+    {
+      "id": "kw_EJB",
+      "label": "EJB",
+      "type": "concept",
+      "freq": 7,
+      "pages": [
+        198,
+        199,
+        200,
+        211,
+        374
+      ],
+      "page_count": 5
+    },
+    {
+      "id": "kw_件开发",
+      "label": "件开发",
+      "type": "concept",
+      "freq": 5,
+      "pages": [
+        3,
+        4,
+        8,
+        14,
+        15,
+        16,
+        18,
+        19,
+        21,
+        29
+      ],
+      "page_count": 102
+    },
+    {
+      "id": "9.9.2",
+      "label": "建造可复用构件",
+      "type": "section",
+      "chapter": 9,
+      "page": 203,
+      "full": "第9章 基于构件的软件开发 → 9.2 建造可复用构件"
+    },
+    {
+      "id": "kw_VP",
+      "label": "VP",
+      "type": "concept",
+      "freq": 11,
+      "pages": [
+        204,
+        205
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "kw_Account",
+      "label": "Account",
+      "type": "concept",
+      "freq": 6,
+      "pages": [
+        189,
+        206
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "kw_Limit",
+      "label": "Limit",
+      "type": "concept",
+      "freq": 6,
+      "pages": [
+        102,
+        206,
+        384
+      ],
+      "page_count": 3
+    },
+    {
+      "id": "kw_Type",
+      "label": "Type",
+      "type": "concept",
+      "freq": 5,
+      "pages": [
+        206,
+        255
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "kw_组装",
+      "label": "组装",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        8,
+        33,
+        34,
+        35,
+        134,
+        145,
+        197,
+        198,
+        199,
+        200
+      ],
+      "page_count": 21
+    },
+    {
+      "id": "9.9.3",
+      "label": "应用系统工程",
+      "type": "section",
+      "chapter": 9,
+      "page": 207,
+      "full": "第9章 基于构件的软件开发 → 9.3 应用系统工程"
+    },
+    {
+      "id": "kw_CBSD",
+      "label": "CBSD",
+      "type": "concept",
+      "freq": 8,
+      "pages": [
+        8,
+        197,
+        200,
+        202,
+        207,
+        208,
+        211,
+        374,
+        393,
+        394
+      ],
+      "page_count": 10
+    },
+    {
+      "id": "kw_系结构",
+      "label": "系结构",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        5,
+        6,
+        8,
+        17,
+        20,
+        22,
+        23,
+        24,
+        34,
+        35
+      ],
+      "page_count": 56
+    },
+    {
+      "id": "kw_的应用系统分",
+      "label": "的应用系统分",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        8,
+        207,
+        211,
+        394
+      ],
+      "page_count": 4
+    },
+    {
+      "id": "kw_基于构件的应",
+      "label": "基于构件的应",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        207,
+        208
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "kw_RUP",
+      "label": "RUP",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        208
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "9.9.4",
+      "label": "构件的管理",
+      "type": "section",
+      "chapter": 9,
+      "page": 209,
+      "full": "第9章 基于构件的软件开发 → 9.4 构件的管理"
+    },
+    {
+      "id": "kw_属性",
+      "label": "属性",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        11,
+        53,
+        60,
+        67,
+        81,
+        133,
+        134,
+        135,
+        137,
+        138
+      ],
+      "page_count": 60
+    },
+    {
+      "id": "kw_枚举分类",
+      "label": "枚举分类",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        209
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "kw_值分类",
+      "label": "值分类",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        209,
+        210
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "kw_构件库管理系",
+      "label": "构件库管理系",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        8,
+        209,
+        210,
+        394
+      ],
+      "page_count": 4
+    },
+    {
+      "id": "kw_如果所选的构",
+      "label": "如果所选的构",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        209
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "kw_匹配",
+      "label": "匹配",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        160,
+        209,
+        211,
+        236
+      ],
+      "page_count": 4
+    },
+    {
+      "id": "kw_所得到的构件",
+      "label": "所得到的构件",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        211
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "kw_规约匹配",
+      "label": "规约匹配",
+      "type": "concept",
+      "freq": 1,
+      "pages": [
+        211
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "10.10.1",
+      "label": "敏捷软件开发方法概述",
+      "type": "section",
+      "chapter": 10,
+      "page": 212,
+      "full": "第10章 敏捷软件开发 → 10.1 敏捷软件开发方法概述"
+    },
+    {
+      "id": "ch10",
+      "label": "习题",
+      "type": "section",
+      "chapter": 10,
+      "page": 233,
+      "full": "第10章 敏捷软件开发 →  习题"
+    },
+    {
+      "id": "kw_敏捷软件开发",
+      "label": "敏捷软件开发",
+      "type": "concept",
+      "freq": 11,
+      "pages": [
+        3,
+        8,
+        212,
+        213,
+        214,
+        215,
+        216,
+        218,
+        222,
+        223
+      ],
+      "page_count": 18
+    },
+    {
+      "id": "kw_重于",
+      "label": "重于",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        36,
+        54,
+        133,
+        213,
+        319
+      ],
+      "page_count": 5
+    },
+    {
+      "id": "kw_浪费",
+      "label": "浪费",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        91,
+        214,
+        215,
+        216,
+        219,
+        224,
+        225,
+        230,
+        261,
+        363
+      ],
+      "page_count": 10
+    },
+    {
+      "id": "kw_开发方法",
+      "label": "开发方法",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        3,
+        8,
+        15,
+        18,
+        31,
+        35,
+        36,
+        37,
+        39,
+        70
+      ],
+      "page_count": 33
+    },
+    {
+      "id": "kw_Scrum",
+      "label": "Scrum",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        9,
+        212,
+        215,
+        216,
+        217,
+        218,
+        219,
+        220,
+        221,
+        222
+      ],
+      "page_count": 15
+    },
+    {
+      "id": "10.10.2",
+      "label": "Scrum方法",
+      "type": "section",
+      "chapter": 10,
+      "page": 216,
+      "full": "第10章 敏捷软件开发 → 10.2 Scrum方法"
+    },
+    {
+      "id": "kw_Sprint",
+      "label": "Sprint",
+      "type": "concept",
+      "freq": 51,
+      "pages": [
+        217,
+        218,
+        219,
+        220,
+        222,
+        375
+      ],
+      "page_count": 6
+    },
+    {
+      "id": "kw_Backlog",
+      "label": "Backlog",
+      "type": "concept",
+      "freq": 23,
+      "pages": [
+        217,
+        218,
+        219,
+        220
+      ],
+      "page_count": 4
+    },
+    {
+      "id": "kw_Scrum Master",
+      "label": "Scrum Master",
+      "type": "concept",
+      "freq": 11,
+      "pages": [
+        217,
+        218,
+        220,
+        222,
+        374
+      ],
+      "page_count": 5
+    },
+    {
+      "id": "kw_在每个",
+      "label": "在每个",
+      "type": "concept",
+      "freq": 8,
+      "pages": [
+        132,
+        217,
+        218,
+        219,
+        222,
+        226,
+        242,
+        272,
+        316,
+        351
+      ],
+      "page_count": 10
+    },
+    {
+      "id": "10.10.3",
+      "label": "极限编程方法",
+      "type": "section",
+      "chapter": 10,
+      "page": 223,
+      "full": "第10章 敏捷软件开发 → 10.3 极限编程方法"
+    },
+    {
+      "id": "kw_Kent Beck",
+      "label": "Kent Beck",
+      "type": "concept",
+      "freq": 9,
+      "pages": [
+        215,
+        223,
+        224,
+        225,
+        386
+      ],
+      "page_count": 5
+    },
+    {
+      "id": "kw_测试驱动开发",
+      "label": "测试驱动开发",
+      "type": "concept",
+      "freq": 6,
+      "pages": [
+        215,
+        223,
+        227,
+        380
+      ],
+      "page_count": 4
+    },
+    {
+      "id": "kw_简单",
+      "label": "简单",
+      "type": "concept",
+      "freq": 5,
+      "pages": [
+        37,
+        48,
+        50,
+        54,
+        62,
+        64,
+        66,
+        71,
+        75,
+        76
+      ],
+      "page_count": 82
+    },
+    {
+      "id": "kw_沟通",
+      "label": "沟通",
+      "type": "concept",
+      "freq": 5,
+      "pages": [
+        50,
+        54,
+        66,
+        137,
+        214,
+        220,
+        223,
+        224,
+        225,
+        226
+      ],
+      "page_count": 16
+    },
+    {
+      "id": "10.10.4",
+      "label": "看板方法",
+      "type": "section",
+      "chapter": 10,
+      "page": 230,
+      "full": "第10章 敏捷软件开发 → 10.4 看板方法"
+    },
+    {
+      "id": "kw_WIP",
+      "label": "WIP",
+      "type": "concept",
+      "freq": 14,
+      "pages": [
+        230,
+        231,
+        232
+      ],
+      "page_count": 3
+    },
+    {
+      "id": "kw_David",
+      "label": "David",
+      "type": "concept",
+      "freq": 5,
+      "pages": [
+        230,
+        231,
+        385,
+        386
+      ],
+      "page_count": 4
+    },
+    {
+      "id": "kw_Anderson",
+      "label": "Anderson",
+      "type": "concept",
+      "freq": 5,
+      "pages": [
+        230,
+        231,
+        387
+      ],
+      "page_count": 3
+    },
+    {
+      "id": "kw_改善",
+      "label": "改善",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        11,
+        51,
+        111,
+        202,
+        206,
+        212,
+        213,
+        215,
+        222,
+        225
+      ],
+      "page_count": 23
+    },
+    {
+      "id": "kw_简述敏捷软件",
+      "label": "简述敏捷软件",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        233
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "11.11.1",
+      "label": "人的因素",
+      "type": "section",
+      "chapter": 11,
+      "page": 234,
+      "full": "第11章 人机界面设计 → 11.1 人的因素"
+    },
+    {
+      "id": "ch11",
+      "label": "习题",
+      "type": "section",
+      "chapter": 11,
+      "page": 248,
+      "full": "第11章 人机界面设计 →  习题"
+    },
+    {
+      "id": "kw_人机界面设计",
+      "label": "人机界面设计",
+      "type": "concept",
+      "freq": 6,
+      "pages": [
+        9,
+        60,
+        76,
+        141,
+        234,
+        235,
+        236,
+        238,
+        240,
+        241
+      ],
+      "page_count": 17
+    },
+    {
+      "id": "kw_设计人机界面",
+      "label": "设计人机界面",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        234,
+        235,
+        236,
+        240,
+        244,
+        245
+      ],
+      "page_count": 6
+    },
+    {
+      "id": "kw_Windows",
+      "label": "Windows",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        200,
+        235,
+        236,
+        238
+      ],
+      "page_count": 4
+    },
+    {
+      "id": "kw_XP",
+      "label": "XP",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        212,
+        224,
+        235,
+        236,
+        378
+      ],
+      "page_count": 5
+    },
+    {
+      "id": "kw_能力",
+      "label": "能力",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        4,
+        19,
+        24,
+        25,
+        26,
+        27,
+        28,
+        39,
+        40,
+        41
+      ],
+      "page_count": 45
+    },
+    {
+      "id": "11.11.2",
+      "label": "人机界面风格",
+      "type": "section",
+      "chapter": 11,
+      "page": 237,
+      "full": "第11章 人机界面设计 → 11.2 人机界面风格"
+    },
+    {
+      "id": "kw_图形用户界面",
+      "label": "图形用户界面",
+      "type": "concept",
+      "freq": 6,
+      "pages": [
+        237,
+        238,
+        239,
+        378
+      ],
+      "page_count": 4
+    },
+    {
+      "id": "kw_多媒体用户界",
+      "label": "多媒体用户界",
+      "type": "concept",
+      "freq": 5,
+      "pages": [
+        237,
+        238,
+        239
+      ],
+      "page_count": 3
+    },
+    {
+      "id": "kw_统计典型用户",
+      "label": "统计典型用户",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        236,
+        237
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "kw_直接操纵用户",
+      "label": "直接操纵用户",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        239
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "kw_多通道用户界",
+      "label": "多通道用户界",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        239,
+        377
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "11.11.3",
+      "label": "人机界面分析与建模",
+      "type": "section",
+      "chapter": 11,
+      "page": 240,
+      "full": "第11章 人机界面设计 → 11.3 人机界面分析与建模"
+    },
+    {
+      "id": "kw_用户",
+      "label": "用户",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        9,
+        17,
+        19,
+        21,
+        22,
+        29,
+        30,
+        31,
+        36,
+        37
+      ],
+      "page_count": 138
+    },
+    {
+      "id": "kw_执行的任务",
+      "label": "执行的任务",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        240
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "kw_任务和环境分",
+      "label": "任务和环境分",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        240
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "kw_析及建模",
+      "label": "析及建模",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        240
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "11.11.4",
+      "label": "界面设计活动",
+      "type": "section",
+      "chapter": 11,
+      "page": 242,
+      "full": "第11章 人机界面设计 → 11.4 界面设计活动"
+    },
+    {
+      "id": "kw_室内设计人员",
+      "label": "室内设计人员",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        242
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "kw_黄金原则",
+      "label": "黄金原则",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        9,
+        242,
+        244,
+        248,
+        395
+      ],
+      "page_count": 5
+    },
+    {
+      "id": "kw_动作",
+      "label": "动作",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        9,
+        14,
+        67,
+        74,
+        75,
+        102,
+        103,
+        110,
+        111,
+        114
+      ],
+      "page_count": 31
+    },
+    {
+      "id": "kw_系统响应时间",
+      "label": "系统响应时间",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        243
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "11.11.6",
+      "label": "设计评估",
+      "type": "section",
+      "chapter": 11,
+      "page": 246,
+      "full": "第11章 人机界面设计 → 11.6 设计评估"
+    },
+    {
+      "id": "kw_UIDS",
+      "label": "UIDS",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        246,
+        376
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "kw_同时",
+      "label": "同时",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        3,
+        14,
+        17,
+        20,
+        24,
+        35,
+        36,
+        47,
+        48,
+        50
+      ],
+      "page_count": 94
+    },
+    {
+      "id": "kw_评审",
+      "label": "评审",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        6,
+        12,
+        22,
+        23,
+        24,
+        26,
+        28,
+        29,
+        33,
+        47
+      ],
+      "page_count": 55
+    },
+    {
+      "id": "kw_指导文档评审",
+      "label": "指导文档评审",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        247
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "kw_一致性检查",
+      "label": "一致性检查",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        121,
+        247
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "kw_一个可用性测",
+      "label": "一个可用性测",
+      "type": "concept",
+      "freq": 1,
+      "pages": [
+        248
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "kw_试计划",
+      "label": "试计划",
+      "type": "concept",
+      "freq": 1,
+      "pages": [
+        35,
+        61,
+        247,
+        248,
+        261,
+        281,
+        351
+      ],
+      "page_count": 7
+    },
+    {
+      "id": "kw_当然",
+      "label": "当然",
+      "type": "concept",
+      "freq": 1,
+      "pages": [
+        38,
+        54,
+        55,
+        90,
+        91,
+        92,
+        102,
+        123,
+        147,
+        202
+      ],
+      "page_count": 21
+    },
+    {
+      "id": "kw_虽然问题可能",
+      "label": "虽然问题可能",
+      "type": "concept",
+      "freq": 1,
+      "pages": [
+        248
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "12.12.1",
+      "label": "程序设计语言",
+      "type": "section",
+      "chapter": 12,
+      "page": 249,
+      "full": "第12章 程序设计语言和编码 → 12.1 程序设计语言"
+    },
+    {
+      "id": "ch12",
+      "label": "习题",
+      "type": "section",
+      "chapter": 12,
+      "page": 259,
+      "full": "第12章 程序设计语言和编码 →  习题"
+    },
+    {
+      "id": "kw_表达式",
+      "label": "表达式",
+      "type": "concept",
+      "freq": 6,
+      "pages": [
+        10,
+        165,
+        173,
+        177,
+        178,
+        179,
+        184,
+        206,
+        207,
+        249
+      ],
+      "page_count": 16
+    },
+    {
+      "id": "kw_条件选择结构",
+      "label": "条件选择结构",
+      "type": "concept",
+      "freq": 5,
+      "pages": [
+        250,
+        251
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "kw_和编码",
+      "label": "和编码",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        10,
+        249,
+        250,
+        252,
+        254,
+        256,
+        258,
+        260,
+        280,
+        395
+      ],
+      "page_count": 10
+    },
+    {
+      "id": "12.12.2",
+      "label": "程序设计风格",
+      "type": "section",
+      "chapter": 12,
+      "page": 254,
+      "full": "第12章 程序设计语言和编码 → 12.2 程序设计风格"
+    },
+    {
+      "id": "kw_Mail",
+      "label": "Mail",
+      "type": "concept",
+      "freq": 9,
+      "pages": [
+        255
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "kw_数据说明",
+      "label": "数据说明",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        10,
+        62,
+        76,
+        254,
+        257,
+        282,
+        395
+      ],
+      "page_count": 7
+    },
+    {
+      "id": "kw_变量",
+      "label": "变量",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        63,
+        129,
+        135,
+        177,
+        190,
+        249,
+        254,
+        255,
+        257,
+        267
+      ],
+      "page_count": 26
+    },
+    {
+      "id": "kw_使用",
+      "label": "使用",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        14,
+        16,
+        17,
+        18,
+        20,
+        21,
+        25,
+        28,
+        31,
+        32
+      ],
+      "page_count": 195
+    },
+    {
+      "id": "kw_输人和输出的",
+      "label": "输人和输出的",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        259
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "kw_风格",
+      "label": "风格",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        6,
+        9,
+        10,
+        38,
+        60,
+        67,
+        68,
+        69,
+        70,
+        234
+      ],
+      "page_count": 24
+    },
+    {
+      "id": "13.13.1",
+      "label": "软件测试基础",
+      "type": "section",
+      "chapter": 13,
+      "page": 260,
+      "full": "第13章 软件测试 → 13.1 软件测试基础"
+    },
+    {
+      "id": "ch13",
+      "label": "习题",
+      "type": "section",
+      "chapter": 13,
+      "page": 292,
+      "full": "第13章 软件测试 →  习题"
+    },
+    {
+      "id": "kw_错误",
+      "label": "错误",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        10,
+        11,
+        16,
+        20,
+        29,
+        30,
+        35,
+        37,
+        47,
+        48
+      ],
+      "page_count": 93
+    },
+    {
+      "id": "kw_可能的",
+      "label": "可能的",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        47,
+        65,
+        75,
+        103,
+        146,
+        147,
+        162,
+        164,
+        176,
+        186
+      ],
+      "page_count": 23
+    },
+    {
+      "id": "kw_软件测试",
+      "label": "软件测试",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        10,
+        35,
+        254,
+        260,
+        261,
+        262,
+        264,
+        266,
+        268,
+        270
+      ],
+      "page_count": 28
+    },
+    {
+      "id": "kw_软件测试的目",
+      "label": "软件测试的目",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        10,
+        260,
+        261,
+        292,
+        395
+      ],
+      "page_count": 5
+    },
+    {
+      "id": "13.13.2",
+      "label": "白盒测试",
+      "type": "section",
+      "chapter": 13,
+      "page": 262,
+      "full": "第13章 软件测试 → 13.2 白盒测试"
+    },
+    {
+      "id": "kw_判定",
+      "label": "判定",
+      "type": "concept",
+      "freq": 22,
+      "pages": [
+        6,
+        71,
+        72,
+        73,
+        74,
+        75,
+        102,
+        103,
+        104,
+        107
+      ],
+      "page_count": 26
+    },
+    {
+      "id": "kw_路径",
+      "label": "路径",
+      "type": "concept",
+      "freq": 17,
+      "pages": [
+        10,
+        62,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        154,
+        155
+      ],
+      "page_count": 42
+    },
+    {
+      "id": "kw_条件覆盖",
+      "label": "条件覆盖",
+      "type": "concept",
+      "freq": 9,
+      "pages": [
+        262,
+        263,
+        264,
+        265,
+        266,
+        267,
+        292
+      ],
+      "page_count": 7
+    },
+    {
+      "id": "kw_执行该路径的",
+      "label": "执行该路径的",
+      "type": "concept",
+      "freq": 8,
+      "pages": [
+        263,
+        264
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "kw_条件是",
+      "label": "条件是",
+      "type": "concept",
+      "freq": 8,
+      "pages": [
+        57,
+        165,
+        177,
+        229,
+        263,
+        264
+      ],
+      "page_count": 6
+    },
+    {
+      "id": "13.13.3",
+      "label": "黑盒测试",
+      "type": "section",
+      "chapter": 13,
+      "page": 272,
+      "full": "第13章 软件测试 → 13.3 黑盒测试"
+    },
+    {
+      "id": "kw_VAR",
+      "label": "VAR",
+      "type": "concept",
+      "freq": 9,
+      "pages": [
+        274,
+        275
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "kw_橙汁",
+      "label": "橙汁",
+      "type": "concept",
+      "freq": 9,
+      "pages": [
+        278,
+        279
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "kw_啤酒",
+      "label": "啤酒",
+      "type": "concept",
+      "freq": 9,
+      "pages": [
+        278,
+        279
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "kw_成绩",
+      "label": "成绩",
+      "type": "concept",
+      "freq": 8,
+      "pages": [
+        50,
+        51,
+        82,
+        83,
+        85,
+        86,
+        88,
+        89,
+        91,
+        93
+      ],
+      "page_count": 22
+    },
+    {
+      "id": "kw_报错",
+      "label": "报错",
+      "type": "concept",
+      "freq": 8,
+      "pages": [
+        160,
+        244,
+        274,
+        275,
+        282
+      ],
+      "page_count": 5
+    },
+    {
+      "id": "13.13.4",
+      "label": "测试策略",
+      "type": "section",
+      "chapter": 13,
+      "page": 280,
+      "full": "第13章 软件测试 → 13.4 测试策略"
+    },
+    {
+      "id": "kw_自顶向下集成",
+      "label": "自顶向下集成",
+      "type": "concept",
+      "freq": 8,
+      "pages": [
+        283,
+        284,
+        285,
+        377
+      ],
+      "page_count": 4
+    },
+    {
+      "id": "kw_自底向上集成",
+      "label": "自底向上集成",
+      "type": "concept",
+      "freq": 7,
+      "pages": [
+        283,
+        284,
+        285,
+        288,
+        377
+      ],
+      "page_count": 5
+    },
+    {
+      "id": "kw_Ma",
+      "label": "Ma",
+      "type": "concept",
+      "freq": 5,
+      "pages": [
+        46,
+        80,
+        143,
+        146,
+        191,
+        212,
+        215,
+        217,
+        218,
+        220
+      ],
+      "page_count": 24
+    },
+    {
+      "id": "13.13.5",
+      "label": "面向对象测试",
+      "type": "section",
+      "chapter": 13,
+      "page": 287,
+      "full": "第13章 软件测试 → 13.5 面向对象测试"
+    },
+    {
+      "id": "kw_性能测试",
+      "label": "性能测试",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        221,
+        287,
+        308,
+        378
+      ],
+      "page_count": 4
+    },
+    {
+      "id": "kw_面向对象软件",
+      "label": "面向对象软件",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        133,
+        156,
+        287,
+        288,
+        384
+      ],
+      "page_count": 5
+    },
+    {
+      "id": "kw_单元",
+      "label": "单元",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        10,
+        20,
+        30,
+        33,
+        105,
+        144,
+        145,
+        146,
+        193,
+        194
+      ],
+      "page_count": 34
+    },
+    {
+      "id": "kw_安全保密性测",
+      "label": "安全保密性测",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        287,
+        299,
+        308,
+        377
+      ],
+      "page_count": 4
+    },
+    {
+      "id": "kw_攻击系统",
+      "label": "攻击系统",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        287
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "13.13.6",
+      "label": "测试完成标准",
+      "type": "section",
+      "chapter": 13,
+      "page": 289,
+      "full": "第13章 软件测试 → 13.6 测试完成标准"
+    },
+    {
+      "id": "kw_的操作",
+      "label": "的操作",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        37,
+        51,
+        52,
+        57,
+        58,
+        62,
+        69,
+        128,
+        134,
+        135
+      ],
+      "page_count": 42
+    },
+    {
+      "id": "kw_作分类",
+      "label": "作分类",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        170,
+        289
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "kw_基于场景的测",
+      "label": "基于场景的测",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        289
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "13.13.7",
+      "label": "调试",
+      "type": "section",
+      "chapter": 13,
+      "page": 290,
+      "full": "第13章 软件测试 → 13.7 调试"
+    },
+    {
+      "id": "kw_调试",
+      "label": "调试",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        11,
+        38,
+        63,
+        290,
+        291,
+        292,
+        316,
+        381,
+        396
+      ],
+      "page_count": 9
+    },
+    {
+      "id": "kw_当单位时间内",
+      "label": "当单位时间内",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        290
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "kw_发现错误的数",
+      "label": "发现错误的数",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        290
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "kw_或天",
+      "label": "或天",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        290
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "kw_集成测试",
+      "label": "集成测试",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        10,
+        30,
+        150,
+        201,
+        280,
+        282,
+        283,
+        284,
+        285,
+        288
+      ],
+      "page_count": 16
+    },
+    {
+      "id": "kw_确认测试和系",
+      "label": "确认测试和系",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        20,
+        280,
+        288,
+        292,
+        293
+      ],
+      "page_count": 5
+    },
+    {
+      "id": "kw_若订货数大于",
+      "label": "若订货数大于",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        292
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "14.14.1",
+      "label": "WebApp的属性和类型",
+      "type": "section",
+      "chapter": 14,
+      "page": 294,
+      "full": "第14章 Web工程 → 14.1 WebApp的属性和类型"
+    },
+    {
+      "id": "ch14",
+      "label": "习题",
+      "type": "section",
+      "chapter": 14,
+      "page": 309,
+      "full": "第14章 Web工程 →  习题"
+    },
+    {
+      "id": "kw_Web",
+      "label": "Web",
+      "type": "concept",
+      "freq": 83,
+      "pages": [
+        3,
+        11,
+        41,
+        67,
+        121,
+        294,
+        295,
+        296,
+        297,
+        298
+      ],
+      "page_count": 24
+    },
+    {
+      "id": "kw_App",
+      "label": "App",
+      "type": "concept",
+      "freq": 61,
+      "pages": [
+        11,
+        195,
+        238,
+        294,
+        295,
+        296,
+        297,
+        298,
+        299,
+        300
+      ],
+      "page_count": 24
+    },
+    {
+      "id": "kw_工程",
+      "label": "工程",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        2,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9,
+        11,
+        12,
+        13
+      ],
+      "page_count": 280
+    },
+    {
+      "id": "kw_Internet",
+      "label": "Internet",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        15,
+        50,
+        67,
+        294,
+        302,
+        309,
+        386
+      ],
+      "page_count": 7
+    },
+    {
+      "id": "kw_发展",
+      "label": "发展",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        4,
+        5,
+        7,
+        14,
+        15,
+        18,
+        36,
+        46,
+        55,
+        59
+      ],
+      "page_count": 33
+    },
+    {
+      "id": "14.14.2",
+      "label": "Web工程过程",
+      "type": "section",
+      "chapter": 14,
+      "page": 297,
+      "full": "第14章 Web工程 → 14.2 Web工程过程"
+    },
+    {
+      "id": "kw_建模",
+      "label": "建模",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        5,
+        7,
+        8,
+        9,
+        11,
+        31,
+        32,
+        36,
+        40,
+        41
+      ],
+      "page_count": 79
+    },
+    {
+      "id": "kw_面向服务型",
+      "label": "面向服务型",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        297
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "kw_门户型",
+      "label": "门户型",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        297
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "14.14.3",
+      "label": "WebApp建模",
+      "type": "section",
+      "chapter": 14,
+      "page": 299,
+      "full": "第14章 Web工程 → 14.3 WebApp建模"
+    },
+    {
+      "id": "kw_Google",
+      "label": "Google",
+      "type": "concept",
+      "freq": 5,
+      "pages": [
+        302,
+        303
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "14.14.4",
+      "label": "WebApp质量管理",
+      "type": "section",
+      "chapter": 14,
+      "page": 306,
+      "full": "第14章 Web工程 → 14.4 WebApp质量管理"
+    },
+    {
+      "id": "kw_因为",
+      "label": "因为",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        30,
+        45,
+        57,
+        62,
+        66,
+        67,
+        70,
+        92,
+        123,
+        160
+      ],
+      "page_count": 33
+    },
+    {
+      "id": "kw_变更",
+      "label": "变更",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        31,
+        47,
+        57,
+        70,
+        212,
+        215,
+        216,
+        219,
+        240,
+        308
+      ],
+      "page_count": 22
+    },
+    {
+      "id": "kw_用一个实际的",
+      "label": "用一个实际的",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        309
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "kw_站点作为例子",
+      "label": "站点作为例子",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        309
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "15.15.1",
+      "label": "软件维护",
+      "type": "section",
+      "chapter": 15,
+      "page": 310,
+      "full": "第15章 软件维护与再工程 → 15.1 软件维护"
+    },
+    {
+      "id": "ch15",
+      "label": "习题",
+      "type": "section",
+      "chapter": 15,
+      "page": 322,
+      "full": "第15章 软件维护与再工程 →  习题"
+    },
+    {
+      "id": "kw_软件维护与再",
+      "label": "软件维护与再",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        11,
+        310,
+        312,
+        314,
+        316,
+        318,
+        320,
+        322,
+        396
+      ],
+      "page_count": 9
+    },
+    {
+      "id": "kw_程中",
+      "label": "程中",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        16,
+        18,
+        29,
+        30,
+        31,
+        35,
+        36,
+        37,
+        38,
+        40
+      ],
+      "page_count": 108
+    },
+    {
+      "id": "15.15.2",
+      "label": "再工程技术",
+      "type": "section",
+      "chapter": 15,
+      "page": 318,
+      "full": "第15章 软件维护与再工程 → 15.2 再工程技术"
+    },
+    {
+      "id": "kw_BPR",
+      "label": "BPR",
+      "type": "concept",
+      "freq": 12,
+      "pages": [
+        318,
+        319,
+        320,
+        322
+      ],
+      "page_count": 4
+    },
+    {
+      "id": "kw_逆向工程",
+      "label": "逆向工程",
+      "type": "concept",
+      "freq": 5,
+      "pages": [
+        12,
+        318,
+        319,
+        320,
+        321,
+        322,
+        380,
+        397
+      ],
+      "page_count": 8
+    },
+    {
+      "id": "kw_重构",
+      "label": "重构",
+      "type": "concept",
+      "freq": 5,
+      "pages": [
+        201,
+        215,
+        224,
+        227,
+        318,
+        320,
+        321,
+        322,
+        380,
+        386
+      ],
+      "page_count": 10
+    },
+    {
+      "id": "kw_程序",
+      "label": "程序",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        6,
+        7,
+        10,
+        12,
+        14,
+        15,
+        16,
+        17,
+        18,
+        20
+      ],
+      "page_count": 165
+    },
+    {
+      "id": "kw_确定性很大",
+      "label": "确定性很大",
+      "type": "concept",
+      "freq": 1,
+      "pages": [
+        322
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "kw_目前尚无成熟",
+      "label": "目前尚无成熟",
+      "type": "concept",
+      "freq": 1,
+      "pages": [
+        322
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "kw_的工具",
+      "label": "的工具",
+      "type": "concept",
+      "freq": 1,
+      "pages": [
+        15,
+        36,
+        37,
+        38,
+        39,
+        46,
+        47,
+        54,
+        71,
+        101
+      ],
+      "page_count": 16
+    },
+    {
+      "id": "16.16.1",
+      "label": "软件项目管理概述",
+      "type": "section",
+      "chapter": 16,
+      "page": 323,
+      "full": "第16章 软件项目管理 → 16.1 软件项目管理概述"
+    },
+    {
+      "id": "ch16",
+      "label": "习题",
+      "type": "section",
+      "chapter": 16,
+      "page": 372,
+      "full": "第16章 软件项目管理 →  习题"
+    },
+    {
+      "id": "kw_软件项目管理",
+      "label": "软件项目管理",
+      "type": "concept",
+      "freq": 11,
+      "pages": [
+        12,
+        323,
+        324,
+        326,
+        328,
+        330,
+        332,
+        334,
+        336,
+        338
+      ],
+      "page_count": 29
+    },
+    {
+      "id": "kw_项目",
+      "label": "项目",
+      "type": "concept",
+      "freq": 6,
+      "pages": [
+        12,
+        17,
+        21,
+        22,
+        23,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "page_count": 111
+    },
+    {
+      "id": "kw_项目计划",
+      "label": "项目计划",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        23,
+        26,
+        27,
+        29,
+        220,
+        297,
+        298,
+        323,
+        324,
+        326
+      ],
+      "page_count": 20
+    },
+    {
+      "id": "kw_一般来说",
+      "label": "一般来说",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        60,
+        202,
+        287,
+        323,
+        327,
+        350
+      ],
+      "page_count": 6
+    },
+    {
+      "id": "16.16.2",
+      "label": "软件度量",
+      "type": "section",
+      "chapter": 16,
+      "page": 329,
+      "full": "第16章 软件项目管理 → 16.2 软件度量"
+    },
+    {
+      "id": "kw_Mc",
+      "label": "Mc",
+      "type": "concept",
+      "freq": 11,
+      "pages": [
+        61,
+        268,
+        335,
+        336,
+        341,
+        374,
+        384,
+        385
+      ],
+      "page_count": 8
+    },
+    {
+      "id": "kw_GB",
+      "label": "GB",
+      "type": "concept",
+      "freq": 10,
+      "pages": [
+        21,
+        22,
+        310,
+        330,
+        334,
+        337,
+        339,
+        366,
+        368,
+        374
+      ],
+      "page_count": 10
+    },
+    {
+      "id": "kw_LOC",
+      "label": "LOC",
+      "type": "concept",
+      "freq": 10,
+      "pages": [
+        330,
+        331,
+        334,
+        343,
+        344,
+        347
+      ],
+      "page_count": 6
+    },
+    {
+      "id": "kw_度量",
+      "label": "度量",
+      "type": "concept",
+      "freq": 8,
+      "pages": [
+        12,
+        25,
+        26,
+        27,
+        28,
+        29,
+        43,
+        64,
+        65,
+        79
+      ],
+      "page_count": 42
+    },
+    {
+      "id": "16.16.3",
+      "label": "软件项目估算",
+      "type": "section",
+      "chapter": 16,
+      "page": 343,
+      "full": "第16章 软件项目管理 → 16.3 软件项目估算"
+    },
+    {
+      "id": "kw_Co",
+      "label": "Co",
+      "type": "concept",
+      "freq": 38,
+      "pages": [
+        1,
+        3,
+        12,
+        21,
+        102,
+        104,
+        133,
+        134,
+        140,
+        142
+      ],
+      "page_count": 28
+    },
+    {
+      "id": "kw_Mo",
+      "label": "Mo",
+      "type": "concept",
+      "freq": 19,
+      "pages": [
+        12,
+        18,
+        62,
+        177,
+        179,
+        180,
+        206,
+        238,
+        283,
+        343
+      ],
+      "page_count": 17
+    },
+    {
+      "id": "kw_Putnam",
+      "label": "Putnam",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        12,
+        343,
+        347,
+        374
+      ],
+      "page_count": 4
+    },
+    {
+      "id": "kw_工作量",
+      "label": "工作量",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        12,
+        16,
+        63,
+        220,
+        226,
+        260,
+        281,
+        287,
+        304,
+        311
+      ],
+      "page_count": 30
+    },
+    {
+      "id": "16.16.4",
+      "label": "项目进度管理",
+      "type": "section",
+      "chapter": 16,
+      "page": 349,
+      "full": "第16章 软件项目管理 → 16.4 项目进度管理"
+    },
+    {
+      "id": "kw_里程碑",
+      "label": "里程碑",
+      "type": "concept",
+      "freq": 7,
+      "pages": [
+        49,
+        325,
+        326,
+        328,
+        350,
+        351,
+        352,
+        353,
+        356,
+        360
+      ],
+      "page_count": 11
+    },
+    {
+      "id": "kw_OCI",
+      "label": "OCI",
+      "type": "concept",
+      "freq": 7,
+      "pages": [
+        353
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "16.16.5",
+      "label": "风险管理",
+      "type": "section",
+      "chapter": 16,
+      "page": 357,
+      "full": "第16章 软件项目管理 → 16.5 风险管理"
+    },
+    {
+      "id": "kw_RMMP",
+      "label": "RMMP",
+      "type": "concept",
+      "freq": 5,
+      "pages": [
+        358,
+        360,
+        374
+      ],
+      "page_count": 3
+    },
+    {
+      "id": "kw_风险管理和监",
+      "label": "风险管理和监",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        12,
+        359,
+        360,
+        397
+      ],
+      "page_count": 4
+    },
+    {
+      "id": "kw_后果",
+      "label": "后果",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        37,
+        86,
+        244,
+        248,
+        311,
+        357,
+        358,
+        360
+      ],
+      "page_count": 8
+    },
+    {
+      "id": "kw_风险预测",
+      "label": "风险预测",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        12,
+        328,
+        357,
+        358,
+        359,
+        360,
+        375,
+        397
+      ],
+      "page_count": 8
+    },
+    {
+      "id": "16.16.6",
+      "label": "软件项目的组织",
+      "type": "section",
+      "chapter": 16,
+      "page": 361,
+      "full": "第16章 软件项目管理 → 16.6 软件项目的组织"
+    },
+    {
+      "id": "kw_子项目",
+      "label": "子项目",
+      "type": "concept",
+      "freq": 12,
+      "pages": [
+        328,
+        343,
+        344,
+        349,
+        360,
+        362
+      ],
+      "page_count": 6
+    },
+    {
+      "id": "kw_主程序员制小",
+      "label": "主程序员制小",
+      "type": "concept",
+      "freq": 5,
+      "pages": [
+        362,
+        363,
+        375
+      ],
+      "page_count": 3
+    },
+    {
+      "id": "kw_产品",
+      "label": "产品",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        3,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        25,
+        26,
+        27
+      ],
+      "page_count": 87
+    },
+    {
+      "id": "kw_经理",
+      "label": "经理",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        83,
+        135,
+        218,
+        299,
+        323,
+        324,
+        327,
+        361,
+        362,
+        364
+      ],
+      "page_count": 10
+    },
+    {
+      "id": "16.16.7",
+      "label": "软件质量管理",
+      "type": "section",
+      "chapter": 16,
+      "page": 364,
+      "full": "第16章 软件项目管理 → 16.7 软件质量管理"
+    },
+    {
+      "id": "kw_SQA",
+      "label": "SQA",
+      "type": "concept",
+      "freq": 12,
+      "pages": [
+        365,
+        366,
+        370,
+        375
+      ],
+      "page_count": 4
+    },
+    {
+      "id": "kw_的能力",
+      "label": "的能力",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        24,
+        26,
+        27,
+        28,
+        39,
+        40,
+        70,
+        84,
+        235,
+        236
+      ],
+      "page_count": 19
+    },
+    {
+      "id": "kw_问题",
+      "label": "问题",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        6,
+        9,
+        15,
+        16,
+        17,
+        19,
+        20,
+        22,
+        24,
+        26
+      ],
+      "page_count": 143
+    },
+    {
+      "id": "16.16.8",
+      "label": "软件配置管理",
+      "type": "section",
+      "chapter": 16,
+      "page": 368,
+      "full": "第16章 软件项目管理 → 16.8 软件配置管理"
+    },
+    {
+      "id": "kw_配置对象",
+      "label": "配置对象",
+      "type": "concept",
+      "freq": 7,
+      "pages": [
+        309,
+        369,
+        370,
+        371
+      ],
+      "page_count": 4
+    },
+    {
+      "id": "kw_软件配置管理",
+      "label": "软件配置管理",
+      "type": "concept",
+      "freq": 5,
+      "pages": [
+        12,
+        13,
+        24,
+        26,
+        299,
+        308,
+        325,
+        326,
+        329,
+        368
+      ],
+      "page_count": 15
+    },
+    {
+      "id": "kw_SCI",
+      "label": "SCI",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        368,
+        371,
+        374
+      ],
+      "page_count": 3
+    },
+    {
+      "id": "kw_变更控制",
+      "label": "变更控制",
+      "type": "concept",
+      "freq": 4,
+      "pages": [
+        327,
+        368,
+        369,
+        370,
+        379
+      ],
+      "page_count": 5
+    },
+    {
+      "id": "kw_CSR",
+      "label": "CSR",
+      "type": "concept",
+      "freq": 3,
+      "pages": [
+        371,
+        372
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "kw_何谓软件项目",
+      "label": "何谓软件项目",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        372
+      ],
+      "page_count": 1
+    },
+    {
+      "id": "kw_小组",
+      "label": "小组",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        12,
+        25,
+        38,
+        49,
+        50,
+        51,
+        52,
+        162,
+        166,
+        247
+      ],
+      "page_count": 27
+    },
+    {
+      "id": "kw_个错误",
+      "label": "个错误",
+      "type": "concept",
+      "freq": 2,
+      "pages": [
+        94,
+        202,
+        272,
+        274,
+        283,
+        291,
+        292,
+        307,
+        308,
+        316
+      ],
+      "page_count": 12
+    }
+  ],
+  "links": [
+    {
+      "source": "ch1",
+      "target": "1.1.1",
+      "type": "contains"
+    },
+    {
+      "source": "1.1.1",
+      "target": "kw_程序设计语言",
+      "type": "mentions",
+      "weight": 5
+    },
+    {
+      "source": "1.1.1",
+      "target": "kw_计算机的应用",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "1.1.1",
+      "target": "kw_软件工程",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "1.1.1",
+      "target": "kw_计算机科学技",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "1.1.1",
+      "target": "kw_术百科全书",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "ch1",
+      "target": "1.1.2",
+      "type": "contains"
+    },
+    {
+      "source": "1.1.2",
+      "target": "kw_语言",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "1.1.2",
+      "target": "kw_FORTRAN",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "1.1.2",
+      "target": "kw_软件工程",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "1.1.2",
+      "target": "kw_Modula",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "1.1.2",
+      "target": "kw_计算机软件文",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch1",
+      "target": "1.1.3",
+      "type": "contains"
+    },
+    {
+      "source": "1.1.3",
+      "target": "kw_过程实施",
+      "type": "mentions",
+      "weight": 16
+    },
+    {
+      "source": "1.1.3",
+      "target": "kw_CL",
+      "type": "mentions",
+      "weight": 13
+    },
+    {
+      "source": "1.1.3",
+      "target": "kw_IEC",
+      "type": "mentions",
+      "weight": 12
+    },
+    {
+      "source": "1.1.3",
+      "target": "kw_ISO",
+      "type": "mentions",
+      "weight": 11
+    },
+    {
+      "source": "1.1.3",
+      "target": "kw_CMM",
+      "type": "mentions",
+      "weight": 11
+    },
+    {
+      "source": "ch1",
+      "target": "1.1.4",
+      "type": "contains"
+    },
+    {
+      "source": "1.1.4",
+      "target": "kw_测试",
+      "type": "mentions",
+      "weight": 8
+    },
+    {
+      "source": "1.1.4",
+      "target": "kw_需求",
+      "type": "mentions",
+      "weight": 7
+    },
+    {
+      "source": "1.1.4",
+      "target": "kw_增量",
+      "type": "mentions",
+      "weight": 7
+    },
+    {
+      "source": "1.1.4",
+      "target": "kw_代码",
+      "type": "mentions",
+      "weight": 6
+    },
+    {
+      "source": "1.1.4",
+      "target": "kw_验证",
+      "type": "mentions",
+      "weight": 5
+    },
+    {
+      "source": "ch1",
+      "target": "1.1.5",
+      "type": "contains"
+    },
+    {
+      "source": "1.1.5",
+      "target": "kw_软件开发工具",
+      "type": "mentions",
+      "weight": 6
+    },
+    {
+      "source": "1.1.5",
+      "target": "kw_CASE",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "1.1.5",
+      "target": "kw_维护",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "1.1.5",
+      "target": "kw_工具",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "1.1.5",
+      "target": "kw_支持软件开发",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "ch1",
+      "target": "ch1",
+      "type": "contains"
+    },
+    {
+      "source": "ch1",
+      "target": "kw_简述",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "ch1",
+      "target": "kw_方法与过程集",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch1",
+      "target": "kw_软件生存周期",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch1",
+      "target": "kw_CMM",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch1",
+      "target": "kw_CMMI",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch2",
+      "target": "2.2.1",
+      "type": "contains"
+    },
+    {
+      "source": "2.2.1",
+      "target": "kw_人员",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "2.2.1",
+      "target": "kw_数据库",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "2.2.1",
+      "target": "kw_基于计算机的",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "2.2.1",
+      "target": "kw_统元素",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "2.2.1",
+      "target": "kw_数据体系结构",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch2",
+      "target": "2.2.2",
+      "type": "contains"
+    },
+    {
+      "source": "2.2.2",
+      "target": "kw_基于计算机的",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "2.2.2",
+      "target": "kw_一个基于计算",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "2.2.2",
+      "target": "kw_硬件系统模型",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "2.2.2",
+      "target": "kw_软件工程",
+      "type": "mentions",
+      "weight": 1
+    },
+    {
+      "source": "2.2.2",
+      "target": "kw_程或控制",
+      "type": "mentions",
+      "weight": 1
+    },
+    {
+      "source": "ch2",
+      "target": "2.2.3",
+      "type": "contains"
+    },
+    {
+      "source": "2.2.3",
+      "target": "kw_基于计算机的",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "2.2.3",
+      "target": "kw_计算机的系统",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "2.2.3",
+      "target": "kw_成本",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "2.2.3",
+      "target": "kw_效益",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "2.2.3",
+      "target": "kw_零时",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "ch2",
+      "target": "ch2",
+      "type": "contains"
+    },
+    {
+      "source": "ch2",
+      "target": "kw_基于计算机的",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch2",
+      "target": "kw_计算机系统工",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch2",
+      "target": "kw_软件工程",
+      "type": "mentions",
+      "weight": 1
+    },
+    {
+      "source": "ch2",
+      "target": "kw_由于系统的功",
+      "type": "mentions",
+      "weight": 1
+    },
+    {
+      "source": "ch2",
+      "target": "kw_能和性能受到",
+      "type": "mentions",
+      "weight": 1
+    },
+    {
+      "source": "ch3",
+      "target": "3.3.1",
+      "type": "contains"
+    },
+    {
+      "source": "3.3.1",
+      "target": "kw_需求规约",
+      "type": "mentions",
+      "weight": 5
+    },
+    {
+      "source": "3.3.1",
+      "target": "kw_系统建模",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "3.3.1",
+      "target": "kw_世纪",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "3.3.1",
+      "target": "kw_需求分析与协",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "3.3.1",
+      "target": "kw_需求获取",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "ch3",
+      "target": "3.3.2",
+      "type": "contains"
+    },
+    {
+      "source": "3.3.2",
+      "target": "kw_FAST",
+      "type": "mentions",
+      "weight": 11
+    },
+    {
+      "source": "3.3.2",
+      "target": "kw_需求",
+      "type": "mentions",
+      "weight": 5
+    },
+    {
+      "source": "3.3.2",
+      "target": "kw_用况",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "3.3.2",
+      "target": "kw_需求工程",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "3.3.2",
+      "target": "kw_获取",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "ch3",
+      "target": "3.3.3",
+      "type": "contains"
+    },
+    {
+      "source": "3.3.3",
+      "target": "kw_工资",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "3.3.3",
+      "target": "kw_需求分析",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "3.3.3",
+      "target": "kw_必须能够表示",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "3.3.3",
+      "target": "kw_信息域",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "3.3.3",
+      "target": "kw_功能和行为的",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch3",
+      "target": "3.3.4",
+      "type": "contains"
+    },
+    {
+      "source": "3.3.4",
+      "target": "kw_功能描述",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "3.3.4",
+      "target": "kw_Balzer",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "3.3.4",
+      "target": "kw_Goldman",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "3.3.4",
+      "target": "kw_做什么",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "3.3.4",
+      "target": "kw_软件需求规约",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch3",
+      "target": "3.3.5",
+      "type": "contains"
+    },
+    {
+      "source": "3.3.5",
+      "target": "kw_需求管理",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "3.3.5",
+      "target": "kw_软件工程",
+      "type": "mentions",
+      "weight": 1
+    },
+    {
+      "source": "3.3.5",
+      "target": "kw_参考书目",
+      "type": "mentions",
+      "weight": 1
+    },
+    {
+      "source": "3.3.5",
+      "target": "kw_参考书目包含",
+      "type": "mentions",
+      "weight": 1
+    },
+    {
+      "source": "3.3.5",
+      "target": "kw_了对所有和该",
+      "type": "mentions",
+      "weight": 1
+    },
+    {
+      "source": "ch3",
+      "target": "ch3",
+      "type": "contains"
+    },
+    {
+      "source": "ch3",
+      "target": "kw_需求规约",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "ch3",
+      "target": "kw_代码",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch3",
+      "target": "kw_段重点介绍了",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch3",
+      "target": "kw_FAST",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch3",
+      "target": "kw_需求工程",
+      "type": "mentions",
+      "weight": 1
+    },
+    {
+      "source": "ch4",
+      "target": "4.4.1",
+      "type": "contains"
+    },
+    {
+      "source": "4.4.1",
+      "target": "kw_体系结构设计",
+      "type": "mentions",
+      "weight": 5
+    },
+    {
+      "source": "4.4.1",
+      "target": "kw_类设计",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "4.4.1",
+      "target": "kw_软件体系结构",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "4.4.1",
+      "target": "kw_接口设计",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "4.4.1",
+      "target": "kw_设计工程",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch4",
+      "target": "4.4.2",
+      "type": "contains"
+    },
+    {
+      "source": "4.4.2",
+      "target": "kw_模块",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "4.4.2",
+      "target": "kw_软件工程",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "4.4.2",
+      "target": "kw_原则",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "4.4.2",
+      "target": "kw_内容耦合",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "4.4.2",
+      "target": "kw_需求",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch4",
+      "target": "4.4.3",
+      "type": "contains"
+    },
+    {
+      "source": "4.4.3",
+      "target": "kw_客户部件",
+      "type": "mentions",
+      "weight": 8
+    },
+    {
+      "source": "4.4.3",
+      "target": "kw_体系结构",
+      "type": "mentions",
+      "weight": 7
+    },
+    {
+      "source": "4.4.3",
+      "target": "kw_过滤器",
+      "type": "mentions",
+      "weight": 6
+    },
+    {
+      "source": "4.4.3",
+      "target": "kw_子程序风格体",
+      "type": "mentions",
+      "weight": 5
+    },
+    {
+      "source": "4.4.3",
+      "target": "kw_主程序",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "ch4",
+      "target": "4.4.4",
+      "type": "contains"
+    },
+    {
+      "source": "4.4.4",
+      "target": "kw_PAD",
+      "type": "mentions",
+      "weight": 12
+    },
+    {
+      "source": "4.4.4",
+      "target": "kw_PDL",
+      "type": "mentions",
+      "weight": 8
+    },
+    {
+      "source": "4.4.4",
+      "target": "kw_种基本控制结",
+      "type": "mentions",
+      "weight": 7
+    },
+    {
+      "source": "4.4.4",
+      "target": "kw_结构化程序设",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "4.4.4",
+      "target": "kw_ATAM",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "ch4",
+      "target": "4.4.5",
+      "type": "contains"
+    },
+    {
+      "source": "4.4.5",
+      "target": "kw_PDL",
+      "type": "mentions",
+      "weight": 5
+    },
+    {
+      "source": "4.4.5",
+      "target": "kw_描述",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "4.4.5",
+      "target": "kw_设计规约",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "4.4.5",
+      "target": "kw_限制",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "4.4.5",
+      "target": "kw_叉索引",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch4",
+      "target": "ch4",
+      "type": "contains"
+    },
+    {
+      "source": "ch4",
+      "target": "kw_确认该软件设",
+      "type": "mentions",
+      "weight": 5
+    },
+    {
+      "source": "ch4",
+      "target": "kw_的问题",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch4",
+      "target": "kw_设计工程",
+      "type": "mentions",
+      "weight": 1
+    },
+    {
+      "source": "ch4",
+      "target": "kw_风险",
+      "type": "mentions",
+      "weight": 1
+    },
+    {
+      "source": "ch4",
+      "target": "kw_计在现有技术",
+      "type": "mentions",
+      "weight": 1
+    },
+    {
+      "source": "ch5",
+      "target": "5.5.1",
+      "type": "contains"
+    },
+    {
+      "source": "5.5.1",
+      "target": "kw_结构化分析与",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "5.5.1",
+      "target": "kw_世纪",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "5.5.1",
+      "target": "kw_结构化设计",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "5.5.1",
+      "target": "kw_结构化分析方",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "5.5.1",
+      "target": "kw_分解",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch5",
+      "target": "5.5.2",
+      "type": "contains"
+    },
+    {
+      "source": "5.5.2",
+      "target": "kw_DFD",
+      "type": "mentions",
+      "weight": 18
+    },
+    {
+      "source": "5.5.2",
+      "target": "kw_数据流",
+      "type": "mentions",
+      "weight": 17
+    },
+    {
+      "source": "5.5.2",
+      "target": "kw_加工",
+      "type": "mentions",
+      "weight": 13
+    },
+    {
+      "source": "5.5.2",
+      "target": "kw_报名单",
+      "type": "mentions",
+      "weight": 9
+    },
+    {
+      "source": "5.5.2",
+      "target": "kw_据流",
+      "type": "mentions",
+      "weight": 8
+    },
+    {
+      "source": "ch5",
+      "target": "5.5.3",
+      "type": "contains"
+    },
+    {
+      "source": "5.5.3",
+      "target": "kw_DFD",
+      "type": "mentions",
+      "weight": 45
+    },
+    {
+      "source": "5.5.3",
+      "target": "kw_加工",
+      "type": "mentions",
+      "weight": 11
+    },
+    {
+      "source": "5.5.3",
+      "target": "kw_考生名册",
+      "type": "mentions",
+      "weight": 9
+    },
+    {
+      "source": "5.5.3",
+      "target": "kw_考生通知单",
+      "type": "mentions",
+      "weight": 9
+    },
+    {
+      "source": "5.5.3",
+      "target": "kw_正式成绩清单",
+      "type": "mentions",
+      "weight": 9
+    },
+    {
+      "source": "ch5",
+      "target": "5.5.4",
+      "type": "contains"
+    },
+    {
+      "source": "5.5.4",
+      "target": "kw_DFD",
+      "type": "mentions",
+      "weight": 20
+    },
+    {
+      "source": "5.5.4",
+      "target": "kw_别名",
+      "type": "mentions",
+      "weight": 9
+    },
+    {
+      "source": "5.5.4",
+      "target": "kw_简述",
+      "type": "mentions",
+      "weight": 9
+    },
+    {
+      "source": "5.5.4",
+      "target": "kw_注解",
+      "type": "mentions",
+      "weight": 8
+    },
+    {
+      "source": "5.5.4",
+      "target": "kw_加工",
+      "type": "mentions",
+      "weight": 7
+    },
+    {
+      "source": "ch5",
+      "target": "5.5.5",
+      "type": "contains"
+    },
+    {
+      "source": "5.5.5",
+      "target": "kw_DFD",
+      "type": "mentions",
+      "weight": 6
+    },
+    {
+      "source": "5.5.5",
+      "target": "kw_准考证号十考",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "5.5.5",
+      "target": "kw_文件",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "5.5.5",
+      "target": "kw_的小说明",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "5.5.5",
+      "target": "kw_Case",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "ch5",
+      "target": "5.5.6",
+      "type": "contains"
+    },
+    {
+      "source": "5.5.6",
+      "target": "kw_模块",
+      "type": "mentions",
+      "weight": 19
+    },
+    {
+      "source": "5.5.6",
+      "target": "kw_赊欠天数",
+      "type": "mentions",
+      "weight": 8
+    },
+    {
+      "source": "5.5.6",
+      "target": "kw_审批发货单",
+      "type": "mentions",
+      "weight": 5
+    },
+    {
+      "source": "5.5.6",
+      "target": "kw_发货单金额",
+      "type": "mentions",
+      "weight": 5
+    },
+    {
+      "source": "5.5.6",
+      "target": "kw_SD",
+      "type": "mentions",
+      "weight": 5
+    },
+    {
+      "source": "ch5",
+      "target": "5.5.7",
+      "type": "contains"
+    },
+    {
+      "source": "5.5.7",
+      "target": "kw_DFD",
+      "type": "mentions",
+      "weight": 24
+    },
+    {
+      "source": "5.5.7",
+      "target": "kw_统计成绩",
+      "type": "mentions",
+      "weight": 19
+    },
+    {
+      "source": "5.5.7",
+      "target": "kw_成绩清单",
+      "type": "mentions",
+      "weight": 8
+    },
+    {
+      "source": "5.5.7",
+      "target": "kw_输入",
+      "type": "mentions",
+      "weight": 8
+    },
+    {
+      "source": "5.5.7",
+      "target": "kw_考生通知单",
+      "type": "mentions",
+      "weight": 6
+    },
+    {
+      "source": "ch5",
+      "target": "5.5.8",
+      "type": "contains"
+    },
+    {
+      "source": "5.5.8",
+      "target": "kw_统计成绩",
+      "type": "mentions",
+      "weight": 19
+    },
+    {
+      "source": "5.5.8",
+      "target": "kw_考试报名",
+      "type": "mentions",
+      "weight": 12
+    },
+    {
+      "source": "5.5.8",
+      "target": "kw_打印",
+      "type": "mentions",
+      "weight": 11
+    },
+    {
+      "source": "5.5.8",
+      "target": "kw_输入并检查",
+      "type": "mentions",
+      "weight": 9
+    },
+    {
+      "source": "5.5.8",
+      "target": "kw_控制",
+      "type": "mentions",
+      "weight": 6
+    },
+    {
+      "source": "ch5",
+      "target": "ch5",
+      "type": "contains"
+    },
+    {
+      "source": "ch5",
+      "target": "kw_CASE",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "ch5",
+      "target": "kw_PHTRS",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "ch5",
+      "target": "kw_书店",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch5",
+      "target": "kw_销售",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch5",
+      "target": "kw_其他书店",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch6",
+      "target": "6.6.1",
+      "type": "contains"
+    },
+    {
+      "source": "6.6.1",
+      "target": "kw_元素",
+      "type": "mentions",
+      "weight": 15
+    },
+    {
+      "source": "6.6.1",
+      "target": "kw_Jackson",
+      "type": "mentions",
+      "weight": 14
+    },
+    {
+      "source": "6.6.1",
+      "target": "kw_JSP",
+      "type": "mentions",
+      "weight": 10
+    },
+    {
+      "source": "6.6.1",
+      "target": "kw_字符串",
+      "type": "mentions",
+      "weight": 10
+    },
+    {
+      "source": "6.6.1",
+      "target": "kw_组成",
+      "type": "mentions",
+      "weight": 8
+    },
+    {
+      "source": "ch6",
+      "target": "6.6.2",
+      "type": "contains"
+    },
+    {
+      "source": "6.6.2",
+      "target": "kw_JSD",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "6.6.2",
+      "target": "kw_印空格数",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "6.6.2",
+      "target": "kw_印空格总数",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "6.6.2",
+      "target": "kw_JSP",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "6.6.2",
+      "target": "kw_软件工程",
+      "type": "mentions",
+      "weight": 1
+    },
+    {
+      "source": "ch6",
+      "target": "ch6",
+      "type": "contains"
+    },
+    {
+      "source": "ch6",
+      "target": "kw_出版年月",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "ch6",
+      "target": "kw_面向数据结构",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch6",
+      "target": "kw_JSP",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch6",
+      "target": "kw_采用",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch6",
+      "target": "kw_库存数量",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch7",
+      "target": "7.7.1",
+      "type": "contains"
+    },
+    {
+      "source": "7.7.1",
+      "target": "kw_汽车",
+      "type": "mentions",
+      "weight": 7
+    },
+    {
+      "source": "7.7.1",
+      "target": "kw_轿车",
+      "type": "mentions",
+      "weight": 7
+    },
+    {
+      "source": "7.7.1",
+      "target": "kw_操作",
+      "type": "mentions",
+      "weight": 7
+    },
+    {
+      "source": "7.7.1",
+      "target": "kw_面向对象方法",
+      "type": "mentions",
+      "weight": 6
+    },
+    {
+      "source": "7.7.1",
+      "target": "kw_对象",
+      "type": "mentions",
+      "weight": 5
+    },
+    {
+      "source": "ch7",
+      "target": "7.7.2",
+      "type": "contains"
+    },
+    {
+      "source": "7.7.2",
+      "target": "kw_OOD",
+      "type": "mentions",
+      "weight": 7
+    },
+    {
+      "source": "7.7.2",
+      "target": "kw_面向对象分析",
+      "type": "mentions",
+      "weight": 6
+    },
+    {
+      "source": "7.7.2",
+      "target": "kw_对象",
+      "type": "mentions",
+      "weight": 5
+    },
+    {
+      "source": "7.7.2",
+      "target": "kw_OOA",
+      "type": "mentions",
+      "weight": 5
+    },
+    {
+      "source": "7.7.2",
+      "target": "kw_计算面积",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "ch7",
+      "target": "7.7.3",
+      "type": "contains"
+    },
+    {
+      "source": "7.7.3",
+      "target": "kw_UML",
+      "type": "mentions",
+      "weight": 28
+    },
+    {
+      "source": "7.7.3",
+      "target": "kw_面向对象方法",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "7.7.3",
+      "target": "kw_基础",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "7.7.3",
+      "target": "kw_包图",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "7.7.3",
+      "target": "kw_Booch",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "ch7",
+      "target": "ch7",
+      "type": "contains"
+    },
+    {
+      "source": "ch7",
+      "target": "kw_UML",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "ch7",
+      "target": "kw_简述面向对象",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch7",
+      "target": "kw_软件工程",
+      "type": "mentions",
+      "weight": 1
+    },
+    {
+      "source": "ch7",
+      "target": "kw_小结",
+      "type": "mentions",
+      "weight": 1
+    },
+    {
+      "source": "ch7",
+      "target": "kw_面向对象方法",
+      "type": "mentions",
+      "weight": 1
+    },
+    {
+      "source": "ch8",
+      "target": "8.8.1",
+      "type": "contains"
+    },
+    {
+      "source": "8.8.1",
+      "target": "kw_用况",
+      "type": "mentions",
+      "weight": 9
+    },
+    {
+      "source": "8.8.1",
+      "target": "kw_网上在线订购",
+      "type": "mentions",
+      "weight": 9
+    },
+    {
+      "source": "8.8.1",
+      "target": "kw_面向对象建模",
+      "type": "mentions",
+      "weight": 6
+    },
+    {
+      "source": "8.8.1",
+      "target": "kw_客户",
+      "type": "mentions",
+      "weight": 6
+    },
+    {
+      "source": "8.8.1",
+      "target": "kw_用况结束",
+      "type": "mentions",
+      "weight": 6
+    },
+    {
+      "source": "ch8",
+      "target": "8.8.2",
+      "type": "contains"
+    },
+    {
+      "source": "8.8.2",
+      "target": "kw_CRC",
+      "type": "mentions",
+      "weight": 9
+    },
+    {
+      "source": "8.8.2",
+      "target": "kw_面向对象建模",
+      "type": "mentions",
+      "weight": 8
+    },
+    {
+      "source": "8.8.2",
+      "target": "kw_操作",
+      "type": "mentions",
+      "weight": 8
+    },
+    {
+      "source": "8.8.2",
+      "target": "kw_UML",
+      "type": "mentions",
+      "weight": 8
+    },
+    {
+      "source": "8.8.2",
+      "target": "kw_软件工程",
+      "type": "mentions",
+      "weight": 8
+    },
+    {
+      "source": "ch8",
+      "target": "8.8.3",
+      "type": "contains"
+    },
+    {
+      "source": "8.8.3",
+      "target": "kw_状态",
+      "type": "mentions",
+      "weight": 17
+    },
+    {
+      "source": "8.8.3",
+      "target": "kw_软件工程",
+      "type": "mentions",
+      "weight": 8
+    },
+    {
+      "source": "8.8.3",
+      "target": "kw_面向对象建模",
+      "type": "mentions",
+      "weight": 6
+    },
+    {
+      "source": "8.8.3",
+      "target": "kw_Customer",
+      "type": "mentions",
+      "weight": 6
+    },
+    {
+      "source": "8.8.3",
+      "target": "kw_对象",
+      "type": "mentions",
+      "weight": 5
+    },
+    {
+      "source": "ch8",
+      "target": "8.8.4",
+      "type": "contains"
+    },
+    {
+      "source": "8.8.4",
+      "target": "kw_应用收费",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "8.8.4",
+      "target": "kw_顾客访问",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "8.8.4",
+      "target": "kw_营业员访问",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "8.8.4",
+      "target": "kw_订单对象的状",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "8.8.4",
+      "target": "kw_取消订单",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "ch8",
+      "target": "ch8",
+      "type": "contains"
+    },
+    {
+      "source": "ch8",
+      "target": "kw_PC",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "ch8",
+      "target": "kw_以习题",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "ch8",
+      "target": "kw_ATM",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "ch8",
+      "target": "kw_为例",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "ch8",
+      "target": "kw_Client",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch9",
+      "target": "9.9.1",
+      "type": "contains"
+    },
+    {
+      "source": "9.9.1",
+      "target": "kw_COM",
+      "type": "mentions",
+      "weight": 12
+    },
+    {
+      "source": "9.9.1",
+      "target": "kw_基于构件的软",
+      "type": "mentions",
+      "weight": 7
+    },
+    {
+      "source": "9.9.1",
+      "target": "kw_构件",
+      "type": "mentions",
+      "weight": 7
+    },
+    {
+      "source": "9.9.1",
+      "target": "kw_EJB",
+      "type": "mentions",
+      "weight": 7
+    },
+    {
+      "source": "9.9.1",
+      "target": "kw_件开发",
+      "type": "mentions",
+      "weight": 5
+    },
+    {
+      "source": "ch9",
+      "target": "9.9.2",
+      "type": "contains"
+    },
+    {
+      "source": "9.9.2",
+      "target": "kw_VP",
+      "type": "mentions",
+      "weight": 11
+    },
+    {
+      "source": "9.9.2",
+      "target": "kw_Account",
+      "type": "mentions",
+      "weight": 6
+    },
+    {
+      "source": "9.9.2",
+      "target": "kw_Limit",
+      "type": "mentions",
+      "weight": 6
+    },
+    {
+      "source": "9.9.2",
+      "target": "kw_Type",
+      "type": "mentions",
+      "weight": 5
+    },
+    {
+      "source": "9.9.2",
+      "target": "kw_组装",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "ch9",
+      "target": "9.9.3",
+      "type": "contains"
+    },
+    {
+      "source": "9.9.3",
+      "target": "kw_CBSD",
+      "type": "mentions",
+      "weight": 8
+    },
+    {
+      "source": "9.9.3",
+      "target": "kw_系结构",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "9.9.3",
+      "target": "kw_的应用系统分",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "9.9.3",
+      "target": "kw_基于构件的应",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "9.9.3",
+      "target": "kw_RUP",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "ch9",
+      "target": "9.9.4",
+      "type": "contains"
+    },
+    {
+      "source": "9.9.4",
+      "target": "kw_属性",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "9.9.4",
+      "target": "kw_枚举分类",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "9.9.4",
+      "target": "kw_值分类",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "9.9.4",
+      "target": "kw_构件库管理系",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "9.9.4",
+      "target": "kw_如果所选的构",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch9",
+      "target": "ch9",
+      "type": "contains"
+    },
+    {
+      "source": "ch9",
+      "target": "kw_CBSD",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "ch9",
+      "target": "kw_匹配",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch9",
+      "target": "kw_所得到的构件",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch9",
+      "target": "kw_软件工程",
+      "type": "mentions",
+      "weight": 1
+    },
+    {
+      "source": "ch9",
+      "target": "kw_规约匹配",
+      "type": "mentions",
+      "weight": 1
+    },
+    {
+      "source": "ch10",
+      "target": "10.10.1",
+      "type": "contains"
+    },
+    {
+      "source": "10.10.1",
+      "target": "kw_敏捷软件开发",
+      "type": "mentions",
+      "weight": 11
+    },
+    {
+      "source": "10.10.1",
+      "target": "kw_重于",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "10.10.1",
+      "target": "kw_浪费",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "10.10.1",
+      "target": "kw_开发方法",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "10.10.1",
+      "target": "kw_Scrum",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "ch10",
+      "target": "10.10.2",
+      "type": "contains"
+    },
+    {
+      "source": "10.10.2",
+      "target": "kw_Scrum",
+      "type": "mentions",
+      "weight": 60
+    },
+    {
+      "source": "10.10.2",
+      "target": "kw_Sprint",
+      "type": "mentions",
+      "weight": 51
+    },
+    {
+      "source": "10.10.2",
+      "target": "kw_Backlog",
+      "type": "mentions",
+      "weight": 23
+    },
+    {
+      "source": "10.10.2",
+      "target": "kw_Scrum Master",
+      "type": "mentions",
+      "weight": 11
+    },
+    {
+      "source": "10.10.2",
+      "target": "kw_在每个",
+      "type": "mentions",
+      "weight": 8
+    },
+    {
+      "source": "ch10",
+      "target": "10.10.3",
+      "type": "contains"
+    },
+    {
+      "source": "10.10.3",
+      "target": "kw_Kent Beck",
+      "type": "mentions",
+      "weight": 9
+    },
+    {
+      "source": "10.10.3",
+      "target": "kw_测试驱动开发",
+      "type": "mentions",
+      "weight": 6
+    },
+    {
+      "source": "10.10.3",
+      "target": "kw_简单",
+      "type": "mentions",
+      "weight": 5
+    },
+    {
+      "source": "10.10.3",
+      "target": "kw_沟通",
+      "type": "mentions",
+      "weight": 5
+    },
+    {
+      "source": "10.10.3",
+      "target": "kw_软件工程",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "ch10",
+      "target": "10.10.4",
+      "type": "contains"
+    },
+    {
+      "source": "10.10.4",
+      "target": "kw_WIP",
+      "type": "mentions",
+      "weight": 14
+    },
+    {
+      "source": "10.10.4",
+      "target": "kw_Scrum",
+      "type": "mentions",
+      "weight": 8
+    },
+    {
+      "source": "10.10.4",
+      "target": "kw_David",
+      "type": "mentions",
+      "weight": 5
+    },
+    {
+      "source": "10.10.4",
+      "target": "kw_Anderson",
+      "type": "mentions",
+      "weight": 5
+    },
+    {
+      "source": "10.10.4",
+      "target": "kw_改善",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "ch10",
+      "target": "ch10",
+      "type": "contains"
+    },
+    {
+      "source": "ch10",
+      "target": "kw_敏捷软件开发",
+      "type": "mentions",
+      "weight": 5
+    },
+    {
+      "source": "ch10",
+      "target": "kw_Scrum",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "ch10",
+      "target": "kw_改善",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch10",
+      "target": "kw_简述敏捷软件",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch10",
+      "target": "kw_软件工程",
+      "type": "mentions",
+      "weight": 1
+    },
+    {
+      "source": "ch11",
+      "target": "11.11.1",
+      "type": "contains"
+    },
+    {
+      "source": "11.11.1",
+      "target": "kw_人机界面设计",
+      "type": "mentions",
+      "weight": 6
+    },
+    {
+      "source": "11.11.1",
+      "target": "kw_设计人机界面",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "11.11.1",
+      "target": "kw_Windows",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "11.11.1",
+      "target": "kw_XP",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "11.11.1",
+      "target": "kw_能力",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "ch11",
+      "target": "11.11.2",
+      "type": "contains"
+    },
+    {
+      "source": "11.11.2",
+      "target": "kw_图形用户界面",
+      "type": "mentions",
+      "weight": 6
+    },
+    {
+      "source": "11.11.2",
+      "target": "kw_多媒体用户界",
+      "type": "mentions",
+      "weight": 5
+    },
+    {
+      "source": "11.11.2",
+      "target": "kw_统计典型用户",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "11.11.2",
+      "target": "kw_直接操纵用户",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "11.11.2",
+      "target": "kw_多通道用户界",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "ch11",
+      "target": "11.11.3",
+      "type": "contains"
+    },
+    {
+      "source": "11.11.3",
+      "target": "kw_人机界面设计",
+      "type": "mentions",
+      "weight": 6
+    },
+    {
+      "source": "11.11.3",
+      "target": "kw_用户",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "11.11.3",
+      "target": "kw_执行的任务",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "11.11.3",
+      "target": "kw_任务和环境分",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "11.11.3",
+      "target": "kw_析及建模",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch11",
+      "target": "11.11.4",
+      "type": "contains"
+    },
+    {
+      "source": "11.11.4",
+      "target": "kw_人机界面设计",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "11.11.4",
+      "target": "kw_室内设计人员",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "11.11.4",
+      "target": "kw_黄金原则",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "11.11.4",
+      "target": "kw_动作",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "11.11.4",
+      "target": "kw_系统响应时间",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "ch11",
+      "target": "11.11.6",
+      "type": "contains"
+    },
+    {
+      "source": "11.11.6",
+      "target": "kw_UIDS",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "11.11.6",
+      "target": "kw_同时",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "11.11.6",
+      "target": "kw_评审",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "11.11.6",
+      "target": "kw_指导文档评审",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "11.11.6",
+      "target": "kw_一致性检查",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch11",
+      "target": "ch11",
+      "type": "contains"
+    },
+    {
+      "source": "ch11",
+      "target": "kw_人机界面设计",
+      "type": "mentions",
+      "weight": 1
+    },
+    {
+      "source": "ch11",
+      "target": "kw_一个可用性测",
+      "type": "mentions",
+      "weight": 1
+    },
+    {
+      "source": "ch11",
+      "target": "kw_试计划",
+      "type": "mentions",
+      "weight": 1
+    },
+    {
+      "source": "ch11",
+      "target": "kw_当然",
+      "type": "mentions",
+      "weight": 1
+    },
+    {
+      "source": "ch11",
+      "target": "kw_虽然问题可能",
+      "type": "mentions",
+      "weight": 1
+    },
+    {
+      "source": "ch12",
+      "target": "12.12.1",
+      "type": "contains"
+    },
+    {
+      "source": "12.12.1",
+      "target": "kw_程序设计语言",
+      "type": "mentions",
+      "weight": 15
+    },
+    {
+      "source": "12.12.1",
+      "target": "kw_表达式",
+      "type": "mentions",
+      "weight": 6
+    },
+    {
+      "source": "12.12.1",
+      "target": "kw_语言",
+      "type": "mentions",
+      "weight": 6
+    },
+    {
+      "source": "12.12.1",
+      "target": "kw_条件选择结构",
+      "type": "mentions",
+      "weight": 5
+    },
+    {
+      "source": "12.12.1",
+      "target": "kw_和编码",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "ch12",
+      "target": "12.12.2",
+      "type": "contains"
+    },
+    {
+      "source": "12.12.2",
+      "target": "kw_Mail",
+      "type": "mentions",
+      "weight": 9
+    },
+    {
+      "source": "12.12.2",
+      "target": "kw_程序设计语言",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "12.12.2",
+      "target": "kw_和编码",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "12.12.2",
+      "target": "kw_数据说明",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "12.12.2",
+      "target": "kw_变量",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "ch12",
+      "target": "ch12",
+      "type": "contains"
+    },
+    {
+      "source": "ch12",
+      "target": "kw_使用",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch12",
+      "target": "kw_输人和输出的",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch12",
+      "target": "kw_风格",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch12",
+      "target": "kw_程序设计语言",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch12",
+      "target": "kw_软件工程",
+      "type": "mentions",
+      "weight": 1
+    },
+    {
+      "source": "ch13",
+      "target": "13.13.1",
+      "type": "contains"
+    },
+    {
+      "source": "13.13.1",
+      "target": "kw_错误",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "13.13.1",
+      "target": "kw_可能的",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "13.13.1",
+      "target": "kw_软件测试",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "13.13.1",
+      "target": "kw_软件测试的目",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "13.13.1",
+      "target": "kw_测试",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch13",
+      "target": "13.13.2",
+      "type": "contains"
+    },
+    {
+      "source": "13.13.2",
+      "target": "kw_判定",
+      "type": "mentions",
+      "weight": 22
+    },
+    {
+      "source": "13.13.2",
+      "target": "kw_路径",
+      "type": "mentions",
+      "weight": 17
+    },
+    {
+      "source": "13.13.2",
+      "target": "kw_条件覆盖",
+      "type": "mentions",
+      "weight": 9
+    },
+    {
+      "source": "13.13.2",
+      "target": "kw_执行该路径的",
+      "type": "mentions",
+      "weight": 8
+    },
+    {
+      "source": "13.13.2",
+      "target": "kw_条件是",
+      "type": "mentions",
+      "weight": 8
+    },
+    {
+      "source": "ch13",
+      "target": "13.13.3",
+      "type": "contains"
+    },
+    {
+      "source": "13.13.3",
+      "target": "kw_VAR",
+      "type": "mentions",
+      "weight": 9
+    },
+    {
+      "source": "13.13.3",
+      "target": "kw_橙汁",
+      "type": "mentions",
+      "weight": 9
+    },
+    {
+      "source": "13.13.3",
+      "target": "kw_啤酒",
+      "type": "mentions",
+      "weight": 9
+    },
+    {
+      "source": "13.13.3",
+      "target": "kw_成绩",
+      "type": "mentions",
+      "weight": 8
+    },
+    {
+      "source": "13.13.3",
+      "target": "kw_报错",
+      "type": "mentions",
+      "weight": 8
+    },
+    {
+      "source": "ch13",
+      "target": "13.13.4",
+      "type": "contains"
+    },
+    {
+      "source": "13.13.4",
+      "target": "kw_测试",
+      "type": "mentions",
+      "weight": 11
+    },
+    {
+      "source": "13.13.4",
+      "target": "kw_自顶向下集成",
+      "type": "mentions",
+      "weight": 8
+    },
+    {
+      "source": "13.13.4",
+      "target": "kw_自底向上集成",
+      "type": "mentions",
+      "weight": 7
+    },
+    {
+      "source": "13.13.4",
+      "target": "kw_模块",
+      "type": "mentions",
+      "weight": 5
+    },
+    {
+      "source": "13.13.4",
+      "target": "kw_Ma",
+      "type": "mentions",
+      "weight": 5
+    },
+    {
+      "source": "ch13",
+      "target": "13.13.5",
+      "type": "contains"
+    },
+    {
+      "source": "13.13.5",
+      "target": "kw_性能测试",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "13.13.5",
+      "target": "kw_面向对象软件",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "13.13.5",
+      "target": "kw_单元",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "13.13.5",
+      "target": "kw_安全保密性测",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "13.13.5",
+      "target": "kw_攻击系统",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch13",
+      "target": "13.13.6",
+      "type": "contains"
+    },
+    {
+      "source": "13.13.6",
+      "target": "kw_的操作",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "13.13.6",
+      "target": "kw_作分类",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "13.13.6",
+      "target": "kw_基于场景的测",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "13.13.6",
+      "target": "kw_软件工程",
+      "type": "mentions",
+      "weight": 1
+    },
+    {
+      "source": "13.13.6",
+      "target": "kw_错误",
+      "type": "mentions",
+      "weight": 1
+    },
+    {
+      "source": "ch13",
+      "target": "13.13.7",
+      "type": "contains"
+    },
+    {
+      "source": "13.13.7",
+      "target": "kw_调试",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "13.13.7",
+      "target": "kw_当单位时间内",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "13.13.7",
+      "target": "kw_发现错误的数",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "13.13.7",
+      "target": "kw_测试",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "13.13.7",
+      "target": "kw_或天",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch13",
+      "target": "ch13",
+      "type": "contains"
+    },
+    {
+      "source": "ch13",
+      "target": "kw_测试",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "ch13",
+      "target": "kw_集成测试",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch13",
+      "target": "kw_确认测试和系",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch13",
+      "target": "kw_条件覆盖",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch13",
+      "target": "kw_若订货数大于",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch14",
+      "target": "14.14.1",
+      "type": "contains"
+    },
+    {
+      "source": "14.14.1",
+      "target": "kw_Web",
+      "type": "mentions",
+      "weight": 83
+    },
+    {
+      "source": "14.14.1",
+      "target": "kw_App",
+      "type": "mentions",
+      "weight": 61
+    },
+    {
+      "source": "14.14.1",
+      "target": "kw_工程",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "14.14.1",
+      "target": "kw_Internet",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "14.14.1",
+      "target": "kw_发展",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch14",
+      "target": "14.14.2",
+      "type": "contains"
+    },
+    {
+      "source": "14.14.2",
+      "target": "kw_Web",
+      "type": "mentions",
+      "weight": 46
+    },
+    {
+      "source": "14.14.2",
+      "target": "kw_App",
+      "type": "mentions",
+      "weight": 29
+    },
+    {
+      "source": "14.14.2",
+      "target": "kw_建模",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "14.14.2",
+      "target": "kw_面向服务型",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "14.14.2",
+      "target": "kw_门户型",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch14",
+      "target": "14.14.3",
+      "type": "contains"
+    },
+    {
+      "source": "14.14.3",
+      "target": "kw_Web",
+      "type": "mentions",
+      "weight": 116
+    },
+    {
+      "source": "14.14.3",
+      "target": "kw_App",
+      "type": "mentions",
+      "weight": 88
+    },
+    {
+      "source": "14.14.3",
+      "target": "kw_Google",
+      "type": "mentions",
+      "weight": 5
+    },
+    {
+      "source": "14.14.3",
+      "target": "kw_软件工程",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "14.14.3",
+      "target": "kw_工程",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "ch14",
+      "target": "14.14.4",
+      "type": "contains"
+    },
+    {
+      "source": "14.14.4",
+      "target": "kw_Web",
+      "type": "mentions",
+      "weight": 52
+    },
+    {
+      "source": "14.14.4",
+      "target": "kw_App",
+      "type": "mentions",
+      "weight": 43
+    },
+    {
+      "source": "14.14.4",
+      "target": "kw_工程",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "14.14.4",
+      "target": "kw_因为",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "14.14.4",
+      "target": "kw_变更",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "ch14",
+      "target": "ch14",
+      "type": "contains"
+    },
+    {
+      "source": "ch14",
+      "target": "kw_Web",
+      "type": "mentions",
+      "weight": 10
+    },
+    {
+      "source": "ch14",
+      "target": "kw_App",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "ch14",
+      "target": "kw_Internet",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch14",
+      "target": "kw_用一个实际的",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch14",
+      "target": "kw_站点作为例子",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch15",
+      "target": "15.15.1",
+      "type": "contains"
+    },
+    {
+      "source": "15.15.1",
+      "target": "kw_工程",
+      "type": "mentions",
+      "weight": 6
+    },
+    {
+      "source": "15.15.1",
+      "target": "kw_软件维护与再",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "15.15.1",
+      "target": "kw_维护",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "15.15.1",
+      "target": "kw_软件工程",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "15.15.1",
+      "target": "kw_程中",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "ch15",
+      "target": "15.15.2",
+      "type": "contains"
+    },
+    {
+      "source": "15.15.2",
+      "target": "kw_BPR",
+      "type": "mentions",
+      "weight": 12
+    },
+    {
+      "source": "15.15.2",
+      "target": "kw_工程",
+      "type": "mentions",
+      "weight": 7
+    },
+    {
+      "source": "15.15.2",
+      "target": "kw_逆向工程",
+      "type": "mentions",
+      "weight": 5
+    },
+    {
+      "source": "15.15.2",
+      "target": "kw_重构",
+      "type": "mentions",
+      "weight": 5
+    },
+    {
+      "source": "15.15.2",
+      "target": "kw_程序",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "ch15",
+      "target": "ch15",
+      "type": "contains"
+    },
+    {
+      "source": "ch15",
+      "target": "kw_软件维护与再",
+      "type": "mentions",
+      "weight": 1
+    },
+    {
+      "source": "ch15",
+      "target": "kw_工程",
+      "type": "mentions",
+      "weight": 1
+    },
+    {
+      "source": "ch15",
+      "target": "kw_确定性很大",
+      "type": "mentions",
+      "weight": 1
+    },
+    {
+      "source": "ch15",
+      "target": "kw_目前尚无成熟",
+      "type": "mentions",
+      "weight": 1
+    },
+    {
+      "source": "ch15",
+      "target": "kw_的工具",
+      "type": "mentions",
+      "weight": 1
+    },
+    {
+      "source": "ch16",
+      "target": "16.16.1",
+      "type": "contains"
+    },
+    {
+      "source": "16.16.1",
+      "target": "kw_软件项目管理",
+      "type": "mentions",
+      "weight": 11
+    },
+    {
+      "source": "16.16.1",
+      "target": "kw_项目",
+      "type": "mentions",
+      "weight": 6
+    },
+    {
+      "source": "16.16.1",
+      "target": "kw_项目计划",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "16.16.1",
+      "target": "kw_人员",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "16.16.1",
+      "target": "kw_一般来说",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "ch16",
+      "target": "16.16.2",
+      "type": "contains"
+    },
+    {
+      "source": "16.16.2",
+      "target": "kw_Mc",
+      "type": "mentions",
+      "weight": 11
+    },
+    {
+      "source": "16.16.2",
+      "target": "kw_GB",
+      "type": "mentions",
+      "weight": 10
+    },
+    {
+      "source": "16.16.2",
+      "target": "kw_LOC",
+      "type": "mentions",
+      "weight": 10
+    },
+    {
+      "source": "16.16.2",
+      "target": "kw_能力",
+      "type": "mentions",
+      "weight": 9
+    },
+    {
+      "source": "16.16.2",
+      "target": "kw_度量",
+      "type": "mentions",
+      "weight": 8
+    },
+    {
+      "source": "ch16",
+      "target": "16.16.3",
+      "type": "contains"
+    },
+    {
+      "source": "16.16.3",
+      "target": "kw_Co",
+      "type": "mentions",
+      "weight": 38
+    },
+    {
+      "source": "16.16.3",
+      "target": "kw_Mo",
+      "type": "mentions",
+      "weight": 19
+    },
+    {
+      "source": "16.16.3",
+      "target": "kw_LOC",
+      "type": "mentions",
+      "weight": 8
+    },
+    {
+      "source": "16.16.3",
+      "target": "kw_Putnam",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "16.16.3",
+      "target": "kw_工作量",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "ch16",
+      "target": "16.16.4",
+      "type": "contains"
+    },
+    {
+      "source": "16.16.4",
+      "target": "kw_里程碑",
+      "type": "mentions",
+      "weight": 7
+    },
+    {
+      "source": "16.16.4",
+      "target": "kw_OCI",
+      "type": "mentions",
+      "weight": 7
+    },
+    {
+      "source": "16.16.4",
+      "target": "kw_软件工程",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "16.16.4",
+      "target": "kw_软件项目管理",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "16.16.4",
+      "target": "kw_Co",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "ch16",
+      "target": "16.16.5",
+      "type": "contains"
+    },
+    {
+      "source": "16.16.5",
+      "target": "kw_风险",
+      "type": "mentions",
+      "weight": 7
+    },
+    {
+      "source": "16.16.5",
+      "target": "kw_RMMP",
+      "type": "mentions",
+      "weight": 5
+    },
+    {
+      "source": "16.16.5",
+      "target": "kw_风险管理和监",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "16.16.5",
+      "target": "kw_后果",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "16.16.5",
+      "target": "kw_风险预测",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "ch16",
+      "target": "16.16.6",
+      "type": "contains"
+    },
+    {
+      "source": "16.16.6",
+      "target": "kw_子项目",
+      "type": "mentions",
+      "weight": 12
+    },
+    {
+      "source": "16.16.6",
+      "target": "kw_主程序员制小",
+      "type": "mentions",
+      "weight": 5
+    },
+    {
+      "source": "16.16.6",
+      "target": "kw_测试",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "16.16.6",
+      "target": "kw_产品",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "16.16.6",
+      "target": "kw_经理",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "ch16",
+      "target": "16.16.7",
+      "type": "contains"
+    },
+    {
+      "source": "16.16.7",
+      "target": "kw_SQA",
+      "type": "mentions",
+      "weight": 12
+    },
+    {
+      "source": "16.16.7",
+      "target": "kw_能力",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "16.16.7",
+      "target": "kw_的能力",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "16.16.7",
+      "target": "kw_软件工程",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "16.16.7",
+      "target": "kw_问题",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "ch16",
+      "target": "16.16.8",
+      "type": "contains"
+    },
+    {
+      "source": "16.16.8",
+      "target": "kw_对象",
+      "type": "mentions",
+      "weight": 9
+    },
+    {
+      "source": "16.16.8",
+      "target": "kw_配置对象",
+      "type": "mentions",
+      "weight": 7
+    },
+    {
+      "source": "16.16.8",
+      "target": "kw_软件配置管理",
+      "type": "mentions",
+      "weight": 5
+    },
+    {
+      "source": "16.16.8",
+      "target": "kw_SCI",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "16.16.8",
+      "target": "kw_变更控制",
+      "type": "mentions",
+      "weight": 4
+    },
+    {
+      "source": "ch16",
+      "target": "ch16",
+      "type": "contains"
+    },
+    {
+      "source": "ch16",
+      "target": "kw_软件项目管理",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "ch16",
+      "target": "kw_CSR",
+      "type": "mentions",
+      "weight": 3
+    },
+    {
+      "source": "ch16",
+      "target": "kw_何谓软件项目",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch16",
+      "target": "kw_小组",
+      "type": "mentions",
+      "weight": 2
+    },
+    {
+      "source": "ch16",
+      "target": "kw_个错误",
+      "type": "mentions",
+      "weight": 2
+    }
+  ],
+  "node_count": 421,
+  "edge_count": 522
+}

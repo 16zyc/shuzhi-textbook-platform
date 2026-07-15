@@ -1,0 +1,150 @@
+{
+  "book": "软件工程 第3版",
+  "description": "按章节关联的B站讲解视频/资料（搜索链接，实时获取高分视频）",
+  "chapters": [
+    {
+      "chapter": 1,
+      "title": "概论",
+      "resources": [
+        {"type": "video", "title": "软件工程导论-清华大学", "keyword": "软件工程 导论 清华", "url": "https://search.bilibili.com/all?keyword=软件工程导论&order=click"},
+        {"type": "video", "title": "软件危机与软件工程", "keyword": "软件危机 软件工程", "url": "https://search.bilibili.com/all?keyword=软件危机&order=click"},
+        {"type": "video", "title": "瀑布模型详解", "keyword": "瀑布模型", "url": "https://search.bilibili.com/all?keyword=瀑布模型软件工程&order=click"},
+        {"type": "video", "title": "CASE工具介绍", "keyword": "CASE工具 软件工程", "url": "https://search.bilibili.com/all?keyword=CASE工具软件&order=click"}
+      ]
+    },
+    {
+      "chapter": 2,
+      "title": "系统工程",
+      "resources": [
+        {"type": "video", "title": "系统工程与可行性分析", "keyword": "系统工程 可行性分析", "url": "https://search.bilibili.com/all?keyword=系统工程可行性分析&order=click"},
+        {"type": "article", "title": "基于计算机的系统工程", "keyword": "计算机系统工程", "url": "https://search.bilibili.com/all?keyword=计算机系统工程&order=click"}
+      ]
+    },
+    {
+      "chapter": 3,
+      "title": "需求工程",
+      "resources": [
+        {"type": "video", "title": "需求工程全流程", "keyword": "需求工程", "url": "https://search.bilibili.com/all?keyword=需求工程软件&order=click"},
+        {"type": "video", "title": "需求获取方法", "keyword": "需求获取方法", "url": "https://search.bilibili.com/all?keyword=需求获取方法&order=click"},
+        {"type": "video", "title": "需求建模与分析", "keyword": "需求建模", "url": "https://search.bilibili.com/all?keyword=需求建模分析&order=click"},
+        {"type": "article", "title": "需求规约与验证", "keyword": "需求规约", "url": "https://search.bilibili.com/all?keyword=需求规约验证&order=click"}
+      ]
+    },
+    {
+      "chapter": 4,
+      "title": "设计工程",
+      "resources": [
+        {"type": "video", "title": "软件设计工程", "keyword": "软件设计工程", "url": "https://search.bilibili.com/all?keyword=软件设计工程&order=click"},
+        {"type": "video", "title": "软件设计原则", "keyword": "软件设计原则", "url": "https://search.bilibili.com/all?keyword=软件设计原则&order=click"},
+        {"type": "video", "title": "概要设计与详细设计", "keyword": "概要设计 详细设计", "url": "https://search.bilibili.com/all?keyword=概要设计详细设计&order=click"}
+      ]
+    },
+    {
+      "chapter": 5,
+      "title": "结构化分析与设计",
+      "resources": [
+        {"type": "video", "title": "结构化分析方法", "keyword": "结构化分析", "url": "https://search.bilibili.com/all?keyword=结构化分析DFD&order=click"},
+        {"type": "video", "title": "数据流图DFD详解", "keyword": "数据流图 DFD", "url": "https://search.bilibili.com/all?keyword=数据流图DFD&order=click"},
+        {"type": "video", "title": "结构化设计SD", "keyword": "结构化设计", "url": "https://search.bilibili.com/all?keyword=结构化设计软件&order=click"},
+        {"type": "video", "title": "数据字典", "keyword": "数据字典", "url": "https://search.bilibili.com/all?keyword=数据字典软件工程&order=click"}
+      ]
+    },
+    {
+      "chapter": 6,
+      "title": "面向数据结构的分析与设计",
+      "resources": [
+        {"type": "video", "title": "面向数据结构设计(Jackson方法)", "keyword": "Jackson方法", "url": "https://search.bilibili.com/all?keyword=Jackson方法&order=click"},
+        {"type": "article", "title": "数据结构设计方法", "keyword": "面向数据结构设计", "url": "https://search.bilibili.com/all?keyword=面向数据结构设计&order=click"}
+      ]
+    },
+    {
+      "chapter": 7,
+      "title": "面向对象方法基础",
+      "resources": [
+        {"type": "video", "title": "面向对象基础", "keyword": "面向对象基础", "url": "https://search.bilibili.com/all?keyword=面向对象基础编程&order=click"},
+        {"type": "video", "title": "面向对象三大特性", "keyword": "封装继承多态", "url": "https://search.bilibili.com/all?keyword=封装继承多态&order=click"}
+      ]
+    },
+    {
+      "chapter": 8,
+      "title": "面向对象建模",
+      "resources": [
+        {"type": "video", "title": "UML统一建模语言", "keyword": "UML建模", "url": "https://search.bilibili.com/all?keyword=UML统一建模语言&order=click"},
+        {"type": "video", "title": "UML类图详解", "keyword": "UML类图", "url": "https://search.bilibili.com/all?keyword=UML类图详解&order=click"},
+        {"type": "video", "title": "用例图与时序图", "keyword": "用例图时序图", "url": "https://search.bilibili.com/all?keyword=用例图时序图UML&order=click"},
+        {"type": "video", "title": "面向对象设计原则SOLID", "keyword": "SOLID原则", "url": "https://search.bilibili.com/all?keyword=SOLID设计原则&order=click"}
+      ]
+    },
+    {
+      "chapter": 9,
+      "title": "基于构件的软件开发",
+      "resources": [
+        {"type": "video", "title": "基于构件的软件工程CBS", "keyword": "构件开发", "url": "https://search.bilibili.com/all?keyword=构件软件工程CBS&order=click"},
+        {"type": "article", "title": "软件复用与构件", "keyword": "软件复用", "url": "https://search.bilibili.com/all?keyword=软件复用构件&order=click"}
+      ]
+    },
+    {
+      "chapter": 10,
+      "title": "敏捷软件开发",
+      "resources": [
+        {"type": "video", "title": "敏捷开发入门", "keyword": "敏捷开发", "url": "https://search.bilibili.com/all?keyword=敏捷开发入门&order=click"},
+        {"type": "video", "title": "Scrum框架详解", "keyword": "Scrum", "url": "https://search.bilibili.com/all?keyword=Scrum敏捷开发&order=click"},
+        {"type": "video", "title": "极限编程XP", "keyword": "极限编程", "url": "https://search.bilibili.com/all?keyword=极限编程XP&order=click"},
+        {"type": "video", "title": "看板Kanban方法", "keyword": "看板Kanban", "url": "https://search.bilibili.com/all?keyword=看板Kanban敏捷&order=click"}
+      ]
+    },
+    {
+      "chapter": 11,
+      "title": "人机界面设计",
+      "resources": [
+        {"type": "video", "title": "人机交互设计", "keyword": "人机交互设计", "url": "https://search.bilibili.com/all?keyword=人机交互界面设计&order=click"},
+        {"type": "video", "title": "UI设计原则", "keyword": "UI设计原则", "url": "https://search.bilibili.com/all?keyword=UI设计原则&order=click"},
+        {"type": "article", "title": "用户体验UX", "keyword": "用户体验", "url": "https://search.bilibili.com/all?keyword=用户体验UX&order=click"}
+      ]
+    },
+    {
+      "chapter": 12,
+      "title": "程序设计语言和编码",
+      "resources": [
+        {"type": "video", "title": "编程语言选择", "keyword": "编程语言选择", "url": "https://search.bilibili.com/all?keyword=编程语言选择&order=click"},
+        {"type": "video", "title": "编码规范", "keyword": "代码规范", "url": "https://search.bilibili.com/all?keyword=代码编程规范&order=click"}
+      ]
+    },
+    {
+      "chapter": 13,
+      "title": "软件测试",
+      "resources": [
+        {"type": "video", "title": "软件测试基础", "keyword": "软件测试基础", "url": "https://search.bilibili.com/all?keyword=软件测试基础入门&order=click"},
+        {"type": "video", "title": "黑盒测试方法", "keyword": "黑盒测试", "url": "https://search.bilibili.com/all?keyword=黑盒测试方法&order=click"},
+        {"type": "video", "title": "白盒测试与覆盖率", "keyword": "白盒测试", "url": "https://search.bilibili.com/all?keyword=白盒测试覆盖率&order=click"},
+        {"type": "video", "title": "单元测试集成测试", "keyword": "单元测试", "url": "https://search.bilibili.com/all?keyword=单元测试集成测试&order=click"}
+      ]
+    },
+    {
+      "chapter": 14,
+      "title": "Web工程",
+      "resources": [
+        {"type": "video", "title": "Web工程概述", "keyword": "Web工程", "url": "https://search.bilibili.com/all?keyword=Web工程开发&order=click"},
+        {"type": "video", "title": "Web应用架构", "keyword": "Web架构", "url": "https://search.bilibili.com/all?keyword=Web应用架构&order=click"}
+      ]
+    },
+    {
+      "chapter": 15,
+      "title": "软件维护与再工程",
+      "resources": [
+        {"type": "video", "title": "软件维护", "keyword": "软件维护", "url": "https://search.bilibili.com/all?keyword=软件维护类型&order=click"},
+        {"type": "video", "title": "软件再工程", "keyword": "软件再工程", "url": "https://search.bilibili.com/all?keyword=软件再工程重构&order=click"}
+      ]
+    },
+    {
+      "chapter": 16,
+      "title": "软件项目管理",
+      "resources": [
+        {"type": "video", "title": "软件项目管理", "keyword": "软件项目管理", "url": "https://search.bilibili.com/all?keyword=软件项目管理&order=click"},
+        {"type": "video", "title": "软件配置管理", "keyword": "软件配置管理", "url": "https://search.bilibili.com/all?keyword=软件配置管理SCM&order=click"},
+        {"type": "video", "title": "软件质量保证", "keyword": "软件质量保证", "url": "https://search.bilibili.com/all?keyword=软件质量保证SQA&order=click"},
+        {"type": "video", "title": "项目进度管理甘特图", "keyword": "甘特图项目管理", "url": "https://search.bilibili.com/all?keyword=甘特图项目进度&order=click"}
+      ]
+    }
+  ]
+}

@@ -151,6 +151,20 @@
 <script>
 const islands = [
   {
+    title: '软件工程 第3版', author: '钱乐秋 等', publisher: '清华大学出版社',
+    desc: '引经据典智能备课示例 · 16章87节已OCR全文拆分，含50条定义溯源、421节点知识图谱、B站视频关联，一键生成PPT课件。',
+    progress: 100, chapters: '16/16', learners: 0, videos: 42,
+    coverColor: 'linear-gradient(135deg,#047857,#10B981)', bookColor: '#047857',
+    status: '已拆分', statusColor: '#10B981',
+    badge: '📌 备课示例',
+    actions: [
+      { label: '🧑‍🏫 备课', url: 'teaching.html', primary: true },
+      { label: '🕸 图谱', url: 'teaching.html' },
+      { label: '📖 阅读', url: 'reader.html?book=ml-zhou&page=14' },
+      { label: '📊 概览', url: 'teaching.html' }
+    ]
+  },
+  {
     title: '机器学习', author: '周志华', publisher: '清华大学出版社',
     desc: '系统介绍机器学习基本概念、原理与方法，涵盖监督学习、无监督学习、强化学习等核心主题。',
     progress: 42, chapters: '7/16', learners: 12860, videos: 30,
@@ -197,6 +211,7 @@ grid.innerHTML = islands.map(b => `
     <div class="island-cover">
       <div class="cover-bg" style="background:${b.coverColor}"></div>
       <span class="badge" style="color:${b.statusColor};background:rgba(255,255,255,.9)">${b.status}</span>
+      ${b.badge ? `<span class="badge" style="position:absolute;top:12px;left:12px;background:#FBBF24;color:#92400E;font-size:11px;font-weight:600;padding:3px 10px;border-radius:12px">${b.badge}</span>` : ''}
       <div class="book-3d" style="background:${b.bookColor}">
         <div class="bt">${b.title}</div>
         <div class="ba">${b.author}</div>
