@@ -288,7 +288,7 @@
   <div class="tools" style="gap:6px">
     <button class="action-btn" onclick="showToast('📚 教材库开发中')">📚 教材库</button>
     <button class="action-btn primary" onclick="generatePPT()">📊 生成课件</button>
-    <button class="action-btn" onclick="showToast('📝 备课功能开发中')">📝 备课</button>
+    <button class="action-btn" onclick="generateLessonPlan()">📝 生成教案</button>
     <div class="user" style="margin-left:8px">
       <div class="avatar" style="width:26px;height:26px;font-size:11px">王</div>
       <span class="name" style="font-size:12px">欢迎：王老师</span>
@@ -331,13 +331,14 @@
     <div class="content-body" id="content-body">加载中...</div>
   </div>
 
-  <!-- 右栏：关联详情(动态) / 信息 / 书中图片 / 外部资源 / 智能问答 -->
+  <!-- 右栏：关联详情(动态) / 信息 / 书中图片 / 外部资源 / 概念图谱 / 智能问答 -->
   <div class="info-panel">
     <div class="info-tabs">
       <div class="info-tab active" onclick="switchTab('detail',this)">关联详情</div>
       <div class="info-tab" onclick="switchTab('info',this)">信息</div>
       <div class="info-tab" onclick="switchTab('images',this)">书中图片</div>
       <div class="info-tab" onclick="switchTab('resources',this)">外部资源</div>
+      <div class="info-tab" onclick="switchTab('graph',this)">概念图谱</div>
       <div class="info-tab" onclick="switchTab('qa',this)">智能问答</div>
     </div>
     <div class="info-body" id="info-body">
@@ -358,10 +359,23 @@
   </div>
 </div>
 
+<!-- 教案模态框 -->
+<div class="modal-overlay" id="lesson-modal">
+  <div class="modal" style="max-width:700px">
+    <div class="head"><h2>📝 教案预览</h2><button class="btn-icon" onclick="closeModal('lesson-modal')">✕</button></div>
+    <div class="body" id="lesson-body" style="max-height:65vh;overflow-y:auto;padding:24px 32px"></div>
+    <div class="foot">
+      <button class="btn btn-ghost" onclick="closeModal('lesson-modal')">关闭</button>
+      <button class="btn btn-primary" onclick="downloadLesson()">⬇ 下载 .txt</button>
+      <button class="btn btn-primary" onclick="printLesson()">🖨 打印</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
-let fulltext=null, knowledge=null, kwIndex=null, extRes=null, images=null;
+let fulltext=null, knowledge=null, kwIndex=null, extRes=null, images=null, defs=null, graph=null;
 let currentPage = 14;
 let currentChapter = 1;
 let highlightOn = true;
@@ -371,14 +385,16 @@ let currentTab = 'info';
 
 // ===== 加载数据 =====
 async function loadData() {
-  const [f,k,ki,e,img] = await Promise.all([
+  const [f,k,ki,e,img,d,g] = await Promise.all([
     fetch('data/se_fulltext.json').then(r=>r.json()),
     fetch('data/se_knowledge.json').then(r=>r.json()),
     fetch('data/se_keyword_index.json').then(r=>r.json()),
     fetch('data/se_external_resources.json').then(r=>r.json()),
-    fetch('data/se_images.json').then(r=>r.json())
+    fetch('data/se_images.json').then(r=>r.json()),
+    fetch('data/se_definitions.json').then(r=>r.json()),
+    fetch('data/se_concept_graph.json').then(r=>r.json())
   ]);
-  fulltext=f; knowledge=k; kwIndex=ki; extRes=e; images=img;
+  fulltext=f; knowledge=k; kwIndex=ki; extRes=e; images=img; defs=d; graph=g;
   // 初始化PDF.js
   if(window.pdfjsLib) {
     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
@@ -645,7 +661,118 @@ function switchTab(tab, el) {
   else if(tab === 'info') renderInfo();
   else if(tab === 'images') renderImages();
   else if(tab === 'resources') renderResources();
+  else if(tab === 'graph') renderGraph();
   else if(tab === 'qa') renderQA();
+}
+
+// ===== 概念图谱 =====
+function renderGraph() {
+  if(!graph) {
+    document.getElementById('info-body').innerHTML = '<div style="text-align:center;color:var(--text-muted);padding:20px">图谱数据加载中...</div>';
+    return;
+  }
+  const chGraph = graph.by_chapter[String(currentChapter)];
+  if(!chGraph) {
+    document.getElementById('info-body').innerHTML = '<div style="text-align:center;color:var(--text-muted);padding:30px">本章无图谱数据</div>';
+    return;
+  }
+
+  const html = `
+    <div style="background:var(--bg-soft);padding:10px 12px;border-radius:8px;margin-bottom:12px;font-size:12px;color:var(--text-muted)">
+      🕸️ 第${currentChapter}章概念图谱：${chGraph.nodes.length}节点 · ${chGraph.edges.length}关系
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border-soft);border-radius:8px;padding:8px;margin-bottom:12px">
+      <svg id="graph-svg" width="100%" height="320" style="background:#fafbfc;border-radius:4px"></svg>
+    </div>
+    <div style="font-size:11px;color:var(--text-muted);margin-bottom:12px">
+      <div>🔵 章节节点 · 🟢 概念节点(有定义) · ⚪ 概念节点</div>
+      <div>实线=上下级 · 虚线=共现关系</div>
+    </div>
+    <div class="info-section">
+      <div class="label">本章概念列表</div>
+      ${chGraph.nodes.filter(n=>n.type==='concept').map(n => `
+        <div class="ext-item" onclick="searchKw('${n.label}')">
+          <div class="ico">${n.has_def?'📖':'💡'}</div>
+          <div class="body">
+            <div class="title">${n.label}</div>
+            <div class="meta">${n.has_def?'有定义':''} ${n.has_video?'有视频':''} 频次:${n.freq||0}</div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+  document.getElementById('info-body').innerHTML = html;
+  drawGraph(chGraph);
+}
+
+function drawGraph(chGraph) {
+  const svg = document.getElementById('graph-svg');
+  if(!svg) return;
+  const w = svg.clientWidth || 300, h = 320;
+  const cx = w/2, cy = h/2;
+
+  // 简单力导向布局（圆形排列）
+  const concepts = chGraph.nodes.filter(n => n.type === 'concept');
+  const sections = chGraph.nodes.filter(n => n.type === 'section');
+  const R = Math.min(w, h) / 2 - 30;
+
+  // 章节点在中心
+  const positions = {};
+  positions[`ch-${currentChapter}`] = {x: cx, y: cy};
+
+  // 节节点围绕中心
+  sections.forEach((s, i) => {
+    const angle = (i / sections.length) * 2 * Math.PI;
+    positions[s.id] = {x: cx + R*0.5*Math.cos(angle), y: cy + R*0.5*Math.sin(angle)};
+  });
+
+  // 概念节点在外圈
+  concepts.forEach((c, i) => {
+    const angle = (i / concepts.length) * 2 * Math.PI;
+    positions[c.id] = {x: cx + R*Math.cos(angle), y: cy + R*Math.sin(angle)};
+  });
+
+  let html = '';
+  // 画边
+  chGraph.edges.forEach(e => {
+    const s = positions[e.source], t = positions[e.target];
+    if(!s || !t) return;
+    if(e.type === 'hierarchy') {
+      html += `<line x1="${s.x}" y1="${s.y}" x2="${t.x}" y2="${t.y}" stroke="#D1D5DB" stroke-width="1"/>`;
+    } else {
+      html += `<line x1="${s.x}" y1="${s.y}" x2="${t.x}" y2="${t.y}" stroke="#A78BFA" stroke-width="1" stroke-dasharray="2,2" opacity="0.4"/>`;
+    }
+  });
+  // 画节点
+  chGraph.nodes.forEach(n => {
+    const p = positions[n.id];
+    if(!p) return;
+    if(n.type === 'chapter') {
+      html += `<circle cx="${p.x}" cy="${p.y}" r="12" fill="#1A73E8" stroke="#fff" stroke-width="2"/>`;
+      html += `<text x="${p.x}" y="${p.y+4}" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold">${currentChapter}</text>`;
+    } else if(n.type === 'section') {
+      html += `<circle cx="${p.x}" cy="${p.y}" r="5" fill="#6B7280"/>`;
+    } else {
+      const color = n.has_def ? '#10B981' : '#9CA3AF';
+      const r = n.has_def ? 7 : 5;
+      html += `<circle cx="${p.x}" cy="${p.y}" r="${r}" fill="${color}" stroke="#fff" stroke-width="1.5" style="cursor:pointer" onclick="searchKw('${n.label}')"/>`;
+      if(n.has_def) {
+        html += `<text x="${p.x}" y="${p.y-10}" text-anchor="middle" fill="#374151" font-size="9">${n.label.substring(0,6)}</text>`;
+      }
+    }
+  });
+  svg.innerHTML = html;
+}
+
+function searchKw(term) {
+  // 在全文中搜索该术语，跳转到第一次出现的位置
+  const kw = kwIndex.keywords.find(k => k.term === term);
+  if(kw && kw.occurrences.length) {
+    goToPage(kw.occurrences[0].page);
+    showToast(`📍 跳转到"${term}"首次出现：第${kw.occurrences[0].page}页`);
+  } else {
+    showToast(`"${term}" 暂无原文位置`);
+  }
 }
 
 function renderInfo() {
@@ -946,6 +1073,131 @@ function downloadPPT() {
   });
   pptx.writeFile({fileName:`软件工程_第${currentChapter}章_课件.pptx`});
   showToast('✓ PPT已下载！');
+}
+
+// ===== 教案生成 =====
+let lessonPlan = '';
+function generateLessonPlan() {
+  const ch = knowledge.chapters.find(c=>c.num===currentChapter);
+  const secs = knowledge.sections.filter(s=>s.chapter===currentChapter);
+  // 本章所有定义
+  const chDefs = defs.definitions.filter(d=>d.chapter===currentChapter);
+  const chRes = extRes.chapters.find(c=>c.chapter===currentChapter);
+
+  let html = '';
+  // 教案头部
+  html += `<div style="text-align:center;margin-bottom:24px;padding-bottom:16px;border-bottom:2px solid var(--primary)">`;
+  html += `<div style="font-size:20px;font-weight:600;color:var(--primary);margin-bottom:8px">《软件工程第3版》教案</div>`;
+  html += `<div style="font-size:15px;color:var(--text-soft)">第${currentChapter}章 ${ch.title}</div>`;
+  html += `<div style="font-size:12px;color:var(--text-muted);margin-top:6px">备课教师：王老师 · 教材：钱乐秋等编著 · 清华大学出版社</div>`;
+  html += `</div>`;
+
+  // 一、教学目标
+  html += `<h3 style="color:var(--primary);margin:20px 0 10px">一、教学目标</h3>`;
+  html += `<div style="padding-left:20px;line-height:2;font-size:14px;color:var(--text-soft)">`;
+  html += `<div><strong>1. 知识目标：</strong>掌握${chDefs.slice(0,3).map(d=>d.term).join('、')}等核心概念</div>`;
+  html += `<div><strong>2. 能力目标：</strong>能够运用本章所学知识解决实际软件工程问题</div>`;
+  html += `<div><strong>3. 素质目标：</strong>培养软件工程思维和工程实践素养</div>`;
+  html += `</div>`;
+
+  // 二、教学重难点
+  html += `<h3 style="color:var(--primary);margin:20px 0 10px">二、教学重难点</h3>`;
+  html += `<div style="padding-left:20px;line-height:2;font-size:14px;color:var(--text-soft)">`;
+  html += `<div><strong>重点：</strong>${chDefs.slice(0,3).map(d=>d.term+'的定义与内涵').join('；')}</div>`;
+  html += `<div><strong>难点：</strong>${chDefs.slice(0,2).map(d=>d.term+'的实际应用').join('、')}</div>`;
+  html += `</div>`;
+
+  // 三、教学内容
+  html += `<h3 style="color:var(--primary);margin:20px 0 10px">三、教学内容</h3>`;
+  html += `<div style="padding-left:20px;line-height:2;font-size:14px;color:var(--text-soft)">`;
+  secs.forEach(sec => {
+    html += `<div><strong>${sec.section} ${sec.section_title}</strong>（第${sec.page_start}-${sec.page_end}页）</div>`;
+  });
+  html += `</div>`;
+
+  // 四、引经据典
+  html += `<h3 style="color:var(--primary);margin:20px 0 10px">四、引经据典（核心定义溯源）</h3>`;
+  html += `<div style="padding-left:20px;line-height:2;font-size:14px;color:var(--text-soft)">`;
+  chDefs.forEach(d => {
+    html += `<div style="margin-bottom:12px;padding:12px;background:var(--primary-light);border-radius:8px;border-left:3px solid var(--primary)">`;
+    html += `<div style="font-weight:600;color:var(--primary);margin-bottom:4px">${d.term}</div>`;
+    html += `<div style="color:var(--text)">「${d.definition}」</div>`;
+    html += `<div style="font-size:12px;color:var(--primary);margin-top:4px">📜 出处：${d.source||'《软件工程第3版》'} 第${d.page}页</div>`;
+    html += `</div>`;
+  });
+  html += `</div>`;
+
+  // 五、教学过程
+  html += `<h3 style="color:var(--primary);margin:20px 0 10px">五、教学过程</h3>`;
+  html += `<div style="padding-left:20px;line-height:2;font-size:14px;color:var(--text-soft)">`;
+  html += `<div><strong>1. 导入（5分钟）：</strong>通过实际问题引入${ch.title}的概念</div>`;
+  html += `<div><strong>2. 讲授（30分钟）：</strong>按教材结构逐一讲解核心概念，穿插引经据典</div>`;
+  html += `<div><strong>3. 讨论（10分钟）：</strong>组织学生讨论${chDefs[0] ? chDefs[0].term : '本章主题'}的实际应用</div>`;
+  if(chRes && chRes.videos.length) {
+    html += `<div><strong>4. 视频辅助（5分钟）：</strong>播放B站视频"${chRes.videos[0].title}"辅助理解</div>`;
+  }
+  html += `<div><strong>5. 小结（5分钟）：</strong>总结本章核心知识点</div>`;
+  html += `</div>`;
+
+  // 六、参考资料
+  if(chRes) {
+    html += `<h3 style="color:var(--primary);margin:20px 0 10px">六、参考资料</h3>`;
+    html += `<div style="padding-left:20px;line-height:2;font-size:14px;color:var(--text-soft)">`;
+    html += `<div>📖 教材：《软件工程第3版》钱乐秋等，第${ch.page_start}-${ch.page_end}页</div>`;
+    if(chRes.videos.length) html += `<div>🎬 视频：${chRes.videos.map(v=>v.title).join('；')}</div>`;
+    if(chRes.github.length) html += `<div>💻 代码：${chRes.github.map(g=>g.title+'('+g.stars+')').join('；')}</div>`;
+    if(chRes.arxiv.length) html += `<div>📄 文献：${chRes.arxiv.map(a=>a.title).join('；')}</div>`;
+    html += `</div>`;
+  }
+
+  // 七、作业
+  html += `<h3 style="color:var(--primary);margin:20px 0 10px">七、课后作业</h3>`;
+  html += `<div style="padding-left:20px;line-height:2;font-size:14px;color:var(--text-soft)">`;
+  html += `<div>1. 简述${chDefs.slice(0,2).map(d=>d.term).join('和'}的概念（结合教材原文）</div>`;
+  html += `<div>2. 结合实际项目，分析${chDefs[0] ? chDefs[0].term : '本章主题'}的应用场景</div>`;
+  html += `<div>3. 阅读教材第${ch.page_start}-${ch.page_end}页，完成思考题</div>`;
+  html += `</div>`;
+
+  document.getElementById('lesson-body').innerHTML = html;
+  openModal('lesson-modal');
+
+  // 同时生成纯文本版本用于下载
+  lessonPlan = `《软件工程第3版》教案\n第${currentChapter}章 ${ch.title}\n备课教师：王老师\n\n`;
+  lessonPlan += `一、教学目标\n1. 知识目标：掌握${chDefs.slice(0,3).map(d=>d.term).join('、')}等核心概念\n2. 能力目标：运用所学解决实际问题\n3. 素质目标：培养工程思维\n\n`;
+  lessonPlan += `二、教学重难点\n重点：${chDefs.slice(0,3).map(d=>d.term).join('、')}\n难点：实际应用\n\n`;
+  lessonPlan += `三、教学内容\n${secs.map(s=>`${s.section} ${s.section_title}（p${s.page_start}-${s.page_end}）`).join('\n')}\n\n`;
+  lessonPlan += `四、引经据典\n${chDefs.map(d=>`【${d.term}】${d.definition}\n出处：${d.source||'《软件工程第3版》'} 第${d.page}页`).join('\n\n')}\n\n`;
+  lessonPlan += `五、教学过程\n1. 导入(5min) 2. 讲授(30min) 3. 讨论(10min) 4. 视频辅助(5min) 5. 小结(5min)\n\n`;
+  if(chRes) {
+    lessonPlan += `六、参考资料\n📖 教材p${ch.page_start}-${ch.page_end}\n`;
+    if(chRes.videos.length) lessonPlan += `🎬 视频：${chRes.videos.map(v=>v.title).join('；')}\n`;
+    if(chRes.github.length) lessonPlan += `💻 代码：${chRes.github.map(g=>g.title).join('；')}\n`;
+    if(chRes.arxiv.length) lessonPlan += `📄 文献：${chRes.arxiv.map(a=>a.title).join('；')}\n`;
+    lessonPlan += '\n';
+  }
+  lessonPlan += `七、作业\n1. 简述${chDefs.slice(0,2).map(d=>d.term).join('和')}\n2. 分析应用场景\n3. 阅读p${ch.page_start}-${ch.page_end}`;
+
+  showToast('✓ 教案已生成');
+}
+
+function downloadLesson() {
+  if(!lessonPlan) {showToast('请先生成教案');return;}
+  const blob = new Blob([lessonPlan], {type:'text/plain;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `软件工程_第${currentChapter}章_教案.txt`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('✓ 教案已下载');
+}
+
+function printLesson() {
+  if(!lessonPlan) {showToast('请先生成教案');return;}
+  const w = window.open('', '_blank');
+  w.document.write(`<html><head><title>教案-第${currentChapter}章</title><style>body{font-family:"PingFang SC",serif;max-width:700px;margin:40px auto;line-height:1.8;color:#333}h1{color:#1A73E8;text-align:center}h3{color:#1A73E8;border-bottom:1px solid #eee;padding-bottom:4px}</style></head><body>${document.getElementById('lesson-body').innerHTML}</body></html>`);
+  w.document.close();
+  w.print();
 }
 
 // ===== 通用 =====

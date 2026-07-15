@@ -1,0 +1,4614 @@
+{
+  "total_nodes": 151,
+  "total_edges": 226,
+  "nodes": [
+    {
+      "id": "ch-1",
+      "label": "第1章 概论",
+      "type": "chapter",
+      "chapter": 1
+    },
+    {
+      "id": "ch-2",
+      "label": "第2章 系统工程",
+      "type": "chapter",
+      "chapter": 2
+    },
+    {
+      "id": "ch-3",
+      "label": "第3章 需求工程",
+      "type": "chapter",
+      "chapter": 3
+    },
+    {
+      "id": "ch-4",
+      "label": "第4章 设计工程",
+      "type": "chapter",
+      "chapter": 4
+    },
+    {
+      "id": "ch-5",
+      "label": "第5章 结构化分析与设计",
+      "type": "chapter",
+      "chapter": 5
+    },
+    {
+      "id": "ch-6",
+      "label": "第6章 面向数据结构的分析与设计",
+      "type": "chapter",
+      "chapter": 6
+    },
+    {
+      "id": "ch-7",
+      "label": "第7章 面向对象方法基础",
+      "type": "chapter",
+      "chapter": 7
+    },
+    {
+      "id": "ch-8",
+      "label": "第8章 面向对象建模",
+      "type": "chapter",
+      "chapter": 8
+    },
+    {
+      "id": "ch-9",
+      "label": "第9章 基于构件的软件开发",
+      "type": "chapter",
+      "chapter": 9
+    },
+    {
+      "id": "ch-10",
+      "label": "第10章 敏捷软件开发",
+      "type": "chapter",
+      "chapter": 10
+    },
+    {
+      "id": "ch-11",
+      "label": "第11章 人机界面设计",
+      "type": "chapter",
+      "chapter": 11
+    },
+    {
+      "id": "ch-12",
+      "label": "第12章 程序设计语言和编码",
+      "type": "chapter",
+      "chapter": 12
+    },
+    {
+      "id": "ch-13",
+      "label": "第13章 软件测试",
+      "type": "chapter",
+      "chapter": 13
+    },
+    {
+      "id": "ch-14",
+      "label": "第14章 Web工程",
+      "type": "chapter",
+      "chapter": 14
+    },
+    {
+      "id": "ch-15",
+      "label": "第15章 软件维护与再工程",
+      "type": "chapter",
+      "chapter": 15
+    },
+    {
+      "id": "ch-16",
+      "label": "第16章 软件项目管理",
+      "type": "chapter",
+      "chapter": 16
+    },
+    {
+      "id": "sec-1-1.1",
+      "label": "1.1 计算机软件",
+      "type": "section",
+      "chapter": 1
+    },
+    {
+      "id": "sec-1-1.2",
+      "label": "1.2 软件工程",
+      "type": "section",
+      "chapter": 1
+    },
+    {
+      "id": "sec-1-1.3",
+      "label": "1.3 软件过程",
+      "type": "section",
+      "chapter": 1
+    },
+    {
+      "id": "sec-1-1.4",
+      "label": "1.4 软件过程模型",
+      "type": "section",
+      "chapter": 1
+    },
+    {
+      "id": "sec-1-1.5",
+      "label": "1.5 CASE工具与环境",
+      "type": "section",
+      "chapter": 1
+    },
+    {
+      "id": "sec-1-",
+      "label": " 习题",
+      "type": "section",
+      "chapter": 1
+    },
+    {
+      "id": "sec-2-2.1",
+      "label": "2.1 基于计算机的系统",
+      "type": "section",
+      "chapter": 2
+    },
+    {
+      "id": "sec-2-2.2",
+      "label": "2.2 系统工程的任务",
+      "type": "section",
+      "chapter": 2
+    },
+    {
+      "id": "sec-2-2.3",
+      "label": "2.3 可行性分析",
+      "type": "section",
+      "chapter": 2
+    },
+    {
+      "id": "sec-2-",
+      "label": " 习题",
+      "type": "section",
+      "chapter": 2
+    },
+    {
+      "id": "sec-3-3.1",
+      "label": "3.1 需求工程概述",
+      "type": "section",
+      "chapter": 3
+    },
+    {
+      "id": "sec-3-3.2",
+      "label": "3.2 需求获取",
+      "type": "section",
+      "chapter": 3
+    },
+    {
+      "id": "sec-3-3.3",
+      "label": "3.3 需求分析、协商与建模",
+      "type": "section",
+      "chapter": 3
+    },
+    {
+      "id": "sec-3-3.4",
+      "label": "3.4 需求规约与验证",
+      "type": "section",
+      "chapter": 3
+    },
+    {
+      "id": "sec-3-3.5",
+      "label": "3.5 需求管理",
+      "type": "section",
+      "chapter": 3
+    },
+    {
+      "id": "sec-3-",
+      "label": " 习题",
+      "type": "section",
+      "chapter": 3
+    },
+    {
+      "id": "sec-4-4.1",
+      "label": "4.1 软件设计工程概述",
+      "type": "section",
+      "chapter": 4
+    },
+    {
+      "id": "sec-4-4.2",
+      "label": "4.2 软件设计原则",
+      "type": "section",
+      "chapter": 4
+    },
+    {
+      "id": "sec-4-4.3",
+      "label": "4.3 软件体系结构设计",
+      "type": "section",
+      "chapter": 4
+    },
+    {
+      "id": "sec-4-4.4",
+      "label": "4.4 部件级设计技术",
+      "type": "section",
+      "chapter": 4
+    },
+    {
+      "id": "sec-4-4.5",
+      "label": "4.5 设计规约与设计评审",
+      "type": "section",
+      "chapter": 4
+    },
+    {
+      "id": "sec-4-",
+      "label": " 习题",
+      "type": "section",
+      "chapter": 4
+    },
+    {
+      "id": "sec-5-5.1",
+      "label": "5.1 结构化分析方法概述",
+      "type": "section",
+      "chapter": 5
+    },
+    {
+      "id": "sec-5-5.2",
+      "label": "5.2 数据流图",
+      "type": "section",
+      "chapter": 5
+    },
+    {
+      "id": "sec-5-5.3",
+      "label": "5.3 分层数据流图的审查",
+      "type": "section",
+      "chapter": 5
+    },
+    {
+      "id": "sec-5-5.4",
+      "label": "5.4 数据字典",
+      "type": "section",
+      "chapter": 5
+    },
+    {
+      "id": "sec-5-5.5",
+      "label": "5.5 描述基本加工的小说明",
+      "type": "section",
+      "chapter": 5
+    },
+    {
+      "id": "sec-5-5.6",
+      "label": "5.6 结构化设计概述",
+      "type": "section",
+      "chapter": 5
+    },
+    {
+      "id": "sec-5-5.7",
+      "label": "5.7 数据流图到软件体系结构的映射",
+      "type": "section",
+      "chapter": 5
+    },
+    {
+      "id": "sec-5-5.8",
+      "label": "5.8 初始结构图的改进",
+      "type": "section",
+      "chapter": 5
+    },
+    {
+      "id": "sec-5-",
+      "label": " 习题",
+      "type": "section",
+      "chapter": 5
+    },
+    {
+      "id": "sec-6-6.1",
+      "label": "6.1 JSP方法",
+      "type": "section",
+      "chapter": 6
+    },
+    {
+      "id": "sec-6-6.2",
+      "label": "6.2 JSD方法简介",
+      "type": "section",
+      "chapter": 6
+    },
+    {
+      "id": "sec-6-",
+      "label": " 习题",
+      "type": "section",
+      "chapter": 6
+    },
+    {
+      "id": "sec-7-7.1",
+      "label": "7.1 面向对象的基本概念",
+      "type": "section",
+      "chapter": 7
+    },
+    {
+      "id": "sec-7-7.2",
+      "label": "7.2 面向对象分析和设计过程",
+      "type": "section",
+      "chapter": 7
+    },
+    {
+      "id": "sec-7-7.3",
+      "label": "7.3 UML概述",
+      "type": "section",
+      "chapter": 7
+    },
+    {
+      "id": "sec-7-",
+      "label": " 习题",
+      "type": "section",
+      "chapter": 7
+    },
+    {
+      "id": "sec-8-8.1",
+      "label": "8.1 用况建模",
+      "type": "section",
+      "chapter": 8
+    },
+    {
+      "id": "sec-8-8.2",
+      "label": "8.2 静态建模",
+      "type": "section",
+      "chapter": 8
+    },
+    {
+      "id": "sec-8-8.3",
+      "label": "8.3 动态建模",
+      "type": "section",
+      "chapter": 8
+    },
+    {
+      "id": "sec-8-8.4",
+      "label": "8.4 物理体系结构建模",
+      "type": "section",
+      "chapter": 8
+    },
+    {
+      "id": "sec-8-",
+      "label": " 习题",
+      "type": "section",
+      "chapter": 8
+    },
+    {
+      "id": "sec-9-9.1",
+      "label": "9.1 基于构件的软件开发概述",
+      "type": "section",
+      "chapter": 9
+    },
+    {
+      "id": "sec-9-9.2",
+      "label": "9.2 建造可复用构件",
+      "type": "section",
+      "chapter": 9
+    },
+    {
+      "id": "sec-9-9.3",
+      "label": "9.3 应用系统工程",
+      "type": "section",
+      "chapter": 9
+    },
+    {
+      "id": "sec-9-9.4",
+      "label": "9.4 构件的管理",
+      "type": "section",
+      "chapter": 9
+    },
+    {
+      "id": "sec-9-",
+      "label": " 习题",
+      "type": "section",
+      "chapter": 9
+    },
+    {
+      "id": "sec-10-10.1",
+      "label": "10.1 敏捷软件开发方法概述",
+      "type": "section",
+      "chapter": 10
+    },
+    {
+      "id": "sec-10-10.2",
+      "label": "10.2 Scrum方法",
+      "type": "section",
+      "chapter": 10
+    },
+    {
+      "id": "sec-10-10.3",
+      "label": "10.3 极限编程方法",
+      "type": "section",
+      "chapter": 10
+    },
+    {
+      "id": "sec-10-10.4",
+      "label": "10.4 看板方法",
+      "type": "section",
+      "chapter": 10
+    },
+    {
+      "id": "sec-10-",
+      "label": " 习题",
+      "type": "section",
+      "chapter": 10
+    },
+    {
+      "id": "sec-11-11.1",
+      "label": "11.1 人的因素",
+      "type": "section",
+      "chapter": 11
+    },
+    {
+      "id": "sec-11-11.2",
+      "label": "11.2 人机界面风格",
+      "type": "section",
+      "chapter": 11
+    },
+    {
+      "id": "sec-11-11.3",
+      "label": "11.3 人机界面分析与建模",
+      "type": "section",
+      "chapter": 11
+    },
+    {
+      "id": "sec-11-11.4",
+      "label": "11.4 界面设计活动",
+      "type": "section",
+      "chapter": 11
+    },
+    {
+      "id": "sec-11-11.6",
+      "label": "11.6 设计评估",
+      "type": "section",
+      "chapter": 11
+    },
+    {
+      "id": "sec-11-",
+      "label": " 习题",
+      "type": "section",
+      "chapter": 11
+    },
+    {
+      "id": "sec-12-12.1",
+      "label": "12.1 程序设计语言",
+      "type": "section",
+      "chapter": 12
+    },
+    {
+      "id": "sec-12-12.2",
+      "label": "12.2 程序设计风格",
+      "type": "section",
+      "chapter": 12
+    },
+    {
+      "id": "sec-12-",
+      "label": " 习题",
+      "type": "section",
+      "chapter": 12
+    },
+    {
+      "id": "sec-13-13.1",
+      "label": "13.1 软件测试基础",
+      "type": "section",
+      "chapter": 13
+    },
+    {
+      "id": "sec-13-13.2",
+      "label": "13.2 白盒测试",
+      "type": "section",
+      "chapter": 13
+    },
+    {
+      "id": "sec-13-13.3",
+      "label": "13.3 黑盒测试",
+      "type": "section",
+      "chapter": 13
+    },
+    {
+      "id": "sec-13-13.4",
+      "label": "13.4 测试策略",
+      "type": "section",
+      "chapter": 13
+    },
+    {
+      "id": "sec-13-13.5",
+      "label": "13.5 面向对象测试",
+      "type": "section",
+      "chapter": 13
+    },
+    {
+      "id": "sec-13-13.6",
+      "label": "13.6 测试完成标准",
+      "type": "section",
+      "chapter": 13
+    },
+    {
+      "id": "sec-13-13.7",
+      "label": "13.7 调试",
+      "type": "section",
+      "chapter": 13
+    },
+    {
+      "id": "sec-13-",
+      "label": " 习题",
+      "type": "section",
+      "chapter": 13
+    },
+    {
+      "id": "sec-14-14.1",
+      "label": "14.1 WebApp的属性和类型",
+      "type": "section",
+      "chapter": 14
+    },
+    {
+      "id": "sec-14-14.2",
+      "label": "14.2 Web工程过程",
+      "type": "section",
+      "chapter": 14
+    },
+    {
+      "id": "sec-14-14.3",
+      "label": "14.3 WebApp建模",
+      "type": "section",
+      "chapter": 14
+    },
+    {
+      "id": "sec-14-14.4",
+      "label": "14.4 WebApp质量管理",
+      "type": "section",
+      "chapter": 14
+    },
+    {
+      "id": "sec-14-",
+      "label": " 习题",
+      "type": "section",
+      "chapter": 14
+    },
+    {
+      "id": "sec-15-15.1",
+      "label": "15.1 软件维护",
+      "type": "section",
+      "chapter": 15
+    },
+    {
+      "id": "sec-15-15.2",
+      "label": "15.2 再工程技术",
+      "type": "section",
+      "chapter": 15
+    },
+    {
+      "id": "sec-15-",
+      "label": " 习题",
+      "type": "section",
+      "chapter": 15
+    },
+    {
+      "id": "sec-16-16.1",
+      "label": "16.1 软件项目管理概述",
+      "type": "section",
+      "chapter": 16
+    },
+    {
+      "id": "sec-16-16.2",
+      "label": "16.2 软件度量",
+      "type": "section",
+      "chapter": 16
+    },
+    {
+      "id": "sec-16-16.3",
+      "label": "16.3 软件项目估算",
+      "type": "section",
+      "chapter": 16
+    },
+    {
+      "id": "sec-16-16.4",
+      "label": "16.4 项目进度管理",
+      "type": "section",
+      "chapter": 16
+    },
+    {
+      "id": "sec-16-16.5",
+      "label": "16.5 风险管理",
+      "type": "section",
+      "chapter": 16
+    },
+    {
+      "id": "sec-16-16.6",
+      "label": "16.6 软件项目的组织",
+      "type": "section",
+      "chapter": 16
+    },
+    {
+      "id": "sec-16-16.7",
+      "label": "16.7 软件质量管理",
+      "type": "section",
+      "chapter": 16
+    },
+    {
+      "id": "sec-16-16.8",
+      "label": "16.8 软件配置管理",
+      "type": "section",
+      "chapter": 16
+    },
+    {
+      "id": "sec-16-",
+      "label": " 习题",
+      "type": "section",
+      "chapter": 16
+    },
+    {
+      "id": "kw-软件工程",
+      "label": "软件工程",
+      "type": "concept",
+      "chapter": 1,
+      "has_def": true,
+      "has_video": true,
+      "freq": 346
+    },
+    {
+      "id": "kw-测试用例",
+      "label": "测试用例",
+      "type": "concept",
+      "chapter": 13,
+      "has_def": true,
+      "has_video": true,
+      "freq": 138
+    },
+    {
+      "id": "kw-面向对象",
+      "label": "面向对象",
+      "type": "concept",
+      "chapter": 7,
+      "has_def": true,
+      "has_video": true,
+      "freq": 130
+    },
+    {
+      "id": "kw-Scrum",
+      "label": "Scrum",
+      "type": "concept",
+      "chapter": 10,
+      "has_def": true,
+      "has_video": true,
+      "freq": 99
+    },
+    {
+      "id": "kw-人机界面",
+      "label": "人机界面",
+      "type": "concept",
+      "chapter": 11,
+      "has_def": true,
+      "has_video": true,
+      "freq": 81
+    },
+    {
+      "id": "kw-数据流图",
+      "label": "数据流图",
+      "type": "concept",
+      "chapter": 5,
+      "has_def": true,
+      "has_video": true,
+      "freq": 79
+    },
+    {
+      "id": "kw-程序设计语言",
+      "label": "程序设计语言",
+      "type": "concept",
+      "chapter": 12,
+      "has_def": true,
+      "has_video": true,
+      "freq": 79
+    },
+    {
+      "id": "kw-需求分析",
+      "label": "需求分析",
+      "type": "concept",
+      "chapter": 3,
+      "has_def": true,
+      "has_video": true,
+      "freq": 78
+    },
+    {
+      "id": "kw-软件设计",
+      "label": "软件设计",
+      "type": "concept",
+      "chapter": 4,
+      "has_def": true,
+      "has_video": true,
+      "freq": 69
+    },
+    {
+      "id": "kw-软件维护",
+      "label": "软件维护",
+      "type": "concept",
+      "chapter": 15,
+      "has_def": true,
+      "has_video": true,
+      "freq": 67
+    },
+    {
+      "id": "kw-软件过程",
+      "label": "软件过程",
+      "type": "concept",
+      "chapter": 1,
+      "has_def": true,
+      "has_video": true,
+      "freq": 63
+    },
+    {
+      "id": "kw-极限编程",
+      "label": "极限编程",
+      "type": "concept",
+      "chapter": 10,
+      "has_def": true,
+      "has_video": true,
+      "freq": 58
+    },
+    {
+      "id": "kw-再工程",
+      "label": "再工程",
+      "type": "concept",
+      "chapter": 15,
+      "has_def": true,
+      "has_video": true,
+      "freq": 57
+    },
+    {
+      "id": "kw-耦合",
+      "label": "耦合",
+      "type": "concept",
+      "chapter": 4,
+      "has_def": true,
+      "has_video": true,
+      "freq": 56
+    },
+    {
+      "id": "kw-软件测试",
+      "label": "软件测试",
+      "type": "concept",
+      "chapter": 13,
+      "has_def": true,
+      "has_video": true,
+      "freq": 54
+    },
+    {
+      "id": "kw-结构化分析",
+      "label": "结构化分析",
+      "type": "concept",
+      "chapter": 5,
+      "has_def": true,
+      "has_video": true,
+      "freq": 52
+    },
+    {
+      "id": "kw-集成测试",
+      "label": "集成测试",
+      "type": "concept",
+      "chapter": 13,
+      "has_def": true,
+      "has_video": true,
+      "freq": 52
+    },
+    {
+      "id": "kw-内聚",
+      "label": "内聚",
+      "type": "concept",
+      "chapter": 4,
+      "has_def": true,
+      "has_video": true,
+      "freq": 52
+    },
+    {
+      "id": "kw-继承",
+      "label": "继承",
+      "type": "concept",
+      "chapter": 7,
+      "has_def": true,
+      "has_video": true,
+      "freq": 52
+    },
+    {
+      "id": "kw-软件项目管理",
+      "label": "软件项目管理",
+      "type": "concept",
+      "chapter": 16,
+      "has_def": true,
+      "has_video": true,
+      "freq": 48
+    },
+    {
+      "id": "kw-数据字典",
+      "label": "数据字典",
+      "type": "concept",
+      "chapter": 5,
+      "has_def": true,
+      "has_video": true,
+      "freq": 44
+    },
+    {
+      "id": "kw-需求规约",
+      "label": "需求规约",
+      "type": "concept",
+      "chapter": 3,
+      "has_def": true,
+      "has_video": true,
+      "freq": 42
+    },
+    {
+      "id": "kw-系统工程",
+      "label": "系统工程",
+      "type": "concept",
+      "chapter": 2,
+      "has_def": true,
+      "has_video": true,
+      "freq": 40
+    },
+    {
+      "id": "kw-重构",
+      "label": "重构",
+      "type": "concept",
+      "chapter": 15,
+      "has_def": true,
+      "has_video": true,
+      "freq": 40
+    },
+    {
+      "id": "kw-模块化",
+      "label": "模块化",
+      "type": "concept",
+      "chapter": 4,
+      "has_def": true,
+      "has_video": true,
+      "freq": 39
+    },
+    {
+      "id": "kw-风险管理",
+      "label": "风险管理",
+      "type": "concept",
+      "chapter": 16,
+      "has_def": true,
+      "has_video": true,
+      "freq": 39
+    },
+    {
+      "id": "kw-单元测试",
+      "label": "单元测试",
+      "type": "concept",
+      "chapter": 13,
+      "has_def": true,
+      "has_video": true,
+      "freq": 35
+    },
+    {
+      "id": "kw-逆向工程",
+      "label": "逆向工程",
+      "type": "concept",
+      "chapter": 15,
+      "has_def": true,
+      "has_video": true,
+      "freq": 35
+    },
+    {
+      "id": "kw-需求工程",
+      "label": "需求工程",
+      "type": "concept",
+      "chapter": 3,
+      "has_def": true,
+      "has_video": true,
+      "freq": 34
+    },
+    {
+      "id": "kw-需求获取",
+      "label": "需求获取",
+      "type": "concept",
+      "chapter": 3,
+      "has_def": true,
+      "has_video": true,
+      "freq": 33
+    },
+    {
+      "id": "kw-类图",
+      "label": "类图",
+      "type": "concept",
+      "chapter": 8,
+      "has_def": true,
+      "has_video": true,
+      "freq": 32
+    },
+    {
+      "id": "kw-可用性",
+      "label": "可用性",
+      "type": "concept",
+      "chapter": 11,
+      "has_def": true,
+      "has_video": true,
+      "freq": 29
+    },
+    {
+      "id": "kw-配置管理",
+      "label": "配置管理",
+      "type": "concept",
+      "chapter": 16,
+      "has_def": true,
+      "has_video": true,
+      "freq": 26
+    },
+    {
+      "id": "kw-回归测试",
+      "label": "回归测试",
+      "type": "concept",
+      "chapter": 13,
+      "has_def": true,
+      "has_video": true,
+      "freq": 18
+    },
+    {
+      "id": "kw-白盒测试",
+      "label": "白盒测试",
+      "type": "concept",
+      "chapter": 13,
+      "has_def": true,
+      "has_video": true,
+      "freq": 17
+    },
+    {
+      "id": "kw-黑盒测试",
+      "label": "黑盒测试",
+      "type": "concept",
+      "chapter": 13,
+      "has_def": true,
+      "has_video": true,
+      "freq": 17
+    },
+    {
+      "id": "kw-封装",
+      "label": "封装",
+      "type": "concept",
+      "chapter": 7,
+      "has_def": true,
+      "has_video": true,
+      "freq": 16
+    },
+    {
+      "id": "kw-需求验证",
+      "label": "需求验证",
+      "type": "concept",
+      "chapter": 3,
+      "has_def": true,
+      "has_video": true,
+      "freq": 15
+    },
+    {
+      "id": "kw-基线",
+      "label": "基线",
+      "type": "concept",
+      "chapter": 16,
+      "has_def": true,
+      "has_video": true,
+      "freq": 14
+    },
+    {
+      "id": "kw-软件复用",
+      "label": "软件复用",
+      "type": "concept",
+      "chapter": 9,
+      "has_def": true,
+      "has_video": true,
+      "freq": 12
+    },
+    {
+      "id": "kw-软件构件",
+      "label": "软件构件",
+      "type": "concept",
+      "chapter": 9,
+      "has_def": true,
+      "has_video": true,
+      "freq": 7
+    },
+    {
+      "id": "kw-敏捷开发",
+      "label": "敏捷开发",
+      "type": "concept",
+      "chapter": 10,
+      "has_def": true,
+      "has_video": true,
+      "freq": 6
+    },
+    {
+      "id": "kw-软件危机",
+      "label": "软件危机",
+      "type": "concept",
+      "chapter": 1,
+      "has_def": true,
+      "has_video": true,
+      "freq": 3
+    },
+    {
+      "id": "kw-代码审查",
+      "label": "代码审查",
+      "type": "concept",
+      "chapter": 12,
+      "has_def": true,
+      "has_video": true,
+      "freq": 2
+    },
+    {
+      "id": "kw-用例图",
+      "label": "用例图",
+      "type": "concept",
+      "chapter": 8,
+      "has_def": true,
+      "has_video": true,
+      "freq": 1
+    },
+    {
+      "id": "kw-多态",
+      "label": "多态",
+      "type": "concept",
+      "chapter": 7,
+      "has_def": true,
+      "has_video": true,
+      "freq": 1
+    },
+    {
+      "id": "kw-用户体验",
+      "label": "用户体验",
+      "type": "concept",
+      "chapter": 11,
+      "has_def": true,
+      "has_video": true,
+      "freq": 1
+    },
+    {
+      "id": "kw-Web工程",
+      "label": "Web工程",
+      "type": "concept",
+      "chapter": 14,
+      "has_def": true,
+      "has_video": true,
+      "freq": 1
+    }
+  ],
+  "edges": [
+    {
+      "source": "ch-1",
+      "target": "sec-1-1.1",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-1",
+      "target": "sec-1-1.2",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-1",
+      "target": "sec-1-1.3",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-1",
+      "target": "sec-1-1.4",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-1",
+      "target": "sec-1-1.5",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-1",
+      "target": "sec-1-",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-2",
+      "target": "sec-2-2.1",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-2",
+      "target": "sec-2-2.2",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-2",
+      "target": "sec-2-2.3",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-2",
+      "target": "sec-2-",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-3",
+      "target": "sec-3-3.1",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-3",
+      "target": "sec-3-3.2",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-3",
+      "target": "sec-3-3.3",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-3",
+      "target": "sec-3-3.4",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-3",
+      "target": "sec-3-3.5",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-3",
+      "target": "sec-3-",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-4",
+      "target": "sec-4-4.1",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-4",
+      "target": "sec-4-4.2",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-4",
+      "target": "sec-4-4.3",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-4",
+      "target": "sec-4-4.4",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-4",
+      "target": "sec-4-4.5",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-4",
+      "target": "sec-4-",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-5",
+      "target": "sec-5-5.1",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-5",
+      "target": "sec-5-5.2",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-5",
+      "target": "sec-5-5.3",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-5",
+      "target": "sec-5-5.4",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-5",
+      "target": "sec-5-5.5",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-5",
+      "target": "sec-5-5.6",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-5",
+      "target": "sec-5-5.7",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-5",
+      "target": "sec-5-5.8",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-5",
+      "target": "sec-5-",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-6",
+      "target": "sec-6-6.1",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-6",
+      "target": "sec-6-6.2",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-6",
+      "target": "sec-6-",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-7",
+      "target": "sec-7-7.1",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-7",
+      "target": "sec-7-7.2",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-7",
+      "target": "sec-7-7.3",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-7",
+      "target": "sec-7-",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-8",
+      "target": "sec-8-8.1",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-8",
+      "target": "sec-8-8.2",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-8",
+      "target": "sec-8-8.3",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-8",
+      "target": "sec-8-8.4",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-8",
+      "target": "sec-8-",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-9",
+      "target": "sec-9-9.1",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-9",
+      "target": "sec-9-9.2",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-9",
+      "target": "sec-9-9.3",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-9",
+      "target": "sec-9-9.4",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-9",
+      "target": "sec-9-",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-10",
+      "target": "sec-10-10.1",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-10",
+      "target": "sec-10-10.2",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-10",
+      "target": "sec-10-10.3",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-10",
+      "target": "sec-10-10.4",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-10",
+      "target": "sec-10-",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-11",
+      "target": "sec-11-11.1",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-11",
+      "target": "sec-11-11.2",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-11",
+      "target": "sec-11-11.3",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-11",
+      "target": "sec-11-11.4",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-11",
+      "target": "sec-11-11.6",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-11",
+      "target": "sec-11-",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-12",
+      "target": "sec-12-12.1",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-12",
+      "target": "sec-12-12.2",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-12",
+      "target": "sec-12-",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-13",
+      "target": "sec-13-13.1",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-13",
+      "target": "sec-13-13.2",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-13",
+      "target": "sec-13-13.3",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-13",
+      "target": "sec-13-13.4",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-13",
+      "target": "sec-13-13.5",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-13",
+      "target": "sec-13-13.6",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-13",
+      "target": "sec-13-13.7",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-13",
+      "target": "sec-13-",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-14",
+      "target": "sec-14-14.1",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-14",
+      "target": "sec-14-14.2",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-14",
+      "target": "sec-14-14.3",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-14",
+      "target": "sec-14-14.4",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-14",
+      "target": "sec-14-",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-15",
+      "target": "sec-15-15.1",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-15",
+      "target": "sec-15-15.2",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-15",
+      "target": "sec-15-",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-16",
+      "target": "sec-16-16.1",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-16",
+      "target": "sec-16-16.2",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-16",
+      "target": "sec-16-16.3",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-16",
+      "target": "sec-16-16.4",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-16",
+      "target": "sec-16-16.5",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-16",
+      "target": "sec-16-16.6",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-16",
+      "target": "sec-16-16.7",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-16",
+      "target": "sec-16-16.8",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-16",
+      "target": "sec-16-",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-1",
+      "target": "kw-软件工程",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-13",
+      "target": "kw-测试用例",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-7",
+      "target": "kw-面向对象",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-10",
+      "target": "kw-Scrum",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-11",
+      "target": "kw-人机界面",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-5",
+      "target": "kw-数据流图",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-12",
+      "target": "kw-程序设计语言",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-3",
+      "target": "kw-需求分析",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-4",
+      "target": "kw-软件设计",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-15",
+      "target": "kw-软件维护",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-1",
+      "target": "kw-软件过程",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-10",
+      "target": "kw-极限编程",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-15",
+      "target": "kw-再工程",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-4",
+      "target": "kw-耦合",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-13",
+      "target": "kw-软件测试",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-5",
+      "target": "kw-结构化分析",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-13",
+      "target": "kw-集成测试",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-4",
+      "target": "kw-内聚",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-7",
+      "target": "kw-继承",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-16",
+      "target": "kw-软件项目管理",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-5",
+      "target": "kw-数据字典",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-3",
+      "target": "kw-需求规约",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-2",
+      "target": "kw-系统工程",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-15",
+      "target": "kw-重构",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-4",
+      "target": "kw-模块化",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-16",
+      "target": "kw-风险管理",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-13",
+      "target": "kw-单元测试",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-15",
+      "target": "kw-逆向工程",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-3",
+      "target": "kw-需求工程",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-3",
+      "target": "kw-需求获取",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-8",
+      "target": "kw-类图",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-11",
+      "target": "kw-可用性",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-16",
+      "target": "kw-配置管理",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-13",
+      "target": "kw-回归测试",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-13",
+      "target": "kw-白盒测试",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-13",
+      "target": "kw-黑盒测试",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-7",
+      "target": "kw-封装",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-3",
+      "target": "kw-需求验证",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-16",
+      "target": "kw-基线",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-9",
+      "target": "kw-软件复用",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-9",
+      "target": "kw-软件构件",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-10",
+      "target": "kw-敏捷开发",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-1",
+      "target": "kw-软件危机",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-12",
+      "target": "kw-代码审查",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-8",
+      "target": "kw-用例图",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-7",
+      "target": "kw-多态",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-11",
+      "target": "kw-用户体验",
+      "type": "hierarchy"
+    },
+    {
+      "source": "ch-14",
+      "target": "kw-Web工程",
+      "type": "hierarchy"
+    },
+    {
+      "source": "kw-原型模型",
+      "target": "kw-喷泉模型",
+      "type": "cooccurrence",
+      "weight": 4
+    },
+    {
+      "source": "kw-原型模型",
+      "target": "kw-增量模型",
+      "type": "cooccurrence",
+      "weight": 4
+    },
+    {
+      "source": "kw-原型模型",
+      "target": "kw-瀑布模型",
+      "type": "cooccurrence",
+      "weight": 3
+    },
+    {
+      "source": "kw-原型模型",
+      "target": "kw-螺旋模型",
+      "type": "cooccurrence",
+      "weight": 3
+    },
+    {
+      "source": "kw-增量模型",
+      "target": "kw-瀑布模型",
+      "type": "cooccurrence",
+      "weight": 3
+    },
+    {
+      "source": "kw-增量模型",
+      "target": "kw-螺旋模型",
+      "type": "cooccurrence",
+      "weight": 3
+    },
+    {
+      "source": "kw-框架",
+      "target": "kw-软件生存周期",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-框架",
+      "target": "kw-软件过程",
+      "type": "cooccurrence",
+      "weight": 3
+    },
+    {
+      "source": "kw-瀑布模型",
+      "target": "kw-螺旋模型",
+      "type": "cooccurrence",
+      "weight": 3
+    },
+    {
+      "source": "kw-软件工具",
+      "target": "kw-软件过程",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-软件生存周期",
+      "target": "kw-软件过程",
+      "type": "cooccurrence",
+      "weight": 3
+    },
+    {
+      "source": "kw-再工程",
+      "target": "kw-软件维护",
+      "type": "cooccurrence",
+      "weight": 3
+    },
+    {
+      "source": "kw-再工程",
+      "target": "kw-配置管理",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-框架",
+      "target": "kw-配置管理",
+      "type": "cooccurrence",
+      "weight": 3
+    },
+    {
+      "source": "kw-测试用例",
+      "target": "kw-配置管理",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-软件维护",
+      "target": "kw-配置管理",
+      "type": "cooccurrence",
+      "weight": 3
+    },
+    {
+      "source": "kw-测试用例",
+      "target": "kw-验收测试",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-设计模式",
+      "target": "kw-面向对象设计",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-面向对象分析",
+      "target": "kw-面向对象设计",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-单元测试",
+      "target": "kw-系统测试",
+      "type": "cooccurrence",
+      "weight": 5
+    },
+    {
+      "source": "kw-单元测试",
+      "target": "kw-集成测试",
+      "type": "cooccurrence",
+      "weight": 3
+    },
+    {
+      "source": "kw-白盒测试",
+      "target": "kw-黑盒测试",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-系统测试",
+      "target": "kw-集成测试",
+      "type": "cooccurrence",
+      "weight": 3
+    },
+    {
+      "source": "kw-Scrum",
+      "target": "kw-极限编程",
+      "type": "cooccurrence",
+      "weight": 3
+    },
+    {
+      "source": "kw-单元测试",
+      "target": "kw-系统工程",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-数据结构",
+      "target": "kw-概要设计",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-数据结构",
+      "target": "kw-算法",
+      "type": "cooccurrence",
+      "weight": 3
+    },
+    {
+      "source": "kw-数据结构",
+      "target": "kw-详细设计",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-数据结构",
+      "target": "kw-软件设计",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-概要设计",
+      "target": "kw-算法",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-概要设计",
+      "target": "kw-详细设计",
+      "type": "cooccurrence",
+      "weight": 4
+    },
+    {
+      "source": "kw-算法",
+      "target": "kw-详细设计",
+      "type": "cooccurrence",
+      "weight": 3
+    },
+    {
+      "source": "kw-算法",
+      "target": "kw-软件设计",
+      "type": "cooccurrence",
+      "weight": 3
+    },
+    {
+      "source": "kw-系统工程",
+      "target": "kw-系统测试",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-系统工程",
+      "target": "kw-软件设计",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-系统工程",
+      "target": "kw-需求分析",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-系统工程",
+      "target": "kw-需求规约",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-详细设计",
+      "target": "kw-软件设计",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-详细设计",
+      "target": "kw-需求分析",
+      "type": "cooccurrence",
+      "weight": 3
+    },
+    {
+      "source": "kw-软件设计",
+      "target": "kw-软件过程",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-软件设计",
+      "target": "kw-需求分析",
+      "type": "cooccurrence",
+      "weight": 3
+    },
+    {
+      "source": "kw-软件设计",
+      "target": "kw-需求规约",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-软件过程",
+      "target": "kw-需求分析",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-需求分析",
+      "target": "kw-需求规约",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-软件设计",
+      "target": "kw-需求验证",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-体系结构设计",
+      "target": "kw-数据字典",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-体系结构设计",
+      "target": "kw-详细设计",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-活动图",
+      "target": "kw-类图",
+      "type": "cooccurrence",
+      "weight": 6
+    },
+    {
+      "source": "kw-数据字典",
+      "target": "kw-数据流图",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-结构化分析",
+      "target": "kw-结构化设计",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-体系结构设计",
+      "target": "kw-需求分析",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-模块化",
+      "target": "kw-软件设计",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-模块化",
+      "target": "kw-需求分析",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-系统工程",
+      "target": "kw-需求管理",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-需求工程",
+      "target": "kw-需求管理",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-需求工程",
+      "target": "kw-需求获取",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-需求工程",
+      "target": "kw-需求规约",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-需求工程",
+      "target": "kw-需求验证",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-需求管理",
+      "target": "kw-需求获取",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-需求管理",
+      "target": "kw-需求规约",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-需求管理",
+      "target": "kw-需求验证",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-需求获取",
+      "target": "kw-需求规约",
+      "type": "cooccurrence",
+      "weight": 3
+    },
+    {
+      "source": "kw-需求获取",
+      "target": "kw-需求验证",
+      "type": "cooccurrence",
+      "weight": 3
+    },
+    {
+      "source": "kw-需求规约",
+      "target": "kw-需求验证",
+      "type": "cooccurrence",
+      "weight": 3
+    },
+    {
+      "source": "kw-可用性",
+      "target": "kw-需求分析",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-质量保证",
+      "target": "kw-配置管理",
+      "type": "cooccurrence",
+      "weight": 4
+    },
+    {
+      "source": "kw-质量保证",
+      "target": "kw-需求分析",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-配置管理",
+      "target": "kw-需求分析",
+      "type": "cooccurrence",
+      "weight": 3
+    },
+    {
+      "source": "kw-详细设计",
+      "target": "kw-配置管理",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-配置管理",
+      "target": "kw-项目计划",
+      "type": "cooccurrence",
+      "weight": 3
+    },
+    {
+      "source": "kw-配置管理",
+      "target": "kw-风险管理",
+      "type": "cooccurrence",
+      "weight": 3
+    },
+    {
+      "source": "kw-项目计划",
+      "target": "kw-风险管理",
+      "type": "cooccurrence",
+      "weight": 3
+    },
+    {
+      "source": "kw-结构化分析",
+      "target": "kw-面向数据流",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-面向数据流",
+      "target": "kw-面向数据结构",
+      "type": "cooccurrence",
+      "weight": 3
+    },
+    {
+      "source": "kw-概要设计",
+      "target": "kw-结构化设计",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-结构化设计",
+      "target": "kw-详细设计",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-封装",
+      "target": "kw-继承",
+      "type": "cooccurrence",
+      "weight": 3
+    },
+    {
+      "source": "kw-软件度量",
+      "target": "kw-风险管理",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-软件项目管理",
+      "target": "kw-项目计划",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-对象图",
+      "target": "kw-活动图",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-对象图",
+      "target": "kw-类图",
+      "type": "cooccurrence",
+      "weight": 3
+    },
+    {
+      "source": "kw-框架",
+      "target": "kw-系统工程",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-需求管理",
+      "target": "kw-项目计划",
+      "type": "cooccurrence",
+      "weight": 3
+    },
+    {
+      "source": "kw-质量保证",
+      "target": "kw-需求管理",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-质量保证",
+      "target": "kw-项目计划",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-质量保证",
+      "target": "kw-风险管理",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-配置管理",
+      "target": "kw-需求管理",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-需求管理",
+      "target": "kw-风险管理",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-服务器",
+      "target": "kw-浏览器",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-客户端",
+      "target": "kw-浏览器",
+      "type": "cooccurrence",
+      "weight": 2
+    },
+    {
+      "source": "kw-基线",
+      "target": "kw-版本控制",
+      "type": "cooccurrence",
+      "weight": 2
+    }
+  ],
+  "by_chapter": {
+    "1": {
+      "chapter": 1,
+      "title": "概论",
+      "nodes": [
+        {
+          "id": "ch-1",
+          "label": "第1章 概论",
+          "type": "chapter",
+          "chapter": 1
+        },
+        {
+          "id": "sec-1-1.1",
+          "label": "1.1 计算机软件",
+          "type": "section",
+          "chapter": 1
+        },
+        {
+          "id": "sec-1-1.2",
+          "label": "1.2 软件工程",
+          "type": "section",
+          "chapter": 1
+        },
+        {
+          "id": "sec-1-1.3",
+          "label": "1.3 软件过程",
+          "type": "section",
+          "chapter": 1
+        },
+        {
+          "id": "sec-1-1.4",
+          "label": "1.4 软件过程模型",
+          "type": "section",
+          "chapter": 1
+        },
+        {
+          "id": "sec-1-1.5",
+          "label": "1.5 CASE工具与环境",
+          "type": "section",
+          "chapter": 1
+        },
+        {
+          "id": "sec-1-",
+          "label": " 习题",
+          "type": "section",
+          "chapter": 1
+        },
+        {
+          "id": "kw-软件工程",
+          "label": "软件工程",
+          "type": "concept",
+          "chapter": 1,
+          "has_def": true,
+          "has_video": true,
+          "freq": 346
+        },
+        {
+          "id": "kw-软件过程",
+          "label": "软件过程",
+          "type": "concept",
+          "chapter": 1,
+          "has_def": true,
+          "has_video": true,
+          "freq": 63
+        },
+        {
+          "id": "kw-软件危机",
+          "label": "软件危机",
+          "type": "concept",
+          "chapter": 1,
+          "has_def": true,
+          "has_video": true,
+          "freq": 3
+        }
+      ],
+      "edges": [
+        {
+          "source": "ch-1",
+          "target": "sec-1-1.1",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-1",
+          "target": "sec-1-1.2",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-1",
+          "target": "sec-1-1.3",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-1",
+          "target": "sec-1-1.4",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-1",
+          "target": "sec-1-1.5",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-1",
+          "target": "sec-1-",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-1",
+          "target": "kw-软件工程",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-1",
+          "target": "kw-软件过程",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-1",
+          "target": "kw-软件危机",
+          "type": "hierarchy"
+        },
+        {
+          "source": "kw-框架",
+          "target": "kw-软件过程",
+          "type": "cooccurrence",
+          "weight": 3
+        },
+        {
+          "source": "kw-软件工具",
+          "target": "kw-软件过程",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-软件生存周期",
+          "target": "kw-软件过程",
+          "type": "cooccurrence",
+          "weight": 3
+        },
+        {
+          "source": "kw-软件设计",
+          "target": "kw-软件过程",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-软件过程",
+          "target": "kw-需求分析",
+          "type": "cooccurrence",
+          "weight": 2
+        }
+      ]
+    },
+    "2": {
+      "chapter": 2,
+      "title": "系统工程",
+      "nodes": [
+        {
+          "id": "ch-2",
+          "label": "第2章 系统工程",
+          "type": "chapter",
+          "chapter": 2
+        },
+        {
+          "id": "sec-2-2.1",
+          "label": "2.1 基于计算机的系统",
+          "type": "section",
+          "chapter": 2
+        },
+        {
+          "id": "sec-2-2.2",
+          "label": "2.2 系统工程的任务",
+          "type": "section",
+          "chapter": 2
+        },
+        {
+          "id": "sec-2-2.3",
+          "label": "2.3 可行性分析",
+          "type": "section",
+          "chapter": 2
+        },
+        {
+          "id": "sec-2-",
+          "label": " 习题",
+          "type": "section",
+          "chapter": 2
+        },
+        {
+          "id": "kw-系统工程",
+          "label": "系统工程",
+          "type": "concept",
+          "chapter": 2,
+          "has_def": true,
+          "has_video": true,
+          "freq": 40
+        }
+      ],
+      "edges": [
+        {
+          "source": "ch-2",
+          "target": "sec-2-2.1",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-2",
+          "target": "sec-2-2.2",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-2",
+          "target": "sec-2-2.3",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-2",
+          "target": "sec-2-",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-2",
+          "target": "kw-系统工程",
+          "type": "hierarchy"
+        },
+        {
+          "source": "kw-单元测试",
+          "target": "kw-系统工程",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-系统工程",
+          "target": "kw-系统测试",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-系统工程",
+          "target": "kw-软件设计",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-系统工程",
+          "target": "kw-需求分析",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-系统工程",
+          "target": "kw-需求规约",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-系统工程",
+          "target": "kw-需求管理",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-框架",
+          "target": "kw-系统工程",
+          "type": "cooccurrence",
+          "weight": 2
+        }
+      ]
+    },
+    "3": {
+      "chapter": 3,
+      "title": "需求工程",
+      "nodes": [
+        {
+          "id": "ch-3",
+          "label": "第3章 需求工程",
+          "type": "chapter",
+          "chapter": 3
+        },
+        {
+          "id": "sec-3-3.1",
+          "label": "3.1 需求工程概述",
+          "type": "section",
+          "chapter": 3
+        },
+        {
+          "id": "sec-3-3.2",
+          "label": "3.2 需求获取",
+          "type": "section",
+          "chapter": 3
+        },
+        {
+          "id": "sec-3-3.3",
+          "label": "3.3 需求分析、协商与建模",
+          "type": "section",
+          "chapter": 3
+        },
+        {
+          "id": "sec-3-3.4",
+          "label": "3.4 需求规约与验证",
+          "type": "section",
+          "chapter": 3
+        },
+        {
+          "id": "sec-3-3.5",
+          "label": "3.5 需求管理",
+          "type": "section",
+          "chapter": 3
+        },
+        {
+          "id": "sec-3-",
+          "label": " 习题",
+          "type": "section",
+          "chapter": 3
+        },
+        {
+          "id": "kw-需求分析",
+          "label": "需求分析",
+          "type": "concept",
+          "chapter": 3,
+          "has_def": true,
+          "has_video": true,
+          "freq": 78
+        },
+        {
+          "id": "kw-需求规约",
+          "label": "需求规约",
+          "type": "concept",
+          "chapter": 3,
+          "has_def": true,
+          "has_video": true,
+          "freq": 42
+        },
+        {
+          "id": "kw-需求工程",
+          "label": "需求工程",
+          "type": "concept",
+          "chapter": 3,
+          "has_def": true,
+          "has_video": true,
+          "freq": 34
+        },
+        {
+          "id": "kw-需求获取",
+          "label": "需求获取",
+          "type": "concept",
+          "chapter": 3,
+          "has_def": true,
+          "has_video": true,
+          "freq": 33
+        },
+        {
+          "id": "kw-需求验证",
+          "label": "需求验证",
+          "type": "concept",
+          "chapter": 3,
+          "has_def": true,
+          "has_video": true,
+          "freq": 15
+        }
+      ],
+      "edges": [
+        {
+          "source": "ch-3",
+          "target": "sec-3-3.1",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-3",
+          "target": "sec-3-3.2",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-3",
+          "target": "sec-3-3.3",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-3",
+          "target": "sec-3-3.4",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-3",
+          "target": "sec-3-3.5",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-3",
+          "target": "sec-3-",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-3",
+          "target": "kw-需求分析",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-3",
+          "target": "kw-需求规约",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-3",
+          "target": "kw-需求工程",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-3",
+          "target": "kw-需求获取",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-3",
+          "target": "kw-需求验证",
+          "type": "hierarchy"
+        },
+        {
+          "source": "kw-系统工程",
+          "target": "kw-需求分析",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-系统工程",
+          "target": "kw-需求规约",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-详细设计",
+          "target": "kw-需求分析",
+          "type": "cooccurrence",
+          "weight": 3
+        },
+        {
+          "source": "kw-软件设计",
+          "target": "kw-需求分析",
+          "type": "cooccurrence",
+          "weight": 3
+        },
+        {
+          "source": "kw-软件设计",
+          "target": "kw-需求规约",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-软件过程",
+          "target": "kw-需求分析",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-需求分析",
+          "target": "kw-需求规约",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-软件设计",
+          "target": "kw-需求验证",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-体系结构设计",
+          "target": "kw-需求分析",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-模块化",
+          "target": "kw-需求分析",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-需求工程",
+          "target": "kw-需求管理",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-需求工程",
+          "target": "kw-需求获取",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-需求工程",
+          "target": "kw-需求规约",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-需求工程",
+          "target": "kw-需求验证",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-需求管理",
+          "target": "kw-需求获取",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-需求管理",
+          "target": "kw-需求规约",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-需求管理",
+          "target": "kw-需求验证",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-需求获取",
+          "target": "kw-需求规约",
+          "type": "cooccurrence",
+          "weight": 3
+        },
+        {
+          "source": "kw-需求获取",
+          "target": "kw-需求验证",
+          "type": "cooccurrence",
+          "weight": 3
+        },
+        {
+          "source": "kw-需求规约",
+          "target": "kw-需求验证",
+          "type": "cooccurrence",
+          "weight": 3
+        },
+        {
+          "source": "kw-可用性",
+          "target": "kw-需求分析",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-质量保证",
+          "target": "kw-需求分析",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-配置管理",
+          "target": "kw-需求分析",
+          "type": "cooccurrence",
+          "weight": 3
+        }
+      ]
+    },
+    "4": {
+      "chapter": 4,
+      "title": "设计工程",
+      "nodes": [
+        {
+          "id": "ch-4",
+          "label": "第4章 设计工程",
+          "type": "chapter",
+          "chapter": 4
+        },
+        {
+          "id": "sec-4-4.1",
+          "label": "4.1 软件设计工程概述",
+          "type": "section",
+          "chapter": 4
+        },
+        {
+          "id": "sec-4-4.2",
+          "label": "4.2 软件设计原则",
+          "type": "section",
+          "chapter": 4
+        },
+        {
+          "id": "sec-4-4.3",
+          "label": "4.3 软件体系结构设计",
+          "type": "section",
+          "chapter": 4
+        },
+        {
+          "id": "sec-4-4.4",
+          "label": "4.4 部件级设计技术",
+          "type": "section",
+          "chapter": 4
+        },
+        {
+          "id": "sec-4-4.5",
+          "label": "4.5 设计规约与设计评审",
+          "type": "section",
+          "chapter": 4
+        },
+        {
+          "id": "sec-4-",
+          "label": " 习题",
+          "type": "section",
+          "chapter": 4
+        },
+        {
+          "id": "kw-软件设计",
+          "label": "软件设计",
+          "type": "concept",
+          "chapter": 4,
+          "has_def": true,
+          "has_video": true,
+          "freq": 69
+        },
+        {
+          "id": "kw-耦合",
+          "label": "耦合",
+          "type": "concept",
+          "chapter": 4,
+          "has_def": true,
+          "has_video": true,
+          "freq": 56
+        },
+        {
+          "id": "kw-内聚",
+          "label": "内聚",
+          "type": "concept",
+          "chapter": 4,
+          "has_def": true,
+          "has_video": true,
+          "freq": 52
+        },
+        {
+          "id": "kw-模块化",
+          "label": "模块化",
+          "type": "concept",
+          "chapter": 4,
+          "has_def": true,
+          "has_video": true,
+          "freq": 39
+        }
+      ],
+      "edges": [
+        {
+          "source": "ch-4",
+          "target": "sec-4-4.1",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-4",
+          "target": "sec-4-4.2",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-4",
+          "target": "sec-4-4.3",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-4",
+          "target": "sec-4-4.4",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-4",
+          "target": "sec-4-4.5",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-4",
+          "target": "sec-4-",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-4",
+          "target": "kw-软件设计",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-4",
+          "target": "kw-耦合",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-4",
+          "target": "kw-内聚",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-4",
+          "target": "kw-模块化",
+          "type": "hierarchy"
+        },
+        {
+          "source": "kw-数据结构",
+          "target": "kw-软件设计",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-算法",
+          "target": "kw-软件设计",
+          "type": "cooccurrence",
+          "weight": 3
+        },
+        {
+          "source": "kw-系统工程",
+          "target": "kw-软件设计",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-详细设计",
+          "target": "kw-软件设计",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-软件设计",
+          "target": "kw-软件过程",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-软件设计",
+          "target": "kw-需求分析",
+          "type": "cooccurrence",
+          "weight": 3
+        },
+        {
+          "source": "kw-软件设计",
+          "target": "kw-需求规约",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-软件设计",
+          "target": "kw-需求验证",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-模块化",
+          "target": "kw-软件设计",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-模块化",
+          "target": "kw-需求分析",
+          "type": "cooccurrence",
+          "weight": 2
+        }
+      ]
+    },
+    "5": {
+      "chapter": 5,
+      "title": "结构化分析与设计",
+      "nodes": [
+        {
+          "id": "ch-5",
+          "label": "第5章 结构化分析与设计",
+          "type": "chapter",
+          "chapter": 5
+        },
+        {
+          "id": "sec-5-5.1",
+          "label": "5.1 结构化分析方法概述",
+          "type": "section",
+          "chapter": 5
+        },
+        {
+          "id": "sec-5-5.2",
+          "label": "5.2 数据流图",
+          "type": "section",
+          "chapter": 5
+        },
+        {
+          "id": "sec-5-5.3",
+          "label": "5.3 分层数据流图的审查",
+          "type": "section",
+          "chapter": 5
+        },
+        {
+          "id": "sec-5-5.4",
+          "label": "5.4 数据字典",
+          "type": "section",
+          "chapter": 5
+        },
+        {
+          "id": "sec-5-5.5",
+          "label": "5.5 描述基本加工的小说明",
+          "type": "section",
+          "chapter": 5
+        },
+        {
+          "id": "sec-5-5.6",
+          "label": "5.6 结构化设计概述",
+          "type": "section",
+          "chapter": 5
+        },
+        {
+          "id": "sec-5-5.7",
+          "label": "5.7 数据流图到软件体系结构的映射",
+          "type": "section",
+          "chapter": 5
+        },
+        {
+          "id": "sec-5-5.8",
+          "label": "5.8 初始结构图的改进",
+          "type": "section",
+          "chapter": 5
+        },
+        {
+          "id": "sec-5-",
+          "label": " 习题",
+          "type": "section",
+          "chapter": 5
+        },
+        {
+          "id": "kw-数据流图",
+          "label": "数据流图",
+          "type": "concept",
+          "chapter": 5,
+          "has_def": true,
+          "has_video": true,
+          "freq": 79
+        },
+        {
+          "id": "kw-结构化分析",
+          "label": "结构化分析",
+          "type": "concept",
+          "chapter": 5,
+          "has_def": true,
+          "has_video": true,
+          "freq": 52
+        },
+        {
+          "id": "kw-数据字典",
+          "label": "数据字典",
+          "type": "concept",
+          "chapter": 5,
+          "has_def": true,
+          "has_video": true,
+          "freq": 44
+        }
+      ],
+      "edges": [
+        {
+          "source": "ch-5",
+          "target": "sec-5-5.1",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-5",
+          "target": "sec-5-5.2",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-5",
+          "target": "sec-5-5.3",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-5",
+          "target": "sec-5-5.4",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-5",
+          "target": "sec-5-5.5",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-5",
+          "target": "sec-5-5.6",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-5",
+          "target": "sec-5-5.7",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-5",
+          "target": "sec-5-5.8",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-5",
+          "target": "sec-5-",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-5",
+          "target": "kw-数据流图",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-5",
+          "target": "kw-结构化分析",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-5",
+          "target": "kw-数据字典",
+          "type": "hierarchy"
+        },
+        {
+          "source": "kw-体系结构设计",
+          "target": "kw-数据字典",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-数据字典",
+          "target": "kw-数据流图",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-结构化分析",
+          "target": "kw-结构化设计",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-结构化分析",
+          "target": "kw-面向数据流",
+          "type": "cooccurrence",
+          "weight": 2
+        }
+      ]
+    },
+    "6": {
+      "chapter": 6,
+      "title": "面向数据结构的分析与设计",
+      "nodes": [
+        {
+          "id": "ch-6",
+          "label": "第6章 面向数据结构的分析与设计",
+          "type": "chapter",
+          "chapter": 6
+        },
+        {
+          "id": "sec-6-6.1",
+          "label": "6.1 JSP方法",
+          "type": "section",
+          "chapter": 6
+        },
+        {
+          "id": "sec-6-6.2",
+          "label": "6.2 JSD方法简介",
+          "type": "section",
+          "chapter": 6
+        },
+        {
+          "id": "sec-6-",
+          "label": " 习题",
+          "type": "section",
+          "chapter": 6
+        }
+      ],
+      "edges": [
+        {
+          "source": "ch-6",
+          "target": "sec-6-6.1",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-6",
+          "target": "sec-6-6.2",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-6",
+          "target": "sec-6-",
+          "type": "hierarchy"
+        }
+      ]
+    },
+    "7": {
+      "chapter": 7,
+      "title": "面向对象方法基础",
+      "nodes": [
+        {
+          "id": "ch-7",
+          "label": "第7章 面向对象方法基础",
+          "type": "chapter",
+          "chapter": 7
+        },
+        {
+          "id": "sec-7-7.1",
+          "label": "7.1 面向对象的基本概念",
+          "type": "section",
+          "chapter": 7
+        },
+        {
+          "id": "sec-7-7.2",
+          "label": "7.2 面向对象分析和设计过程",
+          "type": "section",
+          "chapter": 7
+        },
+        {
+          "id": "sec-7-7.3",
+          "label": "7.3 UML概述",
+          "type": "section",
+          "chapter": 7
+        },
+        {
+          "id": "sec-7-",
+          "label": " 习题",
+          "type": "section",
+          "chapter": 7
+        },
+        {
+          "id": "kw-面向对象",
+          "label": "面向对象",
+          "type": "concept",
+          "chapter": 7,
+          "has_def": true,
+          "has_video": true,
+          "freq": 130
+        },
+        {
+          "id": "kw-继承",
+          "label": "继承",
+          "type": "concept",
+          "chapter": 7,
+          "has_def": true,
+          "has_video": true,
+          "freq": 52
+        },
+        {
+          "id": "kw-封装",
+          "label": "封装",
+          "type": "concept",
+          "chapter": 7,
+          "has_def": true,
+          "has_video": true,
+          "freq": 16
+        },
+        {
+          "id": "kw-多态",
+          "label": "多态",
+          "type": "concept",
+          "chapter": 7,
+          "has_def": true,
+          "has_video": true,
+          "freq": 1
+        }
+      ],
+      "edges": [
+        {
+          "source": "ch-7",
+          "target": "sec-7-7.1",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-7",
+          "target": "sec-7-7.2",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-7",
+          "target": "sec-7-7.3",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-7",
+          "target": "sec-7-",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-7",
+          "target": "kw-面向对象",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-7",
+          "target": "kw-继承",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-7",
+          "target": "kw-封装",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-7",
+          "target": "kw-多态",
+          "type": "hierarchy"
+        },
+        {
+          "source": "kw-封装",
+          "target": "kw-继承",
+          "type": "cooccurrence",
+          "weight": 3
+        }
+      ]
+    },
+    "8": {
+      "chapter": 8,
+      "title": "面向对象建模",
+      "nodes": [
+        {
+          "id": "ch-8",
+          "label": "第8章 面向对象建模",
+          "type": "chapter",
+          "chapter": 8
+        },
+        {
+          "id": "sec-8-8.1",
+          "label": "8.1 用况建模",
+          "type": "section",
+          "chapter": 8
+        },
+        {
+          "id": "sec-8-8.2",
+          "label": "8.2 静态建模",
+          "type": "section",
+          "chapter": 8
+        },
+        {
+          "id": "sec-8-8.3",
+          "label": "8.3 动态建模",
+          "type": "section",
+          "chapter": 8
+        },
+        {
+          "id": "sec-8-8.4",
+          "label": "8.4 物理体系结构建模",
+          "type": "section",
+          "chapter": 8
+        },
+        {
+          "id": "sec-8-",
+          "label": " 习题",
+          "type": "section",
+          "chapter": 8
+        },
+        {
+          "id": "kw-类图",
+          "label": "类图",
+          "type": "concept",
+          "chapter": 8,
+          "has_def": true,
+          "has_video": true,
+          "freq": 32
+        },
+        {
+          "id": "kw-用例图",
+          "label": "用例图",
+          "type": "concept",
+          "chapter": 8,
+          "has_def": true,
+          "has_video": true,
+          "freq": 1
+        }
+      ],
+      "edges": [
+        {
+          "source": "ch-8",
+          "target": "sec-8-8.1",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-8",
+          "target": "sec-8-8.2",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-8",
+          "target": "sec-8-8.3",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-8",
+          "target": "sec-8-8.4",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-8",
+          "target": "sec-8-",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-8",
+          "target": "kw-类图",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-8",
+          "target": "kw-用例图",
+          "type": "hierarchy"
+        },
+        {
+          "source": "kw-活动图",
+          "target": "kw-类图",
+          "type": "cooccurrence",
+          "weight": 6
+        },
+        {
+          "source": "kw-对象图",
+          "target": "kw-类图",
+          "type": "cooccurrence",
+          "weight": 3
+        }
+      ]
+    },
+    "9": {
+      "chapter": 9,
+      "title": "基于构件的软件开发",
+      "nodes": [
+        {
+          "id": "ch-9",
+          "label": "第9章 基于构件的软件开发",
+          "type": "chapter",
+          "chapter": 9
+        },
+        {
+          "id": "sec-9-9.1",
+          "label": "9.1 基于构件的软件开发概述",
+          "type": "section",
+          "chapter": 9
+        },
+        {
+          "id": "sec-9-9.2",
+          "label": "9.2 建造可复用构件",
+          "type": "section",
+          "chapter": 9
+        },
+        {
+          "id": "sec-9-9.3",
+          "label": "9.3 应用系统工程",
+          "type": "section",
+          "chapter": 9
+        },
+        {
+          "id": "sec-9-9.4",
+          "label": "9.4 构件的管理",
+          "type": "section",
+          "chapter": 9
+        },
+        {
+          "id": "sec-9-",
+          "label": " 习题",
+          "type": "section",
+          "chapter": 9
+        },
+        {
+          "id": "kw-软件复用",
+          "label": "软件复用",
+          "type": "concept",
+          "chapter": 9,
+          "has_def": true,
+          "has_video": true,
+          "freq": 12
+        },
+        {
+          "id": "kw-软件构件",
+          "label": "软件构件",
+          "type": "concept",
+          "chapter": 9,
+          "has_def": true,
+          "has_video": true,
+          "freq": 7
+        }
+      ],
+      "edges": [
+        {
+          "source": "ch-9",
+          "target": "sec-9-9.1",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-9",
+          "target": "sec-9-9.2",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-9",
+          "target": "sec-9-9.3",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-9",
+          "target": "sec-9-9.4",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-9",
+          "target": "sec-9-",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-9",
+          "target": "kw-软件复用",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-9",
+          "target": "kw-软件构件",
+          "type": "hierarchy"
+        }
+      ]
+    },
+    "10": {
+      "chapter": 10,
+      "title": "敏捷软件开发",
+      "nodes": [
+        {
+          "id": "ch-10",
+          "label": "第10章 敏捷软件开发",
+          "type": "chapter",
+          "chapter": 10
+        },
+        {
+          "id": "sec-10-10.1",
+          "label": "10.1 敏捷软件开发方法概述",
+          "type": "section",
+          "chapter": 10
+        },
+        {
+          "id": "sec-10-10.2",
+          "label": "10.2 Scrum方法",
+          "type": "section",
+          "chapter": 10
+        },
+        {
+          "id": "sec-10-10.3",
+          "label": "10.3 极限编程方法",
+          "type": "section",
+          "chapter": 10
+        },
+        {
+          "id": "sec-10-10.4",
+          "label": "10.4 看板方法",
+          "type": "section",
+          "chapter": 10
+        },
+        {
+          "id": "sec-10-",
+          "label": " 习题",
+          "type": "section",
+          "chapter": 10
+        },
+        {
+          "id": "kw-Scrum",
+          "label": "Scrum",
+          "type": "concept",
+          "chapter": 10,
+          "has_def": true,
+          "has_video": true,
+          "freq": 99
+        },
+        {
+          "id": "kw-极限编程",
+          "label": "极限编程",
+          "type": "concept",
+          "chapter": 10,
+          "has_def": true,
+          "has_video": true,
+          "freq": 58
+        },
+        {
+          "id": "kw-敏捷开发",
+          "label": "敏捷开发",
+          "type": "concept",
+          "chapter": 10,
+          "has_def": true,
+          "has_video": true,
+          "freq": 6
+        }
+      ],
+      "edges": [
+        {
+          "source": "ch-10",
+          "target": "sec-10-10.1",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-10",
+          "target": "sec-10-10.2",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-10",
+          "target": "sec-10-10.3",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-10",
+          "target": "sec-10-10.4",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-10",
+          "target": "sec-10-",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-10",
+          "target": "kw-Scrum",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-10",
+          "target": "kw-极限编程",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-10",
+          "target": "kw-敏捷开发",
+          "type": "hierarchy"
+        },
+        {
+          "source": "kw-Scrum",
+          "target": "kw-极限编程",
+          "type": "cooccurrence",
+          "weight": 3
+        }
+      ]
+    },
+    "11": {
+      "chapter": 11,
+      "title": "人机界面设计",
+      "nodes": [
+        {
+          "id": "ch-11",
+          "label": "第11章 人机界面设计",
+          "type": "chapter",
+          "chapter": 11
+        },
+        {
+          "id": "sec-11-11.1",
+          "label": "11.1 人的因素",
+          "type": "section",
+          "chapter": 11
+        },
+        {
+          "id": "sec-11-11.2",
+          "label": "11.2 人机界面风格",
+          "type": "section",
+          "chapter": 11
+        },
+        {
+          "id": "sec-11-11.3",
+          "label": "11.3 人机界面分析与建模",
+          "type": "section",
+          "chapter": 11
+        },
+        {
+          "id": "sec-11-11.4",
+          "label": "11.4 界面设计活动",
+          "type": "section",
+          "chapter": 11
+        },
+        {
+          "id": "sec-11-11.6",
+          "label": "11.6 设计评估",
+          "type": "section",
+          "chapter": 11
+        },
+        {
+          "id": "sec-11-",
+          "label": " 习题",
+          "type": "section",
+          "chapter": 11
+        },
+        {
+          "id": "kw-人机界面",
+          "label": "人机界面",
+          "type": "concept",
+          "chapter": 11,
+          "has_def": true,
+          "has_video": true,
+          "freq": 81
+        },
+        {
+          "id": "kw-可用性",
+          "label": "可用性",
+          "type": "concept",
+          "chapter": 11,
+          "has_def": true,
+          "has_video": true,
+          "freq": 29
+        },
+        {
+          "id": "kw-用户体验",
+          "label": "用户体验",
+          "type": "concept",
+          "chapter": 11,
+          "has_def": true,
+          "has_video": true,
+          "freq": 1
+        }
+      ],
+      "edges": [
+        {
+          "source": "ch-11",
+          "target": "sec-11-11.1",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-11",
+          "target": "sec-11-11.2",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-11",
+          "target": "sec-11-11.3",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-11",
+          "target": "sec-11-11.4",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-11",
+          "target": "sec-11-11.6",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-11",
+          "target": "sec-11-",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-11",
+          "target": "kw-人机界面",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-11",
+          "target": "kw-可用性",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-11",
+          "target": "kw-用户体验",
+          "type": "hierarchy"
+        },
+        {
+          "source": "kw-可用性",
+          "target": "kw-需求分析",
+          "type": "cooccurrence",
+          "weight": 2
+        }
+      ]
+    },
+    "12": {
+      "chapter": 12,
+      "title": "程序设计语言和编码",
+      "nodes": [
+        {
+          "id": "ch-12",
+          "label": "第12章 程序设计语言和编码",
+          "type": "chapter",
+          "chapter": 12
+        },
+        {
+          "id": "sec-12-12.1",
+          "label": "12.1 程序设计语言",
+          "type": "section",
+          "chapter": 12
+        },
+        {
+          "id": "sec-12-12.2",
+          "label": "12.2 程序设计风格",
+          "type": "section",
+          "chapter": 12
+        },
+        {
+          "id": "sec-12-",
+          "label": " 习题",
+          "type": "section",
+          "chapter": 12
+        },
+        {
+          "id": "kw-程序设计语言",
+          "label": "程序设计语言",
+          "type": "concept",
+          "chapter": 12,
+          "has_def": true,
+          "has_video": true,
+          "freq": 79
+        },
+        {
+          "id": "kw-代码审查",
+          "label": "代码审查",
+          "type": "concept",
+          "chapter": 12,
+          "has_def": true,
+          "has_video": true,
+          "freq": 2
+        }
+      ],
+      "edges": [
+        {
+          "source": "ch-12",
+          "target": "sec-12-12.1",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-12",
+          "target": "sec-12-12.2",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-12",
+          "target": "sec-12-",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-12",
+          "target": "kw-程序设计语言",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-12",
+          "target": "kw-代码审查",
+          "type": "hierarchy"
+        }
+      ]
+    },
+    "13": {
+      "chapter": 13,
+      "title": "软件测试",
+      "nodes": [
+        {
+          "id": "ch-13",
+          "label": "第13章 软件测试",
+          "type": "chapter",
+          "chapter": 13
+        },
+        {
+          "id": "sec-13-13.1",
+          "label": "13.1 软件测试基础",
+          "type": "section",
+          "chapter": 13
+        },
+        {
+          "id": "sec-13-13.2",
+          "label": "13.2 白盒测试",
+          "type": "section",
+          "chapter": 13
+        },
+        {
+          "id": "sec-13-13.3",
+          "label": "13.3 黑盒测试",
+          "type": "section",
+          "chapter": 13
+        },
+        {
+          "id": "sec-13-13.4",
+          "label": "13.4 测试策略",
+          "type": "section",
+          "chapter": 13
+        },
+        {
+          "id": "sec-13-13.5",
+          "label": "13.5 面向对象测试",
+          "type": "section",
+          "chapter": 13
+        },
+        {
+          "id": "sec-13-13.6",
+          "label": "13.6 测试完成标准",
+          "type": "section",
+          "chapter": 13
+        },
+        {
+          "id": "sec-13-13.7",
+          "label": "13.7 调试",
+          "type": "section",
+          "chapter": 13
+        },
+        {
+          "id": "sec-13-",
+          "label": " 习题",
+          "type": "section",
+          "chapter": 13
+        },
+        {
+          "id": "kw-测试用例",
+          "label": "测试用例",
+          "type": "concept",
+          "chapter": 13,
+          "has_def": true,
+          "has_video": true,
+          "freq": 138
+        },
+        {
+          "id": "kw-软件测试",
+          "label": "软件测试",
+          "type": "concept",
+          "chapter": 13,
+          "has_def": true,
+          "has_video": true,
+          "freq": 54
+        },
+        {
+          "id": "kw-集成测试",
+          "label": "集成测试",
+          "type": "concept",
+          "chapter": 13,
+          "has_def": true,
+          "has_video": true,
+          "freq": 52
+        },
+        {
+          "id": "kw-单元测试",
+          "label": "单元测试",
+          "type": "concept",
+          "chapter": 13,
+          "has_def": true,
+          "has_video": true,
+          "freq": 35
+        },
+        {
+          "id": "kw-回归测试",
+          "label": "回归测试",
+          "type": "concept",
+          "chapter": 13,
+          "has_def": true,
+          "has_video": true,
+          "freq": 18
+        },
+        {
+          "id": "kw-白盒测试",
+          "label": "白盒测试",
+          "type": "concept",
+          "chapter": 13,
+          "has_def": true,
+          "has_video": true,
+          "freq": 17
+        },
+        {
+          "id": "kw-黑盒测试",
+          "label": "黑盒测试",
+          "type": "concept",
+          "chapter": 13,
+          "has_def": true,
+          "has_video": true,
+          "freq": 17
+        }
+      ],
+      "edges": [
+        {
+          "source": "ch-13",
+          "target": "sec-13-13.1",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-13",
+          "target": "sec-13-13.2",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-13",
+          "target": "sec-13-13.3",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-13",
+          "target": "sec-13-13.4",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-13",
+          "target": "sec-13-13.5",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-13",
+          "target": "sec-13-13.6",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-13",
+          "target": "sec-13-13.7",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-13",
+          "target": "sec-13-",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-13",
+          "target": "kw-测试用例",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-13",
+          "target": "kw-软件测试",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-13",
+          "target": "kw-集成测试",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-13",
+          "target": "kw-单元测试",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-13",
+          "target": "kw-回归测试",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-13",
+          "target": "kw-白盒测试",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-13",
+          "target": "kw-黑盒测试",
+          "type": "hierarchy"
+        },
+        {
+          "source": "kw-测试用例",
+          "target": "kw-配置管理",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-测试用例",
+          "target": "kw-验收测试",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-单元测试",
+          "target": "kw-系统测试",
+          "type": "cooccurrence",
+          "weight": 5
+        },
+        {
+          "source": "kw-单元测试",
+          "target": "kw-集成测试",
+          "type": "cooccurrence",
+          "weight": 3
+        },
+        {
+          "source": "kw-白盒测试",
+          "target": "kw-黑盒测试",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-系统测试",
+          "target": "kw-集成测试",
+          "type": "cooccurrence",
+          "weight": 3
+        },
+        {
+          "source": "kw-单元测试",
+          "target": "kw-系统工程",
+          "type": "cooccurrence",
+          "weight": 2
+        }
+      ]
+    },
+    "14": {
+      "chapter": 14,
+      "title": "Web工程",
+      "nodes": [
+        {
+          "id": "ch-14",
+          "label": "第14章 Web工程",
+          "type": "chapter",
+          "chapter": 14
+        },
+        {
+          "id": "sec-14-14.1",
+          "label": "14.1 WebApp的属性和类型",
+          "type": "section",
+          "chapter": 14
+        },
+        {
+          "id": "sec-14-14.2",
+          "label": "14.2 Web工程过程",
+          "type": "section",
+          "chapter": 14
+        },
+        {
+          "id": "sec-14-14.3",
+          "label": "14.3 WebApp建模",
+          "type": "section",
+          "chapter": 14
+        },
+        {
+          "id": "sec-14-14.4",
+          "label": "14.4 WebApp质量管理",
+          "type": "section",
+          "chapter": 14
+        },
+        {
+          "id": "sec-14-",
+          "label": " 习题",
+          "type": "section",
+          "chapter": 14
+        },
+        {
+          "id": "kw-Web工程",
+          "label": "Web工程",
+          "type": "concept",
+          "chapter": 14,
+          "has_def": true,
+          "has_video": true,
+          "freq": 1
+        }
+      ],
+      "edges": [
+        {
+          "source": "ch-14",
+          "target": "sec-14-14.1",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-14",
+          "target": "sec-14-14.2",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-14",
+          "target": "sec-14-14.3",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-14",
+          "target": "sec-14-14.4",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-14",
+          "target": "sec-14-",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-14",
+          "target": "kw-Web工程",
+          "type": "hierarchy"
+        }
+      ]
+    },
+    "15": {
+      "chapter": 15,
+      "title": "软件维护与再工程",
+      "nodes": [
+        {
+          "id": "ch-15",
+          "label": "第15章 软件维护与再工程",
+          "type": "chapter",
+          "chapter": 15
+        },
+        {
+          "id": "sec-15-15.1",
+          "label": "15.1 软件维护",
+          "type": "section",
+          "chapter": 15
+        },
+        {
+          "id": "sec-15-15.2",
+          "label": "15.2 再工程技术",
+          "type": "section",
+          "chapter": 15
+        },
+        {
+          "id": "sec-15-",
+          "label": " 习题",
+          "type": "section",
+          "chapter": 15
+        },
+        {
+          "id": "kw-软件维护",
+          "label": "软件维护",
+          "type": "concept",
+          "chapter": 15,
+          "has_def": true,
+          "has_video": true,
+          "freq": 67
+        },
+        {
+          "id": "kw-再工程",
+          "label": "再工程",
+          "type": "concept",
+          "chapter": 15,
+          "has_def": true,
+          "has_video": true,
+          "freq": 57
+        },
+        {
+          "id": "kw-重构",
+          "label": "重构",
+          "type": "concept",
+          "chapter": 15,
+          "has_def": true,
+          "has_video": true,
+          "freq": 40
+        },
+        {
+          "id": "kw-逆向工程",
+          "label": "逆向工程",
+          "type": "concept",
+          "chapter": 15,
+          "has_def": true,
+          "has_video": true,
+          "freq": 35
+        }
+      ],
+      "edges": [
+        {
+          "source": "ch-15",
+          "target": "sec-15-15.1",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-15",
+          "target": "sec-15-15.2",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-15",
+          "target": "sec-15-",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-15",
+          "target": "kw-软件维护",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-15",
+          "target": "kw-再工程",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-15",
+          "target": "kw-重构",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-15",
+          "target": "kw-逆向工程",
+          "type": "hierarchy"
+        },
+        {
+          "source": "kw-再工程",
+          "target": "kw-软件维护",
+          "type": "cooccurrence",
+          "weight": 3
+        },
+        {
+          "source": "kw-再工程",
+          "target": "kw-配置管理",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-软件维护",
+          "target": "kw-配置管理",
+          "type": "cooccurrence",
+          "weight": 3
+        }
+      ]
+    },
+    "16": {
+      "chapter": 16,
+      "title": "软件项目管理",
+      "nodes": [
+        {
+          "id": "ch-16",
+          "label": "第16章 软件项目管理",
+          "type": "chapter",
+          "chapter": 16
+        },
+        {
+          "id": "sec-16-16.1",
+          "label": "16.1 软件项目管理概述",
+          "type": "section",
+          "chapter": 16
+        },
+        {
+          "id": "sec-16-16.2",
+          "label": "16.2 软件度量",
+          "type": "section",
+          "chapter": 16
+        },
+        {
+          "id": "sec-16-16.3",
+          "label": "16.3 软件项目估算",
+          "type": "section",
+          "chapter": 16
+        },
+        {
+          "id": "sec-16-16.4",
+          "label": "16.4 项目进度管理",
+          "type": "section",
+          "chapter": 16
+        },
+        {
+          "id": "sec-16-16.5",
+          "label": "16.5 风险管理",
+          "type": "section",
+          "chapter": 16
+        },
+        {
+          "id": "sec-16-16.6",
+          "label": "16.6 软件项目的组织",
+          "type": "section",
+          "chapter": 16
+        },
+        {
+          "id": "sec-16-16.7",
+          "label": "16.7 软件质量管理",
+          "type": "section",
+          "chapter": 16
+        },
+        {
+          "id": "sec-16-16.8",
+          "label": "16.8 软件配置管理",
+          "type": "section",
+          "chapter": 16
+        },
+        {
+          "id": "sec-16-",
+          "label": " 习题",
+          "type": "section",
+          "chapter": 16
+        },
+        {
+          "id": "kw-软件项目管理",
+          "label": "软件项目管理",
+          "type": "concept",
+          "chapter": 16,
+          "has_def": true,
+          "has_video": true,
+          "freq": 48
+        },
+        {
+          "id": "kw-风险管理",
+          "label": "风险管理",
+          "type": "concept",
+          "chapter": 16,
+          "has_def": true,
+          "has_video": true,
+          "freq": 39
+        },
+        {
+          "id": "kw-配置管理",
+          "label": "配置管理",
+          "type": "concept",
+          "chapter": 16,
+          "has_def": true,
+          "has_video": true,
+          "freq": 26
+        },
+        {
+          "id": "kw-基线",
+          "label": "基线",
+          "type": "concept",
+          "chapter": 16,
+          "has_def": true,
+          "has_video": true,
+          "freq": 14
+        }
+      ],
+      "edges": [
+        {
+          "source": "ch-16",
+          "target": "sec-16-16.1",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-16",
+          "target": "sec-16-16.2",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-16",
+          "target": "sec-16-16.3",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-16",
+          "target": "sec-16-16.4",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-16",
+          "target": "sec-16-16.5",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-16",
+          "target": "sec-16-16.6",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-16",
+          "target": "sec-16-16.7",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-16",
+          "target": "sec-16-16.8",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-16",
+          "target": "sec-16-",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-16",
+          "target": "kw-软件项目管理",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-16",
+          "target": "kw-风险管理",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-16",
+          "target": "kw-配置管理",
+          "type": "hierarchy"
+        },
+        {
+          "source": "ch-16",
+          "target": "kw-基线",
+          "type": "hierarchy"
+        },
+        {
+          "source": "kw-再工程",
+          "target": "kw-配置管理",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-框架",
+          "target": "kw-配置管理",
+          "type": "cooccurrence",
+          "weight": 3
+        },
+        {
+          "source": "kw-测试用例",
+          "target": "kw-配置管理",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-软件维护",
+          "target": "kw-配置管理",
+          "type": "cooccurrence",
+          "weight": 3
+        },
+        {
+          "source": "kw-质量保证",
+          "target": "kw-配置管理",
+          "type": "cooccurrence",
+          "weight": 4
+        },
+        {
+          "source": "kw-配置管理",
+          "target": "kw-需求分析",
+          "type": "cooccurrence",
+          "weight": 3
+        },
+        {
+          "source": "kw-详细设计",
+          "target": "kw-配置管理",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-配置管理",
+          "target": "kw-项目计划",
+          "type": "cooccurrence",
+          "weight": 3
+        },
+        {
+          "source": "kw-配置管理",
+          "target": "kw-风险管理",
+          "type": "cooccurrence",
+          "weight": 3
+        },
+        {
+          "source": "kw-项目计划",
+          "target": "kw-风险管理",
+          "type": "cooccurrence",
+          "weight": 3
+        },
+        {
+          "source": "kw-软件度量",
+          "target": "kw-风险管理",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-软件项目管理",
+          "target": "kw-项目计划",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-质量保证",
+          "target": "kw-风险管理",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-配置管理",
+          "target": "kw-需求管理",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-需求管理",
+          "target": "kw-风险管理",
+          "type": "cooccurrence",
+          "weight": 2
+        },
+        {
+          "source": "kw-基线",
+          "target": "kw-版本控制",
+          "type": "cooccurrence",
+          "weight": 2
+        }
+      ]
+    }
+  }
+}

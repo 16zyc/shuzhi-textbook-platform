@@ -90,18 +90,19 @@ def main():
     with open(f'{BASE}/se_external_resources.json','r',encoding='utf-8') as f:
         ext = json.load(f)
 
-    # 收集定义术语
+    # 收集定义术语（从扩充后的定义库加载）
+    with open(f'{BASE}/se_definitions.json','r',encoding='utf-8') as f:
+        defs_data = json.load(f)
     def_terms = {}
-    for sec in knowledge['sections']:
-        for d in sec['definitions']:
-            if 'term' in d and len(d['term']) >= 2:
-                def_terms[d['term']] = {
-                    'definition': d['text'],
-                    'def_source': d.get('source',''),
-                    'def_page': sec['page_start'],
-                    'chapter': sec['chapter'],
-                    'section': sec['section']
-                }
+    for d in defs_data['definitions']:
+        if len(d['term']) >= 2:
+            def_terms[d['term']] = {
+                'definition': d['definition'],
+                'def_source': d.get('source',''),
+                'def_page': d.get('page',0),
+                'chapter': d.get('chapter',0),
+                'section': ''
+            }
     print(f'定义术语: {len(def_terms)}')
 
     # 构建视频关联
@@ -145,8 +146,15 @@ def main():
 
     print(f'分词完成，候选术语: {len(term_freq)}')
 
-    # 过滤：频次>=3 或 有定义
-    valid_terms = Counter({k:v for k,v in term_freq.items() if v >= 3 or k in def_terms})
+    # 过滤：必须有定义 或 （是专业核心术语且频次>=5且非通用无定义词）
+    # 通用词如"对象""属性""消息"没有定义则不保留
+    GENERIC_NO_DEF = {'对象','评审','属性','接口','复用','消息','抽象',
+                      '确认','用户界面','软件质量','数据库','看板','验证','审计',
+                      '类','方法'}
+    valid_terms = Counter({
+        k:v for k,v in term_freq.items()
+        if k in def_terms or (k in SE_DICT and v >= 5 and k not in GENERIC_NO_DEF)
+    })
     print(f'有效术语: {len(valid_terms)}')
 
     # 构建关键词索引
