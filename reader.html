@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>数智教材平台 - 电子书阅读</title>
+<title>数智教材平台 - 软件工程 第3版</title>
 <link rel="stylesheet" href="style.css">
 <!-- PDF.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
@@ -11,7 +11,7 @@
   body { background: #525659; overflow: hidden; }
   .reader-topbar {
     height: 56px;
-    background: linear-gradient(90deg, var(--primary-deep), var(--primary));
+    background: linear-gradient(90deg, #1557B0, #1A73E8);
     color: #fff;
     display: flex;
     align-items: center;
@@ -29,6 +29,7 @@
     cursor: pointer;
     transition: .2s;
     font-size: 13px;
+    text-decoration: none;
   }
   .reader-topbar .back:hover { background: rgba(255,255,255,.12); color: #fff; }
   .reader-topbar .title {
@@ -158,13 +159,13 @@
 <body>
 
 <div class="reader-topbar">
-  <div class="back" onclick="location.href='index.html'">← 返回教材广场</div>
-  <div class="title" id="book-title">机器学习 · 周志华</div>
+  <a class="back" href="teaching.html">← 返回备课平台</a>
+  <div class="title" id="book-title">软件工程 第3版 · 钱乐秋等编著</div>
   <div class="tools">
     <button onclick="zoom(-0.2)" title="缩小">－</button>
     <button onclick="zoom(0.2)" title="放大">＋</button>
     <button onclick="toggleToc()" title="目录">☰</button>
-    <input type="number" class="page-input" id="page-input" min="1" value="1" onchange="goToPage(this.value)">
+    <input type="number" class="page-input" id="page-input" min="1" value="14" onchange="goToPage(this.value)">
     <span class="page-info" id="page-info">/ -</span>
   </div>
 </div>
@@ -173,24 +174,25 @@
   <aside class="toc" id="toc">
     <div class="toc-head">📑 目录</div>
     <div id="toc-list">
-      <div class="toc-item" onclick="goToPage(1)"><span class="num">封面</span>机器学习</div>
-      <div class="toc-item" onclick="goToPage(8)"><span class="num">前言</span>前言与致谢</div>
-      <div class="toc-item" onclick="goToPage(12)"><span class="num">第1章</span>绪论</div>
-      <div class="toc-item" onclick="goToPage(40)"><span class="num">第2章</span>模型评估与选择</div>
-      <div class="toc-item" onclick="goToPage(68)"><span class="num">第3章</span>线性模型</div>
-      <div class="toc-item" onclick="goToPage(96)"><span class="num">第4章</span>决策树</div>
-      <div class="toc-item" onclick="goToPage(122)"><span class="num">第5章</span>神经网络</div>
-      <div class="toc-item" onclick="goToPage(148)"><span class="num">第6章</span>支持向量机</div>
-      <div class="toc-item" onclick="goToPage(176)"><span class="num">第7章</span>贝叶斯分类器</div>
-      <div class="toc-item" onclick="goToPage(196)"><span class="num">第8章</span>集成学习</div>
-      <div class="toc-item" onclick="goToPage(220)"><span class="num">第9章</span>聚类</div>
-      <div class="toc-item" onclick="goToPage(244)"><span class="num">第10章</span>降维与度量学习</div>
-      <div class="toc-item" onclick="goToPage(268)"><span class="num">第11章</span>特征选择与稀疏学习</div>
-      <div class="toc-item" onclick="goToPage(290)"><span class="num">第12章</span>计算学习理论</div>
-      <div class="toc-item" onclick="goToPage(316)"><span class="num">第13章</span>半监督学习</div>
-      <div class="toc-item" onclick="goToPage(340)"><span class="num">第14章</span>概率图模型</div>
-      <div class="toc-item" onclick="goToPage(368)"><span class="num">第15章</span>规则学习</div>
-      <div class="toc-item" onclick="goToPage(390)"><span class="num">第16章</span>强化学习</div>
+      <div class="toc-item" onclick="goToPage(1)"><span class="num">封面</span>软件工程 第3版</div>
+      <div class="toc-item" onclick="goToPage(3)"><span class="num">前衬</span>版权信息</div>
+      <div class="toc-item" onclick="goToPage(5)"><span class="num">前言</span>序言与目录</div>
+      <div class="toc-item active" onclick="goToPage(14)"><span class="num">第1章</span>概论</div>
+      <div class="toc-item" onclick="goToPage(40)"><span class="num">第2章</span>系统工程</div>
+      <div class="toc-item" onclick="goToPage(46)"><span class="num">第3章</span>需求工程</div>
+      <div class="toc-item" onclick="goToPage(59)"><span class="num">第4章</span>设计工程</div>
+      <div class="toc-item" onclick="goToPage(80)"><span class="num">第5章</span>结构化分析与设计</div>
+      <div class="toc-item" onclick="goToPage(123)"><span class="num">第6章</span>面向数据结构的分析与设计</div>
+      <div class="toc-item" onclick="goToPage(133)"><span class="num">第7章</span>面向对象方法基础</div>
+      <div class="toc-item" onclick="goToPage(150)"><span class="num">第8章</span>面向对象建模</div>
+      <div class="toc-item" onclick="goToPage(197)"><span class="num">第9章</span>基于构件的软件开发</div>
+      <div class="toc-item" onclick="goToPage(212)"><span class="num">第10章</span>敏捷软件开发</div>
+      <div class="toc-item" onclick="goToPage(234)"><span class="num">第11章</span>人机界面设计</div>
+      <div class="toc-item" onclick="goToPage(249)"><span class="num">第12章</span>程序设计语言和编码</div>
+      <div class="toc-item" onclick="goToPage(260)"><span class="num">第13章</span>软件测试</div>
+      <div class="toc-item" onclick="goToPage(294)"><span class="num">第14章</span>Web工程</div>
+      <div class="toc-item" onclick="goToPage(310)"><span class="num">第15章</span>软件维护与再工程</div>
+      <div class="toc-item" onclick="goToPage(323)"><span class="num">第16章</span>软件项目管理</div>
     </div>
   </aside>
 
@@ -206,9 +208,9 @@
 <script>
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-const url = 'books/ml-zhou.pdf';
+const url = 'books/se-14043807.pdf';
 let pdfDoc = null;
-let pageNum = 1;
+let pageNum = 14;
 let pageRendering = false;
 let pageNumPending = null;
 let scale = 1.3;

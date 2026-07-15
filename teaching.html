@@ -326,6 +326,7 @@
         <span>关键词</span>
         <div class="switch"></div>
       </div>
+      <button class="action-btn" onclick="openReader()">📖 原版PDF</button>
       <button class="action-btn" onclick="showCitationPanel()">📜 引经据典</button>
     </div>
     <div class="content-body" id="content-body">加载中...</div>
@@ -1014,36 +1015,187 @@ function showCitationPanel() {
   }
 }
 
+// 打开原版PDF阅读器（跳转到当前页）
+function openReader() {
+  window.open(`reader.html?page=${currentPage}`, '_blank');
+}
+
 // ===== PPT生成 =====
 function generatePPT() {
   const ch = knowledge.chapters.find(c=>c.num===currentChapter);
   const secs = knowledge.sections.filter(s=>s.chapter===currentChapter);
-  const kps = [];
-  secs.forEach(sec => sec.definitions.forEach(d => kps.push({...d, section:sec.section, page:sec.page_start})));
-  if(!kps.length) secs.slice(0,5).forEach(sec => kps.push({term:sec.section_title, text:sec.text_preview, section:sec.section, page:sec.page_start}));
+  // 本章权威定义（来自 se_definitions.json）
+  const chDefs = defs.definitions.filter(d=>d.chapter===currentChapter);
   const chRes = extRes.chapters.find(c=>c.chapter===currentChapter);
-  const vids = chRes ? chRes.videos.slice(0,3) : [];
+  const vids = chRes ? (chRes.videos||[]) : [];
+  const ghs = chRes ? (chRes.github||[]) : [];
+  const arxs = chRes ? (chRes.arxiv||[]) : [];
+  // 本章概念图谱数据
+  const chGraph = graph.by_chapter ? graph.by_chapter[currentChapter] : null;
 
   pptSlides = [];
-  pptSlides.push({type:'title', title:`第${currentChapter}章 ${ch.title}`, subtitle:`《软件工程第3版》钱乐秋等编著\n备课教师：王老师`});
-  pptSlides.push({type:'toc', title:'本章目录', items:secs.map(s=>`${s.section} ${s.section_title}`)});
-  pptSlides.push({type:'content', title:'教学目标', items:['知识目标：掌握核心概念','能力目标：解决实际问题','素质目标：培养工程思维']});
 
-  for(let i=0;i<kps.length;i+=3){
-    const chunk=kps.slice(i,i+3);
-    pptSlides.push({type:'content', title:'核心知识点', items:chunk.map(k=>`${k.term||k.section}：${k.text.substring(0,50)}`)});
-    chunk.forEach(k => {
-      if(k.text.length>15) pptSlides.push({type:'def', title:`📜 ${k.term||k.section}`, quote:k.text, source:k.source?`《${k.source}》`:`《软件工程第3版》p${k.page}`});
+  // 1. 封面
+  pptSlides.push({
+    type:'title',
+    title:`第${currentChapter}章 ${ch.title}`,
+    subtitle:`《软件工程第3版》钱乐秋、赵文耘、牛军钰编著\n清华大学出版社 · 第${ch.page_start}-${ch.page_end}页\n备课教师：王老师`
+  });
+
+  // 2. 教学目标（基于本章定义）
+  const objTerms = chDefs.slice(0,4).map(d=>d.term).join('、') || secs[0]?.section_title || ch.title;
+  pptSlides.push({
+    type:'objectives',
+    title:'教学目标',
+    objectives:[
+      {ico:'📖', txt:`<strong>知识目标：</strong>掌握${objTerms}等核心概念的内涵与外延`},
+      {ico:'🔧', txt:`<strong>能力目标：</strong>能够运用本章理论方法分析、解决实际软件工程问题`},
+      {ico:'🧠', txt:`<strong>素质目标：</strong>培养工程化思维与系统化分析能力`},
+      {ico:'📚', txt:`<strong>引经据典：</strong>溯源每个核心概念的原始出处，做到"言必有据"`}
+    ]
+  });
+
+  // 3. 本章目录
+  pptSlides.push({
+    type:'toc',
+    title:'本章导学 · 目录',
+    items:secs.map(s=>`${s.section} ${s.section_title}（第${s.page_start}-${s.page_end}页）`)
+  });
+
+  // 4. 引经据典汇总表（本章所有定义的溯源一览）
+  if(chDefs.length){
+    pptSlides.push({
+      type:'citations',
+      title:`引经据典 · 第${currentChapter}章核心概念溯源`,
+      rows: chDefs.map(d=>({
+        term: d.term,
+        def: d.definition.length>40 ? d.definition.substring(0,40)+'...' : d.definition,
+        source: d.source || '《软件工程第3版》',
+        page: 'p'+d.page
+      }))
     });
   }
 
-  pptSlides.push({type:'content', title:'教学重难点', items:[`重点：${kps.slice(0,3).map(k=>k.term||k.section).join('、')}`,'难点：概念理解与工程应用']});
-  if(vids.length) pptSlides.push({type:'content', title:'参考资料', items:vids.map(v=>`🎬 ${v.title}`)});
-  pptSlides.push({type:'end', title:'谢谢！', subtitle:'《软件工程第3版》· 王老师'});
+  // 5. 每个核心定义单独一页（规范溯源：原文+出处+页码徽标）
+  chDefs.slice(0,6).forEach(d => {
+    pptSlides.push({
+      type:'def',
+      title:`📜 ${d.term}`,
+      quote: d.definition,
+      source: d.source || '《软件工程第3版》',
+      page: d.page
+    });
+  });
+
+  // 6. 概念关系图（从 graph 数据生成 SVG）
+  if(chGraph && chGraph.nodes && chGraph.nodes.length){
+    pptSlides.push({
+      type:'mindmap',
+      title:'概念关系图谱',
+      svg: buildMindmapSVG(chGraph)
+    });
+  }
+
+  // 7. 易混淆概念对比（如果本章有2个以上定义）
+  if(chDefs.length >= 2){
+    const [a,b] = chDefs;
+    pptSlides.push({
+      type:'compare',
+      title:'概念辨析 · 易混淆点',
+      colA: { title: a.term, items: splitDefPoints(a.definition) },
+      colB: { title: b.term, items: splitDefPoints(b.definition) }
+    });
+  }
+
+  // 8. 典型案例
+  pptSlides.push({
+    type:'case',
+    title:'典型案例分析',
+    tags:['工程实践','章节应用'],
+    body: `以本章"<strong>${chDefs[0]?.term || ch.title}</strong>"为核心，结合软件工程实际项目场景：\n\n在真实的软件项目开发中，工程师需要将教材中"${chDefs[0]?.term || '本章核心概念'}"的定义应用到具体环节。根据《软件工程第3版》第${ch.page_start}-${ch.page_end}页的论述，这一概念贯穿软件生命周期的多个阶段，是连接理论与实践的关键枢纽。\n\n通过本案例，学生应能将教材定义迁移到工程场景，做到"引经据典、学以致用"。`
+  });
+
+  // 9. 本章小结
+  const summaryItems = chDefs.length
+    ? chDefs.slice(0,6).map((d,i)=>`${d.term}：${d.definition.substring(0,20)}...`)
+    : secs.slice(0,6).map((s,i)=>`${s.section} ${s.section_title}`);
+  pptSlides.push({
+    type:'summary',
+    title:'本章小结',
+    items: summaryItems
+  });
+
+  // 10. 拓展资源
+  const resources = [];
+  vids.slice(0,2).forEach(v=>resources.push({tag:'B站', tagCls:'bili', title:v.title}));
+  ghs.slice(0,2).forEach(g=>resources.push({tag:'GitHub', tagCls:'gh', title:g.title}));
+  arxs.slice(0,1).forEach(a=>resources.push({tag:'arXiv', tagCls:'arxiv', title:a.title}));
+  if(resources.length){
+    pptSlides.push({
+      type:'resources',
+      title:'拓展学习资源',
+      resources
+    });
+  }
+
+  // 11. 思考与作业
+  const hwTerms = chDefs.slice(0,3).map(d=>d.term);
+  pptSlides.push({
+    type:'homework',
+    title:'思考与作业',
+    items:[
+      `简述${hwTerms[0] || '本章核心概念'}的定义，并标注其在教材中的出处页码（引经据典）`,
+      `对比${hwTerms[1] || '相关概念'}与${hwTerms[2] || '其他概念'}的联系与区别`,
+      `结合实际软件项目，说明如何应用本章理论方法解决工程问题`,
+      `阅读《软件工程第3版》第${ch.page_start}-${ch.page_end}页，整理本章知识脉络`
+    ]
+  });
+
+  // 12. 结束页
+  pptSlides.push({
+    type:'end',
+    title:'谢谢！',
+    subtitle:`《软件工程第3版》第${currentChapter}章 ${ch.title}\n备课教师：王老师`
+  });
 
   renderPPT();
   openModal('ppt-modal');
-  showToast(`✓ 已生成 ${pptSlides.length} 页课件`);
+  showToast(`✓ 已生成 ${pptSlides.length} 页课件（含引经据典溯源）`);
+}
+
+// 概念图 SVG（PPT内嵌用，简化版径向布局）
+function buildMindmapSVG(chGraph){
+  const concepts = chGraph.nodes.filter(n=>n.type==='concept').slice(0,8);
+  const sections = chGraph.nodes.filter(n=>n.type==='section').slice(0,4);
+  const cx=200, cy=130, R=90, r=50;
+  let svg=`<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">`;
+  // 中心章节
+  svg+=`<circle cx="${cx}" cy="${cy}" r="22" fill="#1A73E8"/>`;
+  svg+=`<text x="${cx}" y="${cy+4}" text-anchor="middle" fill="#fff" font-size="11" font-weight="600">第${currentChapter}章</text>`;
+  // 节节点（内圈）
+  sections.forEach((s,i)=>{
+    const a = (i/sections.length)*Math.PI*2 - Math.PI/2;
+    const x = cx + Math.cos(a)*r, y = cy + Math.sin(a)*r;
+    svg+=`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#D2E3FC" stroke-width="1.5"/>`;
+    svg+=`<circle cx="${x}" cy="${y}" r="14" fill="#E8F0FE" stroke="#1A73E8" stroke-width="1"/>`;
+    svg+=`<text x="${x}" y="${y+3}" text-anchor="middle" fill="#1A73E8" font-size="8">${(s.label||'').substring(0,4)}</text>`;
+  });
+  // 概念节点（外圈）
+  concepts.forEach((c,i)=>{
+    const a = (i/concepts.length)*Math.PI*2 - Math.PI/2;
+    const x = cx + Math.cos(a)*R, y = cy + Math.sin(a)*R;
+    svg+=`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#F3E8FD" stroke-width="1"/>`;
+    svg+=`<circle cx="${x}" cy="${y}" r="11" fill="#F3E8FD" stroke="#A142F4" stroke-width="1"/>`;
+    svg+=`<text x="${x}" y="${y+3}" text-anchor="middle" fill="#A142F4" font-size="7">${(c.label||'').substring(0,4)}</text>`;
+  });
+  svg+=`</svg>`;
+  return svg;
+}
+
+// 拆解定义为要点
+function splitDefPoints(def){
+  const clean = def.replace(/[。；;]/g,'|').split('|').filter(s=>s.trim().length>3);
+  return clean.length ? clean.slice(0,4).map(s=>s.trim()) : [def.substring(0,30)];
 }
 
 function renderPPT() {
@@ -1051,10 +1203,55 @@ function renderPPT() {
   let html='';
   pptSlides.forEach((s,i) => {
     html+=`<div class="ppt-slide slide-${s.type}"><div class="slide-num">${i+1}/${pptSlides.length}</div>`;
-    if(s.type==='title') html+=`<h1>${s.title}</h1><div class="sub">${s.subtitle.replace(/\n/g,'<br>')}</div>`;
-    else if(s.type==='toc'||s.type==='content') html+=`<h2>${s.title}</h2><ul>${s.items.map(it=>`<li>${it}</li>`).join('')}</ul>`;
-    else if(s.type==='def') html+=`<h2>${s.title}</h2><div class="quote">"${s.quote}"</div><div class="source">出处：${s.source}</div>`;
-    else if(s.type==='end') html+=`<h1>${s.title}</h1><div class="sub">${s.subtitle||''}</div>`;
+    if(s.type==='title'){
+      html+=`<h1>${s.title}</h1><div class="sub">${(s.subtitle||'').replace(/\n/g,'<br>')}</div>`;
+    } else if(s.type==='toc'){
+      html+=`<h2>${s.title}</h2><ul>${s.items.map(it=>`<li>${it}</li>`).join('')}</ul>`;
+    } else if(s.type==='objectives'){
+      html+=`<h2>教学目标</h2>`;
+      s.objectives.forEach(o=>{
+        html+=`<div class="obj-item"><div class="ico">${o.ico}</div><div class="txt">${o.txt}</div></div>`;
+      });
+    } else if(s.type==='citations'){
+      html+=`<h2>${s.title}</h2><table><thead><tr><th>概念术语</th><th>定义（节选）</th><th>出处</th><th>页码</th></tr></thead><tbody>`;
+      s.rows.forEach(r=>{
+        html+=`<tr><td class="term">${r.term}</td><td>${r.def}</td><td>${r.source}</td><td class="page">${r.page}</td></tr>`;
+      });
+      html+=`</tbody></table>`;
+    } else if(s.type==='def'){
+      html+=`<h2>${s.title}</h2>`;
+      html+=`<div class="quote">"${s.quote}"</div>`;
+      html+=`<div class="source"><span class="badge">📖 出处</span>${s.source} · 第${s.page}页</div>`;
+    } else if(s.type==='mindmap'){
+      html+=`<h2>${s.title}</h2><div class="graph-box">${s.svg}</div>`;
+    } else if(s.type==='compare'){
+      html+=`<h2>${s.title}</h2><div class="cmp-table">`;
+      html+=`<div class="cmp-col"><div class="h">🔵 ${s.colA.title}</div><ul>${s.colA.items.map(it=>`<li>${it}</li>`).join('')}</ul></div>`;
+      html+=`<div class="cmp-col alt"><div class="h">🟣 ${s.colB.title}</div><ul>${s.colB.items.map(it=>`<li>${it}</li>`).join('')}</ul></div>`;
+      html+=`</div>`;
+    } else if(s.type==='case'){
+      html+=`<h2>${s.title}</h2>`;
+      if(s.tags) html+=`<div style="margin-bottom:8px">${s.tags.map(t=>`<span class="case-tag">${t}</span>`).join('')}</div>`;
+      html+=`<div class="case-body">${s.body.replace(/\n/g,'<br>')}</div>`;
+    } else if(s.type==='summary'){
+      html+=`<h2>${s.title}</h2><div class="sum-grid">`;
+      s.items.forEach((it,i)=>{
+        html+=`<div class="sum-item"><div class="n">${i+1}</div><div>${it}</div></div>`;
+      });
+      html+=`</div>`;
+    } else if(s.type==='resources'){
+      html+=`<h2>${s.title}</h2>`;
+      s.resources.forEach(r=>{
+        html+=`<div class="res-row"><span class="tag ${r.tagCls}">${r.tag}</span><span class="title">${r.title}</span></div>`;
+      });
+    } else if(s.type==='homework'){
+      html+=`<h2>${s.title}</h2>`;
+      s.items.forEach((it,i)=>{
+        html+=`<div class="hw-item"><div class="n">${i+1}</div><div class="txt">${it}</div></div>`;
+      });
+    } else if(s.type==='end'){
+      html+=`<h1>${s.title}</h1><div class="sub">${(s.subtitle||'').replace(/\n/g,'<br>')}</div>`;
+    }
     html+=`</div>`;
   });
   c.innerHTML=html;
@@ -1064,15 +1261,147 @@ function downloadPPT() {
   if(!pptSlides.length){showToast('请先生成');return;}
   const pptx=new PptxGenJS();
   pptx.defineLayout({name:'C',width:13.33,height:7.5}); pptx.layout='C';
-  pptSlides.forEach(s => {
+  const C_TITLE='1A73E8', C_TITLE_DK='1557B0', C_TXT='202124', C_SOFT='3C4043', C_MUTED='80868B';
+  const C_WARN='B06000', C_WARN_BG='FEF7E0', C_PURPLE='A142F4', C_GREEN='188038';
+
+  pptSlides.forEach((s,idx) => {
     const sl=pptx.addSlide();
-    if(s.type==='title'){sl.background={color:'1A73E8'};sl.addText(s.title,{x:.5,y:2.5,w:12,h:1.2,align:'center',fontSize:36,color:'FFFFFF'});sl.addText(s.subtitle||'',{x:.5,y:4,w:12,h:1,align:'center',fontSize:16,color:'D2E3FC'});}
-    else if(s.type==='toc'||s.type==='content'){sl.addText(s.title,{x:.5,y:.3,w:12,h:.8,fontSize:28,color:'1A73E8',bold:true,underline:{color:'1A73E8'}});s.items.forEach((it,i)=>sl.addText(`• ${it}`,{x:.8,y:1.4+i*.7,w:11.5,h:.6,fontSize:14,color:'3C4043',valign:'top'}));}
-    else if(s.type==='def'){sl.background={color:'FEF7E0'};sl.addText(s.title,{x:.5,y:.3,w:12,h:.8,fontSize:22,color:'B06000',bold:true});sl.addText(`"${s.quote}"`,{x:1,y:1.8,w:11,h:3,fontSize:18,color:'202124',italic:true,valign:'middle'});sl.addText(`出处：${s.source}`,{x:1,y:5.5,w:11,h:.5,fontSize:12,color:'B06000'});}
-    else if(s.type==='end'){sl.background={color:'1A73E8'};sl.addText(s.title,{x:.5,y:3,w:12,h:1,align:'center',fontSize:36,color:'FFFFFF'});sl.addText(s.subtitle||'',{x:.5,y:4.2,w:12,h:.6,align:'center',fontSize:14,color:'D2E3FC'});}
+    sl.addText(`${idx+1} / ${pptSlides.length}`,{x:12.5,y:7,w:.7,h:.3,fontSize:9,color:C_MUTED,align:'right'});
+
+    if(s.type==='title'){
+      sl.background={color:C_TITLE};
+      sl.addText(s.title,{x:.5,y:2.4,w:12.3,h:1.2,align:'center',fontSize:40,color:'FFFFFF',bold:true});
+      sl.addText((s.subtitle||'').replace(/\n/g,'  ·  '),{x:.5,y:3.8,w:12.3,h:1.2,align:'center',fontSize:16,color:'D2E3FC'});
+    }
+    else if(s.type==='toc'){
+      sl.addText(s.title,{x:.5,y:.3,w:12,h:.7,fontSize:28,color:C_TITLE,bold:true});
+      sl.addShape('line',{x:.5,y:1.05,w:12,h:0,line:{color:'D2E3FC',width:2}});
+      s.items.forEach((it,i)=>sl.addText(`• ${it}`,{x:.8,y:1.3+i*.55,w:11.5,h:.5,fontSize:13,color:C_SOFT,valign:'top'}));
+    }
+    else if(s.type==='objectives'){
+      sl.addText('教学目标',{x:.5,y:.3,w:12,h:.7,fontSize:28,color:C_TITLE,bold:true});
+      sl.addShape('line',{x:.5,y:1.05,w:12,h:0,line:{color:'D2E3FC',width:2}});
+      s.objectives.forEach((o,i)=>{
+        const y=1.4+i*.95;
+        sl.addText(o.ico,{x:.8,y,w:.5,h:.5,fontSize:18,align:'center'});
+        sl.addText(o.txt.replace(/<[^>]+>/g,''),{x:1.4,y,w:11,h:.7,fontSize:14,color:C_SOFT,valign:'middle'});
+      });
+    }
+    else if(s.type==='citations'){
+      sl.background={color:'FDF6E3'};
+      sl.addText(s.title,{x:.5,y:.3,w:12,h:.7,fontSize:22,color:C_WARN,bold:true});
+      sl.addShape('line',{x:.5,y:1.05,w:12,h:0,line:{color:'F9AB00',width:2}});
+      const rows=[['概念术语','定义（节选）','出处','页码']];
+      s.rows.forEach(r=>rows.push([r.term,r.def,r.source,r.page]));
+      sl.addTable(rows,{
+        x:.5,y:1.3,w:12.3,colW:[1.8,6.5,2.5,1.2],
+        fontSize:11,color:C_SOFT,border:{type:'solid',color:'F3E0B0',pt:1},
+        align:'left',valign:'middle',
+        autoPage:false
+      });
+    }
+    else if(s.type==='def'){
+      sl.background={color:C_WARN_BG};
+      sl.addText(s.title,{x:.5,y:.3,w:12,h:.7,fontSize:24,color:C_WARN,bold:true});
+      sl.addShape('line',{x:.5,y:1.05,w:12,h:0,line:{color:'F9AB00',width:2}});
+      // 引用块
+      sl.addShape('roundRect',{x:1,y:1.5,w:11,h:3.5,rectRadius:.1,fill:{color:'FFFFFF'},line:{color:'F9AB00',width:2}});
+      sl.addText(`"${s.quote}"`,{x:1.3,y:1.7,w:10.4,h:3.1,fontSize:17,color:C_TXT,italic:true,valign:'middle'});
+      // 出处徽标
+      sl.addShape('roundRect',{x:1,y:5.3,w:2,h:.5,rectRadius:.25,fill:{color:'F9AB00'}});
+      sl.addText('📖 出处',{x:1,y:5.3,w:2,h:.5,fontSize:11,color:'FFFFFF',align:'center',valign:'middle',bold:true});
+      sl.addText(`${s.source} · 第${s.page}页`,{x:3.2,y:5.3,w:8,h:.5,fontSize:13,color:C_WARN,valign:'middle'});
+    }
+    else if(s.type==='mindmap'){
+      sl.background={color:'F8FBFF'};
+      sl.addText(s.title,{x:.5,y:.3,w:12,h:.7,fontSize:24,color:C_TITLE,bold:true});
+      // 简化：用文本框模拟概念关系
+      sl.addText('本章核心概念关系图（中心放射结构）',{x:.5,y:1.2,w:12,h:.5,fontSize:12,color:C_MUTED,align:'center'});
+      // 中心
+      sl.addShape('ellipse',{x:5.6,y:3.2,w:2.2,h:1.1,fill:{color:C_TITLE}});
+      sl.addText(`第${currentChapter}章`,{x:5.6,y:3.2,w:2.2,h:1.1,fontSize:14,color:'FFFFFF',align:'center',valign:'middle',bold:true});
+      // 节点列表（左右分布）
+      const chGraph = graph.by_chapter ? graph.by_chapter[currentChapter] : null;
+      if(chGraph){
+        const concepts = chGraph.nodes.filter(n=>n.type==='concept').slice(0,8);
+        concepts.forEach((c,i)=>{
+          const side = i%2===0?-1:1;
+          const row = Math.floor(i/2);
+          const x = side<0 ? 0.5 : 9.5;
+          const y = 2 + row*1.1;
+          sl.addShape('roundRect',{x,y,w:3.2,h:.8,rectRadius:.15,fill:{color:'F3E8FD'},line:{color:C_PURPLE,width:1}});
+          sl.addText(c.label||'',{x,y,w:3.2,h:.8,fontSize:11,color:C_PURPLE,align:'center',valign:'middle'});
+          // 连接线
+          sl.addShape('line',{x: side<0?3.7:9.5, y:y+.4, w: side<0?1.9:1.9, h:0, line:{color:'D2E3FC',width:1}});
+        });
+      }
+    }
+    else if(s.type==='compare'){
+      sl.addText(s.title,{x:.5,y:.3,w:12,h:.7,fontSize:24,color:C_TITLE,bold:true});
+      sl.addShape('line',{x:.5,y:1.05,w:12,h:0,line:{color:'D2E3FC',width:2}});
+      // 左列
+      sl.addShape('roundRect',{x:.5,y:1.3,w:6,h:5.5,rectRadius:.1,fill:{color:'F8F9FA'},line:{color:C_TITLE,width:1}});
+      sl.addShape('rect',{x:.5,y:1.3,w:6,h:.12,fill:{color:C_TITLE}});
+      sl.addText(`🔵 ${s.colA.title}`,{x:.7,y:1.5,w:5.6,h:.5,fontSize:15,color:C_TXT,bold:true});
+      s.colA.items.forEach((it,i)=>sl.addText(`• ${it}`,{x:.7,y:2.1+i*.65,w:5.6,h:.55,fontSize:12,color:C_SOFT,valign:'top'}));
+      // 右列
+      sl.addShape('roundRect',{x:6.8,y:1.3,w:6,h:5.5,rectRadius:.1,fill:{color:'F8F9FA'},line:{color:C_PURPLE,width:1}});
+      sl.addShape('rect',{x:6.8,y:1.3,w:6,h:.12,fill:{color:C_PURPLE}});
+      sl.addText(`🟣 ${s.colB.title}`,{x:7,y:1.5,w:5.6,h:.5,fontSize:15,color:C_TXT,bold:true});
+      s.colB.items.forEach((it,i)=>sl.addText(`• ${it}`,{x:7,y:2.1+i*.65,w:5.6,h:.55,fontSize:12,color:C_SOFT,valign:'top'}));
+    }
+    else if(s.type==='case'){
+      sl.background={color:'FBF7FF'};
+      sl.addText(s.title,{x:.5,y:.3,w:12,h:.7,fontSize:24,color:C_PURPLE,bold:true});
+      if(s.tags){
+        s.tags.forEach((t,i)=>sl.addText(t,{x:.5+i*1.8,y:1.1,w:1.6,h:.4,fontSize:10,color:C_PURPLE,align:'center',fill:{color:'F3E8FD'}}));
+      }
+      sl.addShape('roundRect',{x:.5,y:1.7,w:12.3,h:5,rectRadius:.1,fill:{color:'FFFFFF'},line:{color:C_PURPLE,width:2}});
+      sl.addShape('rect',{x:.5,y:1.7,w:.12,h:5,fill:{color:C_PURPLE}});
+      sl.addText(s.body.replace(/\n/g,'\n').replace(/<[^>]+>/g,''),{x:1,y:1.9,w:11.5,h:4.6,fontSize:13,color:C_SOFT,valign:'top',lineSpacing:24});
+    }
+    else if(s.type==='summary'){
+      sl.background={color:'F5FBF6'};
+      sl.addText(s.title,{x:.5,y:.3,w:12,h:.7,fontSize:24,color:C_GREEN,bold:true});
+      s.items.forEach((it,i)=>{
+        const col = i%2, row = Math.floor(i/2);
+        const x = .5 + col*6.3, y = 1.3 + row*1.7;
+        sl.addShape('roundRect',{x,y,w:6,h:1.5,rectRadius:.1,fill:{color:'FFFFFF'},line:{color:'D2E3FC',width:1}});
+        sl.addShape('ellipse',{x:x+.1,y:y+.5,w:.5,h:.5,fill:{color:'E6F4EA'}});
+        sl.addText(`${i+1}`,{x:x+.1,y:y+.5,w:.5,h:.5,fontSize:12,color:C_GREEN,align:'center',valign:'middle',bold:true});
+        sl.addText(it,{x:x+.8,y:y+.2,w:5,h:1.1,fontSize:11,color:C_SOFT,valign:'middle'});
+      });
+    }
+    else if(s.type==='resources'){
+      sl.addText(s.title,{x:.5,y:.3,w:12,h:.7,fontSize:24,color:C_TITLE,bold:true});
+      sl.addShape('line',{x:.5,y:1.05,w:12,h:0,line:{color:'D2E3FC',width:2}});
+      const tagColors={bili:['FCE8E6','C5221F'],gh:['E6F4EA','188038'],arxiv:['F3E8FD','A142F4']};
+      s.resources.forEach((r,i)=>{
+        const y=1.4+i*.7;
+        const [bg,fg]=tagColors[r.tagCls]||['E8EAED','3C4043'];
+        sl.addShape('roundRect',{x:.5,y,w:1.8,h:.5,rectRadius:.25,fill:{color:bg}});
+        sl.addText(r.tag,{x:.5,y,w:1.8,h:.5,fontSize:10,color:fg,align:'center',valign:'middle',bold:true});
+        sl.addText(r.title,{x:2.5,y,w:10,h:.5,fontSize:12,color:C_SOFT,valign:'middle'});
+      });
+    }
+    else if(s.type==='homework'){
+      sl.addText(s.title,{x:.5,y:.3,w:12,h:.7,fontSize:24,color:C_TITLE,bold:true});
+      sl.addShape('line',{x:.5,y:1.05,w:12,h:0,line:{color:'D2E3FC',width:2}});
+      s.items.forEach((it,i)=>{
+        const y=1.4+i*.95;
+        sl.addShape('ellipse',{x:.8,y,w:.5,h:.5,fill:{color:C_TITLE}});
+        sl.addText(`${i+1}`,{x:.8,y,w:.5,h:.5,fontSize:13,color:'FFFFFF',align:'center',valign:'middle',bold:true});
+        sl.addText(it,{x:1.5,y,w:11,h:.5,fontSize:13,color:C_SOFT,valign:'middle'});
+      });
+    }
+    else if(s.type==='end'){
+      sl.background={color:C_TITLE};
+      sl.addText(s.title,{x:.5,y:3,w:12.3,h:1,align:'center',fontSize:40,color:'FFFFFF',bold:true});
+      sl.addText((s.subtitle||'').replace(/\n/g,'  ·  '),{x:.5,y:4.3,w:12.3,h:.8,align:'center',fontSize:14,color:'D2E3FC'});
+    }
   });
   pptx.writeFile({fileName:`软件工程_第${currentChapter}章_课件.pptx`});
-  showToast('✓ PPT已下载！');
+  showToast('✓ PPT已下载（含引经据典溯源页）！');
 }
 
 // ===== 教案生成 =====

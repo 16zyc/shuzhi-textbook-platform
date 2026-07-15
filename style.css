@@ -539,9 +539,61 @@ table.tbl th { background: var(--surface-2); color: var(--text-soft); font-weigh
 .ppt-slide.slide-content ul { padding-left: 20px; }
 .ppt-slide.slide-content li { font-size: 13px; line-height: 1.8; color: var(--text-soft); }
 .ppt-slide.slide-def { background: var(--warning-light); border: 2px solid #F9AB00; }
-.ppt-slide.slide-def h2 { font-size: 16px; color: var(--warning); }
-.ppt-slide.slide-def .quote { font-size: 14px; color: var(--text); line-height: 1.8; margin: 12px 0; font-style: italic; }
-.ppt-slide.slide-def .source { font-size: 11px; color: var(--warning); }
+.ppt-slide.slide-def h2 { font-size: 16px; color: var(--warning); display:flex; align-items:center; gap:6px; }
+.ppt-slide.slide-def .quote { font-size: 14px; color: var(--text); line-height: 1.8; margin: 12px 0; font-style: italic; padding: 12px 16px; background: #fff; border-left: 4px solid #F9AB00; border-radius: 4px; }
+.ppt-slide.slide-def .source { font-size: 11px; color: var(--warning); display:flex; align-items:center; gap:4px; }
+.ppt-slide.slide-def .source .badge { background: #F9AB00; color: #fff; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
+/* 导学/目标页 */
+.ppt-slide.slide-objectives h2 { font-size: 20px; color: var(--primary); margin-bottom: 14px; border-bottom: 2px solid var(--primary-light); padding-bottom: 6px; font-weight: 500; }
+.ppt-slide.slide-objectives .obj-item { display:flex; gap:10px; margin-bottom:10px; align-items:flex-start; }
+.ppt-slide.slide-objectives .obj-item .ico { width:28px; height:28px; border-radius:50%; background:var(--primary-light); color:var(--primary); display:grid; place-items:center; font-size:14px; flex-shrink:0; }
+.ppt-slide.slide-objectives .obj-item .txt { font-size:13px; color:var(--text-soft); line-height:1.6; padding-top:4px; }
+.ppt-slide.slide-objectives .obj-item .txt strong { color: var(--primary); }
+/* 引经据典汇总表 */
+.ppt-slide.slide-citations h2 { font-size: 18px; color: var(--warning); margin-bottom: 10px; border-bottom: 2px solid #F9AB00; padding-bottom: 6px; font-weight: 500; }
+.ppt-slide.slide-citations table { width: 100%; border-collapse: collapse; font-size: 11px; }
+.ppt-slide.slide-citations th { background: #FEF7E0; color: #B06000; padding: 6px 8px; text-align: left; font-weight: 600; border: 1px solid #F9AB00; }
+.ppt-slide.slide-citations td { padding: 6px 8px; border: 1px solid #F3E0B0; color: var(--text-soft); vertical-align: top; }
+.ppt-slide.slide-citations td.term { color: var(--primary); font-weight: 600; white-space: nowrap; }
+.ppt-slide.slide-citations td.page { color: var(--warning); font-weight: 600; white-space: nowrap; }
+/* 概念图页 */
+.ppt-slide.slide-mindmap { background: #F8FBFF; }
+.ppt-slide.slide-mindmap h2 { font-size: 18px; color: var(--primary); margin-bottom: 8px; font-weight: 500; }
+.ppt-slide.slide-mindmap .graph-box { flex: 1; display: flex; align-items: center; justify-content: center; }
+.ppt-slide.slide-mindmap svg { max-width: 100%; max-height: 100%; }
+/* 对比页 */
+.ppt-slide.slide-compare h2 { font-size: 18px; color: var(--primary); margin-bottom: 12px; border-bottom: 2px solid var(--primary-light); padding-bottom: 6px; font-weight: 500; }
+.ppt-slide.slide-compare .cmp-table { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; flex: 1; }
+.ppt-slide.slide-compare .cmp-col { background: var(--bg-soft); border-radius: 8px; padding: 12px; border-top: 3px solid var(--primary); }
+.ppt-slide.slide-compare .cmp-col.alt { border-top-color: #A142F4; }
+.ppt-slide.slide-compare .cmp-col .h { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 8px; display: flex; align-items: center; gap: 4px; }
+.ppt-slide.slide-compare .cmp-col ul { padding-left: 16px; margin: 0; }
+.ppt-slide.slide-compare .cmp-col li { font-size: 11px; color: var(--text-soft); line-height: 1.6; margin-bottom: 3px; }
+/* 案例页 */
+.ppt-slide.slide-case { background: linear-gradient(135deg, #F3E8FD 0%, #fff 60%); }
+.ppt-slide.slide-case h2 { font-size: 18px; color: #A142F4; margin-bottom: 10px; font-weight: 500; display:flex; align-items:center; gap:6px; }
+.ppt-slide.slide-case .case-body { background: #fff; border-radius: 8px; padding: 12px 16px; flex: 1; font-size: 12px; color: var(--text-soft); line-height: 1.7; border-left: 4px solid #A142F4; }
+.ppt-slide.slide-case .case-body strong { color: var(--text); }
+.ppt-slide.slide-case .case-tag { display:inline-block; background:#F3E8FD; color:#A142F4; padding:2px 8px; border-radius:10px; font-size:10px; margin-right:4px; }
+/* 小结页 */
+.ppt-slide.slide-summary { background: linear-gradient(135deg, #E6F4EA 0%, #fff 60%); }
+.ppt-slide.slide-summary h2 { font-size: 18px; color: var(--success); margin-bottom: 10px; font-weight: 500; }
+.ppt-slide.slide-summary .sum-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.ppt-slide.slide-summary .sum-item { background: #fff; border-radius: 6px; padding: 8px 12px; font-size: 12px; color: var(--text-soft); border-left: 3px solid var(--success); display:flex; align-items:center; gap:6px; }
+.ppt-slide.slide-summary .sum-item .n { width: 20px; height: 20px; border-radius: 50%; background: var(--success-light); color: var(--success); display: grid; place-items: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+/* 作业页 */
+.ppt-slide.slide-homework h2 { font-size: 18px; color: var(--primary); margin-bottom: 12px; border-bottom: 2px solid var(--primary-light); padding-bottom: 6px; font-weight: 500; }
+.ppt-slide.slide-homework .hw-item { display:flex; gap:10px; margin-bottom:10px; align-items:flex-start; }
+.ppt-slide.slide-homework .hw-item .n { width: 24px; height: 24px; border-radius: 50%; background: var(--primary); color: #fff; display: grid; place-items: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+.ppt-slide.slide-homework .hw-item .txt { font-size: 13px; color: var(--text-soft); line-height: 1.6; padding-top: 3px; }
+/* 资源页 */
+.ppt-slide.slide-resources h2 { font-size: 18px; color: var(--primary); margin-bottom: 10px; font-weight: 500; }
+.ppt-slide.slide-resources .res-row { display:flex; align-items:center; gap:8px; padding: 6px 10px; background: var(--bg-soft); border-radius: 6px; margin-bottom: 6px; font-size: 12px; }
+.ppt-slide.slide-resources .res-row .tag { padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 600; flex-shrink:0; }
+.ppt-slide.slide-resources .res-row .tag.bili { background: #FCE8E6; color: #C5221F; }
+.ppt-slide.slide-resources .res-row .tag.gh { background: #E6F4EA; color: #188038; }
+.ppt-slide.slide-resources .res-row .tag.arxiv { background: #F3E8FD; color: #A142F4; }
+.ppt-slide.slide-resources .res-row .title { flex:1; color: var(--text-soft); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 
 /* ========== SaaS 系统布局 ========== */
 .app-layout {
