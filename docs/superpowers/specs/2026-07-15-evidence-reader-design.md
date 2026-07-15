@@ -65,8 +65,8 @@
 ```json
 {
   "schema_version": 1,
-  "page_id": "sha256:example:15",
-  "source_sha256": "example",
+  "page_id": "abc123:15",
+  "source_sha256": "abc123",
   "scan_index": 15,
   "printed_label": "2",
   "image": "images/se/p015_0.jpeg",
@@ -85,8 +85,7 @@
       "occurrence_id": "occ:software-engineering:p15:1",
       "concept_id": "concept:software-engineering",
       "text": "软件工程",
-      "block_ids": ["p15-b42"],
-      "char_spans": [[0, 4]],
+      "spans": [{"block_id": "p15-b42", "start": 0, "end": 4}],
       "boxes": [[0.18, 0.31, 0.12, 0.025]],
       "confidence": 0.97,
       "review_status": "reviewed"
@@ -95,7 +94,7 @@
 }
 ```
 
-`bbox` 和 `boxes` 使用相对页面宽高的 `[x, y, width, height]`。一个概念出现项可包含多个字符区间和多个框，以支持同行多概念与跨行概念。渲染坐标为 `render_x = content_left + x * rendered_width`、`render_y = content_top + y * rendered_height`，宽高同理；旋转页面必须先按页面旋转矩阵转换，再应用缩放。
+`bbox` 和 `boxes` 使用相对页面宽高的 `[x, y, width, height]`。一个概念出现项可包含多个 `span` 和多个框，以支持同行多概念与跨行概念。每个 `span` 显式引用一个 `block_id`；`start` 为包含、`end` 为不包含的 Unicode code point 索引。索引基于 OCR 原始 NFC 文本，匹配前只统一 Unicode NFC、ASCII 空白和全半角标点，不改变原始索引。`spans` 与 `boxes` 按阅读顺序一一对应。渲染坐标为 `render_x = content_left + x * rendered_width`、`render_y = content_top + y * rendered_height`，宽高同理；旋转页面必须先按页面旋转矩阵转换，再应用缩放。
 
 ### 5.2 核心接口 schema
 
@@ -103,8 +102,8 @@
 
 - `figure`：`figure_id`、`page_id`、`image_boxes[]`、`caption_boxes[]`、`caption_text`、`concept_ids[]`、`confidence`、`review_status`。
 - `concept`：`concept_id`、`canonical_name`、`aliases[]`、`english_names[]`、`description`、`ambiguity_group`、`review_status`。
-- `evidence`：`evidence_id`、`concept_id`、`tier`、`source_kind`、`quote`、`page_id`/`locator`、`url`、`relation_reason`、`review_status`、`reviewed_at`。
-- `resource`：`resource_id`、`concept_ids[]`、`platform`、`title`、`authors[]`、`url`、`relation_reason`、`verification_status`、`verified_at`、`http_status`。
+- `evidence`：`evidence_id`、`concept_id`、`tier`、`source_kind`、`quote`、`target_occurrence_id`、`target_boxes[]`、`external_locator`、`url`、`relation_reason`、`review_status`、`reviewed_at`。一级证据必须设置 `target_occurrence_id`；外部证据使用结构化 `external_locator`（页码、章节、DOI、ISBN 中适用的字段）。
+- `resource`：`resource_id`、`concept_ids[]`、`platform`、`title`、`authors[]`、`url`、`relation_reason`、`verification_status`、`verified_at`、`http_status`、`verification_method`、`verified_by`、`verification_note`。
 - `relationship`：`relationship_id`、`source_concept_id`、`target_concept_id`、`relation_type`、`evidence_ids[]`、`review_status`。
 - `basket_item`：`basket_item_id`、`book_version_id`、`item_type`、`entity_id`、`note`、`created_at`、`sort_order`。
 
@@ -162,6 +161,38 @@
 
 未进入冻结清单的自动识别结果可作为候选项展示为“待核验”，但不得计入完成指标。
 
+金标文件 schema 固定为：
+
+```json
+{
+  "schema_version": 1,
+  "gold_version": "chapter-1-v1",
+  "source_sha256": "abc123",
+  "pages": [{
+    "page_id": "abc123:14",
+    "scan_index": 14,
+    "printed_label": "1",
+    "body_regions": [[0.1, 0.08, 0.8, 0.84]],
+    "excluded_regions": [],
+    "gold_text_nfc": "...",
+    "gold_char_boxes": [[0, [0.1, 0.1, 0.01, 0.02]]]
+  }],
+  "concepts": [{"concept_id": "concept:software-crisis", "required": true}],
+  "occurrences": [{
+    "occurrence_id": "gold:occ:1",
+    "concept_id": "concept:software-crisis",
+    "page_id": "abc123:14",
+    "text_nfc": "软件危机",
+    "boxes": [[0.2, 0.3, 0.1, 0.02]],
+    "expected_evidence_id": "evidence:software-crisis:primary"
+  }],
+  "figures": [{"figure_id": "figure:1-1", "page_id": "abc123:20", "boxes": [], "caption_text_nfc": "...", "concept_ids": []}],
+  "resources": [{"resource_id": "resource:example", "required_platform": "arxiv"}]
+}
+```
+
+`gold_char_boxes` 中每项为 `[Unicode code point index, box]`，只记录正文金标字符。证据回跳的期望目标由金标出现项和 `expected_evidence_id` 唯一确定。
+
 ## 8. 状态与降级
 
 - 坐标缺失：仍展示原版页面，并提示本页关联待完善。
@@ -194,20 +225,25 @@
 
 第1章必须满足。所有指标使用冻结的 `chapter-1-gold.json` 作为分母，并由 `scripts/validate_chapter.py` 输出机器可读报告：
 
-- 正文坐标覆盖率不低于 98%：金标正文字符中，被 OCR 文本框覆盖且识别正确的字符数 / 金标正文字符总数；页眉页脚不计入分母。
+- 正文坐标覆盖率不低于 98%：对预测文本和 `gold_text_nfc` 执行 Unicode NFC、连续 ASCII 空白折叠和全半角标点统一后进行最小编辑距离对齐；字符相等且预测框与金标字符框相交的金标字符数 / `gold_char_boxes` 总数。页眉页脚不计入分母。
 - 核心概念点击准确率不低于 95%：金标概念出现项中，点击框与金标框 IoU >= 0.5 且打开正确 `concept_id` 的数量 / 金标概念出现项总数。另报告误报率，自动框不得通过隐藏来规避统计。
 - 教材一级证据回跳率为 100%：金标核心概念中，点击一级证据后到达正确 `page_id`，且目标框中心与金标框中心距离不超过页面短边 1% 的概念数 / 金标核心概念总数。
 - 用户界面展示的外部链接可访问率为 100%：展示记录中，在最近 30 天内按第7节协议得到 `reachable`，或得到 `auth_required` 且有人工确认记录的数量 / 展示记录总数。
-- 典型插图可点击，并能显示正确图注和相关概念。
+- 概念误报率 = 未匹配任何金标出现项的可见预测出现项数 / 全部可见预测出现项数，必须不高于 5%。
+- 金标文件 `figures` 中全部插图可点击，并能显示相同 NFC 图注和清单中的相关概念。
 - 备课篮在刷新后保留素材。
 - 支持 1440px、1920px 和 1024px 宽度；核心操作可通过键盘完成。
 - 流水线可重复执行并输出质量报告。
 
+核心操作枚举为：目录跳转、上一页/下一页、页码跳转、放大/缩小、章节内搜索、概念选择、插图选择、证据回跳、资源打开、加入/移除备课篮。每项必须有键盘路径和自动化测试。
+
+校验报告包含 `schema_version`、`gold_version`、输入文件摘要、各指标的分子/分母/比率、失败实体 ID 和总体 `passed`。任一硬指标失败时脚本退出码为 1，通过时为 0，schema 或输入错误时为 2。
+
 ## 12. 实施顺序
 
 1. 建立页面、概念、插图、证据和资源 schema。
-2. 为第1章生成带坐标的页面标注和质量报告。
-3. 冻结第一章金标清单，重建阅读器三栏框架和页面坐标层。
+2. 生成并冻结第一章金标清单。
+3. 为第1章生成带坐标的页面标注和质量报告，重建阅读器三栏框架和页面坐标层。
 4. 接入证据卡、资源卡、回跳和备课篮。
 5. 完成响应式、键盘、性能和视觉验收。
 6. 第1章通过后再批量处理全书，并进入生成中心阶段。
