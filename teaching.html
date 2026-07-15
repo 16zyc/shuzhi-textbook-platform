@@ -7,7 +7,174 @@
 <link rel="stylesheet" href="style.css">
 <script src="https://unpkg.com/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
 <style>
-  body { overflow: hidden; }
+  /* === 科研2 风格配色覆盖 === */
+  :root {
+    --primary: #3b6cb5;
+    --primary-dark: #2e5a99;
+    --primary-light: #e8f0fb;
+    --primary-soft: #c3d8f0;
+    --bg: #f5f7fa;
+    --bg-soft: #eef1f6;
+    --bg-hover: #f0f3f8;
+    --surface: #ffffff;
+    --surface-2: #f5f7fa;
+    --text: #1e293b;
+    --text-soft: #475569;
+    --text-muted: #94a3b8;
+    --border: #e2e8f0;
+    --border-soft: #eef1f6;
+    --accent-blue: #3b6cb5;
+    --accent-amber: #c4922e;
+  }
+  body { overflow: hidden; font-family: 'Noto Sans SC', -apple-system, sans-serif; background: var(--bg); }
+  h1,h2,h3,h4 { font-family: 'Noto Serif SC', 'Songti SC', serif; }
+
+  /* === 系统级布局 === */
+  .app-layout {
+    display: flex; height: 100vh; overflow: hidden;
+  }
+  .app-sidebar {
+    width: 220px; flex-shrink: 0; background: var(--surface);
+    border-right: 1px solid var(--border);
+    display: flex; flex-direction: column;
+    transition: width .25s;
+  }
+  .app-sidebar.collapsed { width: 60px; }
+  .app-sidebar .sb-head {
+    height: 60px; padding: 0 16px; display: flex; align-items: center; gap: 10px;
+    border-bottom: 1px solid var(--border-soft); flex-shrink: 0;
+  }
+  .app-sidebar .sb-head .logo-mark {
+    width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
+    background: var(--primary); color: #fff;
+    display: grid; place-items: center; font-size: 15px; font-weight: 700;
+  }
+  .app-sidebar .sb-head .logo-text {
+    font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.3;
+    white-space: nowrap; overflow: hidden;
+  }
+  .app-sidebar .sb-head .logo-text .sub { font-size: 10px; color: var(--text-muted); font-weight: 400; }
+  .app-sidebar.collapsed .logo-text { display: none; }
+
+  .app-sidebar .sb-nav { flex: 1; padding: 8px; overflow-y: auto; }
+  .sb-nav-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 12px; border-radius: 8px; margin-bottom: 2px;
+    font-size: 13px; color: var(--text-soft); cursor: pointer;
+    transition: .15s; white-space: nowrap; overflow: hidden;
+  }
+  .sb-nav-item:hover { background: var(--bg-hover); color: var(--text); }
+  .sb-nav-item.active { background: var(--primary); color: #fff; }
+  .sb-nav-item .ico { width: 20px; flex-shrink: 0; text-align: center; font-size: 16px; }
+  .app-sidebar.collapsed .sb-nav-item .lbl { display: none; }
+  .sb-nav-section {
+    font-size: 10px; font-weight: 600; color: var(--text-muted);
+    letter-spacing: 1px; padding: 12px 12px 4px; text-transform: uppercase;
+  }
+  .app-sidebar.collapsed .sb-nav-section { display: none; }
+
+  .app-sidebar .sb-foot {
+    border-top: 1px solid var(--border-soft); padding: 8px; flex-shrink: 0;
+  }
+  .sb-user {
+    padding: 8px 10px; border-radius: 8px; background: var(--bg-soft); margin-bottom: 6px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .sb-user .av {
+    width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+    background: var(--primary-light); color: var(--primary);
+    display: grid; place-items: center; font-size: 12px; font-weight: 600;
+  }
+  .sb-user .info { font-size: 12px; overflow: hidden; }
+  .sb-user .info .name { color: var(--text); font-weight: 500; }
+  .sb-user .info .role { font-size: 10px; color: var(--text-muted); }
+  .app-sidebar.collapsed .sb-user .info { display: none; }
+  .sb-collapse-btn {
+    width: 100%; height: 32px; border-radius: 8px;
+    background: var(--bg-soft); color: var(--text-muted);
+    display: grid; place-items: center; cursor: pointer; transition: .15s;
+    border: none; font-size: 14px;
+  }
+  .sb-collapse-btn:hover { background: var(--bg-hover); color: var(--text); }
+
+  /* === 主内容区 === */
+  .app-main { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+  .app-view { flex: 1; overflow: hidden; display: none; }
+  .app-view.active { display: flex; flex-direction: column; }
+
+  /* === 仪表盘 === */
+  .dashboard { padding: 24px 28px; overflow-y: auto; flex: 1; }
+  .dash-hero {
+    border-radius: 12px; padding: 28px 32px; margin-bottom: 20px;
+    background: linear-gradient(135deg, var(--surface) 0%, var(--bg-soft) 50%, rgba(59,108,181,.06) 100%);
+    border: 1px solid var(--border-soft);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .dash-hero h1 { font-size: 24px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .dash-hero p { font-size: 13px; color: var(--text-soft); }
+  .dash-hero .search-box {
+    position: relative;
+  }
+  .dash-hero .search-box input {
+    padding: 8px 12px 8px 34px; border-radius: 8px;
+    border: 1px solid var(--border); background: var(--surface);
+    font-size: 13px; width: 240px; outline: none;
+  }
+  .dash-hero .search-box input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(59,108,181,.1); }
+  .dash-hero .search-box .ico { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 14px; color: var(--text-muted); }
+
+  .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 20px; }
+  .stat-card {
+    background: var(--surface); border: 1px solid var(--border-soft);
+    border-radius: 10px; padding: 18px; display: flex; align-items: center; gap: 14px;
+  }
+  .stat-card .stat-ico {
+    width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
+    display: grid; place-items: center; font-size: 20px;
+  }
+  .stat-card .stat-val { font-size: 24px; font-weight: 700; color: var(--text); line-height: 1.2; }
+  .stat-card .stat-lbl { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+  .dash-section { margin-bottom: 20px; }
+  .dash-section .section-title {
+    font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 12px;
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  .quick-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .quick-card {
+    background: var(--surface); border: 1px solid var(--border-soft);
+    border-radius: 10px; padding: 16px; cursor: pointer; transition: .2s;
+    display: flex; align-items: flex-start; gap: 12px;
+  }
+  .quick-card:hover { border-color: var(--primary-soft); box-shadow: 0 4px 12px rgba(0,0,0,.06); transform: translateY(-1px); }
+  .quick-card .qc-ico {
+    width: 38px; height: 38px; border-radius: 8px; flex-shrink: 0;
+    background: rgba(59,108,181,.1); color: var(--primary);
+    display: grid; place-items: center; font-size: 18px;
+  }
+  .quick-card .qc-title { font-size: 14px; font-weight: 600; color: var(--text); }
+  .quick-card .qc-desc { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+  .recent-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .recent-card {
+    background: var(--surface); border: 1px solid var(--border-soft);
+    border-radius: 10px; padding: 14px; cursor: pointer; transition: .15s;
+  }
+  .recent-card:hover { border-color: var(--primary-soft); box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+  .recent-card .rc-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .recent-card .rc-title { font-size: 13px; font-weight: 600; color: var(--text); }
+  .recent-card .rc-tag { font-size: 10px; padding: 2px 8px; border-radius: 10px; background: var(--primary-light); color: var(--primary); }
+  .recent-card .rc-meta { font-size: 11px; color: var(--text-muted); }
+
+  /* === 备课工作台顶部工具条 === */
+  .workspace-toolbar {
+    height: 48px; padding: 0 20px; border-bottom: 1px solid var(--border-soft);
+    display: flex; align-items: center; gap: 12px; background: var(--surface);
+    flex-shrink: 0;
+  }
+  .workspace-toolbar .ws-title { font-size: 14px; font-weight: 600; color: var(--text); flex: 1; }
+
   .reader-layout {
     display: grid;
     grid-template-columns: 240px 1fr 340px;
@@ -276,27 +443,134 @@
 </head>
 <body>
 
-<!-- 顶部栏 -->
-<div class="topbar" style="height:48px">
-  <div class="logo" style="font-size:14px">
-    <div class="mark" style="width:28px;height:28px;font-size:13px">数</div>
-    <span>数智教材平台</span>
-    <span style="color:var(--text-muted);font-size:12px;margin-left:8px">《软件工程 第3版》</span>
-  </div>
-  <div class="spacer"></div>
-  <div class="tools" style="gap:6px">
-    <button class="action-btn" onclick="showToast('📚 教材库开发中')">📚 教材库</button>
-    <button class="action-btn primary" onclick="generatePPT()">📊 生成课件</button>
-    <button class="action-btn" onclick="generateLessonPlan()">📝 生成教案</button>
-    <div class="user" style="margin-left:8px">
-      <div class="avatar" style="width:26px;height:26px;font-size:11px">王</div>
-      <span class="name" style="font-size:12px">欢迎：王老师</span>
+<div class="app-layout">
+  <!-- 左侧导航栏 -->
+  <aside class="app-sidebar" id="app-sidebar">
+    <div class="sb-head">
+      <div class="logo-mark">数</div>
+      <div class="logo-text">数智教材平台<span class="sub"><br>备课 · 引经据典 · 课件</span></div>
     </div>
-  </div>
-</div>
+    <nav class="sb-nav">
+      <div class="sb-nav-section">主导航</div>
+      <div class="sb-nav-item active" onclick="switchView('dashboard',this)">
+        <span class="ico">📊</span><span class="lbl">仪表盘</span>
+      </div>
+      <div class="sb-nav-item" onclick="switchView('workspace',this)">
+        <span class="ico">📚</span><span class="lbl">备课工作台</span>
+      </div>
+      <div class="sb-nav-item" onclick="showToast('教材库开发中')">
+        <span class="ico">📖</span><span class="lbl">教材库</span>
+      </div>
+      <div class="sb-nav-item" onclick="window.open('concept-graph.html','_blank')">
+        <span class="ico">🕸</span><span class="lbl">概念图谱</span>
+      </div>
+      <div class="sb-nav-item" onclick="window.open('reader.html','_blank')">
+        <span class="ico">📄</span><span class="lbl">电子书阅读</span>
+      </div>
+
+      <div class="sb-nav-section">资源中心</div>
+      <div class="sb-nav-item" onclick="showToast('我的教案开发中')">
+        <span class="ico">📝</span><span class="lbl">我的教案</span>
+      </div>
+      <div class="sb-nav-item" onclick="showToast('课件管理开发中')">
+        <span class="ico">📊</span><span class="lbl">课件管理</span>
+      </div>
+      <div class="sb-nav-item" onclick="showToast('外部资源开发中')">
+        <span class="ico">🔗</span><span class="lbl">外部资源</span>
+      </div>
+
+      <div class="sb-nav-section">系统</div>
+      <div class="sb-nav-item" onclick="showToast('系统设置开发中')">
+        <span class="ico">⚙️</span><span class="lbl">系统设置</span>
+      </div>
+      <div class="sb-nav-item" onclick="location.href='login.html'">
+        <span class="ico">🚪</span><span class="lbl">退出登录</span>
+      </div>
+    </nav>
+    <div class="sb-foot">
+      <div class="sb-user">
+        <div class="av">王</div>
+        <div class="info">
+          <div class="name">王老师</div>
+          <div class="role">教师账号</div>
+        </div>
+      </div>
+      <button class="sb-collapse-btn" onclick="toggleSidebar()">‹</button>
+    </div>
+  </aside>
+
+  <!-- 主内容区 -->
+  <main class="app-main">
+
+    <!-- 仪表盘视图 -->
+    <div class="app-view active" id="view-dashboard">
+      <div class="dashboard">
+        <div class="dash-hero">
+          <div>
+            <h1>数智教材备课平台</h1>
+            <p>面向高校教师的智能备课系统 · 引经据典 · 一键生成课件教案</p>
+          </div>
+          <div class="search-box">
+            <span class="ico">🔍</span>
+            <input type="text" placeholder="搜索章节或知识点..." id="dash-search">
+          </div>
+        </div>
+
+        <div class="stat-grid" id="stat-grid"></div>
+
+        <div class="dash-section">
+          <div class="section-title">快捷操作</div>
+          <div class="quick-grid">
+            <div class="quick-card" onclick="switchView('workspace',document.querySelectorAll('.sb-nav-item')[1])">
+              <div class="qc-ico">📚</div>
+              <div>
+                <div class="qc-title">备课工作台</div>
+                <div class="qc-desc">三栏教材阅读 · 关键词关联</div>
+              </div>
+            </div>
+            <div class="quick-card" onclick="switchView('workspace',document.querySelectorAll('.sb-nav-item')[1]);setTimeout(()=>generatePPT(),300)">
+              <div class="qc-ico">📊</div>
+              <div>
+                <div class="qc-title">生成课件</div>
+                <div class="qc-desc">12种版式 · 引经据典溯源</div>
+              </div>
+            </div>
+            <div class="quick-card" onclick="switchView('workspace',document.querySelectorAll('.sb-nav-item')[1]);setTimeout(()=>generateLessonPlan(),300)">
+              <div class="qc-ico">📝</div>
+              <div>
+                <div class="qc-title">生成教案</div>
+                <div class="qc-desc">7段式完整教案 · 可下载打印</div>
+              </div>
+            </div>
+            <div class="quick-card" onclick="window.open('reader.html','_blank')">
+              <div class="qc-ico">📖</div>
+              <div>
+                <div class="qc-title">电子书阅读</div>
+                <div class="qc-desc">398页原版教材 · 秒开浏览</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dash-section">
+          <div class="section-title">教材章节概览</div>
+          <div class="recent-grid" id="chapter-grid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 备课工作台视图 -->
+    <div class="app-view" id="view-workspace">
+      <div class="workspace-toolbar">
+        <div class="ws-title">备课工作台 · 第<span id="ws-chapter">1</span>章 <span id="ws-title">概论</span></div>
+        <button class="action-btn" onclick="openReader()">📖 原版PDF</button>
+        <button class="action-btn" onclick="showCitationPanel()">📜 引经据典</button>
+        <button class="action-btn" onclick="generateLessonPlan()">📝 生成教案</button>
+        <button class="action-btn primary" onclick="generatePPT()">📊 生成课件</button>
+      </div>
 
 <!-- 三栏布局 -->
-<div class="reader-layout">
+<div class="reader-layout" style="height:calc(100vh - 48px)">
   <!-- 左栏：目录 -->
   <div class="toc-panel">
     <div class="toc-head">
@@ -325,8 +599,6 @@
         <span>关键词</span>
         <div class="switch"></div>
       </div>
-      <button class="action-btn" onclick="openReader()">📖 原版PDF</button>
-      <button class="action-btn" onclick="showCitationPanel()">📜 引经据典</button>
     </div>
     <div class="content-body" id="content-body">加载中...</div>
   </div>
@@ -346,6 +618,9 @@
     </div>
   </div>
 </div>
+</div><!-- /view-workspace -->
+</main><!-- /app-main -->
+</div><!-- /app-layout -->
 
 <!-- PPT模态框 -->
 <div class="modal-overlay" id="ppt-modal">
@@ -383,6 +658,88 @@ let activeKwData = null;
 let pptSlides = [];
 let currentTab = 'info';
 
+// ===== 视图切换 =====
+function switchView(view, navItem) {
+  document.querySelectorAll('.app-view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + view).classList.add('active');
+  if (navItem) {
+    document.querySelectorAll('.sb-nav-item').forEach(n => n.classList.remove('active'));
+    navItem.classList.add('active');
+  }
+}
+
+// ===== 侧边栏折叠 =====
+function toggleSidebar() {
+  const sb = document.getElementById('app-sidebar');
+  sb.classList.toggle('collapsed');
+  const btn = sb.querySelector('.sb-collapse-btn');
+  btn.textContent = sb.classList.contains('collapsed') ? '›' : '‹';
+}
+
+// ===== 仪表盘渲染 =====
+function renderDashboard() {
+  if (!knowledge || !defs || !extRes) return;
+  const totalChapters = knowledge.chapters.length;
+  const totalSections = knowledge.sections.length;
+  const totalDefs = defs.definitions.length;
+  const totalRes = extRes.chapters.reduce((s, c) =>
+    s + (c.videos?.length||0) + (c.github?.length||0) + (c.arxiv?.length||0) + (c.blogs?.length||0) + (c.slides?.length||0), 0);
+
+  // 统计卡片
+  const colors = [
+    {bg:'rgba(59,108,181,.1)', fg:'#3b6cb5'},
+    {bg:'rgba(196,146,46,.1)', fg:'#c4922e'},
+    {bg:'rgba(22,163,74,.1)', fg:'#16a34a'},
+    {bg:'rgba(168,85,247,.1)', fg:'#a855f7'}
+  ];
+  const stats = [
+    {ico:'📚', val:totalChapters, lbl:'教材章节数', c:colors[0]},
+    {ico:'📑', val:totalSections, lbl:'小节数', c:colors[1]},
+    {ico:'📜', val:totalDefs, lbl:'权威定义数', c:colors[2]},
+    {ico:'🔗', val:totalRes, lbl:'外部关联资源', c:colors[3]}
+  ];
+  document.getElementById('stat-grid').innerHTML = stats.map(s => `
+    <div class="stat-card">
+      <div class="stat-ico" style="background:${s.c.bg};color:${s.c.fg}">${s.ico}</div>
+      <div>
+        <div class="stat-val">${s.val}</div>
+        <div class="stat-lbl">${s.lbl}</div>
+      </div>
+    </div>
+  `).join('');
+
+  // 章节概览
+  const chapterGrid = document.getElementById('chapter-grid');
+  if (chapterGrid) {
+    chapterGrid.innerHTML = knowledge.chapters.slice(0, 6).map(ch => {
+      const chDefs = defs.definitions.filter(d => d.chapter === ch.num);
+      return `
+        <div class="recent-card" onclick="goToChapter(${ch.num})">
+          <div class="rc-head">
+            <div class="rc-title">第${ch.num}章 ${ch.title}</div>
+            <span class="rc-tag">${chDefs.length}个定义</span>
+          </div>
+          <div class="rc-meta">第${ch.page_start}-${ch.page_end}页 · ${ch.section_count}小节</div>
+        </div>
+      `;
+    }).join('');
+  }
+}
+
+// 跳转到指定章节（切换到备课工作台）
+function goToChapter(num) {
+  switchView('workspace', document.querySelectorAll('.sb-nav-item')[1]);
+  currentChapter = num;
+  const ch = knowledge.chapters.find(c => c.num === num);
+  if (ch) {
+    currentPage = ch.page_start;
+    document.getElementById('ws-chapter').textContent = num;
+    document.getElementById('ws-title').textContent = ch.title;
+    goToPage(ch.page_start);
+    renderToc();
+  }
+}
+
 // ===== 加载数据 =====
 async function loadData() {
   const [f,k,ki,e,img,d,g] = await Promise.all([
@@ -397,6 +754,7 @@ async function loadData() {
   fulltext=f; knowledge=k; kwIndex=ki; extRes=e; images=img; defs=d; graph=g;
   renderToc();
   goToPage(14);
+  renderDashboard();
   switchTab('detail', document.querySelector('.info-tab'));
   renderDetailEmpty();
 }
@@ -460,6 +818,10 @@ function goToPage(page) {
   const ch = knowledge.chapters.find(c => page>=c.page_start && page<=c.page_end);
   currentChapter = ch ? ch.num : 1;
   document.getElementById('chapter-label').textContent = ch ? `第${ch.num}章 ${ch.title} · 第${page}页` : `第${page}页`;
+  // 同步工作台工具栏标题
+  const wsCh = document.getElementById('ws-chapter');
+  const wsTitle = document.getElementById('ws-title');
+  if (wsCh && ch) { wsCh.textContent = ch.num; wsTitle.textContent = ch.title; }
 
   // 高亮目录
   document.querySelectorAll('.toc-chapter-head').forEach(h => h.classList.remove('active'));
