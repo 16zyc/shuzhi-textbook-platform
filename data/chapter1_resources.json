@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "verified_at": "2026-07-15",
+  "resources": [
+    {
+      "resource_id": "authority:swebok-v4",
+      "type": "authority",
+      "platform": "IEEE CS",
+      "title": "Guide to the Software Engineering Body of Knowledge (SWEBOK V4.0a)",
+      "url": "https://www.computer.org/education/bodies-of-knowledge/software-engineering",
+      "concept_ids": ["concept:software-engineering", "concept:software-process"],
+      "relation_reason": "IEEE Computer Society 发布的软件工程知识体系，用于核对学科边界与核心知识域。",
+      "verification_status": "reachable"
+    },
+    {
+      "resource_id": "authority:iso-12207",
+      "type": "authority",
+      "platform": "ISO",
+      "title": "ISO/IEC/IEEE 12207:2017 软件生命周期过程",
+      "url": "https://www.iso.org/standard/63712.html",
+      "concept_ids": ["concept:software-process", "concept:software-lifecycle"],
+      "relation_reason": "标准化定义软件生命周期过程、活动和任务，可与教材第1章过程框架对照。",
+      "verification_status": "reachable"
+    },
+    {
+      "resource_id": "video:uestc-se",
+      "type": "video",
+      "platform": "B站",
+      "title": "软件工程基础 · 电子科技大学",
+      "url": "https://www.bilibili.com/video/BV1YZ4y1x7LX/",
+      "meta": "60讲 · 含软件危机、软件工程、过程模型",
+      "concept_ids": ["concept:software-crisis", "concept:software-engineering", "concept:waterfall-model", "concept:prototype-model"],
+      "relation_reason": "课程目录与本章知识点逐项对应，适合作为概念讲授和课前预习资源。",
+      "verification_status": "reachable"
+    },
+    {
+      "resource_id": "video:bupt-se",
+      "type": "video",
+      "platform": "B站",
+      "title": "软件工程 · 北京邮电大学专业课",
+      "url": "https://www.bilibili.com/video/BV1Bi4y1G7qY/",
+      "meta": "19讲 · 含软件工程概述与生命周期模型",
+      "concept_ids": ["concept:software-engineering", "concept:software-lifecycle"],
+      "relation_reason": "高校课程中有独立的软件工程概述和生命周期模型章节，可用于课堂对照讲解。",
+      "verification_status": "reachable"
+    },
+    {
+      "resource_id": "video:se-lifecycle-compare",
+      "type": "video",
+      "platform": "B站",
+      "title": "软件生命周期模型对比学习",
+      "url": "https://www.bilibili.com/video/BV1Dg411K77t/",
+      "meta": "12:40 · 模型对比",
+      "concept_ids": ["concept:software-lifecycle", "concept:waterfall-model", "concept:incremental-model"],
+      "relation_reason": "聚焦本章多个过程模型的横向比较，适合课堂总结与辨析。",
+      "verification_status": "reachable"
+    },
+    {
+      "resource_id": "github:epfl-sweng",
+      "type": "code",
+      "platform": "GitHub",
+      "title": "sweng-epfl/public · EPFL 软件工程课程资料",
+      "url": "https://github.com/sweng-epfl/public",
+      "meta": "MIT License · 课程讲义与练习",
+      "concept_ids": ["concept:software-engineering", "concept:software-process"],
+      "relation_reason": "由 EPFL 公开维护的完整软件工程课程材料，可作为案例和实践素材来源。",
+      "verification_status": "reachable"
+    },
+    {
+      "resource_id": "github:fuzzingbook",
+      "type": "code",
+      "platform": "GitHub",
+      "title": "uds-se/fuzzingbook · 可执行的软件工程教材",
+      "url": "https://github.com/uds-se/fuzzingbook",
+      "meta": "开源教材 · 可运行 Notebook",
+      "concept_ids": ["concept:software-engineering", "concept:software-tool"],
+      "relation_reason": "展示教材、代码和可重复实验的结合方式，可扩展软件工程实践教学。",
+      "verification_status": "reachable"
+    },
+    {
+      "resource_id": "paper:waterfall-simulation",
+      "type": "paper",
+      "platform": "arXiv",
+      "title": "A Simulation Model for the Waterfall Software Development Life Cycle",
+      "url": "https://arxiv.org/abs/1205.6904",
+      "meta": "arXiv:1205.6904",
+      "concept_ids": ["concept:waterfall-model", "concept:software-lifecycle"],
+      "relation_reason": "以仿真方式分析瀑布生命周期的阶段、成本和资源配置，适合拓展模型评价。",
+      "verification_status": "reachable"
+    },
+    {
+      "resource_id": "paper:agile-assumptions",
+      "type": "paper",
+      "platform": "arXiv",
+      "title": "Assumptions Underlying Agile Software Development Processes",
+      "url": "https://arxiv.org/abs/1409.6610",
+      "meta": "arXiv:1409.6610",
+      "concept_ids": ["concept:software-process", "concept:incremental-model"],
+      "relation_reason": "讨论迭代、增量开发过程的前提与局限，可用于传统模型与敏捷过程的延伸比较。",
+      "verification_status": "reachable"
+    }
+  ]
+}

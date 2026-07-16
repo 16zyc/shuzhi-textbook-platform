@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="数智教材平台可溯源教材阅读工作台">
+  <title>教材阅读工作台 · 数智教材平台</title>
+  <link rel="stylesheet" href="workspace.css">
+</head>
+<body>
+  <svg class="svg-sprite" aria-hidden="true">
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v16H6.5A2.5 2.5 0 0 0 4 21.5v-16Z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13v16h4.5a2.5 2.5 0 0 1 2.5 2.5v-16Z"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-focus" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/></symbol>
+    <symbol id="i-quote" viewBox="0 0 24 24"><path d="M8 11H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5v7a6 6 0 0 1-6 6M19 11h-4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5v7a6 6 0 0 1-6 6"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.1.1l2-2a5 5 0 0 0-7.1-7.1l-1.1 1.1"/><path d="M14 11a5 5 0 0 0-7.1-.1l-2 2A5 5 0 0 0 12 20l1.1-1.1"/></symbol>
+    <symbol id="i-basket" viewBox="0 0 24 24"><path d="m5 10 2 10h10l2-10M3 10h18M9 10l3-7 3 7"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 3h7v7M10 14 21 3M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+  </svg>
+
+  <a class="skip-link" href="#page-stage">跳到教材正文</a>
+
+  <header class="app-header">
+    <a class="brand" href="index.html" aria-label="返回数智教材平台首页">
+      <span class="brand-mark"><svg class="icon"><use href="#i-book"/></svg></span>
+      <span><strong>数智教材</strong><small>TEACHER WORKBENCH</small></span>
+    </a>
+    <nav class="primary-nav" aria-label="主导航">
+      <a href="index.html"><svg class="icon"><use href="#i-grid"/></svg>工作台</a>
+      <a class="active" href="workspace.html"><svg class="icon"><use href="#i-book"/></svg>教材阅读</a>
+      <button type="button" data-coming-soon="生成中心">生成中心</button>
+      <button type="button" data-coming-soon="资源库">资源库</button>
+    </nav>
+    <div class="header-status">
+      <span class="verified-dot"></span>
+      <span><strong>第1章样板</strong><small>26页坐标已处理</small></span>
+      <button class="avatar" type="button" aria-label="教师账户">王</button>
+    </div>
+  </header>
+
+  <main class="app-shell">
+    <aside class="left-rail" id="left-rail" aria-label="教材目录">
+      <div class="rail-head">
+        <div class="book-eyebrow">当前教材</div>
+        <h1>软件工程 <span>第3版</span></h1>
+        <p>钱乐秋 · 赵文耘 · 牛军钰</p>
+        <div class="chapter-progress"><span style="width:6.5%"></span></div>
+        <div class="progress-meta"><span>第1 / 16章</span><span>26页已标注</span></div>
+      </div>
+      <div class="chapter-search">
+        <svg class="icon"><use href="#i-search"/></svg>
+        <label class="sr-only" for="chapter-search">章节内搜索</label>
+        <input id="chapter-search" type="search" placeholder="搜索本章概念" autocomplete="off">
+        <kbd>⌘K</kbd>
+      </div>
+      <div class="toc-label"><span>第一章 · 概论</span><span id="toc-count">6节</span></div>
+      <nav class="toc-tree" id="toc-tree" aria-label="第一章目录"></nav>
+      <div class="rail-quality">
+        <div class="quality-ring"><strong>26</strong><span>页</span></div>
+        <div><strong>坐标标注已生成</strong><p id="quality-summary">正在读取质量数据…</p></div>
+      </div>
+    </aside>
+
+    <section class="reader-stage" id="page-stage" aria-label="教材原文">
+      <div class="reader-toolbar">
+        <button class="drawer-toggle left" type="button" data-drawer="left" aria-label="打开目录">
+          <svg class="icon"><use href="#i-book"/></svg>
+        </button>
+        <div class="page-context">
+          <span id="section-label">1.1 计算机软件</span>
+          <strong id="page-label">扫描第14页 · 书页1</strong>
+        </div>
+        <div class="toolbar-cluster" aria-label="页面控制">
+          <button type="button" id="prev-page" aria-label="上一页"><svg class="icon back"><use href="#i-chevron"/></svg></button>
+          <label class="page-jump"><span class="sr-only">跳转页码</span><input id="page-input" type="number" min="14" max="39" value="14"></label>
+          <span class="page-total">/ 39</span>
+          <button type="button" id="next-page" aria-label="下一页"><svg class="icon"><use href="#i-chevron"/></svg></button>
+        </div>
+        <div class="toolbar-cluster zoom-tools" aria-label="缩放控制">
+          <button type="button" id="zoom-out" aria-label="缩小"><svg class="icon"><use href="#i-minus"/></svg></button>
+          <span id="zoom-label">78%</span>
+          <button type="button" id="zoom-in" aria-label="放大"><svg class="icon"><use href="#i-plus"/></svg></button>
+          <button type="button" id="fit-page" aria-label="适合页面"><svg class="icon"><use href="#i-focus"/></svg></button>
+        </div>
+        <button class="drawer-toggle right" type="button" data-drawer="right" aria-label="打开证据面板">
+          <svg class="icon"><use href="#i-quote"/></svg>
+        </button>
+      </div>
+
+      <div class="stage-canvas" id="stage-canvas">
+        <button class="page-edge prev" id="edge-prev" type="button" aria-label="上一页"><svg class="icon back"><use href="#i-chevron"/></svg></button>
+        <div class="page-frame" id="page-frame" tabindex="0" aria-label="教材第14扫描页">
+          <div class="skeleton" id="page-skeleton"></div>
+          <img id="page-image" alt="《软件工程》第3版第1章教材原页" width="2000" height="2984">
+          <div class="annotation-layer" id="annotation-layer" aria-label="可点击知识标注"></div>
+        </div>
+        <button class="page-edge next" id="edge-next" type="button" aria-label="下一页"><svg class="icon"><use href="#i-chevron"/></svg></button>
+      </div>
+      <div class="reader-hint"><span class="hint-line concept"></span>虚线概念可点击 <span class="hint-line figure"></span>插图候选可查看 <kbd>←</kbd><kbd>→</kbd> 翻页</div>
+    </section>
+
+    <aside class="right-panel" id="right-panel" aria-label="关联证据与资源">
+      <div class="panel-tabs" role="tablist" aria-label="信息面板">
+        <button class="active" id="tab-evidence" type="button" role="tab" aria-selected="true" aria-controls="panel-body" data-tab="evidence">证据</button>
+        <button id="tab-resources" type="button" role="tab" aria-selected="false" aria-controls="panel-body" data-tab="resources" tabindex="-1">拓展资源</button>
+        <button type="button" aria-disabled="true" data-coming-soon="关系图谱">关系</button>
+        <button type="button" aria-disabled="true" data-coming-soon="智能问答">问答</button>
+        <button class="drawer-close" type="button" data-drawer-close="right" aria-label="关闭证据面板"><svg class="icon"><use href="#i-close"/></svg></button>
+      </div>
+      <div class="panel-body" id="panel-body" role="tabpanel" aria-labelledby="tab-evidence"></div>
+    </aside>
+  </main>
+
+  <footer class="basket-bar" id="basket-bar">
+    <button class="basket-summary" id="basket-summary" type="button" aria-expanded="false">
+      <span class="basket-icon"><svg class="icon"><use href="#i-basket"/></svg><b id="basket-count">0</b></span>
+      <span><strong>备课素材篮</strong><small id="basket-description">从原文证据和拓展资源中收集素材</small></span>
+      <svg class="icon"><use href="#i-chevron"/></svg>
+    </button>
+    <div class="basket-items" id="basket-items" aria-live="polite"></div>
+    <button class="generate-button" type="button" data-coming-soon="生成教案与课件">
+      <span>进入生成中心</span><svg class="icon"><use href="#i-chevron"/></svg>
+    </button>
+  </footer>
+
+  <div class="drawer-scrim" id="drawer-scrim"></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="workspace.js"></script>
+</body>
+</html>

@@ -11,3 +11,6 @@ slide_thumbnail.jpeg
 __pycache__/
 *.pyc
 .venv/
+runtime/
+.worktrees/
+*.tmp
