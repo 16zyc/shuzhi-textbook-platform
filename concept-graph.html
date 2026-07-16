@@ -3,10 +3,92 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>知识图谱 - 软件工程</title>
+<title>概念图谱 - 软件工程</title>
 <link rel="stylesheet" href="style.css">
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <style>
+  body { overflow: hidden; font-family: 'Noto Sans SC', -apple-system, sans-serif; background: var(--bg); margin: 0; }
+
+  /* === 系统级布局 === */
+  .app-layout {
+    display: flex; height: 100vh; overflow: hidden;
+  }
+  .app-sidebar {
+    width: 220px; flex-shrink: 0; background: var(--surface);
+    border-right: 1px solid var(--border);
+    display: flex; flex-direction: column;
+    transition: width .25s;
+  }
+  .app-sidebar.collapsed { width: 60px; }
+  .app-sidebar .sb-head {
+    height: 60px; padding: 0 16px; display: flex; align-items: center; gap: 10px;
+    border-bottom: 1px solid var(--border-soft); flex-shrink: 0;
+  }
+  .app-sidebar .sb-head .logo-mark {
+    width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
+    background: var(--primary); color: #fff;
+    display: grid; place-items: center; font-size: 15px; font-weight: 700;
+  }
+  .app-sidebar .sb-head .logo-text {
+    font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.3;
+    white-space: nowrap; overflow: hidden;
+  }
+  .app-sidebar .sb-head .logo-text .sub { font-size: 10px; color: var(--text-muted); font-weight: 400; }
+  .app-sidebar.collapsed .logo-text { display: none; }
+
+  .app-sidebar .sb-nav { flex: 1; padding: 8px; overflow-y: auto; }
+  .sb-nav-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 12px; border-radius: 8px; margin-bottom: 2px;
+    font-size: 13px; color: var(--text-soft); cursor: pointer;
+    transition: .15s; white-space: nowrap; overflow: hidden;
+  }
+  .sb-nav-item:hover { background: var(--bg-hover); color: var(--text); }
+  .sb-nav-item.active { background: var(--primary); color: #fff; }
+  .sb-nav-item .ico { width: 20px; flex-shrink: 0; text-align: center; font-size: 16px; }
+  .app-sidebar.collapsed .sb-nav-item .lbl { display: none; }
+  .sb-nav-section {
+    font-size: 10px; font-weight: 600; color: var(--text-muted);
+    letter-spacing: 1px; padding: 12px 12px 4px; text-transform: uppercase;
+  }
+  .app-sidebar.collapsed .sb-nav-section { display: none; }
+
+  .app-sidebar .sb-foot {
+    border-top: 1px solid var(--border-soft); padding: 8px; flex-shrink: 0;
+  }
+  .sb-user {
+    padding: 8px 10px; border-radius: 8px; background: var(--bg-soft); margin-bottom: 6px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .sb-user .av {
+    width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+    background: var(--primary-light); color: var(--primary);
+    display: grid; place-items: center; font-size: 12px; font-weight: 600;
+  }
+  .sb-user .info { font-size: 12px; overflow: hidden; }
+  .sb-user .info .name { color: var(--text); font-weight: 500; }
+  .sb-user .info .role { font-size: 10px; color: var(--text-muted); }
+  .app-sidebar.collapsed .sb-user .info { display: none; }
+  .sb-collapse-btn {
+    width: 100%; height: 32px; border-radius: 8px;
+    background: var(--bg-soft); color: var(--text-muted);
+    display: grid; place-items: center; cursor: pointer; transition: .15s;
+    border: none; font-size: 14px;
+  }
+  .sb-collapse-btn:hover { background: var(--bg-hover); color: var(--text); }
+
+  /* === 主内容区 === */
+  .app-main { flex: 1; overflow: hidden; display: flex; flex-direction: column; min-width: 0; }
+
+  /* === 工作台顶部工具条 === */
+  .workspace-toolbar {
+    height: 48px; padding: 0 20px; border-bottom: 1px solid var(--border-soft);
+    display: flex; align-items: center; gap: 12px; background: var(--surface);
+    flex-shrink: 0;
+  }
+  .workspace-toolbar .ws-title { font-size: 14px; font-weight: 600; color: var(--text); flex: 1; }
+
+  /* === 图谱区 === */
   .graph-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
   .graph-toolbar { padding: 10px 20px; border-bottom: 1px solid var(--border-soft); display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
   .graph-toolbar .chapter-select { display: flex; gap: 4px; flex-wrap: wrap; }
@@ -48,35 +130,92 @@
 </head>
 <body>
 
-<div class="topbar">
-  <div class="nav-back" onclick="location.href='teaching.html'">← 备课工作台</div>
-  <div class="logo"><div class="mark">数</div><span>知识图谱 · 软件工程</span></div>
-  <div class="spacer"></div>
-  <div class="tools">
-    <div class="user"><div class="avatar">王</div><span class="name">王老师</span></div>
-  </div>
+<div class="app-layout">
+  <!-- 左侧导航栏 -->
+  <aside class="app-sidebar" id="app-sidebar">
+    <div class="sb-head">
+      <div class="logo-mark">数</div>
+      <div class="logo-text">数智教材平台<span class="sub"><br>备课 · 引经据典 · 课件</span></div>
+    </div>
+    <nav class="sb-nav">
+      <div class="sb-nav-section">主导航</div>
+      <div class="sb-nav-item" onclick="location.href='teaching.html'">
+        <span class="ico">📊</span><span class="lbl">仪表盘</span>
+      </div>
+      <div class="sb-nav-item" onclick="location.href='teaching.html'">
+        <span class="ico">📚</span><span class="lbl">备课工作台</span>
+      </div>
+      <div class="sb-nav-item" onclick="showToast('教材库开发中')">
+        <span class="ico">📖</span><span class="lbl">教材库</span>
+      </div>
+      <div class="sb-nav-item active">
+        <span class="ico">🕸</span><span class="lbl">概念图谱</span>
+      </div>
+      <div class="sb-nav-item" onclick="window.open('reader.html','_blank')">
+        <span class="ico">📄</span><span class="lbl">电子书阅读</span>
+      </div>
+
+      <div class="sb-nav-section">资源中心</div>
+      <div class="sb-nav-item" onclick="showToast('我的教案开发中')">
+        <span class="ico">📝</span><span class="lbl">我的教案</span>
+      </div>
+      <div class="sb-nav-item" onclick="showToast('课件管理开发中')">
+        <span class="ico">📊</span><span class="lbl">课件管理</span>
+      </div>
+      <div class="sb-nav-item" onclick="showToast('外部资源开发中')">
+        <span class="ico">🔗</span><span class="lbl">外部资源</span>
+      </div>
+
+      <div class="sb-nav-section">系统</div>
+      <div class="sb-nav-item" onclick="showToast('系统设置开发中')">
+        <span class="ico">⚙️</span><span class="lbl">系统设置</span>
+      </div>
+      <div class="sb-nav-item" onclick="location.href='login.html'">
+        <span class="ico">🚪</span><span class="lbl">退出登录</span>
+      </div>
+    </nav>
+    <div class="sb-foot">
+      <div class="sb-user">
+        <div class="av">王</div>
+        <div class="info">
+          <div class="name">王老师</div>
+          <div class="role">教师账号</div>
+        </div>
+      </div>
+      <button class="sb-collapse-btn" onclick="toggleSidebar()">‹</button>
+    </div>
+  </aside>
+
+  <!-- 主内容区 -->
+  <main class="app-main">
+    <div class="workspace-toolbar">
+      <div class="ws-title">概念图谱 · 软件工程</div>
+    </div>
+
+    <div class="graph-area">
+      <div class="graph-toolbar">
+        <div class="chapter-select" id="chapter-select"></div>
+        <div class="controls">
+          <button onclick="filterGraph('all')">全部节点</button>
+          <button onclick="filterGraph('chapter')">仅章节</button>
+          <button onclick="filterGraph('concept')">仅概念</button>
+          <button onclick="resetZoom()">重置视图</button>
+        </div>
+      </div>
+      <div class="graph-canvas">
+        <svg id="graph-svg"></svg>
+        <div class="graph-legend">
+          <div class="item"><span class="dot" style="background:#3b6cb5"></span>章</div>
+          <div class="item"><span class="dot" style="background:#188038"></span>节</div>
+          <div class="item"><span class="dot" style="background:#B06000"></span>概念</div>
+        </div>
+        <div class="node-info" id="node-info"></div>
+      </div>
+    </div>
+  </main>
 </div>
 
-<div class="graph-area">
-  <div class="graph-toolbar">
-    <div class="chapter-select" id="chapter-select"></div>
-    <div class="controls">
-      <button onclick="filterGraph('all')">全部节点</button>
-      <button onclick="filterGraph('chapter')">仅章节</button>
-      <button onclick="filterGraph('concept')">仅概念</button>
-      <button onclick="resetZoom()">重置视图</button>
-    </div>
-  </div>
-  <div class="graph-canvas">
-    <svg id="graph-svg"></svg>
-    <div class="graph-legend">
-      <div class="item"><span class="dot" style="background:#1A73E8"></span>章</div>
-      <div class="item"><span class="dot" style="background:#188038"></span>节</div>
-      <div class="item"><span class="dot" style="background:#B06000"></span>概念</div>
-    </div>
-    <div class="node-info" id="node-info"></div>
-  </div>
-</div>
+<div class="toast" id="toast"></div>
 
 <script>
 let graphData = null;
@@ -158,7 +297,7 @@ function renderGraph() {
   nodes = nodes.map(n => ({...n}));
   links = links.map(l => ({...l}));
 
-  const colorMap = { chapter: '#1A73E8', section: '#188038', concept: '#B06000' };
+  const colorMap = { chapter: '#3b6cb5', section: '#188038', concept: '#B06000' };
   const sizeMap = { chapter: 12, section: 8, concept: 4 };
 
   const g = svg.append('g');
@@ -212,7 +351,7 @@ function renderGraph() {
 function showNodeInfo(d) {
   const info = document.getElementById('node-info');
   const typeLabel = { chapter: '章', section: '节', concept: '概念' }[d.type] || '';
-  const typeColor = { chapter: '#1A73E8', section: '#188038', concept: '#B06000' }[d.type] || '#BDC1C6';
+  const typeColor = { chapter: '#3b6cb5', section: '#188038', concept: '#B06000' }[d.type] || '#BDC1C6';
   let html = `<span class="type-badge" style="background:${typeColor}20;color:${typeColor}">${typeLabel}</span>`;
   html += `<h4>${d.label}</h4>`;
   if(d.full) html += `<div class="meta">${d.full}</div>`;
@@ -228,6 +367,17 @@ function resetZoom() {
   const svg = d3.select('#graph-svg');
   svg.transition().duration(500).call(d3.zoom().transform, d3.zoomIdentity);
 }
+
+// ===== 侧边栏折叠 =====
+function toggleSidebar() {
+  const sb = document.getElementById('app-sidebar');
+  sb.classList.toggle('collapsed');
+  const btn = sb.querySelector('.sb-collapse-btn');
+  btn.textContent = sb.classList.contains('collapsed') ? '›' : '‹';
+}
+
+// ===== 通用 =====
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
 
 window.addEventListener('resize', () => { if(simulation) renderGraph(); });
 loadData();

@@ -3,179 +3,53 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>数智教材 - 智能备课平台</title>
+<title>数智教材平台</title>
 <link rel="stylesheet" href="style.css">
 <style>
-  body { overflow: auto; }
-  .home-header {
-    max-width: 900px; margin: 0 auto; padding: 60px 24px 40px; text-align: center;
+  html, body { height: 100%; overflow: hidden; }
+  body {
+    background: linear-gradient(135deg, var(--bg-soft) 0%, var(--bg) 50%, var(--primary-light) 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font);
   }
-  .home-header .logo-big {
-    width: 56px; height: 56px; background: var(--primary); color: #fff;
-    border-radius: 14px; display: grid; place-items: center;
-    font-size: 24px; font-weight: 700; margin: 0 auto 20px;
+  .redirect-wrap { text-align: center; }
+  .logo-mark {
+    width: 72px; height: 72px; margin: 0 auto 24px;
+    background: var(--primary); color: #fff;
+    border-radius: 18px; display: grid; place-items: center;
+    font-size: 32px; font-weight: 700;
+    box-shadow: 0 8px 24px rgba(59,108,181,.25);
+    animation: pulse 2s ease-in-out infinite;
   }
-  .home-header h1 { font-size: 32px; font-weight: 400; color: var(--text); margin-bottom: 10px; }
-  .home-header .sub { font-size: 15px; color: var(--text-muted); line-height: 1.6; }
-
-  .notebooks {
-    max-width: 900px; margin: 0 auto; padding: 0 24px 60px;
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
   }
-  .section-label {
-    font-size: 13px; font-weight: 600; color: var(--text-soft);
-    margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+  .title {
+    font-size: 22px; font-weight: 600; color: var(--text);
+    margin-bottom: 8px;
   }
-  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border-soft); }
-
-  .notebook-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
-  .nb-card {
-    border: 1px solid var(--border-soft); border-radius: var(--radius-xl);
-    padding: 20px; cursor: pointer; transition: .2s; background: var(--surface);
+  .hint {
+    font-size: 14px; color: var(--text-muted);
+    display: flex; align-items: center; justify-content: center; gap: 8px;
   }
-  .nb-card:hover { box-shadow: var(--shadow-lg); border-color: var(--primary-soft); transform: translateY(-2px); }
-  .nb-card .cover {
-    width: 48px; height: 48px; border-radius: var(--radius-md);
-    display: grid; place-items: center; font-size: 24px; margin-bottom: 14px;
+  .spinner {
+    width: 14px; height: 14px; border-radius: 50%;
+    border: 2px solid var(--primary-soft); border-top-color: var(--primary);
+    animation: spin .8s linear infinite;
   }
-  .nb-card h3 { font-size: 16px; font-weight: 500; margin-bottom: 4px; }
-  .nb-card .meta { font-size: 12px; color: var(--text-muted); margin-bottom: 10px; }
-  .nb-card .desc { font-size: 13px; color: var(--text-soft); line-height: 1.5;
-    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-  .nb-card .tags { display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap; }
-  .nb-card .stats-row { display: flex; gap: 14px; margin-top: 12px; font-size: 12px; color: var(--text-muted); }
-  .nb-card .stats-row span { display: flex; align-items: center; gap: 4px; }
-
-  .nb-card.featured { border-color: var(--primary-soft); background: linear-gradient(135deg, var(--primary-light) 0%, var(--surface) 40%); }
-  .nb-card.featured .featured-tag {
-    display: inline-block; font-size: 11px; font-weight: 600; color: var(--primary);
-    background: var(--surface); padding: 3px 10px; border-radius: var(--radius-full);
-    margin-bottom: 10px; border: 1px solid var(--primary-soft);
-  }
-
-  .new-card {
-    border: 2px dashed var(--border); border-radius: var(--radius-xl);
-    padding: 20px; cursor: pointer; transition: .15s;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    min-height: 200px; color: var(--text-muted);
-  }
-  .new-card:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
-  .new-card .ico { font-size: 32px; margin-bottom: 8px; }
-  .new-card .label { font-size: 14px; font-weight: 500; }
-
-  .features-bar {
-    max-width: 900px; margin: 0 auto; padding: 20px 24px 40px;
-    display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;
-  }
-  .feature-pill {
-    display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-soft);
-  }
-  .feature-pill .ico { font-size: 18px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
-
-<!-- 极简顶栏 -->
-<div class="topbar">
-  <div class="logo"><div class="mark">数</div><span>数智教材</span></div>
-  <div class="spacer"></div>
-  <div class="tools">
-    <div class="user">
-      <div class="avatar">王</div>
-      <span class="name">王老师</span>
-    </div>
-  </div>
+<div class="redirect-wrap">
+  <div class="logo-mark">数</div>
+  <div class="title">正在进入数智教材平台...</div>
+  <div class="hint"><span class="spinner"></span><span>加载中</span></div>
 </div>
-
-<div class="main" style="padding-top: 0;">
-  <!-- Hero -->
-  <div class="home-header">
-    <div class="logo-big">数</div>
-    <h1>引经据典，智能备课</h1>
-    <div class="sub">上传教材 → AI 拆解知识点 → 关联图谱与资料 → 生成教案与课件<br>每个知识点都可溯源到教材原文</div>
-  </div>
-
-  <!-- 功能亮点 -->
-  <div class="features-bar">
-    <div class="feature-pill"><span class="ico">📖</span> 教材拆分</div>
-    <div class="feature-pill"><span class="ico">🕸️</span> 知识图谱</div>
-    <div class="feature-pill"><span class="ico">📜</span> 引经据典</div>
-    <div class="feature-pill"><span class="ico">📝</span> 智能教案</div>
-    <div class="feature-pill"><span class="ico">📊</span> PPT生成</div>
-    <div class="feature-pill"><span class="ico">🎬</span> 视频关联</div>
-  </div>
-
-  <!-- 我的笔记本 -->
-  <div class="notebooks">
-    <div class="section-label">📚 我的教材笔记本</div>
-    <div class="notebook-grid" id="notebook-grid"></div>
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
-
 <script>
-const notebooks = [
-  {
-    title: '软件工程 第3版',
-    author: '钱乐秋 等 · 清华大学出版社',
-    desc: '已OCR全文拆分：16章87节，50条定义溯源，421节点知识图谱，48个B站视频关联。完整的引经据典备课示例。',
-    cover: '📘',
-    coverBg: 'linear-gradient(135deg, #E8F0FE, #D2E3FC)',
-    featured: true,
-    stats: [
-      { ico: '📄', text: '398页已拆分' },
-      { ico: '💡', text: '87节知识点' },
-      { ico: '🕸️', text: '421图谱节点' }
-    ],
-    url: 'workspace.html'
-  },
-  {
-    title: '机器学习',
-    author: '周志华 · 清华大学出版社',
-    desc: '西瓜书，系统介绍机器学习基本概念、原理与方法，涵盖监督学习、无监督学习、强化学习等核心主题。',
-    cover: '🍉',
-    coverBg: 'linear-gradient(135deg, #E6F4EA, #CEEAD6)',
-    featured: false,
-    stats: [
-      { ico: '📄', text: '425页' },
-      { ico: '💡', text: '128概念' },
-      { ico: '🎬', text: '30视频' }
-    ],
-    url: 'teaching.html?book=ml'
-  }
-];
-
-function render() {
-  const grid = document.getElementById('notebook-grid');
-  let html = '';
-  notebooks.forEach(nb => {
-    html += `<div class="nb-card ${nb.featured ? 'featured' : ''}" onclick="location.href='${nb.url}'">`;
-    if(nb.featured) html += `<div class="featured-tag">📌 备课示例</div>`;
-    html += `<div class="cover" style="background:${nb.coverBg}">${nb.cover}</div>`;
-    html += `<h3>${nb.title}</h3>`;
-    html += `<div class="meta">${nb.author}</div>`;
-    html += `<div class="desc">${nb.desc}</div>`;
-    html += `<div class="stats-row">`;
-    nb.stats.forEach(s => html += `<span>${s.ico} ${s.text}</span>`);
-    html += `</div>`;
-    html += `</div>`;
-  });
-  // 新建卡片
-  html += `<div class="new-card" onclick="showToast('📤 教材上传功能开发中')">`;
-  html += `<div class="ico">＋</div>`;
-  html += `<div class="label">添加新教材</div>`;
-  html += `</div>`;
-  grid.innerHTML = html;
-}
-
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
-}
-
-render();
+  // 立即跳转到 teaching.html（系统首页/仪表盘）
+  setTimeout(function(){ location.replace('teaching.html'); }, 300);
 </script>
 </body>
 </html>

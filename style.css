@@ -3,41 +3,41 @@
    看板 + 侧边导航 + 多模块 + 数据可视化
    ======================================== */
 :root {
-  /* 主色：Google 蓝 */
-  --primary: #1A73E8;
-  --primary-dark: #1557B0;
-  --primary-light: #E8F0FE;
-  --primary-soft: #D2E3FC;
+  /* 主色：科研2 沉稳蓝 */
+  --primary: #3b6cb5;
+  --primary-dark: #2e5a99;
+  --primary-light: #e8f0fb;
+  --primary-soft: #c3d8f0;
 
   /* 中性色 */
-  --bg: #FFFFFF;
-  --bg-soft: #F8F9FA;
-  --bg-hover: #F1F3F4;
-  --bg-card: #FFFFFF;
-  --surface: #FFFFFF;
-  --surface-2: #F8F9FA;
+  --bg: #f5f7fa;
+  --bg-soft: #eef1f6;
+  --bg-hover: #f0f3f8;
+  --bg-card: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f5f7fa;
 
   /* 文字 */
-  --text: #202124;
-  --text-soft: #3C4043;
-  --text-muted: #80868B;
-  --text-faint: #BDC1C6;
+  --text: #1e293b;
+  --text-soft: #475569;
+  --text-muted: #94a3b8;
+  --text-faint: #cbd5e1;
 
   /* 边框 */
-  --border: #DADCE0;
-  --border-soft: #E8EAED;
-  --border-light: #F1F3F4;
+  --border: #e2e8f0;
+  --border-soft: #eef1f6;
+  --border-light: #f1f5f9;
 
   /* 语义色 */
-  --accent: #1A73E8;
-  --success: #188038;
-  --success-light: #E6F4EA;
-  --warning: #B06000;
-  --warning-light: #FEF7E0;
-  --danger: #C5221F;
-  --danger-light: #FCE8E6;
-  --purple: #A142F4;
-  --purple-light: #F3E8FD;
+  --accent: #3b6cb5;
+  --success: #16a34a;
+  --success-light: #dcfce7;
+  --warning: #c4922e;
+  --warning-light: #fef3c7;
+  --danger: #dc2626;
+  --danger-light: #fee2e2;
+  --purple: #a855f7;
+  --purple-light: #f3e8fd;
 
   /* 阴影 */
   --shadow-sm: 0 1px 2px rgba(60,64,67,.08);
@@ -532,7 +532,7 @@ table.tbl th { background: var(--surface-2); color: var(--text-soft); font-weigh
   border: 1px solid var(--border-soft);
 }
 .ppt-slide .slide-num { position: absolute; bottom: 8px; right: 12px; font-size: 10px; color: var(--text-faint); }
-.ppt-slide.slide-title { background: linear-gradient(135deg, #1A73E8, #1557B0); color: #fff; align-items: center; justify-content: center; text-align: center; }
+.ppt-slide.slide-title { background: linear-gradient(135deg, #3b6cb5, #2e5a99); color: #fff; align-items: center; justify-content: center; text-align: center; }
 .ppt-slide.slide-title h1 { font-size: 28px; margin-bottom: 8px; font-weight: 400; }
 .ppt-slide.slide-title .sub { font-size: 14px; opacity: .85; }
 .ppt-slide.slide-content h2 { font-size: 20px; color: var(--primary); margin-bottom: 12px; border-bottom: 2px solid var(--primary-light); padding-bottom: 6px; font-weight: 500; }
@@ -622,7 +622,7 @@ table.tbl th { background: var(--surface-2); color: var(--text-soft); font-weigh
 }
 .sidebar .nav-item:hover { background: rgba(255,255,255,.05); color: #fff; }
 .sidebar .nav-item.active {
-  background: rgba(26,115,232,.15); color: #fff;
+  background: rgba(59,108,181,.15); color: #fff;
   border-left-color: var(--primary);
 }
 .sidebar .nav-item .ico { font-size: 16px; width: 20px; text-align: center; }

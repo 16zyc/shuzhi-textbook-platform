@@ -7,25 +7,6 @@
 <link rel="stylesheet" href="style.css">
 <script src="https://unpkg.com/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
 <style>
-  /* === 科研2 风格配色覆盖 === */
-  :root {
-    --primary: #3b6cb5;
-    --primary-dark: #2e5a99;
-    --primary-light: #e8f0fb;
-    --primary-soft: #c3d8f0;
-    --bg: #f5f7fa;
-    --bg-soft: #eef1f6;
-    --bg-hover: #f0f3f8;
-    --surface: #ffffff;
-    --surface-2: #f5f7fa;
-    --text: #1e293b;
-    --text-soft: #475569;
-    --text-muted: #94a3b8;
-    --border: #e2e8f0;
-    --border-soft: #eef1f6;
-    --accent-blue: #3b6cb5;
-    --accent-amber: #c4922e;
-  }
   body { overflow: hidden; font-family: 'Noto Sans SC', -apple-system, sans-serif; background: var(--bg); }
   h1,h2,h3,h4 { font-family: 'Noto Serif SC', 'Songti SC', serif; }
 
@@ -98,8 +79,8 @@
   .sb-collapse-btn:hover { background: var(--bg-hover); color: var(--text); }
 
   /* === 主内容区 === */
-  .app-main { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
-  .app-view { flex: 1; overflow: hidden; display: none; }
+  .app-main { flex: 1; overflow: hidden; display: flex; flex-direction: column; min-width: 0; }
+  .app-view { flex: 1; overflow: hidden; display: none; min-height: 0; }
   .app-view.active { display: flex; flex-direction: column; }
 
   /* === 仪表盘 === */
@@ -178,14 +159,15 @@
   .reader-layout {
     display: grid;
     grid-template-columns: 240px 1fr 340px;
-    height: calc(100vh - 48px);
+    flex: 1;
     overflow: hidden;
+    min-height: 0;
   }
 
   /* 左栏：目录树 */
   .toc-panel {
-    background: #F8F9FA; border-right: 1px solid var(--border-soft);
-    overflow-y: auto; display: flex; flex-direction: column;
+    background: var(--surface-2); border-right: 1px solid var(--border-soft);
+    overflow: hidden; display: flex; flex-direction: column; min-height: 0;
   }
   .toc-head {
     padding: 12px 16px; border-bottom: 1px solid var(--border-soft);
@@ -233,7 +215,7 @@
 
   /* 中栏：原文阅读 */
   .content-panel {
-    background: var(--surface); display: flex; flex-direction: column; overflow: hidden;
+    background: var(--surface); display: flex; flex-direction: column; overflow: hidden; min-height: 0;
   }
   .content-toolbar {
     height: 40px; padding: 0 16px; border-bottom: 1px solid var(--border-soft);
@@ -301,7 +283,7 @@
   /* 右栏 */
   .info-panel {
     background: var(--surface-2); border-left: 1px solid var(--border-soft);
-    display: flex; flex-direction: column; overflow: hidden;
+    display: flex; flex-direction: column; overflow: hidden; min-height: 0;
   }
   .info-tabs {
     display: flex; border-bottom: 1px solid var(--border-soft); background: var(--surface);
@@ -362,7 +344,7 @@
   .ext-item .body .meta .tag.gh { background: #E6F4EA; color: #188038; }
   .ext-item .body .meta .tag.arxiv { background: #F3E8FD; color: #A142F4; }
   .ext-item .body .meta .tag.blog { background: #FEF7E0; color: #B06000; }
-  .ext-item .body .meta .tag.slide { background: #E8F0FE; color: #1A73E8; }
+  .ext-item .body .meta .tag.slide { background: #E8F0FB; color: #3b6cb5; }
 
   /* 智能问答 */
   .qa-area { display: flex; flex-direction: column; height: 100%; }
@@ -570,7 +552,7 @@
       </div>
 
 <!-- 三栏布局 -->
-<div class="reader-layout" style="height:calc(100vh - 48px)">
+<div class="reader-layout">
   <!-- 左栏：目录 -->
   <div class="toc-panel">
     <div class="toc-head">
@@ -1106,7 +1088,7 @@ function drawGraph(chGraph) {
     const p = positions[n.id];
     if(!p) return;
     if(n.type === 'chapter') {
-      html += `<circle cx="${p.x}" cy="${p.y}" r="12" fill="#1A73E8" stroke="#fff" stroke-width="2"/>`;
+      html += `<circle cx="${p.x}" cy="${p.y}" r="12" fill="#3b6cb5" stroke="#fff" stroke-width="2"/>`;
       html += `<text x="${p.x}" y="${p.y+4}" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold">${currentChapter}</text>`;
     } else if(n.type === 'section') {
       html += `<circle cx="${p.x}" cy="${p.y}" r="5" fill="#6B7280"/>`;
@@ -1515,15 +1497,15 @@ function buildMindmapSVG(chGraph){
   const cx=200, cy=130, R=90, r=50;
   let svg=`<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">`;
   // 中心章节
-  svg+=`<circle cx="${cx}" cy="${cy}" r="22" fill="#1A73E8"/>`;
+  svg+=`<circle cx="${cx}" cy="${cy}" r="22" fill="#3b6cb5"/>`;
   svg+=`<text x="${cx}" y="${cy+4}" text-anchor="middle" fill="#fff" font-size="11" font-weight="600">第${currentChapter}章</text>`;
   // 节节点（内圈）
   sections.forEach((s,i)=>{
     const a = (i/sections.length)*Math.PI*2 - Math.PI/2;
     const x = cx + Math.cos(a)*r, y = cy + Math.sin(a)*r;
     svg+=`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#D2E3FC" stroke-width="1.5"/>`;
-    svg+=`<circle cx="${x}" cy="${y}" r="14" fill="#E8F0FE" stroke="#1A73E8" stroke-width="1"/>`;
-    svg+=`<text x="${x}" y="${y+3}" text-anchor="middle" fill="#1A73E8" font-size="8">${(s.label||'').substring(0,4)}</text>`;
+    svg+=`<circle cx="${x}" cy="${y}" r="14" fill="#E8F0FB" stroke="#3b6cb5" stroke-width="1"/>`;
+    svg+=`<text x="${x}" y="${y+3}" text-anchor="middle" fill="#3b6cb5" font-size="8">${(s.label||'').substring(0,4)}</text>`;
   });
   // 概念节点（外圈）
   concepts.forEach((c,i)=>{
@@ -1606,8 +1588,8 @@ function downloadPPT() {
   if(!pptSlides.length){showToast('请先生成');return;}
   const pptx=new PptxGenJS();
   pptx.defineLayout({name:'C',width:13.33,height:7.5}); pptx.layout='C';
-  const C_TITLE='1A73E8', C_TITLE_DK='1557B0', C_TXT='202124', C_SOFT='3C4043', C_MUTED='80868B';
-  const C_WARN='B06000', C_WARN_BG='FEF7E0', C_PURPLE='A142F4', C_GREEN='188038';
+  const C_TITLE='3B6CB5', C_TITLE_DK='2E5A99', C_TXT='1E293B', C_SOFT='475569', C_MUTED='94A3B8';
+  const C_WARN='C4922E', C_WARN_BG='FEF3C7', C_PURPLE='A855F7', C_GREEN='16A34A';
 
   pptSlides.forEach((s,idx) => {
     const sl=pptx.addSlide();
@@ -1869,7 +1851,7 @@ function downloadLesson() {
 function printLesson() {
   if(!lessonPlan) {showToast('请先生成教案');return;}
   const w = window.open('', '_blank');
-  w.document.write(`<html><head><title>教案-第${currentChapter}章</title><style>body{font-family:"PingFang SC",serif;max-width:700px;margin:40px auto;line-height:1.8;color:#333}h1{color:#1A73E8;text-align:center}h3{color:#1A73E8;border-bottom:1px solid #eee;padding-bottom:4px}</style></head><body>${document.getElementById('lesson-body').innerHTML}</body></html>`);
+  w.document.write(`<html><head><title>教案-第${currentChapter}章</title><style>body{font-family:"PingFang SC",serif;max-width:700px;margin:40px auto;line-height:1.8;color:#333}h1{color:#3b6cb5;text-align:center}h3{color:#3b6cb5;border-bottom:1px solid #eee;padding-bottom:4px}</style></head><body>${document.getElementById('lesson-body').innerHTML}</body></html>`);
   w.document.close();
   w.print();
 }
